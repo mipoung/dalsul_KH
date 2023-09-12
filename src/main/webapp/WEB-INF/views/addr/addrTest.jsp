@@ -19,6 +19,8 @@
 	<%--주소지 조회 API는 단독으로 실행 가능하지만 주소지를 검색한값을 활용해 주소지값을 저장하는 기능은 js와 js와 연관된 버튼이 있어야 한다. --%>
 	<script type="text/javascript" src="/resources/include/adressAPI/addressAPIinsert.js"></script>
 	<script type="text/javascript" src="/resources/include/adressAPI/addressAPIdelete.js"></script>
+	
+	<script type="text/javascript" src="/resources/include/adressAPI/addressCheck.js"></script>
    
     <form id="useAddr" name="useAddr" id="useAddr">
 		<%@include file="addressAPI.jsp" %>

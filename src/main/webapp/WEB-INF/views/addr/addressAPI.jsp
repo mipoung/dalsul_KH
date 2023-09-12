@@ -98,8 +98,6 @@
             }
         </script>
         <!-- 주소지 입력 Api 종료 -->
-   
-        <!-- 값을 보낼 히든 테그의 addrData -->
      
         <!-- 배송지정보를 입력받을,입력하는데 필요한 input태그 --> 
         <input type="text" id="postcode" onclick="execDaumPostcode()" placeholder="우편번호" readonly="readonly" name="postcode">
