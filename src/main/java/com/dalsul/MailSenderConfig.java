@@ -28,6 +28,8 @@ public class MailSenderConfig {
         mailSender.setJavaMailProperties(properties);
 
         return mailSender;
+        
+        //첫번째 푸쉬
     }
 	
 }
