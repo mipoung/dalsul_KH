@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalsul.common.login.dao.UserRegisterDAO">
+
+	<insert id="userRegistring" parameterType="register">
+		INSERT INTO USERS 
+		VALUES(	USERS_SEQ.NEXTVAL,
+				#{user_email},
+				#{user_password},
+				#{user_salt},
+				#{user_name},
+				#{user_birth},
+				#{user_phone_num},
+				SYSDATE,
+				SYSDATE,
+				'E'
+			 )
+	</insert>
+	
+	<select id="chkDuplicatedPhone" parameterType="String" resultType="_int">
+		SELECT COUNT(*)
+		FROM USERS
+		WHERE USER_PHONE = #{phoneNumber}
+	</select>
+	
+	<select id="chkDuplicatedEmail" parameterType="String" resultType="_int">
+		SELECT COUNT(*)
+		FROM USERS
+		WHERE USER_EMAIL = #{emailAddress}
+	</select>
+	
+</mapper>
