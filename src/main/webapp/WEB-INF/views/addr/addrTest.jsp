@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf"%>
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -17,8 +17,8 @@
     
     <h5>주소 입력API, 데이터베이스 Create , 그이후로 db와 직접적으로 rud </h5>
 	<%--주소지 조회 API는 단독으로 실행 가능하지만 주소지를 검색한값을 활용해 주소지값을 저장하는 기능은 js와 js와 연관된 버튼이 있어야 한다. --%>
-	<script type="text/javascript" src="/resources/include/js/adressAPI/addressAPIinsert.js"></script>
-	<script type="text/javascript" src="/resources/include/js/adressAPI/addressAPIdelete.js"></script>
+	<script type="text/javascript" src="/resources/include/adressAPI/addressAPIinsert.js"></script>
+	<script type="text/javascript" src="/resources/include/adressAPI/addressAPIdelete.js"></script>
    
     <form id="useAddr" name="useAddr" id="useAddr">
 		<%@include file="addressAPI.jsp" %>
