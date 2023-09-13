@@ -12,7 +12,7 @@ import com.dalsul.user.review.vo.ReviewVO;
 
 public interface ReviewService {
 	public List<ReviewVO> myReviewList(UserVO uvo);
-	public List<ReviewVO> detailReviewList(ProductVO pvo);
+	public List<ReviewVO> detailReviewList(ReviewVO rvo);
 	public List<ReviewVO> managerReviewList(CommonVO cvo);
 	
 	public void myReviewDelete(ReviewVO rvo);
@@ -21,6 +21,9 @@ public interface ReviewService {
 	
 	public int reviewLikeCountPlus(ReviewVO rvo);
 	public int reviewLikeCount(ReviewVO rvo);
+	
+	
+	public int reviewListCnt(ReviewVO rvo);
 	
 	
 }

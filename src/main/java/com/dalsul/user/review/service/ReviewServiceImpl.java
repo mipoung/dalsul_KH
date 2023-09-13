@@ -29,6 +29,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	
+	
 	@Override
 	public List<ReviewVO> managerReviewList(CommonVO cvo) {
 		List<ReviewVO> list = reviewDAO.managerReviewList(cvo);
@@ -39,8 +40,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	@Override
-	public List<ReviewVO> detailReviewList(ProductVO pvo) {
-		List<ReviewVO> list = reviewDAO.detailReviewList(pvo);
+	public List<ReviewVO> detailReviewList(ReviewVO rvo) {
+		List<ReviewVO> list = reviewDAO.detailReviewList(rvo);
 		return list;
 	}
 
@@ -71,7 +72,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 
-
 	@Override
 	public int reviewLikeCount(ReviewVO rvo) {
 		int reivewCount = reviewDAO.reviewLikeCount(rvo);
@@ -83,6 +83,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public int reviewLikeCountPlus(ReviewVO rvo) {
 		int CountPlus = reviewDAO.reviewLikeCountPlus(rvo);
 		return CountPlus;
+	}
+
+
+
+	@Override
+	public int reviewListCnt(ReviewVO rvo) {
+		int result = reviewDAO.reviewListCnt(rvo);
+		return result;
 	}
 
 
