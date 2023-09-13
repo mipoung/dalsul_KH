@@ -39,7 +39,7 @@
 	   
 	   ]]>
 	
-	</select> <!-- 23/09/12 여기까지 -->
+	</select> 
 <!-- 페이지네이션 -->
 		<select id="inquiryListCnt" parameterType="Inquiry" resultType="int">
 		SELECT count(*) FROM inquiry
@@ -48,7 +48,7 @@
 		</trim>
 		
 	</select>
-<!-- faq 등록 -->	
+<!-- 문의사항 등록 -->	
 	<insert id="inquiryInsert" parameterType="Inquiry">
 		<selectKey keyProperty="inquiry_no" resultType="int" order="BEFORE">
 			select inquiry_no_seq.nextval from dual
@@ -58,17 +58,17 @@
 		VALUES(#{notice_no}, #{notice_title}, #{notice_subject})
 		
 	</insert>
-<!-- faq 수정 -->
-	<update id="adminNoticeUpdate" parameterType="Notice">
+<!-- 문의사항 수정 -->
+	<update id="inquiryUpdate" parameterType="Inquiry">
 		UPDATE notice
-		SET notice_title = #{notice_title},
-			notice_subject = #{notice_subject},
-			notice_update_date = sysdate
-			WHERE notice_no = #{notice_no}
+		SET inquiry_title = #{inquiry_title},
+			inquiry_question = #{inquiry_question},
+			inquiry_update_date = sysdate
+			WHERE inquiry_no = #{inquiry_no}
 	</update>
-<!-- faq 삭제 -->
-	<delete id="adminNoticeDelete" parameterType="Notice">
-		DELETE FROM NOTICE
-   		WHERE notice_no = #{notice_no}
+<!-- 문의사항 삭제 -->
+	<delete id="inquiryDelete" parameterType="Inquiry">
+		DELETE FROM inquiry
+   		WHERE inquiry_no = #{inquiry_no}
 	</delete>
 </mapper>

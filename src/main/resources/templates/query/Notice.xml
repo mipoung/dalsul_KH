@@ -48,7 +48,7 @@
 		</trim>
 		
 	</select>
-<!-- faq 등록 -->	
+<!-- notice 등록 -->	
 	<insert id="adminNoticeInsert" parameterType="Notice">
 		<selectKey keyProperty="notice_no" resultType="int" order="BEFORE">
 			select notice_no_seq.nextval from dual
@@ -58,7 +58,7 @@
 		VALUES(#{notice_no}, #{notice_title}, #{notice_subject})
 		
 	</insert>
-<!-- faq 수정 -->
+<!-- notice 수정 -->
 	<update id="adminNoticeUpdate" parameterType="Notice">
 		UPDATE notice
 		SET notice_title = #{notice_title},
@@ -66,7 +66,7 @@
 			notice_update_date = sysdate
 			WHERE notice_no = #{notice_no}
 	</update>
-<!-- faq 삭제 -->
+<!-- notice 삭제 -->
 	<delete id="adminNoticeDelete" parameterType="Notice">
 		DELETE FROM NOTICE
    		WHERE notice_no = #{notice_no}
