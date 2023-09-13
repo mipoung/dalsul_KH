@@ -9,7 +9,11 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class MailSenderConfig {
+<<<<<<< HEAD
 
+=======
+	//sujong
+>>>>>>> parent of 76c6d01... test commit
 	@Bean
     public JavaMailSender MailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
