@@ -9,7 +9,11 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class MailSenderConfig {
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> master
 	@Bean
     public JavaMailSender MailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -29,7 +33,7 @@ public class MailSenderConfig {
 
         return mailSender;
         
-        //첫번째 푸쉬
+ 
     }
 	
 }
