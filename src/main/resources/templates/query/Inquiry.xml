@@ -1,4 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.common.cs.dao.InquiryDAO">
+	<!-- 검색  -->
+	<sql id="inquirySearch">
+		<if test="search=='inquiry_title'">
+			<![CDATA[ inquiry_title like '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search=='inquiry_question'">
+			<![CDATA[ inquiry_question like '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+<!-- 게시판 상세조회 -->
+	<select id="inquiryDetail" parameterType="Inquiry" resultType="Inquiry">
+		SELECT
+			inquiry_no, user_no, inquiry_title, inquiry_question,
+			TO_CHAR(inquiry_date, 'YYYY-MM-DD') AS inquiry_date
+		FROM inquiry
+		WHERE inquiry_no = #{inquiry_no}
+<!-- 게시판 리스트 -->		
+	</select>
+		<select id="inquiryList" parameterType="Inquiry" resultType="Inquiry">
+		<![CDATA[
+		select
+	  	  inquiry_no, user_no, inquiry_title, inquiry_question, to_char(inquiry_date,'YYYY-MM-DD') as inquiry_date
+		from(
+		    select /*+ INDEX_DESC(inquiry pk_inquiry_no) */
+		            rownum as rnum, inquiry_no, user_no inquiry_title, inquiry_question, inquiry_date
+	    from inquiry
+	    where ]]>
+	    <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+	    	<include refid="inquirySearch"></include>
+	    </trim>
+	   
+	   <![CDATA[ rownum <= #{pageNum} * #{amount}
+	   		)inquiryList
+	   	WHERE rnum > (#{pageNum} -1) * #{amount}
+	
+	   
+	   ]]>
+	
+	</select> <!-- 23/09/12 여기까지 -->
+<!-- 페이지네이션 -->
+		<select id="inquiryListCnt" parameterType="Inquiry" resultType="int">
+		SELECT count(*) FROM inquiry
+		<trim prefix=" where (" suffix=")" >
+			<include refid="inquirySearch"></include>
+		</trim>
+		
+	</select>
+<!-- faq 등록 -->	
+	<insert id="inquiryInsert" parameterType="Inquiry">
+		<selectKey keyProperty="inquiry_no" resultType="int" order="BEFORE">
+			select inquiry_no_seq.nextval from dual
+		</selectKey>
+		
+		INSERT INTO inquiry(inquiry_no, notice_title, notice_subject)
+		VALUES(#{notice_no}, #{notice_title}, #{notice_subject})
+		
+	</insert>
+<!-- faq 수정 -->
+	<update id="adminNoticeUpdate" parameterType="Notice">
+		UPDATE notice
+		SET notice_title = #{notice_title},
+			notice_subject = #{notice_subject},
+			notice_update_date = sysdate
+			WHERE notice_no = #{notice_no}
+	</update>
+<!-- faq 삭제 -->
+	<delete id="adminNoticeDelete" parameterType="Notice">
+		DELETE FROM NOTICE
+   		WHERE notice_no = #{notice_no}
+	</delete>
 </mapper>
