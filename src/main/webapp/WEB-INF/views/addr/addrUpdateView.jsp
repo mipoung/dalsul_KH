@@ -3,8 +3,10 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>    
 <!DOCTYPE html>
 <html lang="ko">
-<script type="text/javascript" src="/resources/include/js/adressAPI/addressAPIupdate.js"></script>
+<script type="text/javascript" src="/resources/include/adressAPI/addressAPIupdate.js"></script>
 
+	<%--주소지 입력값 검증에 사용되는 공통 입력값 검사 체크 함수들이 모여있는 스크립트 파일 --%>
+	<script type="text/javascript" src="/resources/include/adressAPI/addressCheck.js"></script>
    </head>
    <body>
       <h5>주소지 정보 업데이트</h5>
