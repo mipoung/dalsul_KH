@@ -24,7 +24,7 @@
 		select
 	  	  notice_no, notice_title, notice_subject, to_char(notice_date,'YYYY-MM-DD') as notice_date
 		from(
-		    select /*+ INDEX_DESC(notice SYS_C008155) */
+		    select /*+ INDEX_DESC(notice SYS_C008573) */
 		            rownum as rnum, notice_no, notice_title, notice_subject, notice_date
 	    from notice
 	    where ]]>
