@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.common.login.dao.UserLoginDAO">
 
-	<select id="getSalt" parameterType="register" resultType="string">
+	<select id="getSalt" parameterType="userVO" resultType="string">
 		SELECT (SELECT USER_SALT
         		FROM USERS
         		WHERE USER_EMAIL = #{user_email}
@@ -10,7 +10,7 @@
 		FROM DUAL
 	</select>
 	
-	<select id="getPassword" parameterType="register" resultType="String">
+	<select id="getPassword" parameterType="userVO" resultType="String">
 		SELECT (SELECT USER_PASSWORD
         		FROM USERS
         		WHERE USER_EMAIL = #{user_email}
@@ -18,7 +18,7 @@
 		FROM DUAL
 	</select>
 	
-	<select id="getUserInfo" parameterType="register" resultType="register">
+	<select id="getUserInfo" parameterType="userVO" resultType="userVO">
 		SELECT USER_NO, USER_NAME
 		FROM USERS
 		WHERE USER_EMAIL = #{user_email}
