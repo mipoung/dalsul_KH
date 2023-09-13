@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dalsul.common.encryption.service.EncryptionService;
 import com.dalsul.common.login.service.UserRegisterService;
-import com.dalsul.common.login.vo.UserRegisterVO;
+import com.dalsul.common.login.vo.UserVO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +51,7 @@ public class UserRegisterController {
 
 	// 회원가입 페이지
 	@PostMapping("/userRegisterView")
-	public String userRegisterView(@ModelAttribute("certificationForm") UserRegisterVO rvo) {
+	public String userRegisterView(@ModelAttribute("certificationForm") UserVO rvo) {
 		log.info("userRegisterView() 메소드 실행...");
 		
 		
@@ -81,7 +81,7 @@ public class UserRegisterController {
 	
 	// 회원가입
 	@PostMapping("/registeringProcess")
-	public String UserRegisterProcess(@ModelAttribute("registerForm") UserRegisterVO rvo) {
+	public String UserRegisterProcess(@ModelAttribute("registerForm") UserVO rvo) {
 		// 휴대폰 인증 및 이메일 인증 확인
 		boolean phoneChk = (boolean)session.getAttribute("phoneStatus");
 		boolean emailChk = (boolean)session.getAttribute("emailStatus");
