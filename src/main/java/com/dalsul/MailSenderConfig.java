@@ -29,7 +29,7 @@ public class MailSenderConfig {
 
         return mailSender;
         
-        //첫번째 푸쉬
+ 
     }
 	
 }
