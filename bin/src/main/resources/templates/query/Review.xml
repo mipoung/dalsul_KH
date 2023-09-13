@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalsul.user.review.dao.ReviewDAO">
+	
+	<!-- 마이페이지 리뷰 조회 -->
+	<select id="myReviewList" parameterType="review" resultType="review">
+		SELECT REVIEW_NO, ORDER_NO, USER_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT, TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
+		FROM REVIEW
+		<if test="user_no != null">
+         WHERE USER_NO = #{user_no}
+   		</if>
+   		ORDER BY REVIEW_NO desc 
+	</select>
+	
+
+	<!-- 관리자페이지 조회 검색 
+	<select id="managerReviewList" parameterType="common" resultType="review">
+		SELECT REVIEW_NO, ORDER_NO, USER_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT, TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
+		FROM REVIEW
+		<if test="search=='review_content'">
+			<![CDATA[ WHERE review_content like '%'|| #{keyword} || '%' ]]>
+		</if>
+		<if test="search=='review_no'">
+			<![CDATA[ WHERE review_no like '%'|| #{keyword} || '%' ]]>
+		</if>
+   		ORDER BY REVIEW_NO desc 
+	</select>
+	-->
+	
+	
+	<!-- 관리자페이지 조회 검색 더보기 -->
+	<select id="managerReviewList" parameterType="common" resultType="review">
+		SELECT REVIEW_NO, ORDER_NO, USER_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT, REVIEW_DATE 
+			FROM (
+	    			SELECT REVIEW_NO, ORDER_NO, USER_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT,  
+	           			TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+	           			ROW_NUMBER() OVER (ORDER BY REVIEW_NO DESC) AS rnum 
+	           		FROM REVIEW
+	           		<if test="search=='review_content'">
+						<![CDATA[ WHERE review_content like '%'|| #{keyword} || '%' ]]>
+					</if>
+					<if test="search=='review_no'">
+						<![CDATA[ WHERE review_no like '%'|| #{keyword} || '%' ]]>
+					</if>
+	           		)  
+   	<!-- 	WHERE rnum BETWEEN 1 AND 5  -->
+	</select>
+	
+	 
+	
+	
+	
+	<!-- 제품 넘버로 리뷰 조회(상세페이지) -->
+	<select id="detailReviewList" parameterType="review" resultType="review">
+			SELECT R.REVIEW_NO, R.ORDER_NO, R.USER_NO, R.REVIEW_CONTENT, R.REVIEW_RATING, R.REVIEW_LIKE_COUNT, TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
+			FROM REVIEW R
+			JOIN PRODUCT_ORDER PO ON R.ORDER_NO = PO.ORDER_NO
+			WHERE 1 = 1 AND PO.PRODUCT_NO = #{product_no}
+			ORDER BY R.REVIEW_NO desc
+	</select>
+
+
+
+
+
+
+	<!--  리뷰 삭제  -->
+	<delete id="myReviewDelete" parameterType="review">
+		DELETE REVIEW
+		WHERE REVIEW_NO = #{review_no}
+	</delete>
+
+
+
+	
+	<!-- 마이페이지 리뷰작성 (#{order_no}, #{user_no}) -->
+	<insert id="myReviewInsert" parameterType="review">
+		insert into review(review_no, order_no, user_no, review_content, review_rating, REVIEW_LIKE_COUNT, review_date)
+		values(review_no_seq.nextval, 4, #{user_no}, #{review_content}, #{review_rating}, 0, sysdate)
+	</insert>
+
+
+
+
+
+	<!-- 마이페이지 리뷰 업데이트 -->
+	<update id="myReviewUpdate" parameterType="review">
+		update review
+		set review_content = #{review_content}, review_rating = #{review_rating}
+		where review_no = #{review_no}
+	</update>
+	
+	
+	<!--  좋아요 클릭시  -->
+
+	<update id="reviewLikeCountPlus" parameterType="review">
+		UPDATE REVIEW
+		SET REVIEW_LIKE_COUNT = REVIEW_LIKE_COUNT + 1
+		WHERE REVIEW_NO = #{review_no}
+	
+	</update>
+
+
+	<!-- 좋아요 개수 조회 -->
+	<select id="reviewLikeCount" resultType="int">
+		select review_like_count
+		from review
+		where review_no = #{review_no}
+	</select>
+
+
+
+
+
+
+
+</mapper>
