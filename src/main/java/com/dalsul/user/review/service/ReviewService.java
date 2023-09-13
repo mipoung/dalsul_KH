@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.dalsul.common.session.UserVO;
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.user.review.vo.ProductVO;
 import com.dalsul.user.review.vo.ReviewVO;

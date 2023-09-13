@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dalsul.common.session.UserVO;
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.user.review.dao.ReviewDAO;
 import com.dalsul.user.review.vo.ProductVO;

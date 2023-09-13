@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.dalsul.common.session.UserVO;
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.common.vo.PageDTO;
 import com.dalsul.user.review.dao.ReviewDAO;
@@ -40,15 +40,6 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	
-	// 실험용 세션 만들기
-	
-	
-	
-	@GetMapping("/")
-	public String mainPage(Model model) {
-		return "test";
-		// test.jsp 출력 성공
-	}
 	
 	
 	// 리뷰 조회
@@ -206,7 +197,7 @@ public class ReviewController {
 		
 		if(result == 1) {
 			log.info("작성성공");
-			return "test";
+			return "/reviewBoard/test";
 		} else {
 			return "/common/error";
 		}
