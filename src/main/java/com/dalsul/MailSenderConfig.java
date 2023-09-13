@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class MailSenderConfig {
-	// 장용훈만 갖고있는 내용1
+	
 	@Bean
     public JavaMailSender MailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -29,7 +29,7 @@ public class MailSenderConfig {
 
         return mailSender;
 
-     // 장용훈만 갖고있는 내용2
+     
     }
 	
 }
