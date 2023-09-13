@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.dalsul.common.login.service.UserLoginService;
-import com.dalsul.common.login.vo.UserRegisterVO;
+import com.dalsul.common.login.vo.UserVO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class UserLoginController {
 	// 로그인 페이지에서 로그인에 성공하면 저장한 페이지 정보로 이동한다
 	// 예) 제품 상세 -> 주문버튼 클릭 -> 로그인 -> 제품 상세
 	@GetMapping("/userLoginView")
-	public String userLoginView(@SessionAttribute(name = "userLogin") UserRegisterVO uvo, @RequestParam("path") Model model) {
+	public String userLoginView(@SessionAttribute(name = "userLogin") UserVO uvo, @RequestParam("path") Model model) {
 		log.info("userLoginView() 호출");
 		String returnURL = "";
 		
@@ -52,7 +52,7 @@ public class UserLoginController {
 	
 	@PostMapping("/userLoginProcess")
 	@ResponseBody
-	public String userLoginProcess(UserRegisterVO uvo) {
+	public String userLoginProcess(UserVO uvo) {
 		log.info("userLoginProcess() 호출");
 		System.out.println("uvo 값 : "+uvo.toString());
 		
@@ -67,7 +67,7 @@ public class UserLoginController {
 		
 		// 비밀번호 암호화 후 이메일과 대조하여 로그인 검증
 		uvo.setUser_salt(salt);
-		UserRegisterVO userInfo = loginService.passwordVerification(uvo);
+		UserVO userInfo = loginService.passwordVerification(uvo);
 		System.out.println("userInfo 값 : "+userInfo);
 		
 		if(userInfo != null) {

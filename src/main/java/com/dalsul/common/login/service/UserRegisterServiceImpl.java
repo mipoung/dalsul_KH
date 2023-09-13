@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dalsul.common.encryption.service.EncryptionService;
 import com.dalsul.common.login.dao.UserRegisterDAO;
-import com.dalsul.common.login.vo.UserRegisterVO;
+import com.dalsul.common.login.vo.UserVO;
 
 import lombok.Setter;
 
@@ -24,10 +24,10 @@ public class UserRegisterServiceImpl implements UserRegisterService{
 	private HttpSession session;
 	
 	@Override
-	public int userRegistring(UserRegisterVO rvo) {
+	public int userRegistring(UserVO rvo) {
 		
 		// 세션에 저장된 값 가져오기()
-		UserRegisterVO uvo = (UserRegisterVO)session.getAttribute("regInfo");
+		UserVO uvo = (UserVO)session.getAttribute("regInfo");
 		// 폼으로 전달받은 이메일 저장
 		uvo.setUser_email(rvo.getUser_email());
 		// 솔트값 저장

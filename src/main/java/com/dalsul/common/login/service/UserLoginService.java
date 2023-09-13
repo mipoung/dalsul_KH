@@ -1,8 +1,8 @@
 package com.dalsul.common.login.service;
 
-import com.dalsul.common.login.vo.UserRegisterVO;
+import com.dalsul.common.login.vo.UserVO;
 
 public interface UserLoginService {
-	public String getSalt(UserRegisterVO uvo);
-	public UserRegisterVO passwordVerification(UserRegisterVO uvo);
+	public String getSalt(UserVO uvo);
+	public UserVO passwordVerification(UserVO uvo);
 }

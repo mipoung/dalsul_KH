@@ -21,7 +21,7 @@ public class SessionController {
 		UserVO user = new UserVO(1);
 		model.addAttribute("UserLogin", user);
 		log.info("세션값:" + model.getAttribute("UserLogin"));
-		return "test";
+		return "/reviewBoard/test";
 		
 	}
 	
