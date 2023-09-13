@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class MailSenderConfig {
+	// 민준푸쉬
 	
 	@Bean
     public JavaMailSender MailSender() {
