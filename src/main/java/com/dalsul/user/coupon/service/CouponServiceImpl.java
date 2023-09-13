@@ -15,6 +15,7 @@ public class CouponServiceImpl implements CouponService {
 	private CouponDAO couponDAO;
 	
 	/*쿼리문을 실행하고 성공과 실패여부를 1과 0으로 반환받음, 그결과를 확인하기위해 console에서 확인*/
+	/*
 	@Override
 	public int couponInsert(CouponVO cvo) {
 		int result =0;
@@ -27,5 +28,6 @@ public class CouponServiceImpl implements CouponService {
 		}
 		return result;
 	}
+	*/
 	
 }
