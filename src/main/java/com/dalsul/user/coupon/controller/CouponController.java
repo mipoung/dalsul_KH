@@ -30,16 +30,16 @@ public class CouponController {
 	//쿠폰 정보 추가하는 메소드
 	@ResponseBody
 	@PostMapping( value = "/insertCoupon" , produces = "text/plain; charset=UTF-8")
-	public String couponInsert(CouponVO cvo) {
+	public String insertCoupon(CouponVO cvo) {
 		log.info("쿠폰 인서트메서드 호출");
 		log.info(cvo.toString());
 		
-		int result =  couponService.couponInsert(cvo);
+		int result =  couponService.insertCoupon(cvo);
 		
 		if(result ==1) {
-			return "추가성공";
+			return "쿠폰추가성공";
 		}else {
-			return "추가실패";
+			return "쿠폰추가실패";
 		}
 		
 	}

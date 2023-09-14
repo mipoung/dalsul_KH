@@ -45,12 +45,10 @@
 
         $("#insertCouponBtn").click(function () {
           // 사용자가 입력한 쿠폰 정보 가져오기
-          let couponName = $("#coupon_name").val();
-          let couponDiscount = $("#coupon_discount").val();
-          let couponLimit = $("#coupon_limit").val();
-          let couponAvailability = $("#coupon_status").is(":checked")
-            ? 1
-            : 0; // 체크되었으면 1, 아니면 0
+          let coupon_name = $("#coupon_name").val();
+          let coupon_discount = $("#coupon_discount").val();
+          let coupon_limit = $("#coupon_limit").val();
+          let coupon_status = $("input[name='coupon_status']:checked").val();
 
           // 입력값 검사
           if (
@@ -64,21 +62,22 @@
           // Ajax 요청을 통해 서버에 쿠폰 정보 전송
           $.ajax({
             // 요청할 URL 주소
-            url: "/coupon/couponInsert", // 실제 서버 엔드포인트 URL로 변경해야 합니다.
+            url: "/coupon/insertCoupon", // 실제 서버 엔드포인트 URL로 변경해야 합니다.
             // 요청 방식
             type: "POST",
             // 전송할 데이터
             data: {
-              couponName: couponName,
-              couponDiscount: couponDiscount,
-              couponLimit: couponLimit,
-              couponAvailability: couponAvailability,
+            	coupon_name: coupon_name,
+            	coupon_discount: coupon_discount,
+            	coupon_limit: coupon_limit,
+            	coupon_status: coupon_status
             },
             dataType: "text",
             error: function () {
               alert("시스템 오류입니다. 다시 시도하시거나 관리자에게 문의하세요.");
             },
             success: function (resultData) {
+            	  
               if (resultData === "쿠폰추가성공") {
                 alert("쿠폰 정보가 성공적으로 추가되었습니다.");
                 // 입력 필드 초기화
