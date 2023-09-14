@@ -15,7 +15,7 @@
 		<link rel="apple-touch-icon" href="/resources/images/common/icon.png" />
 		
 		<script type="text/javascript" src="/resources/include/common/js/jquery-3.7.0.min.js"></script>
-		<script type="text/javascript" src="/resources/include/common/js/common.js"></script>
+		<script type="text/javascript" src="/resources/include/common/js/chkRegex.js"></script>
 		<script type="text/javascript" src="/resources/include/common/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/resources/include/common/js/sweetalert2.min.js"></script>
 		<link rel="stylesheet" href="/resources/include/common/css/bootstrap.min.css"/>
