@@ -4,34 +4,43 @@
 	
 	<sql id="reviewSearch">
 			<if test="search=='review_content'">
-				<![CDATA[ review_content like '%'|| #{keyword} || '%' ]]>
+				<![CDATA[ LOWER(review_content) like '%'|| LOWER( #{keyword} ) || '%' ]]>
+			</if>
+			<if test="search=='package_name'">
+				<![CDATA[ LOWER(package_name) like '%'|| LOWER( #{keyword} ) || '%' ]]>
 			</if>
 			<if test="search=='review_no'">
-				<![CDATA[ review_no like '%'|| #{keyword} || '% ]]>
+				<![CDATA[ review_no = #{keyword} ]]>
 			</if>
 			<if test="search=='user_no'">
-				<![CDATA[ user_no like '%'|| #{keyword} || '%' ]]>
+				<![CDATA[ user_no = #{keyword} ]]>
 			</if>
-			<if test="search=='product_name'">
-				<![CDATA[ product_name like '%'|| #{keyword} || '%' ]]>
+			<if test="search=='review_rating'">
+				<![CDATA[ review_rating = #{keyword} ]]>
 			</if>
 	</sql>
 	
 	
-	<!-- 제품 번호로 리뷰 조회(상세페이지) -->
+	<!-- 제품 번호로 리뷰 조회(상세페이지) pk.package_product_no = #{package_product_no} -->
 	<select id="detailReviewList" parameterType="review" resultType="review">
-		select r.REVIEW_NO, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, TO_CHAR(r.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, p.PRODUCT_NAME
-		from review r join product p on r.product_no = p.product_no
-		where r.product_no = #{product_no}
-		ORDER BY REVIEW_NO desc
+		select r.REVIEW_NO, pk.package_product_no, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, TO_CHAR(r.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, p.PRODUCT_NAME, sp.package_name
+		from review r join product p on r.product_no = p.product_no join package_product pk on pk.product_no = p.product_no join SUBSCRIPTION_PACKAGE sp on sp.package_no = pk.package_no
+		where 
+		<if test="product_no != 0">
+			p.product_no = #{product_no}
+		</if>
+		<if test="package_product_no != 0">
+			pk.package_product_no = #{package_product_no}
+		</if>
+        ORDER BY REVIEW_NO desc
 	</select>
 	
 
 	
 	<!-- 마이페이지 리뷰 조회 -->
 	<select id="myReviewList" parameterType="review" resultType="review">
-		select r.REVIEW_NO, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, TO_CHAR(r.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, p.PRODUCT_NAME
-		from review r join product p on r.product_no = p.product_no
+		select r.REVIEW_NO, pk.package_product_no, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, TO_CHAR(r.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, p.PRODUCT_NAME, sp.package_name
+		from review r join product p on r.product_no = p.product_no join package_product pk on pk.product_no = p.product_no join SUBSCRIPTION_PACKAGE sp on sp.package_no = pk.package_no
 		<if test="user_no != null">
 		WHERE USER_NO = #{user_no}
 		</if>
@@ -40,63 +49,9 @@
 	
 
 	
-	<!-- 관리자페이지 조회 검색 더보기
-	<select id="managerReviewList" parameterType="common" resultType="review">
-		SELECT REVIEW_NO, ORDER_NO, USER_NO, PRODUCT_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT, REVIEW_DATE 
-			FROM (
-	    			SELECT REVIEW_NO, ORDER_NO, USER_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT, PRODUCT_NO,  
-	           			TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
-	           			ROW_NUMBER() OVER (ORDER BY REVIEW_NO DESC) AS rnum 
-	           		FROM REVIEW
-	           			<if test="search=='review_content'">
-							<![CDATA[ WHERE review_content like '%'|| #{keyword} || '%' ]]>
-						</if>
-						<if test="search=='review_no'">
-							<![CDATA[ WHERE review_no like '%'|| #{keyword} || '%' ]]>
-						</if>
-	           		)  
-	     ORDER BY REVIEW_NO DESC
-   	
-	</select>
-	 -->
-	
-	
-	<!-- 
-		<select id="managerReviewList" parameterType="common" resultType="review">
-		 <![CDATA[
-			select 
-			myReviewList.REVIEW_NO as REVIEW_NO, 
-			myReviewList.ORDER_NO as ORDER_NO, 
-			myReviewList.PRODUCT_NO as PRODUCT_NO, 
-			myReviewList.USER_NO as USER_NO, 
-			myReviewList.REVIEW_CONTENT as REVIEW_CONTENT, 
-			myReviewList.REVIEW_RATING as REVIEW_RATING, 
-			myReviewList.REVIEW_LIKE_COUNT as REVIEW_LIKE_COUNT, 
-			TO_CHAR(myReviewList.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, 
-			(select count(review_no) from review where review_no = myReviewList.review_no) as r_cnt, 
-			myReviewList.product_name as product_name,
-			myReviewList.product_alcohol as product_alcohol
-			from(
-			    select /*+ INDEX_DESC(review review_no_index) */
-			    rownum as rnum, r.REVIEW_NO, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, r.REVIEW_DATE, p.product_name, p.product_alcohol
-			    from review r inner join product p on r.product_no = p.product_no
-			    where rownum <= #{pageNum} * #{amount}
-						    ) myReviewList
-						WHERE rnum > (#{pageNum} -1) * #{amount} ]]>
-					<trim prefix="AND" prefixOverrides="AND">
-				    	<include refid="reviewSearch"></include>
-				    </trim>
-						
-						
-						
-						
-						
-    			
-	</select>
- -->
  
  
- 	<!-- 관리자페이지 조회, 검색, 페이지네이션 -->
+ 	<!-- 관리자페이지 조회, 검색, 페이지네이션 
  	<select id="managerReviewList" parameterType="common" resultType="review">
 		 <![CDATA[
 			select 
@@ -110,37 +65,55 @@
 			TO_CHAR(myReviewList.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, 
 			(select count(review_no) from review where review_no = myReviewList.review_no) as r_cnt, 
 			myReviewList.product_name as product_name,
-			myReviewList.product_alcohol as product_alcohol
+			myReviewList.product_alcohol as product_alcohol,
+			myReviewList.package_product_no as package_product_no,
+			myReviewList.package_name as package_name
 			from(
 			    select /*+ INDEX_DESC(review review_no_index) */
-			    rownum as rnum, r.REVIEW_NO, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, r.REVIEW_DATE, p.product_name, p.product_alcohol
-			    from review r inner join product p on r.product_no = p.product_no
+			    rownum as rnum, r.REVIEW_NO, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, r.REVIEW_DATE, p.product_name, p.product_alcohol, pk.package_product_no, sp.package_name
+			    from review r inner join product p on r.product_no = p.product_no join package_product pk on pk.product_no = p.product_no join SUBSCRIPTION_PACKAGE sp on sp.package_no = pk.package_no
 			    where ]]>
-			    	<trim prefix="(" suffix=") AND " prefixOverrides="AND">
-				    	<include refid="reviewSearch"></include>
-				    </trim>
-    			
-    
 		       <![CDATA[ rownum <= #{pageNum} * #{amount}
 						    ) myReviewList
 						WHERE rnum > (#{pageNum} -1) * #{amount}
+						]]>
+			   	<trim prefix="AND">
+				    	<include refid="reviewSearch"></include>
+				    </trim>
 						
-		  ]]>
+		  
+	</select>
+	-->
+	<!--  관리자 페이지 리뷰 조회 (뷰) -->
+ 	<select id="managerReviewList" parameterType="review" resultType="review">
+					
+		SELECT 
+		review_no, 
+		order_no, 
+		product_no,
+		user_no,
+		review_content,
+		review_rating,
+		review_like_count,
+		review_date,
+		product_name,
+		package_name
+		FROM manager_select
+			<!-- <if test="orderByReviewNo=='orderByReviewNo'">
+				order by review_no
+			</if>
+			<if test="orderByUserNo=='orderByUserNo'">
+				order by user_no
+			</if> -->
+		
+			<trim prefix="WHERE">
+			    <include refid="reviewSearch"></include>
+			</trim>
+			
+			
+		
 	</select>
 	
-	
-	<!-- 제품 넘버로 리뷰 조회(상세페이지) 
-	<select id="detailReviewList" parameterType="review" resultType="review">
-			SELECT R.REVIEW_NO, R.ORDER_NO, R.USER_NO, R.REVIEW_CONTENT, R.REVIEW_RATING, R.REVIEW_LIKE_COUNT, TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
-			FROM REVIEW R
-			JOIN PRODUCT_ORDER PO ON R.ORDER_NO = PO.ORDER_NO
-			WHERE 1 = 1 AND PO.PRODUCT_NO = #{product_no}
-			ORDER BY R.REVIEW_NO desc
-	</select>
--->
-
-
-
 
 
 

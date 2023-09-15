@@ -13,7 +13,7 @@ import com.dalsul.user.review.vo.ReviewVO;
 public interface ReviewService {
 	public List<ReviewVO> myReviewList(UserVO uvo);
 	public List<ReviewVO> detailReviewList(ReviewVO rvo);
-	public List<ReviewVO> managerReviewList(CommonVO cvo);
+	public List<ReviewVO> managerReviewList(ReviewVO rvo);
 	
 	public void myReviewDelete(ReviewVO rvo);
 	public int myReviewInsert(ReviewVO rvo);

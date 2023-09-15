@@ -3,7 +3,6 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 	<script>
 	$(function(){
-		
 		// 별점 변환
 		$(".reviewRating").each(function(){
   			let rating = $(this).text();
@@ -67,7 +66,7 @@
 			if($("#search").val()!="all"){ // 검색대상(search)의 값이 all이 아니면 키워드(검색할 단어)가 반드시 필요.
 					if(!chkData("#keyword","검색어를")) return;
 			}
-			
+			$("#pageNum").val(1);
 			
 			goPage();
 			
@@ -90,7 +89,11 @@
 		});
   		
   		
-		
+		$(".paginate_button a").click(function(e){
+			e.preventDefault();
+			$("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
+			goPage();
+		})
 		
 		
   		
@@ -108,6 +111,32 @@
 			
 		}
 		  
+		
+		
+		
+		
+		
+		/* 정렬을 위한 전송 */
+		$("#orderByReviewNo").click(function(){
+			$("#f_search").attr({
+				"method" : "GET",
+				"action" : "/review/managerReviewList"
+			});
+			$("#f_search").submit();
+			
+		});
+		
+		$("#orderByUserNo").click(function(){
+			$("orderByReviewNo").val("");
+			$("#f_search").attr({
+				"method" : "GET",
+				"action" : "/review/managerReviewList"
+			});
+			$("#f_search").submit();
+			
+		});
+		
+		
   		
 		
 		
@@ -152,18 +181,51 @@
   		
   		
   		
+  		
   	});
 	
 	
 	</script>
+<style>
+		.table{
+			width :100%;
+		}
+		
+		.miniSize {
+			width :130px;
+		}
+		
+		.bigSize {
+			width :400px;
+		}
+		
+		#pageNav {
+			
+			    margin: 0 auto;
+			    width: 100px;
+			    margin-bottom : 100px;
+
+		}
+		
+		#packageNameSpan{
+			color : blue;
+			font-size : 13px;
+		}
+	
+	</style>
 	
    </head>
    <body>
    
    
    
-   	<h3>조회(완성), 삭제(완성), 검색(미완성)</h3>
-
+   	<h3>조회(완성), 삭제(완성), 검색(완성, 제품검색 안됨), 정렬(미완)</h3>
+   	
+   	<p>정렬을 위해서는 폼 데이터를 전송하는데 전송되는 값 외에 다른 값은 value를 초기화해줘야 함</p>
+	<button id="orderByReviewNo">리뷰 번호 순</button>
+	<button id="orderByUserNo">유저 번호 순</button>
+	<button id="orderByReviewLike">추천 순</button>
+	<button id="orderByReviewRating">별점 순</button>
 
 	<%-- =================검색 기능 시작================== --%>
 		<div id="boardSearch" class="text-right"> 
@@ -173,18 +235,25 @@
 					<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 					<%-- 페이징 처리를 위한 파라미터 끝 --%>
-	
+					
+					<!-- 정렬을 위한 폼 -->
+					<input type="hidden" name="orderByReivew" id="orderByReivew" value="" />
+					
+			
 				<div class="form-group">
 					 <label>검색조건</label>
 					 <select id="search" name="search"  class="form-control">
 								<option value="all">전체 목록 조회</option>
 								<option value="review_no">리뷰번호</option>
+								<option value="user_no">유저번호</option>
 								<option value="review_content">내용</option>
-								<option value="b_name">작성자</option>
+								<option value="review_rating">별점</option>
+								<option value="package_name">패키지 이름</option>
 					</select>
 					<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" />
 					<button type="button" id="searchData" class="btn btn-success">검색</button>
 				</div>
+				
 			</form>
 		
 		</div>
@@ -207,13 +276,14 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col" class="text-center">리뷰번호</th>
-				<th scope="col" class="text-center">유저번호</th>
-				<th scope="col" class="text-center">내용</th>
-				<th scope="col" class="text-center">별점</th>
-				<th scope="col" class="text-center">추천수</th>
-				<th scope="col" class="text-center">작성일</th>
-				<th scope="col" class="text-center">삭제</th>
+				<th scope="col" class="text-center miniSize">리뷰번호</th>
+				<th scope="col" class="text-center miniSize">유저번호</th>
+				<th scope="col" class="text-center">제품명(제품번호)<br><span id="packageNameSpan">패키지명</span></th>
+				<th scope="col" class="text-center bigSize">내용</th>
+				<th scope="col" class="text-center miniSize">별점</th>
+				<th scope="col" class="text-center miniSize">추천수</th>
+				<th scope="col" class="text-center miniSize">작성일</th>
+				<th scope="col" class="text-center miniSize">삭제</th>
 			</tr>
 		</thead>
 		
@@ -224,13 +294,14 @@
 						<c:when test="${not empty reviewList}">
 							<c:forEach var="review" items="${reviewList}" varStatus="status">
 								<tr class="text-center" data-review-no = "${review.review_no}">
-									<td>${review.review_no}</td>
-									<td class="goDetail text-left">${review.user_no}</td>
+									<td class=miniSize>${review.review_no}</td>
+									<td class="goDetail text-left miniSize">${review.user_no}</td>
+									<td class="text-left miniSize">${review.product_name}(${review.product_no})<br><span id="packageNameSpan">${review.package_name}</span></td>
 									<td class="text-left">${review.review_content}</td>
-									<td class="text-left reviewRating">${review.review_rating}</td>
-									<td class="text-left">${review.review_like_count}</td>
-									<td class="text-center">${review.review_date}</td>
-									<td class="text-center"><button class="btn btn-outline-secondary r_DeleteBtn" type="button" id="button-addon2" data-user-no="${review.user_no}">삭제</button></td>
+									<td class="text-left reviewRating miniSize">${review.review_rating}</td>
+									<td class="text-left miniSize">${review.review_like_count}</td>
+									<td class="text-center miniSize">${review.review_date}</td>
+									<td class="text-center miniSize"><button class="btn btn-outline-secondary r_DeleteBtn" type="button" id="button-addon2" data-user-no="${review.user_no}">삭제</button></td>
 									
 								</tr>
 							</c:forEach>
@@ -252,42 +323,41 @@
 		
 		
 				<%-- =========== 페이징 출력 시작 ============ --%>
-		<div class="text-center">
-			<ul class="pagination">
-				<!--  이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인  -->
-				<c:if test="${pageMaker.prev}">
-					<li class="paginate_button previous">
-						<a href="${pageMaker.startPage - 1}">Previous</a>
-					</li>
-				</c:if>
+	
+		
+			
+			
+		
 				
-				<!--  바로가기 번호 출력  -->
+			<nav aria-label="Page navigation example" id="pageNav">
+			  <ul class="pagination">
+			  
+			 	 <c:if test="${pageMaker.prev}">
+					 <li class="page-item paginate_button"><a class="page-link" href="${pageMaker.startPage - 1}">Previous</a></li>
+				</c:if>
+			    
+			    <!--  바로가기 번호 출력  -->
 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="paginate_button ${pageMaker.cvo.pageNum == num ? 'active':''}">
-						<a href="${num}">${num}</a>
+					<li class="page-item paginate_button ${pageMaker.cvo.pageNum == num ? 'active':''}">
+						<a class="page-link" href="${num}">${num}</a>
 					</li>
 				</c:forEach>
-				
-				<!-- 다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인 -->
-				<c:if test="${pageMaker.next}">
-					<li class="paginate_button next">
-						<a href="${pageMaker.endPage + 1 }">Next</a>
+			
+			    
+			    <c:if test="${pageMaker.next}">
+					<li class="page-item paginate_button">
+						<a class="page-link" href="${pageMaker.endPage + 1 }">Next</a>
 					</li>
 				</c:if>
-				
-				
-			</ul>
+			    
+			  </ul>
+			</nav>
 		
-		
-		</div>
-
-		
-		<%-- =========== 페이징 종료 ============== --%>
-			
-			
 			
 	</form>
 		
+		<%-- =========== 페이징 종료 ============== --%>
+			
 
 	</body>
 	

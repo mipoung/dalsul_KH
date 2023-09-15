@@ -55,7 +55,8 @@ public class ReviewController {
 	@GetMapping("detailReviewList")
 	public String detailReviewList(Model model, ReviewVO rvo) {
 			log.info("detailReviewList() 메서드 호출");
-			rvo.setProduct_no(5); // 출력할 제품 번호(테스트용)
+			rvo.setProduct_no(1); // 출력할 제품 번호(테스트용)
+			//rvo.setPackage_product_no(1);
 			log.info("뷰에서 받아온 값: " + rvo.toString());
 			List<ReviewVO> reviewList = reviewService.detailReviewList(rvo);
 			log.info("담긴 값:" + reviewList.toString());
@@ -119,7 +120,7 @@ public class ReviewController {
 		
 	
 		
-		reviewList = reviewService.managerReviewList(cvo);
+		reviewList = reviewService.managerReviewList(rvo);
 		model.addAttribute("reviewList", reviewList);
 
 		System.out.println(reviewList.toString());

@@ -15,10 +15,19 @@ public class ReviewVO extends CommonVO {
 	private int review_like_count= 0;
 	private String review_image = "";
 	private String review_date;
-	private int product_no = 0;
+	private int product_no;
+	private int package_product_no;
+	private String package_name = "";
+	
+	// 정렬을 위한 필드 
+	private String orderByReviewNo="";
+	private String orderByUserNo = "";
+	private String orderByReviewLike = "";
+	private String orderByReviewRating = "";
+	
 	
 	// productVO에도 있음
-	private String product_name="";
+	private String product_name;
 	private String product_alcohol;
 	
 	private ProductVO pvo;

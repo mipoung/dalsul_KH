@@ -31,8 +31,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	@Override
-	public List<ReviewVO> managerReviewList(CommonVO cvo) {
-		List<ReviewVO> list = reviewDAO.managerReviewList(cvo);
+	public List<ReviewVO> managerReviewList(ReviewVO rvo) {
+		List<ReviewVO> list = reviewDAO.managerReviewList(rvo);
 		return list;
 	}
 	
