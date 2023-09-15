@@ -124,6 +124,7 @@ $(function() {
 				icon: 'error',
 				title: '이메일 인증을 진행해 주세요.',
 			});
+			return;
 		}
 
 		$("#registerForm").attr({
