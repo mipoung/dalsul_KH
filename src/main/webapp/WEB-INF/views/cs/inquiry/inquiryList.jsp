@@ -143,7 +143,7 @@
 			</thead>
 			<tbody>
 				<!-- FAQ 목록 데이터 반복 출력 -->
-				<c:forEach items="${inquiryList}" var="notice">
+				<c:forEach items="${inquiryList}" var="inquiry">
 					<tr>
 						<td>${inquiry.inquiry_no}</td>
 						<td><a href="/inquiry/inquiryDetail?inquiry_no=${inquiry.inquiry_no}">
