@@ -11,7 +11,8 @@
 var grandTotal = 0;
 $(function(){
 	  $("#payBtn").click(function(){
-		  requestPay();
+		 <%-- window.location.href = "/cart/pay_modal"; --%>
+		 requestPay();
 	  })
 });	
 
@@ -27,7 +28,7 @@ $(function(){
 	    pg: "html5_inicis.INIBillTst",
 	    pay_method: "card",
 	    merchant_uid : 'merchant_'+new Date().getTime(),
-	    name : '아메리카노',
+	    name : '달술',
 	    amount : grandTotal,
 	    buyer_email : 'iamport@siot.do',
 	    buyer_name : '구매자',
@@ -56,57 +57,110 @@ $(function(){
 	    }
 	 }
 	
-	
-	
-	
-	
-	
-	
 	// 페이지 로드가 완료되면 실행되는 함수
 	window.onload = function() {
-	
 		
 		// 모든 .cart-item 요소를 선택합니다.
 		var cartItems = document.querySelectorAll(".cart-item");
 
 		// 각 .cart-item 요소에 대한 반복문
 		cartItems
-				.forEach(function(cartItem) {
-					// 상품 가격(price)과 수량(quantity)을 가져옵니다.
-					var price = parseInt(cartItem.querySelector(".price").innerText);
-					var quantity = parseInt(cartItem.querySelector(".quantity").innerText);
-
-					// 총합(total)을 계산합니다.
-					var total = price * quantity;
-
-					// 총합을 천단위로 포맷팅하여 콤마(,)를 추가합니다.
-					var formatTotal = total.toLocaleString();
-
-					// .total 셀에 포맷팅된 총합을 출력합니다.
-					cartItem.querySelector(".total").innerText = formatTotal;
-				});
+			.forEach(function(cartItem) {
+				// 상품 가격(product_price)과 수량(quantity)을 가져옵니다.
+				var product_price = parseInt(cartItem.querySelector(".product_price").innerText);
+				var quantity = parseInt(cartItem.querySelector(".quantity").innerText);
+	
+				// 총합(total)을 계산합니다.
+				var total = product_price * quantity ;
+	
+				// 총합을 천단위로 포맷팅하여 콤마(,)를 추가합니다.
+				var formatTotal = total.toLocaleString();
+	
+				// .total 셀에 포맷팅된 총합을 출력합니다.
+				cartItem.querySelector(".total").innerText = formatTotal;
+			}); //end for each
 		
 			//마지막 라인 총 합 계산
 	        var cartItems = document.querySelectorAll(".cart-item");
 	        //var grandTotal = 0;
 
+	        
 	        cartItems.forEach(function(cartItem) {
-	            var price = parseInt(cartItem.querySelector(".price").innerText);
+	            var product_price = parseInt(cartItem.querySelector(".product_price").innerText);
 	            var quantity = parseInt(cartItem.querySelector(".quantity").innerText);
-	            var total = price * quantity;
+	            var total = product_price * quantity;
 	            var formatTotal = total.toLocaleString();
 	            cartItem.querySelector(".total").innerText = formatTotal;
 	            grandTotal += total;
-	        });
+	            grandTotal=grandTotal+3000; //배송비 3천원 추가
+	            
+	         // 마일리지 콤보박스 엘리먼트와 grandTotal 엘리먼트를 가져옵니다.
+	            var mileageSelect = document.getElementById("mileage");
+	           // var cpSelect = document.getElementById("coupon");
+	            var grandTotalElement = document.getElementById("grandTotal");
+
+	            // 콤보박스의 변경 이벤트에 대한 이벤트 리스너를 추가합니다.
+	            mileageSelect.addEventListener("change", function() {
+	            	grandTotalClone = grandTotal;//총 값 복제
+	            	
+	                // 선택한 마일리지 값을 가져옵니다.
+	                var selectedMileage = parseInt(mileageSelect.value);
+
+	                // 선택한 마일리지에 따라 grandTotal 값을 조정합니다.
+	                if (selectedMileage === 0) {
+	                	grandTotalClone-=0;
+ 				   } else if (selectedMileage === 2000) {
+ 					  grandTotalClone -= 2000;
+   					 } else if (selectedMileage === 1000) {
+   						grandTotalClone -= 1000;
+ 				   }
+					
+					
+	                // grandTotal 값을 화면에 업데이트합니다.
+	                grandTotalElement.innerText = grandTotalClone.toLocaleString();
+	            	
+	            
+		         // grandTotal 값을 계산한 후 5% 값을 계산합니다.
+		            var mileagePercentage = 0.05; // 5%에 해당하는 비율
+	
+		            // 5% 적립금을 계산합니다.
+		            var mileageAmount = (grandTotalClone-3000) * mileagePercentage;
+		         
+		            // mileageMessage 요소를 가져옵니다.
+		            var mileageMessageElement = document.getElementById("mileageMessage");
+	
+		            // mileageMessage에 5% 적립금을 표시합니다.
+		            mileageMessageElement.innerText = "결제 예정 적립금: " + mileageAmount.toLocaleString() + "원";
+				}); //mileageSelect.addEventListener
+
+	        }); // end cartItems.forEach
 
 	        var grandTotalElement = document.getElementById("grandTotal");
 	        var formatGrandTotal = grandTotal.toLocaleString();
 	        grandTotalElement.innerText = formatGrandTotal;
+	        $("#mileageMessage").text("결제 예정 적립금: " + ((grandTotal-3000) * 0.05) + "원");
+	        
+	     // select 요소를 가져옵니다.
+	    	var selectElement = document.getElementById("mileage");
 
-		
+	    	// select 요소의 변경 이벤트에 대한 이벤트 리스너를 추가합니다.
+	    	selectElement.addEventListener("change", function () {
+	    	    // 선택한 옵션의 값을 가져옵니다.
+	    	    var selectedValue = selectElement.value;
+
+	    	    // 선택한 값을 어떻게 사용할지 여기에서 처리합니다.
+	    	    // 예를 들어, 선택한 값을 콘솔에 출력하거나 다른 곳에 표시할 수 있습니다.
+	    	    console.log("선택한 값: " + selectedValue);
+
+	    	    // 선택한 값을 원하는 위치에 표시하려면 해당 위치의 엘리먼트를 선택하고 innerText 또는 innerHTML을 사용하여 값을 설정합니다.
+	    	    var displayElement = document.getElementById("mileage_use");
+	    	    displayElement.innerText = "-" + selectedValue + "원"; // 선택한 값을 표시
+	    	});
+
+	        
 	};
 	
-		
+	
 	  
     <%--주소 스크립트 --%>
           function execDaumPostcode() {
@@ -204,6 +258,11 @@ $(function(){
 		 <label for="exampleFormControlInput1" class="form-label">핸드폰 번호</label>
 		 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="xxx-xxxx-xxxx">
 		  <label for="exampleFormControlInput1" class="form-label">주소</label>
+	 <div class="mb-3">
+		<label for="pickupCheckbox" class="form-check-label">픽업</label>
+		<input type="checkbox" class="form-check-input" id="pickupCheckbox" name="pickup" value="pickup">
+	</div>
+		  
 	<!-- <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소 입력">-->
 </div>		
  <div class="address_sys_container">		
@@ -217,10 +276,30 @@ $(function(){
         <span id="guide" style="color:#999;display:none"></span>
         <input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress">
         <input type="text" id="extraAddress" onclick="execDaumPostcode()" placeholder="참고항목" readonly="readonly" name="extraAddress">
-    </div><br/><!-- 주소입력 컨테이터 종료 -->		
+    </div><br/>	
+		<!-- 주소입력 컨테이터 종료 -->	
 		
-		
+	<!-- 적립금 사용 -->
+<div class="mb-3">
+    <label for="mileage" class="form-label" class="mileage">적립금</label>
+    <select id="mileage" class="form-select" class="mileage">
+        <option value="0">0원</option>
+        <option value="1000">1,000원</option>
+        <option value="2000">2,000원</option>
+    </select>
+</div>
 
+	<!-- 쿠폰 사용 -->
+<div class="mb3">
+	<label for="coupon" class="coupon-lable" class="coupon">포인트</label>>
+	<select id="coupon" class="coupon-select" class="coupon">
+		<option value="0">0원</option>
+        <option value="1000">1,000원</option>
+        <option value="2000">2,000원</option>
+	</select>
+</div>
+	
+	
 <div class="mb-3">
 	<label for="exampleFormControlTextarea1" class="form-label">결제 예정 상품</label>
 	<div id="orderTableDiv">
@@ -235,20 +314,33 @@ $(function(){
 			</thead>
 			<tbody>
 				<c:forEach items="${cartList}" var="cartList">
-					<tr id="cartItem-${cartList.product_id}" class="cart-item">
-						<td class="product_id">${cartList.product_id}</td>
-						<td class="price-quantity"><span class="price">${cartList.price}</span>
+					<tr id="cartItem-${cartList.product_no}" class="cart-item">
+						<td class="product_no">${cartList.product_no}</td>
+						<td class="product_price-quantity"><span class="product_price">${cartList.product_price}</span>
 						<td class="quantity">${cartList.quantity}</td>
 						<td class="total"></td>
 					</tr>
 				</c:forEach>
-				<tr id="totalRow">
+		<tr id="dlv_fee">
+			<td colspan="3">배송비</td>
+			<td colspan="1">3,000</td>	
+		</tr>
+		<tr id="mileage tr">
+			<td colspan="3">적립금 사용</td>
+			<td colspan="1" id="mileage_use"></td>
+		</tr>
+		<tr id="totalRow">
             <td colspan="2">총 합</td>
             <td colspan="2" id="grandTotal"></td>
         </tr>
+        <tr>
+        
+        </tr>
 			</tbody>
 		</table>
-	
+		
+		<span id="mileageMessage"></span>
+		
 		<div id="totalDiv">
 			<button onclick="requestPay()" id="payBtn">결제하기</button>
 		</div>

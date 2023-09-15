@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/* header.css 1차 완성 */
+
+/* 글자 생 파란팩에서 검정색으로 */
+.nav-link {
+	color: black;
+}
+
+/* 좌측에 붙은 것들 때어 놓은 */
+#navbar-example1 {
+	margin-left: 180px;
+}
+
+/* 우측에 붙은 것들 때어 놓은 */
+#navbar-example2 {
+	margin-right: 130px;
+	height: 60px;
+	
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+
+/* placeholder 폰트 사이즈 변경 */
+.form-control::placeholder {
+	font-size: 14px;
+}
+
+/* 이미지 사이즈 변경 */
+#img2 {
+	width: 40px;
+	height: 40px;
+}

@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+ .review {
+       		width : 600px;
+       	
+       }
+       
+       	.reviewBox {
+       		border : 2px solid gray;
+       		border-radius : 10px;
+       		margin-bottom : 20px;
+       		
+       		
+       	}
+       	
+       	.reviewHeader {
+       		border-bottom : 1px solid gray;
+       		margin : 10px;
+       	
+       	}
+       	
+       	.reviewBody {
+       		margin : 10px;
+       	}
+       	
+       	.likeBtn {
+       		margin : 10px;
+       		text-align :right;
+       	}
+       	
+       	.likeBtn > span {
+       		margin-right : 10px;
+    		
+       	}
+       	
+       	
+       	.card-body {
+       		min-height: 70%;
+
+       	}
+       	
+       	
+       	
+       	.reviewRating {
+       		
+       		float: left;
+       		margin-left: 20px;
+       	
+       	}
+       	
+       	
+       	
+       	#cordBtn > button {
+       		margin-right : 10px;
+       		margin-bottom: 10px;
+      		
+       	
+       	}

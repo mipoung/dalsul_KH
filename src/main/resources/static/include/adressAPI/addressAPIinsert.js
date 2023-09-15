@@ -38,12 +38,12 @@
                     type: "post",
                     //값을 보낼 대상 form id
                     	//보낼이름 값
-                    data: {	"roadAddress" : $("#roadAddress").val(),
-                    	   	"detailAddress" : $("#detailAddress").val(),
-                    	   	"receiver" : $("#receiver").val(),
-                    	   	"jibunAddress" : $("#jibunAddress").val(),
-                    	   	"detailAddress" : $("#detailAddress").val(),
-                    	   	"postcode" : $("#postcode").val(),
+                    data: {	"addr_road" : $("#roadAddress").val(),
+                    	   	"addr_detail" : $("#detailAddress").val(),
+                    	   	"addr_receiver" : $("#receiver").val(),
+                    	   	"addr_jibun" : $("#jibunAddress").val(),
+                    	   	"addr_detail" : $("#detailAddress").val(),
+                    	   	"addr_post" : $("#postcode").val(),
                     	   	"addr_name" : $("#name").val(),
                     	   	"user_no" : $("#user_no").val()
                     	   }, 
