@@ -96,7 +96,7 @@
 			
 		
 	</select>
-	
+
 	<!-- 제품 넘버로 리뷰 조회(상세페이지) -->
 	<select id="detailReviewList" parameterType="review" resultType="review">
 			SELECT R.REVIEW_NO, R.ORDER_NO, R.USER_NO, R.REVIEW_CONTENT, R.REVIEW_RATING, R.REVIEW_LIKE_COUNT, TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
