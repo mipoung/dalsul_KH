@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 //import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dalsul.common.cs.service.InquiryService;
 import com.dalsul.common.cs.vo.InquiryVO;
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.PageDTO;
 
 import lombok.Setter;
@@ -55,18 +57,24 @@ public class InquiryController {
 	}
 	//글쓰기, 작성하기
 	@PostMapping("/inquiryInsert")
-	public String inquiryInsert(/*@SessionAttribute("userLogin") UserRegInfo rvo,*/InquiryVO ivo, Model model) throws Exception{
+	public String inquiryInsert(@SessionAttribute(value = "userLogin", required = false) UserVO uvo,InquiryVO ivo, Model model) throws Exception{
 		
 		int result = 0;
 		String url = "";
+		if(uvo == null) {
+			ivo.setUser_no(999999999);
+		}else {
+			ivo.setUser_no(uvo.getUser_no());
+		}
 		
 		result = inquiryService.inquiryInsert(ivo);
+		System.out.println(result);
 		if(result == 1) {
-			url = "redirect:/inquiry/inquiryList";
+			url = "/inquiry/inquiryList";
 		} else {
-			url = "redirect:/inquiry/inquiryWriteForm";
+			url = "/inquiry/inquiryWriteForm";
 		}
-		return "redirect" + url;
+		return "redirect:" + url;
 	}
 	
 	//글 클릭하였을때 상세보기
