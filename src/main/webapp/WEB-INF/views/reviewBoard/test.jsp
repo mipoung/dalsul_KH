@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ include file="/WEB-INF/views/common/common.jsp"%>--%>
-<script src="/resources/include/reviewBoard/js/jquery-3.7.0.min.js"></script>
-<script src="/resources/include/common/js/common.js"></script>
-<script src="/resources/include/reviewBoard/dist2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/dist2/css/bootstrap.css"/>  
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
+
      
       <script>
       	$(function(){
