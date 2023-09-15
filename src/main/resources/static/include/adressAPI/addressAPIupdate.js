@@ -45,12 +45,12 @@ $(function() {
                     	//보낼이름 값
                     data: {	addr_no,
                     		user_no,
-							"roadAddress" : $("#roadAddress").val(),
-                    	   	"detailAddress" : $("#detailAddress").val(),
-                    	   	"receiver" : $("#receiver").val(),
-                    	   	"jibunAddress" : $("#jibunAddress").val(),
-                    	   	"detailAddress" : $("#detailAddress").val(),
-                    	   	"postcode" : $("#postcode").val(),
+							"addr_road" : $("#roadAddress").val(),
+                    	   	"addr_detail" : $("#detailAddress").val(),
+                    	   	"addr_receiver" : $("#receiver").val(),
+                    	   	"addr_jibun" : $("#jibunAddress").val(),
+                    	   	"addr_detail" : $("#detailAddress").val(),
+                    	   	"addr_post" : $("#postcode").val(),
                     	   	"addr_name" : $("#name").val(),
                     	   }, 
                     

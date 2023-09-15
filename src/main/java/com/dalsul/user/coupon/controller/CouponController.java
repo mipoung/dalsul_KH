@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dalsul.user.coupon.service.CouponService;
 import com.dalsul.user.coupon.vo.CouponVO;
@@ -31,11 +32,17 @@ public class CouponController {
 	@PostMapping("/couponInsert")
 	public String couponInsert(CouponVO cvo) {
 		log.info("쿠폰 인서트메서드 호출");
-		String result = "";
-		result = couponService.couponInsert(cvo);
-		log.info(result);
+		log.info(cvo.toString());
 		
-		return result;
+		int result =  couponService.insertCoupon(cvo);
+		
+		if(result ==1) {
+			return "쿠폰추가성공";
+		}else {
+			return "쿠폰추가실패";
+		}
+		
 	}
 	*/
 }
+

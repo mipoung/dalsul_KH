@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.user.coupon.dao.CouponDAO">
-
-
-
+	<!-- 쿠폰 정보를 추가하는 쿼리문 -->
+	<insert id="insertCoupon" parameterType="coupon">
+		INSERT INTO coupon (COUPON_NO, COUPON_NAME, COUPON_DISCOUNT, COUPON_DATE , COUPON_LIMIT, COUPON_STATUS)
+		VALUES (COUPON_SEQ.NEXTVAL, #{coupon_name}, #{coupon_discount}, SYSDATE ,#{coupon_limit}, #{coupon_status})
+	</insert>
+	
+	<!-- 관리자 검색에서 정렬조건으로만으로도 검색이되고, 정렬조건과 입력값으로도 검색이 되는 SELECT 문 -->
+	<select id="selectCoupon" parameterType="coupon">
+    SELECT COUPON_NO, COUPON_NAME, COUPON_DISCOUNT , COUPON_DATE, COUPON_LIMIT, COUPON_STATUS
+    FROM COUPON
+    <!-- 이름 검색 조건이 있는 경우에만 WHERE 절 추가 -->
+    <if test="coupon_name != null">
+        WHERE COUPON_NAME = #{coupon_name}
+    </if>
+    <!-- 쿠폰 조회 이름순 오름차순-->
+    <if test="order=='coupon_name'">ORDER BY COUPON_NAME ASC</if>
+    
+    <!-- 쿠폰 조회 각칼럼 높은순 -->
+    <if test="order=='coupon_discountASC'">ORDER BY COUPON_DISCOUNT ASC</if>
+    <if test="order=='coupon_dateASC'">ORDER BY COUPON_DATE ASC</if>
+    <if test="order=='coupon_limitASC'">ORDER BY COUPON_LIMIT ASC</if>
+    <if test="order=='coupon_statusASC'">ORDER BY COUPON_STATUS ASC</if>
+    
+    <!-- 쿠폰 조회 각 칼럼 낮은순 -->
+    <if test="order=='coupon_discountDESC'">ORDER BY COUPON_DISCOUNT DESC</if>
+    <if test="order=='coupon_dateDESC'">ORDER BY COUPON_DATE DESC</if>
+    <if test="order=='coupon_limitDESC'">ORDER BY COUPON_LIMIT DESC</if>
+    <if test="order=='coupon_statusDESC'">ORDER BY COUPON_STATUS DESC</if>
+</select>
+	
 </mapper>

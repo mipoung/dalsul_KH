@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.cart.dao.CartDAO;
 import com.dalsul.user.cart.vo.CartVO;
 
@@ -14,13 +15,14 @@ import lombok.Setter;
 public class CartServiceImpl implements CartService{
 	@Setter(onMethod_ =@Autowired )
 	private CartDAO cartDao;
-	
+	/*
 	@Override
-	public List<CartVO> cartList() {
+	public List<CartVO> cartList(UserVO uvo) {
 		List<CartVO> list;
-		list=cartDao.cartList();
+		list=cartDao.cartList(uvo);
 		return list;
 	}
+	*/
 
 	@Override
 	public void cartInsert(CartVO cvo) {
@@ -30,7 +32,7 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int cartDelete(CartVO cvo) {
 		int result = 0;
-		result = cartDao.cartDelete(cvo.getProduct_id());
+		result = cartDao.cartDelete(cvo.getProduct_no());
 		return result;
 	}
 
