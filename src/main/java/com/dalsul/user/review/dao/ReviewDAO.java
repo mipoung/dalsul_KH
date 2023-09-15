@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.dalsul.common.session.UserVO;
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.user.review.vo.ProductVO;
 import com.dalsul.user.review.vo.ReviewVO;
@@ -12,8 +12,8 @@ import com.dalsul.user.review.vo.ReviewVO;
 @Mapper
 public interface ReviewDAO {
 	public List<ReviewVO> myReviewList(UserVO uvo);
-	public List<ReviewVO> detailReviewList(ProductVO pvo);
-	public List<ReviewVO> managerReviewList(CommonVO cvo);
+	public List<ReviewVO> detailReviewList(ReviewVO rvo);
+	public List<ReviewVO> managerReviewList(ReviewVO rvo);
 	
 	
 	
@@ -25,6 +25,8 @@ public interface ReviewDAO {
 	public int reviewLikeCount(ReviewVO rvo);
 	public int reviewLikeCountPlus(ReviewVO rvo);
 	
+	// 페이징 처리
+	public int reviewListCnt(ReviewVO rvo);
 	
 
 }

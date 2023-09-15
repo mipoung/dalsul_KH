@@ -10,7 +10,7 @@ public interface CartDAO {
 
 
 	public int cartInsert(CartVO cvo);
-	public int cartDelete(int product_id);
+	public int cartDelete(int product_no);
 	public int cartPlus(CartVO cvo);
 	public int cartMinus(CartVO cvo);
 	public List<CartVO> cartList();
