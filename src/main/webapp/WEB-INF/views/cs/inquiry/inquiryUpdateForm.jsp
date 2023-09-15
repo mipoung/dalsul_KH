@@ -9,7 +9,7 @@
 <body>
     <h1>문의사항 수정 폼</h1>
     <!-- FAQ 수정 폼 내용 입력 폼과 버튼 등을 구현합니다. -->
-    <form action="/inquiry/inquieyUpdate" method="post">
+    <form action="/inquiry/inquiryUpdate" method="post">
         <!-- 입력 폼 -->
         <input type="hidden" name="inquiry_no" value="${updateData.inquiry_no}">
 

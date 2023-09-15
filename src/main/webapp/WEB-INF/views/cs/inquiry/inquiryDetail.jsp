@@ -9,15 +9,15 @@
 		
 		<title>문의사항 상세정보</title>
 		<script>
-    	function goToFAQList() {
+    	function goToInquiryList() {
         window.location.href = "/inquiry/inquiryList";
     	}
         
-        function goToEditPage(faqNo) {
+        function goToEditPage(inquiryNo) {
             window.location.href = "/inquiry/inquiryUpdateForm?inquiry_no=" + inquiryNo;
         }
         
-        function deleteFAQ(faqNo) {
+        function deleteInquiry(inquiryNo) {
             if (confirm("정말로 이 문의사항을 삭제하시겠습니까?")) {
                 window.location.href = "/inquiry/inquiryDelete?inquiry_no=" + inquiryNo;
             }
