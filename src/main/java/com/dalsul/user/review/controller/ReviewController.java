@@ -1,6 +1,5 @@
 package com.dalsul.user.review.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.dalsul.common.session.UserVO;
 import com.dalsul.common.vo.CommonVO;
-import com.dalsul.user.review.dao.ReviewDAO;
 import com.dalsul.user.review.service.ReviewService;
 import com.dalsul.user.review.vo.ProductVO;
 import com.dalsul.user.review.vo.ReviewVO;

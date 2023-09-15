@@ -16,9 +16,9 @@ public class CartServiceImpl implements CartService{
 	private CartDAO cartDao;
 	
 	@Override
-	public List<CartVO> cartList() {
+	public List<CartVO> cartList(UserVO uvo) {
 		List<CartVO> list;
-		list=cartDao.cartList();
+		list=cartDao.cartList(uvo);
 		return list;
 	}
 
@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int cartDelete(CartVO cvo) {
 		int result = 0;
-		result = cartDao.cartDelete(cvo.getProduct_id());
+		result = cartDao.cartDelete(cvo.getProduct_no());
 		return result;
 	}
 

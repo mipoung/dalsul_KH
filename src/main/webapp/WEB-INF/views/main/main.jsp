@@ -90,7 +90,7 @@
 	font-weight: bold;
 }
 
-.product-price {
+.product-product_price {
 	padding-bottom: 10px;
 	text-align: left;
 	font-weight: bold;
@@ -587,7 +587,7 @@ input {
 						<a href="/"> 
 							<img src="/img/main/${product.product_main_image}" alt="" class="product-slide" />
 							<div class="product-title">${product.product_name}</div>
-							<div class="product-price">${product.product_price}원</div>
+							<div class="product-product_price">${product.product_price}원</div>
 							<div class="product-reputation">
 								별점 :
 								<c:choose>

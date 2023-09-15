@@ -4,7 +4,7 @@
 
 <!-- 장바구니 조회 -->
 <select id="cartList" parameterType="cart">
-	select product_id,price,quantity
+	select product_no,product_price,quantity
 	from cart
 </select>
 
@@ -12,7 +12,7 @@
 <!-- 장바구니 추가 -->
 <insert id="cartInsert" parameterType="cart">
     INSERT INTO cart
-    VALUES (#{product_id}, #{price}, #{quantity})
+    VALUES (#{product_no}, #{product_price}, #{quantity})
       ON DUPLICATE KEY UPDATE
     quantity = quantity + #{quantity};
 </insert>
@@ -22,7 +22,7 @@
 <update id="cartPlus" parameterType="cart">
 	update cart
 	set quantity = quantity+1
-	where product_id = #{product_id}
+	where product_no = #{product_no}
 </update>
 
 
@@ -33,13 +33,13 @@
     	when quantity > 1 then quantity - 1
         else quantity
     end
-    where product_id = #{product_id}
+    where product_no = #{product_no}
 </update>
 
 
 <!-- 장바구니 삭제 -->
 <delete id="cartDelete" parameterType="cart">
-	delete from cart where product_id=#{product_id}
+	delete from cart where product_no=#{product_no}
 </delete>
 
 </mapper>
