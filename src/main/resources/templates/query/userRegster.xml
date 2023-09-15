@@ -4,7 +4,7 @@
 
 	<insert id="userRegistring" parameterType="userVO">
 		INSERT INTO USERS 
-		VALUES(	USERS_SEQ.NEXTVAL,
+		VALUES(	USER_NO_SEQ.NEXTVAL,
 				#{user_email},
 				#{user_password},
 				#{user_salt},
