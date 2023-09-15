@@ -11,12 +11,39 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/mypage/*")
 public class MyPageController {
 
-	@GetMapping("/userInfo")
-	public String mypageView() {
-		log.info("mypageView() 메소드 실행");
+	@GetMapping("/userInfoDetailView")
+	public String userInfoDetailView() {
+		log.info("userInfoDetailView() 메소드 실행");
 		
 		return "/mypage/userInfo";
 	}
 	
+	@GetMapping("/orderlistDetailView")
+	public String orderlistDetailView() {
+		log.info("orderlistDetailView() 메소드 실행");
+		
+		return "/mypage/orderlist";
+	}
+	
+	@GetMapping("/refundDetailView")
+	public String refundDetailView() {
+		log.info("refundDetailView() 메소드 실행");
+		
+		return "/mypage/refund";
+	}
+	
+	@GetMapping("/reviewDetailView")
+	public String reviewDetailView() {
+		log.info("reviewDetailView() 메소드 실행");
+		
+		return "/mypage/review";
+	}
+	
+	@GetMapping("/deleveryDetailView")
+	public String deleveryDetailView() {
+		log.info("deleveryDetailView() 메소드 실행");
+		
+		return "/mypage/delevery";
+	}
 	
 }
