@@ -34,7 +34,7 @@ public class IamportService {
 //		return null;
 //	}
 //
-//	public boolean confrimBuyerInfor(String imp_uid, int price, String email) {
+//	public boolean confrimBuyerInfor(String imp_uid, int product_price, String email) {
 //		IamprotDto iamprotDto = getToken();
 //		try {
 //			if (iamprotDto == null) {
@@ -47,7 +47,7 @@ public class IamportService {
 //					entity, BuyerInforDto.class);
 //			System.out.println(buyerInfor + " fullinfor");
 //
-//			if (price == (int) buyerInfor.getResponse().get("amount")
+//			if (product_price == (int) buyerInfor.getResponse().get("amount")
 //					&& email.equals(buyerInfor.getResponse().get("buyer_email"))) {
 //				return true;
 //			}
@@ -60,7 +60,7 @@ public class IamportService {
 //		return false;
 //	}
 //
-//	public void cancleBuy(String imp_uid, int returnPrice) {
+//	public void cancleBuy(String imp_uid, int returnproduct_price) {
 //		try {
 //			IamprotDto iamprotDto = getToken();
 //			if (iamprotDto == null) {
@@ -70,8 +70,8 @@ public class IamportService {
 //			headers.add("Authorization", (String) iamprotDto.getResponse().get("access_token"));
 //			body.put("imp_uid", imp_uid);
 //
-//			if (returnPrice != 0) {
-//				body.put("amount", returnPrice);
+//			if (returnproduct_price != 0) {
+//				body.put("amount", returnproduct_price);
 //			}
 //
 //			HttpEntity<JSONObject> entity = new HttpEntity<JSONObject>(body, headers);

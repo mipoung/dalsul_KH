@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.dalsul.common.login.vo.UserRegisterVO" alias="register"/>
+		<typeAlias type="com.dalsul.user.review.vo.ReviewVO" alias="review"/>
+		<typeAlias type="com.dalsul.common.vo.CommonVO" alias="common"/>
+		<typeAlias type="com.dalsul.user.subscription.vo.SubscriptionVO" alias="subscription"/>
+		<typeAlias type="com.dalsul.common.cs.vo.FAQVO" alias="FAQ"/>
+		<typeAlias type="com.dalsul.common.cs.vo.InquiryVO" alias="Inquiry"/>
+		<typeAlias type="com.dalsul.common.cs.vo.NoticeVO" alias="Notice"/>
+		<typeAlias type="com.dalsul.user.addr.vo.AddrVO" alias="addr" />
+		<typeAlias type="com.dalsul.users.vo.UsersVO" alias="user" />
+		<typeAlias type="com.dalsul.user.cart.vo.CartVO" alias="cart" />
+	</typeAliases>
+</configuration>

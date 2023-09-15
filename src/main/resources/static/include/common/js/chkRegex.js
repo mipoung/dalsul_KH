@@ -197,3 +197,23 @@ function chkCertified(value) {
 		return true;
 	}
 }
+
+// 30자까지 입력되고, 한글, 숫자, 띄어쓰기만 허용하는 함수
+function chkKorean(item, msg) {
+    const inputVal = $(item).val(); // 입력 필드의 값을 가져옴
+    const koreanRegex = /^[가-힣0-9\s]+$/; // 한글, 숫자, 띄어쓰기만 허용하는 정규표현식
+
+    if (!koreanRegex.test(inputVal)) {
+        alert(msg + " 한글, 숫자, 띄어쓰기만 입력해 주세요.");
+        $(item).val("");
+        $(item).focus();
+        return false;
+    } else if (inputVal.length > 30) {
+        alert(msg + " 30자 이하로 입력해 주세요.");
+        $(item).val("");
+        $(item).focus();
+        return false;
+    } else {
+        return true;
+    }
+}

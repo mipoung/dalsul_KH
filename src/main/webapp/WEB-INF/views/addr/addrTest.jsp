@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="/resources/include/adressAPI/addressAPIdelete.js"></script>
 	
 	<%--주소지 입력값 검증에 사용되는 공통 입력값 검사 체크 함수들이 모여있는 스크립트 파일 --%>
-	<script type="text/javascript" src="/resources/include/adressAPI/addressCheck.js"></script>
+	<script type="text/javascript" src="/resources/include/common/js/chkRegex.js"></script>
    
     <form id="useAddr" name="useAddr" id="useAddr">
 		<%@include file="addressAPI.jsp" %>

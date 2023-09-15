@@ -25,10 +25,10 @@
 		$("#list > h1").text("총 합 " + numberWithCommas(totalSum) + "원");
 	
 		// 가격과 총합을 쉼표(,)로 표시 (가격 총합 콤마)
-		$(".price").each(function() {
-			console.log("price each");
-			let price = parseInt($(this).text().replace(/,/g, ''));
-			$(this).text(numberWithCommas(price));
+		$(".product_price").each(function() {
+			console.log("product_price each");
+			let product_price = parseInt($(this).text().replace(/,/g, ''));
+			$(this).text(numberWithCommas(product_price));
 		});
 		
 		// 상단 총합 콤마
@@ -42,9 +42,9 @@
 	// 총 합 계산
 	function updateTotal(item) {
 		console.log("updateTotal");
-		let price = parseInt(item.find(".price").text().replace(/,/g, ''));
+		let product_price = parseInt(item.find(".product_price").text().replace(/,/g, ''));
 		let quantity = parseInt(item.find(".quantity").text());
-		let total = price * quantity;
+		let total = product_price * quantity;
 		item.find(".total").text(total); // 총합
 	}
 	
@@ -55,14 +55,14 @@
 	}
 	
 	// 실제 삭제 동작 함수
-	function deleteConfirm(product_id) {
+	function deleteConfirm(product_no) {
 		console.log("deleteConfirm function");
 	    if (deleteCheck === 1) {
 	        $.ajax({
 	            url: "/cart/cartDelete", // 삭제 요청을 보낼 URL
 	            type: "GET",
 	            data: {
-	                "product_id": product_id
+	                "product_no": product_no
 	            },
 	            dataType: "text",
 	            error: function() {
@@ -70,7 +70,7 @@
 	            },
 	            success: function(data) {
 	                // 예를 선택한 경우, 해당 상품 행을 삭제
-	                $("#cartItem-" + product_id).remove();
+	                $("#cartItem-" + product_no).remove();
 	                // 삭제 후 총 합을 다시 계산 및 업데이트
 	                updateTotalForAllItems();
 	            }
@@ -98,8 +98,8 @@
 		    // 확인 창을 띄우고 사용자의 선택을 저장
 		    if (confirm("정말 삭제하시겠습니까?")) {
 		        deleteCheck = 1; // 예를 선택한 경우
-		        const product_id = $(this).data("product-id");
-		        deleteConfirm(product_id);
+		        const product_no = $(this).data("product-id");
+		        deleteConfirm(product_no);
 		    } else {
 		        deleteCheck = 0; // 아니요를 선택한 경우
 		    }
@@ -109,22 +109,22 @@
 		$(".plusBtn").click(
 				function() {
 					console.log("plusBtn click");
-					const product_id = $(this).attr("data-product-id");
+					const product_no = $(this).attr("data-product-id");
 					let product_quantity = parseInt(($(this).closest("tr")
 							.find(".quantity").text()).replace(/,/g, ''));
-					//console.log(product_id + product_quantity);
+					//console.log(product_no + product_quantity);
 					$.ajax({
 						"url" : "/cart/cartPlus",
 						"method" : "get",
 						"data" : {
-							"product_id" : product_id
+							"product_no" : product_no
 						},
 						"dataType" : "text",
 						success : function(data) {
 							if (data == 1) {
-								$("#cartItem-" + product_id + " > .quantity")
+								$("#cartItem-" + product_no + " > .quantity")
 										.text(product_quantity + 1);
-								updateTotal($("#cartItem-" + product_id)); // 총합 업데이트
+								updateTotal($("#cartItem-" + product_no)); // 총합 업데이트
 								updateTotalForAllItems();
 							} else {
 								alert("111시스템 오류입니다. 잠시 후 다시 시도해주세요.");
@@ -140,7 +140,7 @@
 		$(".minusBtn").click(
 				function() {
 					console.log("minusBtn");
-					const product_id = $(this).attr("data-product-id");
+					const product_no = $(this).attr("data-product-id");
 					let product_quantity = parseInt(($(this).closest("tr")
 							.find(".quantity").text()).replace(/,/g, ''));
 
@@ -154,14 +154,14 @@
 						"url" : "/cart/cartMinus",
 						"method" : "get",
 						"data" : {
-							"product_id" : product_id
+							"product_no" : product_no
 						},
 						"dataType" : "text",
 						success : function(data) {
 							if (data == 1) {
-								$("#cartItem-" + product_id + " > .quantity")
+								$("#cartItem-" + product_no + " > .quantity")
 										.text(product_quantity - 1);
-								updateTotal($("#cartItem-" + product_id)); // 총합 업데이트
+								updateTotal($("#cartItem-" + product_no)); // 총합 업데이트
 								updateTotalForAllItems();
 							} else {
 								alert("111시스템 오류입니다. 잠시 후 다시 시도해주세요.");
@@ -192,18 +192,18 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${cartList}" var="cartList">
-					<tr id="cartItem-${cartList.product_id}" class="cart-item">
-						<td class="product_id" >${cartList.product_id}</td>
-						<td class="price-quantity">
-							<button type="button" class="btn btn-primary btn-sm minusBtn" data-product-id="${cartList.product_id}">-</button> 
-							<span class="price">${cartList.price}</span>
-							<button type="button" class="btn btn-primary btn-sm plusBtn" data-product-id="${cartList.product_id}">+</button>
+					<tr id="cartItem-${cartList.product_no}" class="cart-item">
+						<td class="product_no" >${cartList.product_no}</td>
+						<td class="product_price-quantity">
+							<button type="button" class="btn btn-primary btn-sm minusBtn" data-product-id="${cartList.product_no}">-</button> 
+							<span class="product_price">${cartList.product_price}</span>
+							<button type="button" class="btn btn-primary btn-sm plusBtn" data-product-id="${cartList.product_no}">+</button>
 						</td>
 						<td class="quantity">${cartList.quantity}</td>
 						<td class="total"></td>
 						<td>
 							<button type="button" class="btn btn-danger btn-sm deleteBtn"
-								data-product-id="${cartList.product_id}">x</button>
+								data-product-id="${cartList.product_no}">x</button>
 						</td>
 					</tr>
 				</c:forEach>

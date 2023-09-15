@@ -1,34 +1,53 @@
 package com.dalsul.user.review.vo;
 
-import com.dalsul.common.session.UserVO;
+import com.dalsul.common.vo.CommonVO;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-/*
- *     REVIEW_NO NUMBER NOT NULL,
-    ORDER_NO NUMBER NOT NULL,
-    USER_NO NUMBER NOT NULL,
-    REVIEW_CONTENT VARCHAR2(4000) NOT NULL,
-    REVIEW_RATING NUMBER NOT NULL,
-    REVIEW_LIKE NUMBER NULL,
-    REVIEW_IMAGE VARCHAR2(512),
-    REVIEW_DATE DATE DEFAULT SYSDATE,
- */
+
 
 @Data
-public class ReviewVO extends OrdersVO {
+@EqualsAndHashCode(callSuper=false)
+public class ReviewVO extends CommonVO {
 	private int review_no = 0;
+	private int order_no = 0;
 	private int user_no = 0; // 이미 UserVO가 갖고있으니 가져와서 사용하는거로 변경 예정
 	private String review_content = "";
 	private int review_rating = 0;
 	private int review_like_count= 0;
-	private String review_image = "";
 	private String review_date;
+	private int product_no = 0;
+
 	
-	// 회원 정보를 가짐
-	private UserVO user;
+	// 정렬을 위한 필드 
+	private String orderByReviewNo="";
+	private String orderByUserNo = "";
+	private String orderByReviewLike = "";
+	private String orderByReviewRating = "";
 	
 	
+	// productVO에도 있음
+	private String product_name;
+	private String product_alcohol;
+	private String product_type;
+	
+	private ProductVO pvo;
+	
+	
+	
+	/*
+	public String getProduct_name() {
+        if (pvo != null) {
+            return pvo.getProduct_name();
+        }
+        return "";
+    }
+	*/
+	
+	
+	
+
 	
 	
 

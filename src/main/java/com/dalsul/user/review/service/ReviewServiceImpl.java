@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dalsul.common.session.UserVO;
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.user.review.dao.ReviewDAO;
 import com.dalsul.user.review.vo.ProductVO;
@@ -29,9 +29,10 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	
+	
 	@Override
-	public List<ReviewVO> managerReviewList(CommonVO cvo) {
-		List<ReviewVO> list = reviewDAO.managerReviewList(cvo);
+	public List<ReviewVO> managerReviewList(ReviewVO rvo) {
+		List<ReviewVO> list = reviewDAO.managerReviewList(rvo);
 		return list;
 	}
 	
@@ -39,8 +40,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	@Override
-	public List<ReviewVO> detailReviewList(ProductVO pvo) {
-		List<ReviewVO> list = reviewDAO.detailReviewList(pvo);
+	public List<ReviewVO> detailReviewList(ReviewVO rvo) {
+		List<ReviewVO> list = reviewDAO.detailReviewList(rvo);
 		return list;
 	}
 
@@ -71,7 +72,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 
-
 	@Override
 	public int reviewLikeCount(ReviewVO rvo) {
 		int reivewCount = reviewDAO.reviewLikeCount(rvo);
@@ -83,6 +83,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public int reviewLikeCountPlus(ReviewVO rvo) {
 		int CountPlus = reviewDAO.reviewLikeCountPlus(rvo);
 		return CountPlus;
+	}
+
+
+
+	@Override
+	public int reviewListCnt(ReviewVO rvo) {
+		int result = reviewDAO.reviewListCnt(rvo);
+		return result;
 	}
 
 
