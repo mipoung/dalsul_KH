@@ -248,7 +248,7 @@
 								<option value="user_no">유저번호</option>
 								<option value="review_content">내용</option>
 								<option value="review_rating">별점</option>
-								<option value="package_name">패키지 이름</option>
+								<option value="product_name">제품 이름</option>
 					</select>
 					<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" />
 					<button type="button" id="searchData" class="btn btn-success">검색</button>
@@ -276,9 +276,8 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col" class="text-center miniSize">리뷰번호</th>
-				<th scope="col" class="text-center miniSize">유저번호</th>
-				<th scope="col" class="text-center">제품명(제품번호)<br><span id="packageNameSpan">패키지명</span></th>
+				<th scope="col" class="text-center miniSize">리뷰번호<br>유저번호</th>
+				<th scope="col" class="text-center">제품명(제품번호)</th>
 				<th scope="col" class="text-center bigSize">내용</th>
 				<th scope="col" class="text-center miniSize">별점</th>
 				<th scope="col" class="text-center miniSize">추천수</th>
@@ -294,9 +293,8 @@
 						<c:when test="${not empty reviewList}">
 							<c:forEach var="review" items="${reviewList}" varStatus="status">
 								<tr class="text-center" data-review-no = "${review.review_no}">
-									<td class=miniSize>${review.review_no}</td>
-									<td class="goDetail text-left miniSize">${review.user_no}</td>
-									<td class="text-left miniSize">${review.product_name}(${review.product_no})<br><span id="packageNameSpan">${review.package_name}</span></td>
+									<td class=miniSize>${review.review_no}<br>${review.user_no}</td>
+									<td class="text-left miniSize">${review.product_name}(${review.product_no})<br>${review.product_type}</td>
 									<td class="text-left">${review.review_content}</td>
 									<td class="text-left reviewRating miniSize">${review.review_rating}</td>
 									<td class="text-left miniSize">${review.review_like_count}</td>

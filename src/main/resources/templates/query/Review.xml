@@ -6,8 +6,8 @@
 			<if test="search=='review_content'">
 				<![CDATA[ LOWER(review_content) like '%'|| LOWER( #{keyword} ) || '%' ]]>
 			</if>
-			<if test="search=='package_name'">
-				<![CDATA[ LOWER(package_name) like '%'|| LOWER( #{keyword} ) || '%' ]]>
+			<if test="search=='product_name'">
+				<![CDATA[ LOWER(product_name) like '%'|| LOWER( #{keyword} ) || '%' ]]>
 			</if>
 			<if test="search=='review_no'">
 				<![CDATA[ review_no = #{keyword} ]]>
@@ -23,14 +23,9 @@
 	
 	<!-- 제품 번호로 리뷰 조회(상세페이지) pk.package_product_no = #{package_product_no} -->
 	<select id="detailReviewList" parameterType="review" resultType="review">
-		select r.REVIEW_NO, pk.package_product_no, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, TO_CHAR(r.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, p.PRODUCT_NAME, sp.package_name
-		from review r join product p on r.product_no = p.product_no join package_product pk on pk.product_no = p.product_no join SUBSCRIPTION_PACKAGE sp on sp.package_no = pk.package_no
-		where 
+		SELECT * FROM REVIEW_VIEW
 		<if test="product_no != 0">
-			p.product_no = #{product_no}
-		</if>
-		<if test="package_product_no != 0">
-			pk.package_product_no = #{package_product_no}
+			WHERE product_no = #{product_no}
 		</if>
         ORDER BY REVIEW_NO desc
 	</select>
@@ -39,8 +34,7 @@
 	
 	<!-- 마이페이지 리뷰 조회 -->
 	<select id="myReviewList" parameterType="review" resultType="review">
-		select r.REVIEW_NO, pk.package_product_no, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, TO_CHAR(r.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, p.PRODUCT_NAME, sp.package_name
-		from review r join product p on r.product_no = p.product_no join package_product pk on pk.product_no = p.product_no join SUBSCRIPTION_PACKAGE sp on sp.package_no = pk.package_no
+		SELECT * FROM REVIEW_VIEW
 		<if test="user_no != null">
 		WHERE USER_NO = #{user_no}
 		</if>
@@ -87,18 +81,7 @@
 	<!--  관리자 페이지 리뷰 조회 (뷰) -->
  	<select id="managerReviewList" parameterType="review" resultType="review">
 					
-		SELECT 
-		review_no, 
-		order_no, 
-		product_no,
-		user_no,
-		review_content,
-		review_rating,
-		review_like_count,
-		review_date,
-		product_name,
-		package_name
-		FROM manager_select
+			SELECT * FROM REVIEW_VIEW
 			<!-- <if test="orderByReviewNo=='orderByReviewNo'">
 				order by review_no
 			</if>
@@ -112,6 +95,19 @@
 			
 			
 		
+	</select>
+	
+	
+	
+	
+	<!--  리뷰 조회 쿼리문 하나로 합치기 -->
+	<select id="reviewList" parameterType="review" resultType="review">
+		SELECT * FROM REVIEW_VIEW
+		<!-- 만약 제품 번호가 있으면 아래 쿼리 실행 -->
+		<if test="product_no != 0">
+			WHERE product_no = #{product_no}
+		</if>
+        ORDER BY REVIEW_NO desc
 	</select>
 	
 

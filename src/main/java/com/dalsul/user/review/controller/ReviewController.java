@@ -39,6 +39,11 @@ public class ReviewController {
 	@Setter(onMethod_ = @Autowired)
 	private ReviewService reviewService;
 	
+	@GetMapping("managerPage")
+	public String managerPage() {
+		
+		return "reviewBoard/managerPage";
+	}
 	
 	
 	
