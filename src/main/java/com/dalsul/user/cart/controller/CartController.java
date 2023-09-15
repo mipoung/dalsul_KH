@@ -32,7 +32,7 @@ public class CartController {
 		/*
 		 * @GetMapping("/") public String index() { return "/cart"; }
 		 */
- 	
+ 	/*
     //장바구니 페이지 조회
     @GetMapping("/")
     public String cartPage(Model model) {
@@ -41,6 +41,7 @@ public class CartController {
         
         return "cart";
     }
+    */
     
     //장바구니 추가
     @GetMapping("/cartInsert")
@@ -85,6 +86,7 @@ public class CartController {
     }
 */
   //결제 주문 화면
+    /*
     @GetMapping("/orderList")
     public String orderList(Model model,CartVO cvo) {
     	 List<CartVO>cartList = cartService.cartList();
@@ -92,4 +94,5 @@ public class CartController {
          
         return "cart/orderList";
     }
+    */
 }
