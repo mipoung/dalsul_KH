@@ -23,6 +23,10 @@
     padding: 30px 60px 50px;
 }
 
+#user_info_div > div {
+	margin : 0 auto;
+}
+
 .user_info_header{
 	-webkit-text-size-adjust: 100%;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -30,7 +34,7 @@
 	-webkit-font-smoothing: antialiased;
 	font-feature-settings: "tnum";
 	font-variant: tabular-nums;
-	font-size: 13px;
+	font-size: 17px;
 	font-weight: 400;
 	line-height: 13px;
 	text-align: center;
@@ -56,7 +60,7 @@
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "tnum";
     font-variant: tabular-nums;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 13px;
     text-align: center;
@@ -77,7 +81,7 @@
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "tnum";
     font-variant: tabular-nums;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 13px;
     text-align: center;
@@ -96,8 +100,29 @@
 }
 
 .user-details-data{
-	float:right;
+	float : right;
+	font-weight : bold;
 }
+
+.user-details-row{
+	margin-bottom : 15px;
+}
+
+.update-user{
+	color : #368AFF;
+}
+.delete-user{
+	color : #FF3636;
+}
+
+.update-user, .delete-user{
+	text-align : right;
+	font-weight: bold;
+	font-size : 15px;
+	margin-bottom : 20px;
+	text-decoration:underline;
+}
+
 </style>
 </head>
 <body>
@@ -123,9 +148,9 @@
 				<div class="user-details-row">
 					<div class="user-details-label">휴대폰 번호</div>
 					<div class="user-details-data">010-1234-5678</div>
-				</div>
-				<div class="style__UserEditLink-sc-1vzgze2-1 kGnFzH">수정</div>
-				<div class="style__UserEditLink-sc-1vzgze2-1 kGnFzH">회원탈퇴</div>
+				</div><br>
+				<div class="update-user">회원정보 수정</div>
+				<div class="delete-user">회원 탈퇴</div>
 			</div>
 		</div>
 	</div>
