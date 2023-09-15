@@ -108,22 +108,27 @@
 	margin-bottom : 15px;
 }
 
-.update-user{
+.update-password{
 	color : #368AFF;
 }
 .delete-user{
 	color : #FF3636;
 }
 
-.update-user, .delete-user{
+.update-password, .delete-user{
 	text-align : right;
 	font-weight: bold;
 	font-size : 15px;
 	margin-bottom : 20px;
 	text-decoration:underline;
 }
-
 </style>
+
+<script>
+	$(function(){
+		$("v")
+	});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -149,8 +154,8 @@
 					<div class="user-details-label">휴대폰 번호</div>
 					<div class="user-details-data">010-1234-5678</div>
 				</div><br>
-				<div class="update-user">회원정보 수정</div>
-				<div class="delete-user">회원 탈퇴</div>
+				<div class="update-password"><a href="/edit/updatePasswordView">비밀번호 변경</a></div>
+				<div class="delete-user"><a href="/edit/deleteUserView">회원 탈퇴</a></div>
 			</div>
 		</div>
 	</div>
