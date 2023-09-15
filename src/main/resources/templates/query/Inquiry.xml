@@ -22,7 +22,8 @@
 		<select id="inquiryList" parameterType="Inquiry" resultType="Inquiry">
 		<![CDATA[
 		select
-	  	  inquiry_no, user_no, inquiry_title, inquiry_question, to_char(inquiry_date,'YYYY-MM-DD') as inquiry_date
+	  	  inquiry_no, user_no, inquiry_title, inquiry_question, to_char(inquiry_date,'YYYY-MM-DD') as inquiry_date,
+	  	  (select count(inquiry_no) from inquiry_reply where inquiry_no = inquiryList.inquiry_no)
 		from(
 		    select /*+ INDEX_DESC(inquiry pk_inquiry_no) */
 		            rownum as rnum, inquiry_no, user_no inquiry_title, inquiry_question, inquiry_date

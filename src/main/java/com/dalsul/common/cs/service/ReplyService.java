@@ -2,8 +2,10 @@ package com.dalsul.common.cs.service;
 
 import java.util.List;
 
-import com.dalsul.common.cs.vo.ReplyVO;
+import org.springframework.stereotype.Service;
 
+import com.dalsul.common.cs.vo.ReplyVO;
+@Service
 public interface ReplyService {
 
 	public List<ReplyVO> replyList(ReplyVO rvo);

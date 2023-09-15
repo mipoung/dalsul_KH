@@ -2,8 +2,10 @@ package com.dalsul.common.cs.dao;
 
 import java.util.List;
 
-import com.dalsul.common.cs.vo.ReplyVO;
+import org.apache.ibatis.annotations.Mapper;
 
+import com.dalsul.common.cs.vo.ReplyVO;
+@Mapper
 public interface ReplyDAO {
 
 	public List<ReplyVO> replyList(ReplyVO rvo);
