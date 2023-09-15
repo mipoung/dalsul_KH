@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.dalsul.common.session.UserVO;
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
+import com.dalsul.user.review.dao.ReviewDAO;
+
+import com.dalsul.common.vo.PageDTO;
+import com.dalsul.user.review.dao.ReviewDAO;
 import com.dalsul.user.review.service.ReviewService;
 import com.dalsul.user.review.vo.ProductVO;
 import com.dalsul.user.review.vo.ReviewVO;
@@ -35,16 +39,12 @@ public class ReviewController {
 	@Setter(onMethod_ = @Autowired)
 	private ReviewService reviewService;
 	
-	
-	// 실험용 세션 만들기
-	
-	
-	
-	@GetMapping("/")
-	public String mainPage(Model model) {
-		return "test";
-		// test.jsp 출력 성공
+	@GetMapping("managerPage")
+	public String managerPage() {
+		
+		return "reviewBoard/managerPage";
 	}
+	
 	
 	
 	// 리뷰 조회
@@ -58,11 +58,14 @@ public class ReviewController {
 	
 	/*********** 완성 **********/
 	@GetMapping("detailReviewList")
-	public String detailReviewList(Model model, ProductVO pvo) {
+	public String detailReviewList(Model model, ReviewVO rvo) {
 			log.info("detailReviewList() 메서드 호출");
-			pvo.setProduct_no(12); // 출력할 제품 번호(테스트용)
-
-			List<ReviewVO> reviewList = reviewService.detailReviewList(pvo);
+			rvo.setProduct_no(1); // 출력할 제품 번호(테스트용)
+			//rvo.setPackage_product_no(1);
+			log.info("뷰에서 받아온 값: " + rvo.toString());
+			List<ReviewVO> reviewList = reviewService.detailReviewList(rvo);
+			log.info("담긴 값:" + reviewList.toString());
+			
 			model.addAttribute("reviewList", reviewList);
 	
 			return "reviewBoard/reviewList";
@@ -90,6 +93,7 @@ public class ReviewController {
 		
 		// 세션 값이 있으면 값 받아와서 보여주기
 		List<ReviewVO> reviewList = reviewService.myReviewList(user);
+		log.info("담긴 값 : " + reviewList.toString());
 		model.addAttribute("reviewList", reviewList);
 		
 		return "reviewBoard/reviewList";
@@ -106,7 +110,7 @@ public class ReviewController {
 	/*********** 완성 **********/
 	// 관리자페이지 보여주기
 	@GetMapping("managerReviewList")
-	public String managerReviewList(@SessionAttribute(name="UserLogin", required = false) UserVO user, CommonVO cvo, Model model){
+	public String managerReviewList(@SessionAttribute(name="UserLogin", required = false) UserVO user, CommonVO cvo, ReviewVO rvo, Model model){
 		// 관리자 세션이 있으면 페이지 보여주기
 		if(user == null || !(user.getUser_no() == 1)) {
 			model.addAttribute("msg", "관리자가 아닙니다.");
@@ -114,19 +118,21 @@ public class ReviewController {
 		}
 		
 		// 세션이 있고 관리자 세션이면 출력
-		log.info("관리자 입니다." +  "시작카운트 :" + cvo.getStartCount() + "보여줄카운트: " + cvo.getViewCount() );
+		log.info("관리자 입니다.");
 		
 		
 		List<ReviewVO> reviewList = null;
 		
-		/*System.out.println(cvo.toString());
-		System.out.println(model.toString());
-		System.out.println(user.toString());*/
+	
 		
-		reviewList = reviewService.managerReviewList(cvo);
+		reviewList = reviewService.managerReviewList(rvo);
 		model.addAttribute("reviewList", reviewList);
 
 		System.out.println(reviewList.toString());
+		
+		// 전체 레코드 수 반환
+		int total = reviewService.reviewListCnt(rvo);
+		model.addAttribute("pageMaker", new PageDTO(rvo, total));
 		
 		log.info(reviewList.toString());
 		
@@ -197,7 +203,7 @@ public class ReviewController {
 		
 		if(result == 1) {
 			log.info("작성성공");
-			return "test";
+			return "/reviewBoard/test";
 		} else {
 			return "/common/error";
 		}

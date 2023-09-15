@@ -8,10 +8,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class NoticeVO extends CommonVO{
-	private int notice_no = 0;
-	private String notice_title = "";
-	private String notice_subject = "";
-	private String notice_date;
-	private String notice_update_date;
+	private int notice_no = 0;				//글 번호
+	private String notice_title = "";		//글 제목
+	private String notice_subject = "";		//글 내용
+	private String notice_date;				//글 작성일
+	private String notice_update_date;		//글 수정일
 
 }
