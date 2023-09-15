@@ -103,6 +103,7 @@ $(function(){
 	$(".go_detail").click(function(){
 		location.href="/mypage/"+$(this).children().attr("class");
 	});
+	
 });
 </script>
 <div class="mb-3 mypage_menu">
