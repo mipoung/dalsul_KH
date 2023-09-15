@@ -21,14 +21,14 @@
 	</sql>
 	
 	
-	<!-- 제품 번호로 리뷰 조회(상세페이지) pk.package_product_no = #{package_product_no} -->
+	<!-- 제품 번호로 리뷰 조회(상세페이지) pk.package_product_no = #{package_product_no}
 	<select id="detailReviewList" parameterType="review" resultType="review">
 		SELECT * FROM REVIEW_VIEW
 		<if test="product_no != 0">
 			WHERE product_no = #{product_no}
 		</if>
         ORDER BY REVIEW_NO desc
-	</select>
+	</select>-->
 	
 
 	
@@ -109,6 +109,8 @@
 			ORDER BY R.REVIEW_NO desc
 	</select>
 	<!--  리뷰 조회 쿼리문 하나로 합치기 -->
+	
+	
 	<select id="reviewList" parameterType="review" resultType="review">
 		SELECT * FROM REVIEW_VIEW
 		<!-- 만약 제품 번호가 있으면 아래 쿼리 실행 -->
@@ -118,10 +120,6 @@
         ORDER BY REVIEW_NO desc
 	</select>
 	
-
-
-
-
 	<!--  리뷰 삭제  -->
 	<delete id="myReviewDelete" parameterType="review">
 		DELETE REVIEW
