@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dalsul.common.encryption.service.EncryptionService;
 import com.dalsul.common.login.dao.UserLoginDAO;
-import com.dalsul.common.login.vo.UserRegisterVO;
+import com.dalsul.common.login.vo.UserVO;
 
 import lombok.Setter;
 
@@ -24,15 +24,15 @@ public class UserLoginServiceImpl implements UserLoginService{
 	private PasswordEncoder encoder;
 	
 	@Override
-	public String getSalt(UserRegisterVO uvo) {
+	public String getSalt(UserVO uvo) {
 		String result = loginDAO.getSalt(uvo);
 		return result;
 	}
 
 	@Override
-	public UserRegisterVO passwordVerification(UserRegisterVO uvo) {
+	public UserVO passwordVerification(UserVO uvo) {
 		
-		UserRegisterVO result = null;
+		UserVO result = null;
 		String rawPassword = uvo.getUser_salt()+uvo.getUser_password();
 		String encodedPassword = loginDAO.getPassword(uvo);
 		

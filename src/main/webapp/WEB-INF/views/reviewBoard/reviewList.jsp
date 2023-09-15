@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf"%>
-<script  src="/resources/include/common/js/jquery.cookie.js"></script>
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
+<script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
-      
       <title>리뷰조회 reviewList</title>
-      
+      <!-- 주석22123 123123123-->
       <script>
       	$(function(){
       		
@@ -94,9 +93,13 @@
       		
       		/**************** 리스트에서 수정 버튼 클릭(모달창 띄우면서 폼 불러오기) ****************/
       		$(".r_UpdateFormBtn").click(function(){
-      			// 수정 폼 내용 초기화
-      			$("#message-text").val("");
-      			
+      			// 수정 폼으로 리뷰 내용 불러오기 
+      			//$("#message-text").val("");
+	      		var reviewContentForm = $(this).closest(".card.mb-3").find("#reviewContent").attr("data-review-content");
+	   			console.log(reviewContentForm);
+	   			
+      			$("#message-text").val(reviewContentForm);
+      			console.log("content : " + reviewContentForm);
       			
       			// jsp에서 리뷰번호 가져오기
       			var reviewNo = $(this).closest(".card.mb-3").attr("data-review-no");
@@ -239,7 +242,7 @@
       		
       		/********************/
       		
-   			$(".reviewLikeBtn").click(function(){
+   			$(document).on('click', '.reviewLikeBtn', function() {
    				var cardElement = $(this).closest('.card');
    				var review_no = $(this).closest('.card').data('review-no');
    				var cookieName = 'review_' + review_no;
@@ -256,8 +259,10 @@
 	       				type: "GET",
 	       				data: { review_no: review_no },
 	       				 success: function(response){
-	       					$(this).text();
-	       					console.log($(this).text()); // 반환받은 값으로 버튼 숫자 바꾸기?
+	      
+	       					// 좋아요 값 변경 왜 안되냐~
+	       					$(this).closest(".card.mb-3").find(".likeCount").text("sss");
+	       					
 	       		        },
 	       				error : function(error){
 	       					console.error('Error',error);
@@ -347,12 +352,12 @@
 							    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
 								  <div class="row g-0">
 								    <div class="col-md-4">
-								      <img src="/resources/images/junju.png" class="img-fluid rounded-start" alt="...">
+								      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
 								    </div>
 								    <div class="col-md-8">
 								      <div class="card-body">
-								        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | 제품명 </h6>
-								        <p class="card-text text-left" id="reviewContent">${review.review_content }</p>
+								        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
+								        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
 								        
 								      </div>
 								      <div id="cordBtn">
@@ -416,7 +421,7 @@
 									<div class="card mb-3" style="max-width: 540px;">
 										<div class="row g-0">
 											<div class="col-md-4">
-												<img src="/resources/images/junju.png"
+												<img src="/resources/images/common/icon.png"
 													class="img-fluid rounded-start" alt="...">
 											</div>
 											<div class="col-md-8">
