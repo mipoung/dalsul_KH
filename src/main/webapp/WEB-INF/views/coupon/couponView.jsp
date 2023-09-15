@@ -5,12 +5,13 @@
 <!DOCTYPE html>
 <html lang="ko">
     <meta charset="utf-8">
-    
-<script type="text/javascript" src="/resources/include/coupon/couponInsert.js"></script>
-
+	<script type="text/javascript" src="/resources/include/coupon/couponInsert.js"></script>
+	<script type="text/javascript">
+	
+	</script>
   </head>
   <body>
-    <h5>쿠폰테이블 CRUD 제약 조건없음(쿠폰 정보생성o ,조회  관리자 삭제 = 로직오류(불가능), 관리자 정보 수정 = 발급가능여부만 수정구현해야함) </h5>
+    <h5>쿠폰테이블 CRUD 제약 조건없음(쿠폰 정보생성o ,조회  관리자 삭제 = 로직오류(불가능), 관리자 정보 쿠폰수정 = 발급가능여부만 수정구현해야함) </h5>
     <form name="useCoupon" id="useCoupon">
     	<input type="text" placeholder="쿠폰이름" name="coupon_name" id="coupon_name"/>	
     	<input type="number" placeholder="할인가격" name="coupon_discount" id="coupon_discount" min="500"/>	
@@ -19,5 +20,6 @@
     	 <label><input type="radio" name="coupon_status" value="0"> 발급 불가능</label>
     </form>
     	<input type="button" id="insertCouponBtn" name="insertCouponBtn" value="쿠폰추가">
+    	<input type="button" id="selectAllCouponBtn" name="selectAllCouponBtn" value="전체생성쿠폰 조회">
   </body>
 </html>
