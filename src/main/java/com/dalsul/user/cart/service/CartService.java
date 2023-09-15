@@ -11,6 +11,6 @@ public interface CartService {
 	public void cartInsert(CartVO cvo);
 	public int cartPlus(CartVO cvo);
 	public int cartMinus(CartVO cvo);
-	public List<CartVO> cartList();
+	//public List<CartVO> cartList();
 
 }
