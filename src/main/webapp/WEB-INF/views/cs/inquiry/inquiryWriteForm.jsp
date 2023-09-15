@@ -7,7 +7,7 @@
     <title>문의사항 작성 폼</title>
 </head>
 <body>
-    <h1>FAQ 작성 폼</h1>
+    <h1>문의사항 작성 폼</h1>
     <!-- FAQ 작성 폼 내용 입력 폼과 버튼 등을 구현합니다. -->
     <form action="/inquiry/inquiryInsert" method="post">
         <!-- 입력 폼 -->
@@ -16,6 +16,9 @@
 
         <label for="inquiry_question">질문:</label>
         <textarea id="inquiry_question" name="inquiry_question" required></textarea><br>
+        
+        <label for="inquiry_password">비밀번호:</label>
+        <input type="password" id="inquiry_password" name="inquiry_password" required/><br>
 
 
         <!-- 버튼 -->

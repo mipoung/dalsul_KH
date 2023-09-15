@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.common.cs.dao.InquiryDAO">
-	<!-- 검색  -->
+	<!-- 검색 -->
 	<sql id="inquirySearch">
 		<if test="search=='inquiry_title'">
 			<![CDATA[ inquiry_title like '%' || #{keyword} || '%' ]]>
@@ -10,28 +10,33 @@
 			<![CDATA[ inquiry_question like '%' || #{keyword} || '%' ]]>
 		</if>
 	</sql>
-<!-- 게시판 상세조회 -->
-	<select id="inquiryDetail" parameterType="Inquiry" resultType="Inquiry">
+	<!-- 게시판 상세조회 -->
+	<select id="inquiryDetail" parameterType="Inquiry"
+		resultType="Inquiry">
 		SELECT
-			inquiry_no, user_no, inquiry_title, inquiry_question,
-			TO_CHAR(inquiry_date, 'YYYY-MM-DD') AS inquiry_date
+		inquiry_no, inquiry_title, inquiry_question,
+		TO_CHAR(inquiry_date, 'YYYY-MM-DD') AS inquiry_date
 		FROM inquiry
-		WHERE inquiry_no = #{inquiry_no}
-<!-- 게시판 리스트 -->		
+		WHERE
+		inquiry_no =
+		#{inquiry_no}
 	</select>
-		<select id="inquiryList" parameterType="Inquiry" resultType="Inquiry">
+	<!-- 게시판 리스트 -->
+
+	<select id="inquiryList" parameterType="Inquiry"
+		resultType="Inquiry">
 		<![CDATA[
 		select
-	  	  inquiry_no, user_no, inquiry_title, inquiry_question, to_char(inquiry_date,'YYYY-MM-DD') as inquiry_date,
-	  	  (select count(inquiry_no) from inquiry_reply where inquiry_no = inquiryList.inquiry_no)
+	  	  inquiry_no, inquiry_title, inquiry_question, to_char(inquiry_date,'YYYY-MM-DD') as inquiry_date,
+	  	  (select count(inquiry_no) from inquiry_reply where inquiry_no = inquiryList.INQUIRY_NO)
 		from(
 		    select /*+ INDEX_DESC(inquiry pk_inquiry_no) */
-		            rownum as rnum, inquiry_no, user_no inquiry_title, inquiry_question, inquiry_date
+		            rownum as rnum, inquiry_no, inquiry_title, inquiry_question, inquiry_date
 	    from inquiry
 	    where ]]>
-	    <trim prefix="(" suffix=") AND " prefixOverrides="AND">
-	    	<include refid="inquirySearch"></include>
-	    </trim>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="inquirySearch"></include>
+		</trim>
 	   
 	   <![CDATA[ rownum <= #{pageNum} * #{amount}
 	   		)inquiryList
@@ -39,42 +44,46 @@
 	
 	   
 	   ]]>
-	
+
 	</select>
 	<!-- 게시판 비밀번호 확인 -->
-	<select id="pwdConfirm" parameterType="Inquiry" resultType="int">
-		SELECT NVL((SELECT 1 FROM inquiry WHERE inquiry_no = #{inquiry_no} AND inquiry_password = #{inquiry_password}), 0) as state
-		FROM dual 
-	</select> 
-<!-- 페이지네이션 -->
-		<select id="inquiryListCnt" parameterType="Inquiry" resultType="int">
+	<select id="pwdConfirm" parameterType="Inquiry" resultType="int"> SELECT 
+		NVL((SELECT 1 FROM inquiry WHERE inquiry_no = #{inquiry_no} AND inquiry_password 
+		= #{inquiry_password}), 0) as state FROM dual </select>
+	<!-- 페이지네이션 -->
+	<select id="inquiryListCnt" parameterType="Inquiry"
+		resultType="int">
 		SELECT count(*) FROM inquiry
-		<trim prefix=" where (" suffix=")" >
+		<trim prefix=" where (" suffix=")">
 			<include refid="inquirySearch"></include>
 		</trim>
-		
+
 	</select>
-<!-- 문의사항 등록 -->	
+	<!-- 문의사항 등록 -->
 	<insert id="inquiryInsert" parameterType="Inquiry">
-		<selectKey keyProperty="inquiry_no" resultType="int" order="BEFORE">
-			select inquiry_no_seq.nextval from dual
+		<selectKey keyProperty="inquiry_no" resultType="int"
+			order="BEFORE">
+			SELECT USER_NO_SEQUENCE.nextval FROM DUAL
 		</selectKey>
-		
-		INSERT INTO inquiry(inquiry_no, notice_title, notice_subject)
-		VALUES(#{notice_no}, #{notice_title}, #{notice_subject})
-		
+		INSERT INTO inquiry(inquiry_no, user_no, inquiry_title,
+		inquiry_question, inquiry_date, inquiry_update_date)
+		VALUES(#{inquiry_no}, #{user_no}, #{inquiry_title},
+		#{inquiry_question}, SYSDATE, SYSDATE)
 	</insert>
-<!-- 문의사항 수정 -->
+	<!-- 문의사항 수정 -->
 	<update id="inquiryUpdate" parameterType="Inquiry">
-		UPDATE notice
+		UPDATE inquiry
 		SET inquiry_title = #{inquiry_title},
-			inquiry_question = #{inquiry_question},
-			inquiry_update_date = sysdate
-			WHERE inquiry_no = #{inquiry_no}
+		inquiry_question =
+		#{inquiry_question},
+		user_no = #{user_no},  <!-- user_no를 추가 -->
+		inquiry_update_date = SYSDATE
+		WHERE inquiry_no = #{inquiry_no}
 	</update>
-<!-- 문의사항 삭제 -->
+	<!-- 문의사항 삭제 -->
 	<delete id="inquiryDelete" parameterType="Inquiry">
 		DELETE FROM inquiry
-   		WHERE inquiry_no = #{inquiry_no}
+		WHERE inquiry_no = #{inquiry_no}
+		AND user_no = #{user_no}  <!-- user_no를 추가 -->
 	</delete>
 </mapper>

@@ -42,6 +42,6 @@
     	<button onclick="goToEditPage(${detail.inquiry_no})">수정하기</button>
     
     	<!-- 삭제하기 버튼 -->
-    	<button onclick="deleteFInquiry(${detail.inquiry_no})">삭제하기</button>
+    	<button onclick="deleteInquiry(${detail.inquiry_no})">삭제하기</button>
 	</body>
 </html>

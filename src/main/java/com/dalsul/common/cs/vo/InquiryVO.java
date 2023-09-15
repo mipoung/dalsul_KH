@@ -15,7 +15,6 @@ public class InquiryVO extends CommonVO{
 	private String inquiry_password;	//글 비밀번호
 	private String inquiry_date;		//글 작성일
 	private String inquiry_update_date;	//글 수정일
-	private String inquiry_status;		//처리상태
-	private String inquiry_whether;		//비밀글 여부
+
 	
 }

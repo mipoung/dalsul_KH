@@ -9,6 +9,7 @@
 		<typeAlias type="com.dalsul.common.cs.vo.FAQVO" alias="FAQ"/>
 		<typeAlias type="com.dalsul.common.cs.vo.InquiryVO" alias="Inquiry"/>
 		<typeAlias type="com.dalsul.common.cs.vo.NoticeVO" alias="Notice"/>
+		<typeAlias type="com.dalsul.common.cs.vo.ReplyVO" alias="Reply"/>
 		<typeAlias type="com.dalsul.user.addr.vo.AddrVO" alias="addr" />
 		<typeAlias type="com.dalsul.users.vo.UsersVO" alias="user" />
 		<typeAlias type="com.dalsul.user.cart.vo.CartVO" alias="cart" />

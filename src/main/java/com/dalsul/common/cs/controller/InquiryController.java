@@ -51,7 +51,7 @@ public class InquiryController {
 	//글쓰기 , 작성하기 폼
 	@GetMapping("/inquiryWriteForm")
 	public String inquiryWriteForm() {
-		return "cs/inquiry/writeForm";
+		return "cs/inquiry/inquiryWriteForm";
 	}
 	//글쓰기, 작성하기
 	@PostMapping("/inquiryInsert")
