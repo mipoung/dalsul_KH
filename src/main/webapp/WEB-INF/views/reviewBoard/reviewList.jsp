@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf"%>
-<script  src="/resources/include/common/js/jquery.cookie.js"></script>
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
+<script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
-      
       <title>리뷰조회 reviewList</title>
-      
+      <!-- 주석22123 123123123-->
       <script>
       	$(function(){
       		
@@ -347,7 +346,7 @@
 							    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
 								  <div class="row g-0">
 								    <div class="col-md-4">
-								      <img src="/resources/images/junju.png" class="img-fluid rounded-start" alt="...">
+								      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
 								    </div>
 								    <div class="col-md-8">
 								      <div class="card-body">
@@ -416,7 +415,7 @@
 									<div class="card mb-3" style="max-width: 540px;">
 										<div class="row g-0">
 											<div class="col-md-4">
-												<img src="/resources/images/junju.png"
+												<img src="/resources/images/common/icon.png"
 													class="img-fluid rounded-start" alt="...">
 											</div>
 											<div class="col-md-8">
