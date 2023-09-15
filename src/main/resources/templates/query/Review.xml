@@ -21,14 +21,14 @@
 	</sql>
 	
 	
-	<!-- 제품 번호로 리뷰 조회(상세페이지) pk.package_product_no = #{package_product_no} -->
+	<!-- 제품 번호로 리뷰 조회(상세페이지) pk.package_product_no = #{package_product_no}
 	<select id="detailReviewList" parameterType="review" resultType="review">
 		SELECT * FROM REVIEW_VIEW
 		<if test="product_no != 0">
 			WHERE product_no = #{product_no}
 		</if>
         ORDER BY REVIEW_NO desc
-	</select>
+	</select> -->
 	
 
 	
@@ -97,10 +97,6 @@
 		
 	</select>
 	
-	
-	
-	
-<<<<<<< HEAD
 	<!-- 제품 넘버로 리뷰 조회(상세페이지) -->
 	<select id="detailReviewList" parameterType="review" resultType="review">
 			SELECT R.REVIEW_NO, R.ORDER_NO, R.USER_NO, R.REVIEW_CONTENT, R.REVIEW_RATING, R.REVIEW_LIKE_COUNT, TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
@@ -108,7 +104,7 @@
 			JOIN PRODUCT_ORDER PO ON R.ORDER_NO = PO.ORDER_NO
 			WHERE 1 = 1 AND PO.product_no = #{product_no}
 			ORDER BY R.REVIEW_NO desc
-=======
+	</select>
 	<!--  리뷰 조회 쿼리문 하나로 합치기 -->
 	<select id="reviewList" parameterType="review" resultType="review">
 		SELECT * FROM REVIEW_VIEW
@@ -117,7 +113,6 @@
 			WHERE product_no = #{product_no}
 		</if>
         ORDER BY REVIEW_NO desc
->>>>>>> master
 	</select>
 	
 
