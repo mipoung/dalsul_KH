@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalsul.user.cart.dao.CartDAO" >
+
+<!-- 장바구니 조회 -->
+<select id="cartList" parameterType="cart">
+	select product_id,price,quantity
+	from cart
+</select>
+
+
+<!-- 장바구니 추가 -->
+<insert id="cartInsert" parameterType="cart">
+    INSERT INTO cart
+    VALUES (#{product_id}, #{price}, #{quantity})
+      ON DUPLICATE KEY UPDATE
+    quantity = quantity + #{quantity};
+</insert>
+
+
+<!-- 장바구니 개수 수정(+) -->
+<update id="cartPlus" parameterType="cart">
+	update cart
+	set quantity = quantity+1
+	where product_id = #{product_id}
+</update>
+
+
+<!-- 장바구니 개수 수정(-) -->
+<update id="cartMinus" parameterType="cart">
+    update cart
+    set quantity = case 
+    	when quantity > 1 then quantity - 1
+        else quantity
+    end
+    where product_id = #{product_id}
+</update>
+
+
+<!-- 장바구니 삭제 -->
+<delete id="cartDelete" parameterType="cart">
+	delete from cart where product_id=#{product_id}
+</delete>
+
+</mapper>
