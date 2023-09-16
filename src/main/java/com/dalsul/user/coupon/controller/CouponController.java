@@ -28,7 +28,7 @@ public class CouponController {
 	}
 	
 	//쿠폰 정보 추가하는 메소드
-	/*
+	
 	@PostMapping("/couponInsert")
 	public String couponInsert(CouponVO cvo) {
 		log.info("쿠폰 인서트메서드 호출");
@@ -43,6 +43,6 @@ public class CouponController {
 		}
 		
 	}
-	*/
+	
 }
 

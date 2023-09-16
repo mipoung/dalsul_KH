@@ -4,6 +4,6 @@ import com.dalsul.user.coupon.vo.CouponVO;
 
 public interface CouponService {
 
-	//String couponInsert(CouponVO cvo);
+	String insertCoupon(CouponVO cvo);
 
 }
