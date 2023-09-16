@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.user.pay.dao.PayDAO">
-
-
-
+<!--  
+<insert id="orderInsert" parameterType="pay">
+	INSERT INTO order_list (order_no, user_no, order_use_point,
+	order_dlv_fee, order_total_price, order_set_point, order_delevery_info) 
+	VALUES (order_list_seq.nextval, #{user_no}, #{order_use_point},
+	#{order_dlv_fee}, #{order_total_product_price}, #{order_set_point},
+	#{order_delivery_info})
+  </insert>
+-->
+<insert id="orderInsert" parameterType="pay">
+INSERT INTO order_list (order_no, user_no, order_use_point, order_use_coupon, order_dlv_fee, order_total_price,
+                            order_set_point, order_delivery_info, order_status, order_date, order_update_date)
+    VALUES (order_list_seq.NEXTVAL, #{user_no}, #{order_use_point}, #{order_use_coupon}, #{order_dlv_fee}, #{order_total_product_price},
+            #{order_set_point}, #{order_delivery_info},  '결제 완료', SYSDATE, SYSDATE)
+</insert>
 </mapper>

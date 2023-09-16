@@ -1,19 +1,15 @@
 package com.dalsul.user.pay.dao;
 
-import java.util.Map;
+import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
+import com.dalsul.user.pay.vo.PayVO;
+
+@Mapper
 public interface PayDAO {
-//	public default void paid(Map<String, Object> map) {
-//	    Object sqlSessionTemplate;
-//		sqlSessionTemplate.update("user.paid", map);
-//	}
-//
-//	public default void rePaid(Map<String, Object> map) {
-//	    Object sqlSessionTemplate;
-//		sqlSessionTemplate.update("user.rePaid", map);
-//	}
-//
-//	public default String paidCheck(String ID) {
-//	    return sqlSessionTemplate.selectOne("user.paidCheck", ID);
-//	}
+
+	
+	//public List<PayVO> orderInsert(PayVO payVO);
+	public PayVO orderInsert(PayVO payVO);
 }
