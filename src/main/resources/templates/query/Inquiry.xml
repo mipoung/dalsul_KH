@@ -77,7 +77,8 @@
 		SET inquiry_title = #{inquiry_title},
 		inquiry_question =
 		#{inquiry_question},
-		user_no = #{user_no},  
+		user_no = #{user_no},
+		<!-- inquiry_password = {inquiry_password}, -->  
 		inquiry_update_date = SYSDATE
 		<if test="inquiry_password != ''">
  				,inquiry_password = #{inquiry_password}
