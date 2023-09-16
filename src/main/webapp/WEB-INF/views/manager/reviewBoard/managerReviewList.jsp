@@ -305,9 +305,9 @@
 		<input type="hidden" name="viewCount" id="viewCount" value="0">
 		<input type="hidden" name="startCount" id="startCount" value="0">
 	
-	<table class="table">
+	<table class="table table-hover">
 		<thead>
-			<tr>
+			<tr class=table-secondary>
 				<th scope="col" class="text-center miniSize">리뷰번호<br>유저번호</th>
 				<th scope="col" class="text-center">제품명(제품번호)</th>
 				<th scope="col" class="text-center bigSize">내용</th>
