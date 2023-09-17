@@ -353,6 +353,7 @@
 								  <div class="row g-0">
 								    <div class="col-md-4">
 								      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
+								      ${review.product_main_image}
 								    </div>
 								    <div class="col-md-8">
 								      <div class="card-body">

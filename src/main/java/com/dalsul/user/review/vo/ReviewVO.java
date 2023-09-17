@@ -21,16 +21,17 @@ public class ReviewVO extends CommonVO {
 
 	
 	// 정렬을 위한 필드 
-	private String orderByReviewNo="";
-	private String orderByUserNo = "";
-	private String orderByReviewLike = "";
-	private String orderByReviewRating = "";
-	
+	private String reviewOrderBy="";
+
+	// 날짜 범위 검색을 위한 필드
+	private String searchDate1;
+	private String searchDate2;
 	
 	// productVO에도 있음
 	private String product_name;
 	private String product_alcohol;
 	private String product_type;
+	private String product_main_image;
 	
 	private ProductVO pvo;
 	

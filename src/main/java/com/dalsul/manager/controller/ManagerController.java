@@ -1,5 +1,6 @@
 package com.dalsul.manager.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +41,17 @@ public class ManagerController {
 	@GetMapping("managerReviewList")
 	public String managerReviewList(@SessionAttribute(name="UserLogin", required = false) UserVO user, CommonVO cvo, ReviewVO rvo, Model model){
 		// 관리자 세션이 있으면 페이지 보여주기
+		/*
 		if(user == null || !(user.getUser_no() == 1)) {
 			model.addAttribute("msg", "관리자가 아닙니다.");
 			return "common/error";
 		}
-		
+		*/
 		// 세션이 있고 관리자 세션이면 출력
 		log.info("관리자 입니다.");
 		
+		
+		log.info("설정된 값"+ rvo.getSearchDate1() + rvo.getSearchDate2());
 		
 		List<ReviewVO> reviewList = null;
 		
@@ -56,13 +60,12 @@ public class ManagerController {
 		reviewList = reviewService.managerReviewList(rvo);
 		model.addAttribute("reviewList", reviewList);
 
-		System.out.println(reviewList.toString());
 		
 		// 전체 레코드 수 반환
 		int total = reviewService.reviewListCnt(rvo);
 		model.addAttribute("pageMaker", new PageDTO(rvo, total));
 		
-		log.info(reviewList.toString());
+	
 		
 		
 		return "manager/reviewBoard/managerReviewList";
