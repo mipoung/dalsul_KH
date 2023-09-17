@@ -88,20 +88,13 @@
 					
 			SELECT * FROM REVIEW_VIEW
 			
-			 <if test="searchDate2 != null and searchDate1 != null">
+			<if test="searchDate2 != null and searchDate1 != null">
 				<![CDATA[ WHERE review_date between #{searchDate1} and #{searchDate2} ]]>
 			</if>		
 			  
 			<trim prefix="AND">
 			    <include refid="reviewSearch"></include>
 			</trim>
-			
-				
-			 
-			 		
-		 
-			     
-			
 			
 			<if test="reviewOrderBy != null">
 			    <choose>
@@ -143,7 +136,7 @@
 	<!-- 마이페이지 리뷰작성 (#{order_no}, #{user_no}) -->
 	<insert id="myReviewInsert" parameterType="review">
 		insert into review(review_no, order_no, user_no, review_content, review_rating, review_like_count, review_date, product_no)
-		values(review_no_seq.nextval, 2, #{user_no}, #{review_content}, #{review_rating}, 0, sysdate, #{product_no})
+		values(review_seq.nextval, 2, #{user_no}, #{review_content}, #{review_rating}, 0, sysdate, #{product_no})
 	</insert>
 
 

@@ -96,8 +96,10 @@
       			// 수정 폼으로 리뷰 내용 불러오기 
       			//$("#message-text").val("");
 	      		var reviewContentForm = $(this).closest(".card.mb-3").find("#reviewContent").attr("data-review-content");
-	   			console.log(reviewContentForm);
+	      		// 내용 가져올때 <br>태그 제거
+	      		reviewContentForm = reviewContentForm.replace(/<br>/gi, "");
 	   			
+	      		// 메세지 박스에 내용 채우기
       			$("#message-text").val(reviewContentForm);
       			console.log("content : " + reviewContentForm);
       			

@@ -32,6 +32,8 @@ public class ReviewVO extends CommonVO {
 	private String product_alcohol;
 	private String product_type;
 	private String product_main_image;
+	private String product_ml;
+	private String product_price;
 	
 	private ProductVO pvo;
 	
