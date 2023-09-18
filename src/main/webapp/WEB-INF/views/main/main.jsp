@@ -23,10 +23,10 @@
 	href="/resources/include/mainpage/css/slick-theme.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/header.css" />
-
+<link rel="stylesheet" type="text/css"
+	href="/resources/include/mainpage/css/footer.css" />
 
 <style>
-
 
 /* 슬라이드 모음 */
 
@@ -90,7 +90,7 @@
 	font-weight: bold;
 }
 
-.product-product_price {
+.product-price {
 	padding-bottom: 10px;
 	text-align: left;
 	font-weight: bold;
@@ -438,8 +438,8 @@ input {
 
 @media screen and (max-width: 768px) {
 	*/
-	/* 화면 너비가 768px 이하인 경우에만 적용되는 스타일 */
-	/*
+/* 화면 너비가 768px 이하인 경우에만 적용되는 스타일 */
+/*
 	body {
 		
 	}
@@ -460,12 +460,14 @@ input {
 		display: none;
 	}
 }*/
+
 </style>
 <script src="/resources/include/common/js/jquery-3.7.0.min.js"></script>
 <script src="/resources/include/common/js/bootstrap/bootstrap.js"></script>
 <script src="/resources/include/mainpage/js/slick.js"></script>
 <script src="/resources/include/mainpage/js/slick.min.js"></script>
-<script src="https://kit.fontawesome.com/312ff11b0d.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/312ff11b0d.js"
+	crossorigin="anonymous"></script>
 <script src="/resources/include/mainpage/js/header.js"></script>
 
 <script>
@@ -495,8 +497,8 @@ input {
 				// 위에 옵션이 디폴트, 여기에 추가하면 변경
 				}
 			} ]
-		});	
-		
+		});
+
 		$('.wrap_center').slick({
 			dots : false,
 			infinite : false,
@@ -525,95 +527,85 @@ input {
 				}
 			} ]
 		});
-		});
-	
-	
-
-	
+	});
 </script>
 
 </head>
 <body>
-	
-	<%@ include file="header.jsp" %> <!-- header.jsp 파일 포함 -->
-	
+
+	<%@ include file="header.jsp"%>
+	<!-- header.jsp 파일 포함 -->
+
 	<!-- 사이트 소개 슬라이드 모음 시작 -->
 	<div class="center">
 		<div>
-			<img src="resources/images/mainpage/mainslide1.jpg"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide1.jpg" class="mainslide" />
 		</div>
 		<div>
-			<img src="resources/images/mainpage/mainslide2.jpg"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide2.jpg" class="mainslide" />
 		</div>
 		<div>
-			<img src="resources/images/mainpage/mainslide3.jpg"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide3.jpg" class="mainslide" />
 		</div>
 		<div>
-			<img src="resources/images/mainpage/mainslide4.jpg"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide4.jpg" class="mainslide" />
 		</div>
 		<div>
-			<img src="resources/images/mainpage/mainslide5.jpg"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide5.jpg" class="mainslide" />
 		</div>
 		<div>
-			<img src="resources/images/mainpage/mainslide6.jpg"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide6.jpg" class="mainslide" />
 		</div>
 		<div>
-			<img src="resources/images/mainpage/mainslide7.png"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide7.png" class="mainslide" />
 		</div>
 		<div>
-			<img src="resources/images/mainpage/mainslide8.jpg"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide8.jpg" class="mainslide" />
 		</div>
 		<div>
-			<img src="resources/images/mainpage/mainslide9.jpg"
-				class="mainslide" />
+			<img src="resources/images/mainpage/mainslide9.jpg" class="mainslide" />
 		</div>
 	</div>
 	<!-- 상품 소개 슬라이드 모음 시작 !-->
-	
+
 	<main class="wrap_center_main">
-	 <div class="wrap_center">
-		 <div class="wrap_center">
-			<div class="slider">
-				<c:forEach var="product" items="${products}">
-					<div class="slider_div">
-						<a href="/"> 
-							<img src="/img/main/${product.product_main_image}" alt="" class="product-slide" />
-							<div class="product-title">${product.product_name}</div>
-							<div class="product-product_price">${product.product_price}원</div>
-							<div class="product-reputation">
-								별점 :
-								<c:choose>
-									<c:when test="${not empty product.review_rating}">
+		<div class="wrap_center">
+			<div class="wrap_center">
+				<div class="slider">
+					<c:forEach var="product" items="${products}">
+						<div class="slider_div">
+							<a href="/"> <img
+								src="resources/images/mainpage/product/${product.product_main_image}" alt=""
+								class="product-slide" />
+								<div class="product-title">${product.product_name}</div>
+								<div class="product-price">${product.product_price}원</div>
+								<div class="product-reputation">
+									별점 :
+									<c:choose>
+										<c:when test="${not empty product.review_rating}">
                                 ${product.review_rating}
                             </c:when>
-									<c:otherwise>
+										<c:otherwise>
                                 0
                             </c:otherwise>
-								</c:choose>
-								| 리뷰 :
-								<c:choose>
-									<c:when test="${not empty product.review_num}">
+									</c:choose>
+									| 리뷰 :
+									<c:choose>
+										<c:when test="${not empty product.review_num}">
                                 ${product.review_num}
                             </c:when>
-									<c:otherwise>
+										<c:otherwise>
                                 0
                             </c:otherwise>
-								</c:choose>
-							</div>
-						</a>
-					</div>
-				</c:forEach>
+									</c:choose>
+								</div>
+							</a>
+						</div>
+					</c:forEach>
+				</div>
 			</div>
-		</div>
 	</main>
+	<%@ include file="footer.jsp"%>
 </body>
 </html>
 

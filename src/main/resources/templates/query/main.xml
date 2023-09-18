@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.user.main.dao.MainDAO">
-	<!-- <select id="getMainPageProducts" resultType="com.dalsul.user.main.vo.ProductVO">
-        select p.product_name, p.product_price, p.product_main_image, count(r.review_no) review_num, round(avg(r.review_rating),1) review_rating
-        from producttest p
-        join product_ordertest po on p.product_no = po.product_no
-        join reviewtest r on po.order_no = r.order_no and po.user_no = r.user_no
-        group by p.product_no, p.product_name, p.product_price, p.product_main_image
-    </select> -->
-    <select id="getMainPageProducts" resultType="com.dalsul.user.main.vo.ProductVO">
-    	select p.product_no, p.product_name, p.product_price, p.product_main_image, count(r.review_no) review_num, round(avg(r.review_rating), 1) review_rating
-		from producttest p
-		left outer join product_ordertest po on p.product_no = po.product_no
-		left outer join reviewtest r on po.order_no = r.order_no and po.user_no = r.user_no
-		group by p.product_no, p.product_name, p.product_price, p.product_main_image
-    </select>
+	
+	<select id="getMainPageProducts" resultType="com.dalsul.user.main.vo.ProductVO">
+		select p.product_no, p.product_name, p.product_price, p.product_main_image,
+		count(r.review_no) review_num, round(avg(r.review_rating),1)
+		review_rating
+		from product p
+		left outer join review r on
+		p.product_no = r.product_no
+		where p.product_no = 010101011
+		group by p.product_no, p.product_name,
+		p.product_price, p.product_main_image
+		order by p.product_no
+	</select>
+
+	<select id="getSearchResult" parameterType="java.lang.String" resultType="com.dalsul.user.main.vo.ProductVO">
+		select product_no, product_name
+		from product
+		where replace(product_name, ' ', '') like '%' || replace(#{keyword}, ' ', '') || '%'
+	</select>
+	
+	<select id="getDetailPageProducts" parameterType="com.dalsul.user.main.vo.ProductVO" resultType="com.dalsul.user.main.vo.ProductVO">
+		select p.product_no, p.product_name, p.product_type, p.product_ml, p.product_alcohol,  p.product_price,
+		p.product_main_image, p.product_explain_image, count(r.review_no) review_num, round(avg(r.review_rating),1) review_rating
+		from product p
+		left outer join review r on
+		p.product_no = r.product_no
+		where p.product_no = #{product_no}
+		group by p.product_no,
+         p.product_name,
+         p.product_type,
+         p.product_ml,
+         p.product_alcohol,
+         p.product_price,
+         p.product_main_image,
+         p.product_explain_image
+	</select>
+	
+
 </mapper>
