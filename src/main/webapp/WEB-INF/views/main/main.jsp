@@ -16,7 +16,7 @@
 
 
 <link rel="stylesheet" type="text/css"
-	href="/resources/include/common/css/bootstrap/bootstrap.css" />
+	href="/resources/include/common/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/slick.css" />
 <link rel="stylesheet" type="text/css"
@@ -463,7 +463,7 @@ input {
 
 </style>
 <script src="/resources/include/common/js/jquery-3.7.0.min.js"></script>
-<script src="/resources/include/common/js/bootstrap/bootstrap.js"></script>
+<script src="/resources/include/common/bootstrap/js/bootstrap.js"></script>
 <script src="/resources/include/mainpage/js/slick.js"></script>
 <script src="/resources/include/mainpage/js/slick.min.js"></script>
 <script src="https://kit.fontawesome.com/312ff11b0d.js"

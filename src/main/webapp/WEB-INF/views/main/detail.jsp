@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="/resources/images/icon.png" />
 
 <link rel="stylesheet" type="text/css"
-	href="/resources/include/common/css/bootstrap/bootstrap.css" />
+	href="/resources/include/common/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/header.css" />
 <link rel="stylesheet" type="text/css"
@@ -129,7 +129,7 @@
 
 	
 <script src="/resources/include/common/js/jquery-3.7.0.min.js"></script>
-<script src="/resources/include/common/js/bootstrap/bootstrap.js"></script>
+<script src="/resources/include/common/bootstrap/js/bootstrap.js"></script>
 <script src="/resources/include/mainpage/js/header.js"></script>
 <script>
 $(function() {
