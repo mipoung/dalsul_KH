@@ -29,6 +29,6 @@
     <if test="order=='coupon_dateDESC'">ORDER BY COUPON_DATE DESC</if>
     <if test="order=='coupon_limitDESC'">ORDER BY COUPON_LIMIT DESC</if>
     <if test="order=='coupon_statusDESC'">ORDER BY COUPON_STATUS DESC</if>
-</select>
+	</select>
 	
 </mapper>
