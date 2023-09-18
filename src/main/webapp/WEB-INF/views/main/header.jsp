@@ -3,7 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>	
 <div id="main" class="fixed-top">
 		<ul class="nav fixied-top">
-			<nav id="navbar-example1" class="navbar bg-light px-3 mb-3">
+			<nav id="navbar-example1" class="navbar bg-white px-3 mb-3" style="background-color:white">
 				<a class="navbar-brand" href="/">달술</a>
 				<ul class="nav nav-pills">
 					<li class="nav-item"><a class="nav-link"
@@ -16,7 +16,7 @@
 					</form>
 				</ul>
 			</nav>
-			<nav id="navbar-example2" class="navbar bg-light px-3 mb-3">
+			<nav id="navbar-example2" class="navbar bg-white px-3 mb-3" data-bs-theme="blue">
 				<c:choose>
                 <c:when test="${empty sessionScope.userLogin}">
                     <!-- 사용자가 로그인하지 않은 경우 -->
@@ -24,7 +24,8 @@
                 </c:when>
                 <c:otherwise>
                     <!-- 사용자가 로그인한 경우 -->
-                    <a class="navbar-brand" href="/">${sessionScope.userLogin.username} 님 ></a>
+                    <a class="navbar-brand" href="/mypage/userInfoDetailView">${userLogin.user_name} 님</a>
+                    <a class="navbar-brand" style="opacity: 0.3; font-size: 16px;"  href="/mypage/userInfoDetailView">로그아웃</a>
                 </c:otherwise>
             	</c:choose>
 				<ul class="nav nav-pills">

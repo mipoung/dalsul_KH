@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.main.service.MainService;
 import com.dalsul.user.main.vo.ProductVO;
 
@@ -34,11 +36,11 @@ public class MainController {
 	    
 		/* 시작화면 호출 */
 	  	@GetMapping("/")
-	    public String main(Model model) {
+	    public String main(@SessionAttribute(name="userLogin", required = false) UserVO uvo, Model model) {
 	    	
 	  		List<ProductVO> products = mainService.getMainPageProducts();
 	    	model.addAttribute("products", products);
-
+	    	model.addAttribute("userLogin", uvo);
 	    	log.info("메인페이지로 이동");
 	    	log.info("상품개수 : "+products.size());
 	        
