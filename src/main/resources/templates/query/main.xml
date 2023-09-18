@@ -10,7 +10,7 @@
     </select> -->
     <select id="getMainPageProducts" resultType="com.dalsul.user.main.vo.ProductVO">
     	select p.product_no, p.product_name, p.product_price, p.product_main_image, count(r.review_no) review_num, round(avg(r.review_rating), 1) review_rating
-		from producttest p
+		from product p
 		left outer join product_ordertest po on p.product_no = po.product_no
 		left outer join reviewtest r on po.order_no = r.order_no and po.user_no = r.user_no
 		group by p.product_no, p.product_name, p.product_price, p.product_main_image

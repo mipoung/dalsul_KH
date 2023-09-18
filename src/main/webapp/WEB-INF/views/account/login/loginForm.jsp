@@ -50,7 +50,7 @@ body {
 				data : $("#loginForm").serialize(),
 				success : function(data){
 					if(data=="SUCCESS"){
-						location.href="/register/termsView";
+						location.href="/";
 					}else{
 						Swal.fire({
 							icon: 'error',

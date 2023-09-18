@@ -84,7 +84,7 @@ body{
 </style>
 
 <script>
-$(function(){
+$(function(){	
 	$(".go_detail").hover(function() {        
         $(this).css({
         	"cursor" : "pointer",
@@ -109,7 +109,7 @@ $(function(){
 <div class="mb-3 mypage_menu">
 	<div class="member-info-wrapper" id="user_info">
 		<div class="name-header">
-			<div class="name-text">TEST님</div>
+			<div class="name-text">${uvo.user_name}님</div>
 		</div>
 		<div class="user_info">
 			<div class="benefit">

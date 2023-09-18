@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.dalsul.common.login.service.UserLoginService;
 import com.dalsul.common.login.vo.UserVO;
@@ -33,19 +34,19 @@ public class UserLoginController {
 	// 로그인 페이지에서 로그인에 성공하면 저장한 페이지 정보로 이동한다
 	// 예) 제품 상세 -> 주문버튼 클릭 -> 로그인 -> 제품 상세
 	@GetMapping("/userLoginView")
-	public String userLoginView(@SessionAttribute(name = "userLogin") UserVO uvo, @RequestParam("path") Model model) {
+	public String userLoginView(@SessionAttribute(name = "userLogin", required = false) UserVO uvo/*, @RequestParam("path") Model model*/) {
 		log.info("userLoginView() 호출");
 		String returnURL = "";
 		
 		if(uvo != null) {
 			// session에 회원 정보가 존재한다면 메인페이지로 return
-			returnURL = "/account/register/terms";
+			returnURL = "/";
 		} else {
 			// session에 회원 정보가 존재하지 않다면 로그인 페이지로 이동
 			returnURL = "/account/login/loginForm";
 		}
 		
-		model.addAttribute(model);
+	//	model.addAttribute(model);
 		
 		return returnURL;
 	}
@@ -78,5 +79,21 @@ public class UserLoginController {
 		return "FAIL";
 	}
 	
+	@GetMapping("/userLogout")
+	public String userLogoutProcess(SessionStatus sessionStatus) {
+		log.info("userLogoutProcess() 호출");
+		String returnURL = "";
+		
+		if(sessionStatus != null) {
+			// session이 존재한다면 logout
+			sessionStatus.setComplete();
+			returnURL = "/account/login/loginForm";
+		} else {
+			// session이 존재하지 않는다면
+			returnURL = "/account/login/loginForm";
+		}
+		
+		return returnURL;
+	}
 	
 }
