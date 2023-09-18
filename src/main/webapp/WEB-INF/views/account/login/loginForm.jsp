@@ -25,10 +25,6 @@ body {
 	color : red;
 }
 
-.form-util{
-	margin-top:5px;
-}
-
 .form-util div{
 	display: inline-block;
 }
@@ -79,12 +75,12 @@ body {
 			<!-- 이메일 입력 -->
 			<div class="form-outline mb-4">
 				<input type="email" id="user_email" name="user_email" class="form-control" placeholder="이메일을 입력해 주세요" /> 
-			</div><br>
+			</div>
 
 			<!-- 비밀번호 입력 -->
 			<div class="form-outline mb-4">
 				<input type="password" id="user_password" name="user_password" class="form-control" placeholder="비밀번호를 입력해 주세요" />
-			</div><br>
+			</div>
 
 			<div class="form-outline mb-4">
 				<!-- Submit button -->
@@ -94,7 +90,6 @@ body {
 			</div>
 			<!-- 2 column grid layout for inline styling -->
 			<div class="form-outline mb-4">
-				<div class="col d-flex justify-content-center">
 					<!-- 이메일 기억하기 -->
 					<div class="form-util">
 						<div id="">
@@ -105,7 +100,6 @@ body {
 							<a href="/login/findAccount">아이디 / 비밀번호 찾기</a>
 						</div>
 					</div>
-				</div>
 			</div>
 		</form>
 		</div>
