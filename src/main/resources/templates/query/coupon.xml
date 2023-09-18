@@ -42,4 +42,11 @@
        	
     </select>
 
+	<!-- 쿠폰 정보를 추가하는 쿼리문 -->
+	<insert id="insertCoupon" parameterType="coupon">
+		INSERT INTO coupon (COUPON_NO, COUPON_NAME, COUPON_DISCOUNT, COUPON_DATE , COUPON_LIMIT, COUPON_STATUS)
+		VALUES (COUPON_SEQ.NEXTVAL, #{coupon_name}, #{coupon_discount}, SYSDATE ,#{coupon_limit}, #{coupon_status})
+	</insert>
+
+	
 </mapper>
