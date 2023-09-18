@@ -33,7 +33,7 @@ public class UserLoginController {
 	// 로그인 페이지에서 로그인에 성공하면 저장한 페이지 정보로 이동한다
 	// 예) 제품 상세 -> 주문버튼 클릭 -> 로그인 -> 제품 상세
 	@GetMapping("/userLoginView")
-	public String userLoginView(@SessionAttribute(name = "userLogin") UserVO uvo, @RequestParam("path") Model model) {
+	public String userLoginView(@SessionAttribute(name = "userLogin", required = false) UserVO uvo) {
 		log.info("userLoginView() 호출");
 		String returnURL = "";
 		
@@ -44,8 +44,6 @@ public class UserLoginController {
 			// session에 회원 정보가 존재하지 않다면 로그인 페이지로 이동
 			returnURL = "/account/login/loginForm";
 		}
-		
-		model.addAttribute(model);
 		
 		return returnURL;
 	}
