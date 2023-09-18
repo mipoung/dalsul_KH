@@ -1,24 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html lang="ko">
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-		
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-		
-		<link rel="shortcut icon" href="/resources/image/icon.png" />
-		<link rel="apple-touch-icon" href="/resources/image/icon.png" />
-		<script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
-		<script type="text/javascript" src="/resources/dist/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="/resources/dist/css/bootstrap.min.css" />
-		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
-		<!--[if lt IE 9]>
-		<script src="../js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
-	<body>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // "쿠폰추가하기" 버튼 클릭 시 페이지 이동
+        $("#insertFormBtn").click(function() {
+            window.location.href = "/coupon/couponInsertForm";
+        });
+    });
+</script>
+
+		<!-- 히든으로 다음 요청페이지로 보낼 기준 값 -->
+		<form id="detailForm">
+			<input type="hidden" id="coupon_no" name="coupon_no" />
+		</form>
+
+		<!-- 검색기능 -->
+	<div id="couponSearch" class="text-right">
+         <form id="f_search" name="f_search" class="form-inline" style="display:inline-block;">
+         	<!-- 페이징 처리를 위한 파라미터 -->
+         	<input type="hidden" name="pageNum" id="pageNum"/>
+         	
+            <div class="form-group">
+               <label>검색조건</label>
+               <select id="search" name="search" class="form-control">
+                  <option value="all">전체</option>
+                  <option value="coupon_name">쿠폰이름 오름차순</option>
+                  
+                  <!-- 쿠폰 조회 각칼럼 높은순 -->
+                  <option value="coupon_discountASC">할인율 높은순</option>
+                  <option value="coupon_dateASC">생성일 빠른순</option>
+                  <option value="coupon_limitASC">쿠폰사용가능량 많은순</option>
+                  <option value="coupon_statusASC">쿠폰사용가능우선</option>
+                  <!-- 쿠폰 조회 각칼럼 낮은순 -->
+                  <option value="coupon_discountDESC">할인율 낮은순</option>
+                  <option value="coupon_dateDESC">생성일 늦은순</option>
+                  <option value="coupon_limitDESC">쿠폰사용가능량 적은순</option>
+                  <option value="coupon_statusDESC">쿠폰사용 불가능 우선</option>
+                  
+               </select>
+               <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control"/>
+               <button type="button" name="searchData" id="searchData" class="btn btn-success">검색</button>
+            </div>
+         </form>
+	</div>
 	
-	</body>
-	</html>
+	<%--리스트 시작 --%>
+		<div id="boardList" class="table-height">
+			<table summary="게시판 리스트" class="table table-striped">
+				<thead>
+					<tr>
+						<th data-value="b_num" class="order text-center col-md-1">쿠폰번호</th>
+						<th class="text-center col-md-4">쿠폰이름</th>
+						<th class="text-center col-md-2">쿠폰할인가격</th>
+						<th data-value="b_date" class="order col-md-1">쿠폰생성일</th>
+						<th class="text-center col-md-1">쿠폰발급가능수량</th>
+						<th class="text-center col-md-1">사용가능 여부</th>
+					</tr>
+				</thead>
+				<tbody id="list" class="table-striped">
+					<c:choose>
+						<c:when test="${not empty couponList}">
+							<c:forEach var="coupon" items="${couponList}" varStatus="status">
+								<tr class="text-center" data-num="${coupon.coupon_no}">
+									<td>${coupon.coupon_no}</td>
+									<%--<td class="goDetail text-left">${board.b_title}</td>--%>
+									<td class="goDetail text-left">${coupon.coupon_name}</td>
+									<td class="name">${coupon.coupon_discount}</td>
+									<td class="text-left">${coupon.coupon_date}</td>
+									<td class="text-center">${coupon.coupon_limit}</td>
+									<td class="text-center">${coupon.coupon_status}</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="5" class="tac text-center">등록된 쿠폰이 존재하지 않습니다.</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+				</tbody>
+			</table>
+		</div>
+	<%--리스트 종료 --%>
+	
+	<%-- ============ 페이징 출력 시작 ============ --%>
+		<div class="text-center">
+			<ul class="pagination">
+			<!-- 이전 바로가기10개 존재 여부를 prev 필드의 값으로 확인 -->
+			<c:if test="${pageMaker.prev}">
+					<li class="paginate_button previous">
+						<a href="${pageMaker.startPage-1}">Previous</a> 
+					</li>
+				</c:if>
+				<!-- 바로 가기 번호 출력 -->
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<li class="paginate_button ${pageMaker.cvo.pageNum == num ? 'active':''}">
+							<a href="${num}">${num}</a>
+						</li>
+				</c:forEach>
+				
+				<!-- 다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인 -->
+				<c:if test="${pageMaker.next}">
+					<li class="paginate_button next">
+						<a href="${pageMaker.endPage + 1}">Next</a>
+					</li>
+				</c:if>
+			</ul>
+		</div>
+		
+		<%-- 쿠폰 추가하기 페이지 이동 버튼 --%>
+		<div class="btn btn-success" style="text-align: right;">
+			<input type="button" value="쿠폰추가하기" id="insertFormBtn" class="btn btn-success" />
+		</div>
+		
+</html>
