@@ -35,7 +35,7 @@
 	  		
 	  			$("#r_ListForm").attr({
 	  				"method" : "post",
-	  				"action" : "/manager/managerReviewDelete"
+	  				"action" : "/manager/review/managerReviewDelete"
 	  			})
 	  			
 	  			$("#r_ListForm").submit();
@@ -116,7 +116,7 @@
 			
 			$("#f_search").attr({
 				"method" : "GET",
-				"action" : "/manager/managerReviewList"
+				"action" : "/manager/review/managerReviewList"
 			});
 			$("#f_search").submit();
 			
@@ -133,7 +133,7 @@
 			console.log(selectedValue);
 			$("#f_search").attr({
 				"method" : "GET",
-				"action" : "/manager/managerReviewList"
+				"action" : "/manager/review/managerReviewList"
 			});
 			$("#f_search").submit();
 		})
@@ -152,7 +152,7 @@
   	    mm = (mm < 10) ? '0' + mm : mm;
   	    dd = (dd < 10) ? '0' + dd : dd;
 
-  	    var formattedDate = yyyy + '-' + mm + '-' + dd;
+  	    var formattedDate = yyyy + '-' + mm + '-' + (dd+1);
   		$("#searchDate2").val(formattedDate);
   		
   	});
@@ -215,7 +215,6 @@
    
    <div id="mainSection">
 	   	<h3>리뷰 관리</h3>
-	
 			<%-- =================검색 기능 시작================== --%>
 			<div id="boardSearch" class="text-right"> 
 			

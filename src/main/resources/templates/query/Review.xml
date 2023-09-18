@@ -85,16 +85,22 @@
 	-->
 	<!--  관리자 페이지 리뷰 조회 (뷰) -->
  	<select id="managerReviewList" parameterType="review" resultType="review">
-					
+			<!-- 		
 			SELECT * FROM REVIEW_VIEW
 			
+			<
+			<![CDATA[ WHERE review_no <= 10 ]]>
 			<if test="searchDate2 != null and searchDate1 != null">
-				<![CDATA[ WHERE review_date between #{searchDate1} and #{searchDate2} ]]>
+				<![CDATA[ and review_date between #{searchDate1} and #{searchDate2} ]]>
 			</if>		
+			
 			  
 			<trim prefix="AND">
 			    <include refid="reviewSearch"></include>
 			</trim>
+			
+			
+			
 			
 			<if test="reviewOrderBy != null">
 			    <choose>
@@ -107,7 +113,106 @@
 			</if>
 			
 			
-		
+		 -->
+		 
+		 
+		 <!-- 
+		 select
+		    REVIEW_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT, PRODUCT_NO, PRODUCT_NAME, PRODUCT_TYPE, 
+		    PRODUCT_ML, PRODUCT_PRICE, USER_NO, TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') as REVIEW_DATE, rnum
+		from (
+		    select 
+		        r.REVIEW_NO, 
+		        r.REVIEW_CONTENT, 
+		        r.REVIEW_DATE,
+		        r.REVIEW_RATING,
+		        r.REVIEW_LIKE_COUNT,
+		        ROW_NUMBER() OVER(ORDER BY r.REVIEW_NO) as RNUM,
+		        r.USER_NO,
+		        p.PRODUCT_NO,
+		        p.PRODUCT_NAME,
+		        p.PRODUCT_TYPE,
+		        p.PRODUCT_ML,
+		        p.PRODUCT_PRICE
+		    from REVIEW r FULL OUTER JOIN PRODUCT p ON r.PRODUCT_NO = p.PRODUCT_NO
+		    WHERE
+		    	<if test="searchDate2 != null and searchDate1 != null">
+					<![CDATA[ review_date between #{searchDate1} and #{searchDate2} and ]]>
+				</if>	
+		    
+		    	<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				   <include refid="reviewSearch"></include>
+				</trim>
+				
+				 
+				
+				
+				
+				
+		    
+		    
+		 <![CDATA[ rownum <= #{pageNum} * #{amount}
+		 
+		 
+		 
+		) 
+		where rnum > (#{pageNum} -1) * #{amount} ]]>
+		 
+		 
+		 
+		 -->
+				
+		 
+		 
+			 
+	SELECT
+	    REVIEW_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT, PRODUCT_NO, PRODUCT_NAME, PRODUCT_TYPE, 
+	    PRODUCT_ML, PRODUCT_PRICE, USER_NO, TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') as REVIEW_DATE, rnum
+	FROM (
+	    SELECT 
+	        r.REVIEW_NO, 
+	        r.REVIEW_CONTENT, 
+	        r.REVIEW_DATE,
+	        r.REVIEW_RATING,
+	        r.REVIEW_LIKE_COUNT,
+	        ROW_NUMBER() OVER(
+	        <if test="reviewOrderBy != null">
+			    <choose>
+			        <when test="reviewOrderBy == 'obReviewNo'">order by review_no desc</when>
+			        <when test="reviewOrderBy == 'obUserNo'">order by user_no desc</when>
+			        <when test="reviewOrderBy == 'obLikeCount'">order by review_like_count desc</when>
+			        <when test="reviewOrderBy == 'obReviewDate'">order by review_date desc</when>
+			        <otherwise>order by review_no desc</otherwise>
+			    </choose>
+			</if>
+	        ) as RNUM,
+	        r.USER_NO,
+	        p.PRODUCT_NO,
+	        p.PRODUCT_NAME,
+	        p.PRODUCT_TYPE,
+	        p.PRODUCT_ML,
+	        p.PRODUCT_PRICE
+	    FROM REVIEW r FULL OUTER JOIN PRODUCT p ON r.PRODUCT_NO = p.PRODUCT_NO
+	) 
+	WHERE 
+	
+	<if test="searchDate2 != null and searchDate1 != null">
+		<![CDATA[ review_date between #{searchDate1} and #{searchDate2} and ]]>
+	</if>	
+	
+	<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				   <include refid="reviewSearch"></include>
+				</trim>
+	
+	<![CDATA[ 
+	rnum > (#{pageNum} -1) * #{amount}
+	AND rnum <= #{pageNum} * #{amount}
+	]]>
+		 
+		 
+		 
+		 
+		 
 	</select>
 
 	<!-- 제품 넘버로 리뷰 조회(상세페이지) -->

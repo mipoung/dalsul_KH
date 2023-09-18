@@ -14,7 +14,7 @@
 	            회원관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="#">회원등록</a></li>
+	            <li><a class="dropdown-item" href="/manager/user/managerUser">메인</a></li>
 	            <li><a class="dropdown-item" href="#">메뉴3</a></li>
 	          </ul>
 	        </li>
@@ -26,7 +26,7 @@
 	            제품관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="#">등록</a></li>
+	            <li><a class="dropdown-item" href="/manager/product/managerProduct">메인</a></li>
 	            <li><a class="dropdown-item" href="#">메뉴3</a></li>
 	          </ul>
 	        </li>
@@ -38,8 +38,8 @@
 	            배송관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="#">등록</a></li>
-	            <li><a class="dropdown-item" href="#">메뉴3</a></li>
+	            <li><a class="dropdown-item" href="/manager/delivery/managerDelivery">메인</a></li>
+	            <li><a class="dropdown-item" href="#">배송곤리</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -51,7 +51,7 @@
 	            리뷰관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="/manager/managerReviewList">리뷰 검색 및 삭제</a></li>
+	            <li><a class="dropdown-item" href="/manager/review/managerReviewList">리뷰 검색 및 삭제</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -63,13 +63,37 @@
 	            주문관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="#">등록</a></li>
-	            <li><a class="dropdown-item" href="#">메뉴3</a></li>
+	            <li><a class="dropdown-item" href="/manager/order/managerOrder">주문관리</a></li>
 	          </ul>
 	        </li>
 	      </ul>
-	
-	     
-	    </div>
+
+
+
+			<ul class="navbar-nav">
+				<li class="nav-item dropdown">
+					<button class="btn btn-dark dropdown-toggle"
+						data-bs-toggle="dropdown" aria-expanded="false">쿠폰관리</button>
+					<ul class="dropdown-menu dropdown-menu-dark">
+						<li><a class="dropdown-item" href="/manager/coupon/managerCoupon">쿠폰 등록</a></li>
+					</ul>
+				</li>
+			</ul>
+
+
+			<ul class="navbar-nav">
+				<li class="nav-item dropdown">
+					<button class="btn btn-dark dropdown-toggle"
+						data-bs-toggle="dropdown" aria-expanded="false">고객지원</button>
+					<ul class="dropdown-menu dropdown-menu-dark">
+						<li><a class="dropdown-item" href="/manager/cs/managerFaq">FAQ 관리</a></li>
+						<li><a class="dropdown-item" href="#">공지사항 관리</a></li>
+						<li><a class="dropdown-item" href="#">문의사항 관리</a></li>
+					</ul>
+				</li>
+			</ul>
+
+
+		</div>
 	  </div>
 	</nav>

@@ -21,20 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/manager/*")
+@RequestMapping("/manager/review/*")
 public class ReviewManagerController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ReviewService reviewService;
 	
-	// 관리자페이지 메인으로 이동
-	@GetMapping("managerMain")
-	public String managerMain() {
-		
-		return "manager/managerMain";
-	}
-	
-
 	
 	/*********** 완성 **********/
 	// 관리자페이지 보여주기
@@ -83,7 +75,7 @@ public class ReviewManagerController {
 			log.info("관리자입니다.");
 			reviewService.myReviewDelete(rvo);
 
-		return "redirect:/manager/managerReviewList";
+		return "redirect:/manager/review/managerReviewList";
 	}
 	
 	
