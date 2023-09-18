@@ -16,6 +16,7 @@
 #navbar-example1 {
 	height: 50px;
 	margin-left: 180px;
+	
 }
 
 /* 우측에 붙은 것들 때어 놓은 */
@@ -29,9 +30,27 @@
 	top: 0;
 }
 
+#subscribe, #store, #search {
+	margin-top: -5px;
+}
+
+#search {
+	background-color: rgb(244, 244, 244);
+	border-color: rgb(244, 244, 244);
+}
+
 /* placeholder 폰트 사이즈 변경 */
 .form-control::placeholder {
 	font-size: 14px;
+}
+
+
+/* 이미지 사이즈 변경 */
+#logo {
+	width : 75px;
+	height: 50px;
+	
+	margin-top: -10px;
 }
 
 /* 이미지 사이즈 변경 */

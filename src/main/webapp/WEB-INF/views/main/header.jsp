@@ -4,11 +4,12 @@
 <div id="main" class="fixed-top">
 		<ul class="nav fixied-top">
 			<nav id="navbar-example1" class="navbar bg-white px-3 mb-3" style="background-color:white">
-				<a class="navbar-brand" href="/">달술</a>
+				<a class="navbar-brand" href="/"><img id="logo"
+					src="resources/images/dalsul_logo.png"></a>
 				<ul class="nav nav-pills">
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item" id="subscribe"><a class="nav-link"
 						href="/">구독</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item" id="store"><a class="nav-link"
 						href="#scrollspyHeading2">스토어</a></li>
 					<form class="d-flex" role="search">
 						<input class="form-control me-2" type="search"
