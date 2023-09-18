@@ -58,7 +58,10 @@
                     //성공시 MVC 패턴을 통해 테이블에 값을 추가하고 리턴은 ResponseBody의 문자열만 리턴받는다
                     //이때 성공을하면 Return을 "추가성공"을 받는데 알림창을 띄워 사용자에게 알리고 입력받은 필드의 태그들의 값을 초기화한다"
                     success: function(resultData) {
-                        if (resultData === "추가성공") {
+						if (resultData !== "추가성공"){
+							alert(resultData);
+						}
+                        else if (resultData === "추가성공") {
                             alert('배송지 추가에 성공하였습니다');
                             // 입력 필드 초기화
                             $("#roadAddress").val("");
@@ -68,11 +71,10 @@
                             $("#name").val("");
                             
                             window.location.reload();
-                        } else {
-						//이외의 값(추가실패등 이상한값이 올시) 프롬프트로 오류를 표시한다.
-                            alert('시스템 오류입니다. 다시 시도하시거나 관리자에게 문의 하세요');
                         }
-                    }
+                    },error : function(){
+						alert('시스템 오류입니다. 다시 시도하시거나 관리자에게 문의 하세요');
+					}
                 });
             }
         });

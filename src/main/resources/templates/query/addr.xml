@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.user.addr.dao.AddrApiDAO">
 	
+	<!-- 배송지 추가전 해당 유저의 배송지가 5개 이상이면 true를 받환받아서 insert문에 가기전에 막는 쿼리문, 5개 이하면 false 반환 . -->
+<select id="chkUserAddr" parameterType="addr" resultType="boolean">
+    SELECT CASE WHEN (SELECT COUNT(user_no) FROM addr WHERE user_no = #{user_no}) > 5 THEN 'true' ELSE 'false' END as is_over_limit
+    FROM dual
+</select>
+	
+	
 	<!-- 기본배송지정보를 추기하는 쿼리문 -->
 	<insert id="insertAddr" parameterType="addr" >
 			INSERT INTO ADDR (addr_NO, user_no, addr_post, addr_jibun, addr_road, addr_detail, addr_receiver, addr_name)

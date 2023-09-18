@@ -38,12 +38,23 @@ public class AddrController {
         log.info("insertAddr () 메소드 호출...");
         log.info(bvo.toString());
         
-        int result = addrService.insertAddr(bvo );
+        log.info("chkUserAddr 메소드 호출..");
         
-        if(result == 1) {
-        	return "추가성공";
-        } else {
-        	return "추가실패";
+        boolean chkUserAddrCount = addrService.chkUserAddr(bvo);
+        log.info("chkUserAddrCount" + chkUserAddrCount);
+        if (chkUserAddrCount == true) {
+        	return "배송지는 최대 5개까지 입력할 수 있습니다.";
+        	// 해당 유저(user_no)의 현재 배송지 개수 select
+        	// if select문의 결과 == 5 return "최대 배송지 저장 개수 초과";
+        }// 5개 이하일경우 insert 실행 
+        else {
+        	int result = addrService.insertAddr(bvo );
+        
+        	if(result == 1) {
+        		return "추가성공";
+        	} else {
+        		return "정상적인 입력값이 아닙니다";
+        	}
         }
     }
     

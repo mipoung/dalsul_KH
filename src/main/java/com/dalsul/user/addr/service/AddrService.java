@@ -16,5 +16,8 @@ public interface AddrService {
 	/*사용자가 저장한 기본배송지 정보를 삭제하는 메소드*/
 	public int deleteAddr(AddrVO bvo);
 
+	/*사용자가 배송지를 추가하기전 5개이상이면 true를 반환받는 메소드*/
+	public boolean chkUserAddr(AddrVO bvo);
+
 	
 }

@@ -72,7 +72,14 @@
 									<td class="name">${coupon.coupon_discount}</td>
 									<td class="text-left">${coupon.coupon_date}</td>
 									<td class="text-center">${coupon.coupon_limit}</td>
-									<td class="text-center">${coupon.coupon_status}</td>
+									<td class="text-center">
+										<c:if test="${coupon.coupon_status==1}">
+											가능
+										</c:if>
+										<c:if test="${coupon.coupon_status==0}">
+											불가능
+										</c:if>
+									</td>
 								</tr>
 							</c:forEach>
 						</c:when>
