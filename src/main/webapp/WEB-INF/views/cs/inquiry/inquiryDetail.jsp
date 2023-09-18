@@ -1,47 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<title>문의사항 상세정보</title>
+
+
+<script>
+	$(function() {
+		$("#pwdChk").hide(); 
+		var buttonCheck = 0;  /* 버튼 클릭 여부 확인 변수 */
+
+		// 수정 버튼 클릭 시 처리 이벤트
+		$("#updateFormBtn").click(function() {
+			$("#pwdChk").show(); // 비밀번호 입력창 표시
+			$("#msg").text("작성 시 입력한 비밀번호를 입력해 주세요.").css("color", "yellow");
+			buttonCheck = 1; // 수정 버튼 클릭
+		});
+
+		// 삭제 버튼 클릭 시 처리 이벤트
+		$("#deleteBtn").click(function() {
+			$("#pwdChk").show(); // 비밀번호 입력창 표시
+			$("#msg").text("작성 시 입력한 비밀번호를 입력해 주세요.").css("color", "green");
+			buttonCheck = 2; // 삭제 버튼 클릭
+		});
+
+		// 비밀번호 입력 양식 enter 제거
+		$("#inquiry_password").on("keydown", function(event) {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+			}
+		});
+
+		// 비밀번호 확인 버튼 클릭 시 처리 이벤트
+		$("#pwdBtn").click(function() {
+			inquiryPwdConfirm();
+		});
 		
-		<title>문의사항 상세정보</title>
-		<script>
-    	function goToInquiryList() {
-        window.location.href = "/inquiry/inquiryList";
-    	}
-        
-        function goToEditPage(inquiryNo) {
-            window.location.href = "/inquiry/inquiryUpdateForm?inquiry_no=" + inquiryNo;
-        }
-        
-        function deleteInquiry(inquiryNo) {
-            if (confirm("정말로 이 문의사항을 삭제하시겠습니까?")) {
-                window.location.href = "/inquiry/inquiryDelete?inquiry_no=" + inquiryNo;
-            }
-        }
-    </script>
 		
 
-	</head>
-	<body>
-		<h1>문의사항 상세 정보</h1>
-    	<!-- FAQ 상세 정보를 표시 -->
-    	<p>글번호: ${detail.inquiry_no}</p>
-    	<p>제목: ${detail.inquiry_title}</p>
-    	<p>작성일: ${detail.inquiry_date}</p>
-    	<p>질문: ${detail.inquiry_question}</p>
-    	
-    	 <!-- 뒤로 가기 버튼 -->
-    	<button onclick="goToInquiryList()">문의사항 목록으로 이동</button>
+		 $("#goToListBtn").click(function() {
+	            window.location.href = "/inquiry/inquiryList";
+	        });
+	});
 
-    
-    	<!-- 수정하기 버튼 -->
-    	<button onclick="goToEditPage(${detail.inquiry_no})">수정하기</button>
-    
-    	<!-- 삭제하기 버튼 -->
-    	<button onclick="deleteInquiry(${detail.inquiry_no})">삭제하기</button>
-	</body>
+		// 비밀번호 확인 함수
+	function inquiryPwdConfirm(){
+		if(!formCheck('#inquiry_password', '#msg', "비밀번호를")) return;
+		else{
+			$.ajax({
+				url : "/inquiry/pwdConfirm",
+				type : "post",
+				data : $("#form_password").serialize(),
+				dataType : "text",
+				error : function(){
+					alert('시스템 오류');
+				},
+				success : function(resultData){
+					let goUrl="";
+					if(resultData=="실패"){
+						$("#msg").text("작성시 입력한 비밀번호가 일치하지 않습니다").css("color", "red");
+						$("#inquiry_password").select();
+					}else if(resultData=="성공"){
+						$("#msg").text("");
+						if(buttonCheck==1){
+							goUrl = "/inquiry/inquiryUpdateForm";
+							$("#f_data").attr("action", goUrl);
+							$("#f_data").submit();
+						}else if(buttonCheck==2){
+							if(confirm("정말삭제?")){
+								goUrl = "/inquiry/inquiryDelete";
+								$("#f_data").attr("action", goUrl);
+								$("#f_data").submit();
+							}
+						}
+					}
+				}
+			});
+		}
+	}
+
+</script>
+
+</head>
+<body>
+	<div>
+		<form name="f_data" id="f_data" method="get">
+			<input type="hidden" name="inquiry_no" value="${detail.inquiry_no}"/>
+		</form>
+		<div>
+			<h1>문의사항 상세 정보</h1>
+			<!-- 문의사항 상세 정보를 표시 -->
+			<p>글번호: ${detail.inquiry_no}</p>
+			<p>제목: ${detail.inquiry_title}</p>
+			<p>작성일: ${detail.inquiry_date}</p>
+			<p>질문: ${detail.inquiry_question}</p>
+		</div>
+		<!-- 뒤로 가기 버튼 -->
+		<button id="goToListBtn">문의사항 목록으로 이동</button>
+
+		<!-- 수정하기 버튼 -->
+		<input type="button" value="수정하기" id="updateFormBtn" />
+
+		<!-- 삭제하기 버튼 -->
+		<input type="button" value="삭제하기" id="deleteBtn" />
+
+		<!-- 비밀번호 확인 입력창 -->
+		<div id="pwdChk">
+    		<form name="form_password" id="form_password">
+        		<input type="hidden" name="inquiry_no" id="inquiry_no" value="${detail.inquiry_no}" />
+        		<label for="inquiry_password" id="i_password">비밀번호 : </label>
+        		<input type="password" name="inquiry_password" id="inquiry_password"/>
+        		<button type="button" id="pwdBtn">확인</button>
+        		<span id="msg"></span>
+    		</form>
+		</div>
+	</div>
+</body>
 </html>

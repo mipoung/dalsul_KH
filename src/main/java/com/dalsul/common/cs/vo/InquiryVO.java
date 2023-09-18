@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class InquiryVO extends CommonVO{
 	private int inquiry_no = 0;			//글 번호
-	private int user_no;				//회원일련번호
+	private int user_no = 0;				//회원일련번호
 	private String inquiry_title;		//글 제목
 	private String inquiry_question;	//글 내용
 	private String inquiry_password = "";	//글 비밀번호

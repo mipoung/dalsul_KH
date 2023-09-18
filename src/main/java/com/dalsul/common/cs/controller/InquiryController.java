@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -88,7 +89,7 @@ public class InquiryController {
 	}
 	
 	//글에대한 비밀번호
-	@ResponseBody
+	@ResponseBody	
 	@PostMapping(value = "/pwdConfirm", produces = "text/plain; charset=UTF-8")
 	public String pwdConfirm(InquiryVO ivo) {
 		String value = "";
@@ -116,19 +117,30 @@ public class InquiryController {
 	
 	//글 수정
 	@PostMapping("/inquiryUpdate")
-	public String inquiryupdate(@ModelAttribute InquiryVO ivo) {
-		int result = 0;
-		String url = "";
-		
-		result = inquiryService.inquiryUpdate(ivo);
-		
-		if(result == 1) {
-			url = "redirect:/inquiry/inquiryDetail?inquiry_no=" + ivo.getInquiry_no();
-		} else {
-			url = "redirect:/inquiry/inquiryUpdateForm?inquiry_no=" + ivo.getInquiry_no();
-		}
-		return "redirect:" + url;
+	public String inquiryupdate(@SessionAttribute(value = "userLogin", required = false) UserVO uvo, @ModelAttribute InquiryVO ivo, Model model) {
+	    int result = 0;
+	    String url = "";
+
+	    if (uvo == null) {
+	        ivo.setUser_no(999999999); // 로그인하지 않은 사용자의 user_no 설정
+	    } else {
+	        ivo.setUser_no(uvo.getUser_no()); // 로그인한 사용자의 user_no 설정
+	    }
+
+	    result = inquiryService.inquiryUpdate(ivo);
+
+	    if (result == 1) {
+	        //url = "redirect:/inquiry/inquiryDetail?inquiry_no=" + ivo.getInquiry_no();
+	    	url = "/inquiry/inquiryDetail";
+	    } else {
+	        //url = "redirect:/inquiry/inquiryUpdateForm?inquiry_no=" + ivo.getInquiry_no();
+	    	url = "/inquiry/inquiryUpdateForm";
+	    }
+
+	    //return url;
+	    return "redirect:" + url;
 	}
+	
 	@PostMapping("/inquiryDelete")
 	public String inquiryDelete(@ModelAttribute InquiryVO ivo, RedirectAttributes ras) throws Exception{
 		int result = 0;

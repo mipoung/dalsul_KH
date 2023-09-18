@@ -12,7 +12,8 @@
     <form action="/inquiry/inquiryUpdate" method="post">
         <!-- 입력 폼 -->
         <input type="hidden" name="inquiry_no" value="${updateData.inquiry_no}">
-
+		<input type="hidden" name="user_no" value="${user_no}"> <!--글의 inquiry_no, 로그인한 사용자의 USER_NO -->
+		
         <label for="inquiry_title">제목:</label>
         <input type="text" id="inquiry_title" name="inquiry_title" value="${updateData.inquiry_title}" required><br>
 
