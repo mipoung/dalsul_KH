@@ -96,9 +96,9 @@ public class InquiryController {
 		
 		int result = inquiryService.pwdConfirm(ivo);
 		if(result == 1) {
-			value = "성공!"; //추후수정
+			value = "success"; 
 		} else {
-			value = "실패!"; //추후수정
+			value = "fail"; 
 		}
 		return value;
 		
@@ -150,9 +150,9 @@ public class InquiryController {
 		ras.addFlashAttribute("InquiryVO", ivo);
 		
 		if(result == 1) {
-			url = "redirect:/inquiry/inquiryList";
+			url = "/inquiry/inquiryList";
 		} else {
-			url = "redirect:/inquiry/inquiryDetail?inquiry_no=" + ivo.getInquiry_no();
+			url = "/inquiry/inquiryDetail?inquiry_no=" + ivo.getInquiry_no();
 		}
 		return "redirect:" + url;
 	}
