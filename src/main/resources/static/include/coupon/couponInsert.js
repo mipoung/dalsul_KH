@@ -52,7 +52,8 @@
         ) {
             return; // 하나라도 검사에서 실패하면 요청을 보내지 않음
         }
-
+		
+		if (confirm("이 설정 대로 쿠폰 정보를 추가하시겠습니까?")) {
         // Ajax 요청을 통해 서버에 쿠폰 정보 전송
         $.ajax({
             // 요청할 URL 주소 (실제 서버 엔드포인트 URL로 변경해야 합니다.)
@@ -65,11 +66,11 @@
                 coupon_discount: coupon_discount,
                 coupon_limit: coupon_limit,
                 coupon_status: coupon_status
-            },
+            },//보낼 값 데이터 정의 종료
             dataType: "text",
             error: function () {
                 alert("시스템 오류입니다. 다시 시도하시거나 관리자에게 문의하세요.");
-            },
+            },//ajax 값전송 오류시 선언 종료
             success: function (resultData) {
                 if (resultData === "쿠폰추가성공") {
                     alert("쿠폰 정보가 성공적으로 추가되었습니다.");
@@ -77,12 +78,15 @@
                     $("#coupon_name").val("");
                     $("#coupon_discount").val("");
                     $("#coupon_limit").val("");
+                    
                     // 라디오 버튼 체크 초기화
                     $("#coupon_status").prop("checked", true);
                 } else {
                     alert("시스템 오류입니다. 다시 시도하시거나 관리자에게 문의하세요.");
-                }
-            },
-        });
-    });
-});
+              	  }//ajax 오류시 선언 종료
+          	  	},//ajax 성공시 선언 종료
+        	});//ajax 선언 종료
+   		 };// 프롬프트 true시 실행 선언 종료
+	});// inserbtn 기능 종료
+
+});//최상위 종료

@@ -18,7 +18,7 @@
      <!-- 매니저 헤더 -->
    <%@ include file="/WEB-INF/views/manager/managerHeader.jsp"%>
    
-    <h5>쿠폰테이블 CRUD 제약 조건없음(쿠폰 정보생성o ,조회  관리자 삭제 = 로직오류(불가능), 관리자 정보 쿠폰수정 = 발급가능여부만 수정구현해야함) </h5>
+    <h5>쿠폰테이블 CRUD 테이블 관게 없음(쿠폰 정보생성o ,조회o  관리자 삭제 = 로직오류(불가능)x, 관리자 정보 쿠폰수정 = 발급가능여부만 수정할수있게 구현해야함) </h5>
     <form name="useCoupon" id="useCoupon">
     	<input type="text" placeholder="쿠폰이름" name="coupon_name" id="coupon_name"/>	
     	<input type="number" placeholder="할인가격" name="coupon_discount" id="coupon_discount" min="500"/>	
@@ -26,7 +26,6 @@
     	 <label><input type="radio" name="coupon_status" value="1" checked>발급 가능 설정</label>
     	 <label><input type="radio" name="coupon_status" value="0">발급 불가능 설정</label>
     </form>
-    <!--  -->
     	<input type="button" id="insertCouponBtn" name="insertCouponBtn" value="쿠폰추가">
   </body>
 </html>
