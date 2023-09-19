@@ -81,6 +81,10 @@ h2 {
 	text-align: center;
 }
 
+a:link {
+    color: black;
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
 
 .product-slide, .product-title, .product-price, .product-reputation {
 	width: 250px;
@@ -90,6 +94,11 @@ h2 {
 
 .product-slide {
 	border-radius: 5px;
+}
+
+.product-title, .product-price, .product-reputation {
+	color: black;
+	font-weight: bold;
 }
 
 </style>
@@ -140,7 +149,7 @@ h2 {
 			slidesToShow: 4,
 			slidesToScroll: 4, 
 			arrows : true, // 옆으로 이동하는 화살표 표시  
-			appendArrows: $('#arrows'), //좌우 화살표 변경
+			appendArrows: $('.wrapperout').parent(), //좌우 화살표 변경
 			responsive : [ {
 				breakpoint : 1024,
 				settings : {
@@ -204,7 +213,11 @@ h2 {
 	</div>
 	<h2> BEST </h2>
 	<!-- 상품 소개 슬라이드 모음 시작 !-->
-	<div class="wrapperout">		
+	<div class="wrapperone">
+	<button class="btnPrev"></button>
+   	<button class="btnNext"></button>
+	<div class="wrapperout">	
+		
 			<c:forEach var="product" items="${products}">
 				<div class="wrapperin">	
 							<a href="/"> <img src="resources/images/mainpage/product/${product.product_main_image}" alt="" class="product-slide" />
@@ -233,6 +246,7 @@ h2 {
 						</a>	
 					</div>					
 			</c:forEach>
+	</div>
 	</div>
 	<br />
 	<h2>NEW</h2>
