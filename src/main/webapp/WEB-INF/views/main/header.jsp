@@ -26,7 +26,7 @@
                 <c:otherwise>
                     <!-- 사용자가 로그인한 경우 -->
                     <a class="navbar-brand" href="/mypage/userInfoDetailView">${userLogin.user_name} 님</a>
-                    <a class="navbar-brand" style="opacity: 0.3; font-size: 16px;"  href="/mypage/userInfoDetailView">로그아웃</a>
+                    <a class="navbar-brand" style="opacity: 0.3; font-size: 16px;"  href="/login/userLogout">로그아웃</a>
                 </c:otherwise>
             	</c:choose>
 				<ul class="nav nav-pills">
