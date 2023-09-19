@@ -43,6 +43,7 @@ button.slick-prev.slick-arrow.slick-disabled {
 	top: 165px;
 	left: -15px;
 	
+	
 }
 
 /*위에 오른쪽*/
@@ -55,6 +56,7 @@ button.slick-next.slick-arrow{
 button.slick-prev.slick-arrow {
 	top: 165px;
 	left: -15px;
+
 	
 }
 
@@ -194,7 +196,7 @@ a:link {
 		$(function() {
 			$('.wrapperout2').slick({
 				dots : false,
-				infinite : true,
+				infinite : false,
 				speed : 400,
 				slidesToShow: 4,  // 최대 4개까지 표시
 				slidesToScroll: 4,  // 최대 4개까지 스크롤
@@ -265,7 +267,7 @@ a:link {
 		<div class="wrapperout1">	
 			<c:forEach var="product" items="${products}">
 				<div class="wrapperin1">	
-							<a href="/"> 
+							<a href="/detail?product_no=${product.product_no}" > 
 							<img src="resources/images/mainpage/product/${product.product_main_image}" alt="" class="product-slide" />
 							<div class="product-title">${product.product_name}</div>
 							<div class="product-price">${product.product_price}원</div>
@@ -298,7 +300,7 @@ a:link {
 		<div class="wrapperout2">	
 			<c:forEach var="product" items="${products}">
 				<div class="wrapperin2">	
-							<a href="/"> 
+							<a href="/detail?product_no=${product.product_no}"> 
 							<img src="resources/images/mainpage/product/${product.product_main_image}" alt="" class="product-slide" />
 							<div class="product-title">${product.product_name}</div>
 							<div class="product-price">${product.product_price}원</div>

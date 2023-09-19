@@ -115,7 +115,7 @@
 		                                    return '<span style="color: orange; font-weight: bold;">' + matched + '</span>';
 		                                });
 		                            }*/
-		                            $('#searchResult').append('<li><a href="main/detail/' + this.product_no + '">' + productName + '</a></li>');
+		                            $('#searchResult').append('<li><a href="/detail?product_no=' + this.product_no + '">' + productName + '</a></li>');
 		                        });
 		                    } else {
 		                        console.log('데이터가 정의되지 않았습니다.');
@@ -133,7 +133,7 @@
 	
 		    $('#searchInput').on('input', throttledSearch);
 		});
-		// 스페이스바 허용
+	
 	
 </script>
 
