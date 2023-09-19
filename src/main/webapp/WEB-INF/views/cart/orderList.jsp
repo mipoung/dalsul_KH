@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf"%>
-<script type="text/javascript" src="/resources/include/js/addressAPI/addressAPIupdate.js"></script>
-<script type="text/javascript" src="/resources/include/js/addressAPI/addressAPIinsert.js"></script>
+
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
+<script type="text/javascript" src="/resources/include/addressAPI/addressAPIupdate.js"></script>
+<script type="text/javascript" src="/resources/include/addressAPI/addressAPIinsert.js"></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script> 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -11,7 +12,7 @@
 var grandTotal = 0;
 $(function(){
 	  $("#payBtn").click(function(){
-		 <%-- window.location.href = "/cart/pay_modal"; --%>
+		 window.location.href = "/order/insertOrder";
 		 requestPay();
 	  })
 });	
@@ -31,8 +32,8 @@ $(function(){
 	    name : '달술',
 	    amount : grandTotal,
 	    buyer_email : 'iamport@siot.do',
-	    buyer_name : '구매자',
-	    buyer_tel : '010-1234-5678',
+	    buyer_name : "${userInfo.user_name}",
+	    buyer_tel : "${userInfo.user_phone_num}",
 	    buyer_addr : '서울특별시 강남구 삼성동',
 	    buyer_postcode : '123-456'
 	  }, function (rsp) { // callback
@@ -56,7 +57,6 @@ $(function(){
 	      alert(msg);
 	    }
 	 }
-	
 	// 페이지 로드가 완료되면 실행되는 함수
 	window.onload = function() {
 		
@@ -64,8 +64,7 @@ $(function(){
 		var cartItems = document.querySelectorAll(".cart-item");
 
 		// 각 .cart-item 요소에 대한 반복문
-		cartItems
-			.forEach(function(cartItem) {
+		cartItems.forEach(function(cartItem) {
 				// 상품 가격(product_price)과 수량(quantity)을 가져옵니다.
 				var product_price = parseInt(cartItem.querySelector(".product_price").innerText);
 				var quantity = parseInt(cartItem.querySelector(".quantity").innerText);
@@ -78,70 +77,101 @@ $(function(){
 	
 				// .total 셀에 포맷팅된 총합을 출력합니다.
 				cartItem.querySelector(".total").innerText = formatTotal;
-			}); //end for each
 		
 			//마지막 라인 총 합 계산
-	        var cartItems = document.querySelectorAll(".cart-item");
+	      //  var cartItems = document.querySelectorAll(".cart-item");
 	        //var grandTotal = 0;
 
-	        
-	        cartItems.forEach(function(cartItem) {
-	            var product_price = parseInt(cartItem.querySelector(".product_price").innerText);
-	            var quantity = parseInt(cartItem.querySelector(".quantity").innerText);
-	            var total = product_price * quantity;
-	            var formatTotal = total.toLocaleString();
-	            cartItem.querySelector(".total").innerText = formatTotal;
+	           
 	            grandTotal += total;
+		});
 	            grandTotal=grandTotal+3000; //배송비 3천원 추가
+	           
+	           ///////////////////////////////
+	           
+	            // 마일리지 콤보박스 엘리먼트와 grandTotal 엘리먼트를 가져옵니다.
+	            var couponSelect = document.getElementById("coupon");
 	            
-	         // 마일리지 콤보박스 엘리먼트와 grandTotal 엘리먼트를 가져옵니다.
-	            var mileageSelect = document.getElementById("mileage");
-	           // var cpSelect = document.getElementById("coupon");
-	            var grandTotalElement = document.getElementById("grandTotal");
-
 	            // 콤보박스의 변경 이벤트에 대한 이벤트 리스너를 추가합니다.
-	            mileageSelect.addEventListener("change", function() {
+	            couponSelect.addEventListener("change", function() {
 	            	grandTotalClone = grandTotal;//총 값 복제
 	            	
 	                // 선택한 마일리지 값을 가져옵니다.
-	                var selectedMileage = parseInt(mileageSelect.value);
+	                var selectedCoupon = parseInt(couponSelect.value);
 
 	                // 선택한 마일리지에 따라 grandTotal 값을 조정합니다.
-	                if (selectedMileage === 0) {
+	                if (selectedCoupon === 0) {
 	                	grandTotalClone-=0;
- 				   } else if (selectedMileage === 2000) {
+ 				   } else if (selectedCoupon === 2000) {
  					  grandTotalClone -= 2000;
-   					 } else if (selectedMileage === 1000) {
+   					 } else if (selectedCoupon === 1000) {
    						grandTotalClone -= 1000;
  				   }
+	                
+
+	                // grandTotalClone 값을 화면에 업데이트합니다.
+	                 //var grandTotalElement = document.getElementById("grandTotal");
+	                 //grandTotalElement.innerText = grandTotalClone.toLocaleString();
 					
-					
-	                // grandTotal 값을 화면에 업데이트합니다.
-	                grandTotalElement.innerText = grandTotalClone.toLocaleString();
-	            	
-	            
+					/////////////////////////////////////
+	     		//마일리지 사용 함수
+// 초기 총 결제금액을 설정합니다.
+    var originalUseMileageValue = 0;
+
+    // "use_mileage" 입력 필드에 포커스가 들어왔을 때 이벤트 처리
+    $("#use_mileage").on("focus", function() {
+        // 현재 입력된 값을 저장합니다.
+        originalUseMileageValue = parseInt($(this).val()) || 0;
+    });
+
+    // 다른 곳을 클릭할 때 "use_mileage" 입력 필드에서 포커스를 제거합니다.
+    $(document).on("click", function(event) {
+        var target = $(event.target);
+        var useMileageInput = $("#use_mileage");
+        if (!target.is(useMileageInput)) {
+            // 현재 입력된 값을 가져옵니다.
+            var currentUseMileageValue = parseInt(useMileageInput.val()) || 0;
+
+            // 입력된 값과 원래 값의 차이를 계산합니다.
+            var difference = currentUseMileageValue - originalUseMileageValue;
+
+            // 만약 입력된 값이 0이면, 원래 값으로 복구합니다.
+            if (currentUseMileageValue === null) {
+                grandTotalClone += difference;
+                originalUseMileageValue = 0;
+            } else {
+                // 그렇지 않으면 차감합니다.
+                grandTotalClone -= difference;
+            }
+
+            // 페이지에 표시된 총 결제금액을 업데이트합니다.
+            var grandTotalElement = document.getElementById("grandTotal");
+            grandTotalElement.innerText = grandTotalClone.toLocaleString();
+        }
+    });
+	     		
+	            ///////////////////////////////////////
 		         // grandTotal 값을 계산한 후 5% 값을 계산합니다.
-		            var mileagePercentage = 0.05; // 5%에 해당하는 비율
+		            var couponPercentage = 0.05; // 5%에 해당하는 비율
 	
 		            // 5% 적립금을 계산합니다.
-		            var mileageAmount = (grandTotalClone-3000) * mileagePercentage;
+		            var couponAmount = (grandTotalClone-3000) * couponPercentage;
 		         
 		            // mileageMessage 요소를 가져옵니다.
-		            var mileageMessageElement = document.getElementById("mileageMessage");
+		            var couponMessageElement = document.getElementById("couponMessage");
 	
 		            // mileageMessage에 5% 적립금을 표시합니다.
-		            mileageMessageElement.innerText = "결제 예정 적립금: " + mileageAmount.toLocaleString() + "원";
+		            couponMessageElement.innerText = "결제 예정 적립금: " + couponAmount.toLocaleString() + "원";
 				}); //mileageSelect.addEventListener
 
-	        }); // end cartItems.forEach
 
 	        var grandTotalElement = document.getElementById("grandTotal");
 	        var formatGrandTotal = grandTotal.toLocaleString();
 	        grandTotalElement.innerText = formatGrandTotal;
-	        $("#mileageMessage").text("결제 예정 적립금: " + ((grandTotal-3000) * 0.05) + "원");
+	        $("#couponMessage").text("결제 예정 적립금: " + ((grandTotal-3000) * 0.05) + "원");
 	        
 	     // select 요소를 가져옵니다.
-	    	var selectElement = document.getElementById("mileage");
+	    	var selectElement = document.getElementById("coupon");
 
 	    	// select 요소의 변경 이벤트에 대한 이벤트 리스너를 추가합니다.
 	    	selectElement.addEventListener("change", function () {
@@ -153,13 +183,44 @@ $(function(){
 	    	    console.log("선택한 값: " + selectedValue);
 
 	    	    // 선택한 값을 원하는 위치에 표시하려면 해당 위치의 엘리먼트를 선택하고 innerText 또는 innerHTML을 사용하여 값을 설정합니다.
-	    	    var displayElement = document.getElementById("mileage_use");
-	    	    displayElement.innerText = "-" + selectedValue + "원"; // 선택한 값을 표시
+	    	    var displayElement = document.getElementById("coupon_use");
+	    	    displayElement.innerText = "-" + selectedValue ; // 선택한 값을 표시
 	    	});
 
-	        
+	        /* $("#coupon").change(function(){
+	        	let amount = grandTotalClone;
+	        	
+                // 선택한 쿠폰 값을 가져옵니다.
+                let couponValue = parseInt($("#coupon option:selected").val());
+
+                // 선택한 쿠폰 따라 amount 값을 조정합니다.
+                if (couponValue === 0) {
+                	amount-=0;
+				   } else if (couponValue === 2000) {
+					   amount -= 2000;
+					 } else if (couponValue === 1000) {
+						 amount -= 1000;
+				   }
+
+                // grandTotalClone 값을 화면에 업데이트합니다.
+                  var grandTotalElement = document.getElementById("grandTotal");
+                  grandTotalElement.innerText = amount.toLocaleString();
+
+     
+            
+	         // grandTotal 값을 계산한 후 5% 값을 계산합니다.
+	            var mileagePercentage = 0.05; // 5%에 해당하는 비율
+
+	            // 5% 적립금을 계산합니다.
+	            var mileageAmount = (amount-3000) * mileagePercentage;
+	         
+	            // mileageMessage 요소를 가져옵니다.
+	            var mileageMessageElement = document.getElementById("mileageMessage");
+
+	            // mileageMessage에 5% 적립금을 표시합니다.
+	            mileageMessageElement.innerText = "결제 예정 적립금: " + mileageAmount.toLocaleString() + "원";
+	        }); */
 	};
-	
 	
 	  
     <%--주소 스크립트 --%>
@@ -254,19 +315,21 @@ $(function(){
 
 <div class="mb-3">
 	<label for="exampleFormControlInput1" class="form-label">이름</label>
-	 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="홍길동">
+	 <input type="text" id="name" value="${userInfo.user_name}"/>
 		 <label for="exampleFormControlInput1" class="form-label">핸드폰 번호</label>
-		 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="xxx-xxxx-xxxx">
-		  <label for="exampleFormControlInput1" class="form-label">주소</label>
+		 <input type="text"  id="phone" value="${userInfo.user_phone_num}"><br/>
+		 
 	 <div class="mb-3">
 		<label for="pickupCheckbox" class="form-check-label">픽업</label>
 		<input type="checkbox" class="form-check-input" id="pickupCheckbox" name="pickup" value="pickup">
 	</div>
 		  
 	<!-- <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소 입력">-->
+	 <label for="exampleFormControlInput1" class="form-label">주소</label>
 </div>		
- <div class="address_sys_container">		
+ <div class="address_sys_container" >		
  <!-- 배송지정보를 입력받을,입력하는데 필요한 input태그 --> 
+ 	
  		<input type="text" id="receiver" placeholder="받는사람(수취인) 이름" name="receiver">
  		<input type="text" id="name" name="name" placeholder="주소지 별명">
  		<input type="button" onclick="execDaumPostcode()" value="주소찾기"><br/>
@@ -279,24 +342,29 @@ $(function(){
     </div><br/>	
 		<!-- 주소입력 컨테이터 종료 -->	
 		
-	<!-- 적립금 사용 -->
+	<!-- 쿠폰 사용 -->
 <div class="mb-3">
-    <label for="mileage" class="form-label" class="mileage">적립금</label>
-    <select id="mileage" class="form-select" class="mileage">
-        <option value="0">0원</option>
+    <label for="coupon" class="couponLabel">쿠폰</label>
+    <select id="coupon" class="coupon">
+        <option value="0"></option>
         <option value="1000">1,000원</option>
         <option value="2000">2,000원</option>
     </select>
 </div>
 
-	<!-- 쿠폰 사용 -->
+	<!-- 적립금 사용 -->
 <div class="mb3">
-	<label for="coupon" class="coupon-lable" class="coupon">포인트</label>>
-	<select id="coupon" class="coupon-select" class="coupon">
+	<label for="mileage" class="mileageLabel">사용 가능 적립금 > </label>
+	<span id="point_set">1000</span><br />
+	<!--  
+	<select id="mileage" class="mileage">
 		<option value="0">0원</option>
         <option value="1000">1,000원</option>
         <option value="2000">2,000원</option>
 	</select>
+	-->
+	
+	사용 적립금 : <input type="text" id="use_mileage" />
 </div>
 	
 	
@@ -325,7 +393,11 @@ $(function(){
 			<td colspan="3">배송비</td>
 			<td colspan="1">3,000</td>	
 		</tr>
-		<tr id="mileage tr">
+		<tr id="coupon tr">
+			<td colspan="3">쿠폰 사용</td>
+			<td colspan="1" id="coupon_use"></td>
+		</tr>
+		<tr id="coupon tr">
 			<td colspan="3">적립금 사용</td>
 			<td colspan="1" id="mileage_use"></td>
 		</tr>
@@ -339,7 +411,7 @@ $(function(){
 			</tbody>
 		</table>
 		
-		<span id="mileageMessage"></span>
+		<span id="couponMessage"></span>
 		
 		<div id="totalDiv">
 			<button onclick="requestPay()" id="payBtn">결제하기</button>

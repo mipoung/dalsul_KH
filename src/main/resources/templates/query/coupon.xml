@@ -1,34 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.user.coupon.dao.CouponDAO">
-	<!-- 쿠폰 정보를 추가하는 쿼리문 -->
-	<insert id="insertCoupon" parameterType="coupon">
-		INSERT INTO coupon (COUPON_NO, COUPON_NAME, COUPON_DISCOUNT, COUPON_DATE , COUPON_LIMIT, COUPON_STATUS)
-		VALUES (COUPON_SEQ.NEXTVAL, #{coupon_name}, #{coupon_discount}, SYSDATE ,#{coupon_limit}, #{coupon_status})
-	</insert>
-	
-	<!-- 관리자 검색에서 정렬조건으로만으로도 검색이되고, 정렬조건과 입력값으로도 검색이 되는 SELECT 문 -->
-	<select id="selectCoupon" parameterType="coupon">
-    SELECT COUPON_NO, COUPON_NAME, COUPON_DISCOUNT , COUPON_DATE, COUPON_LIMIT, COUPON_STATUS
-    FROM COUPON
-    <!-- 이름 검색 조건이 있는 경우에만 WHERE 절 추가 -->
-    <if test="coupon_name != null">
-        WHERE COUPON_NAME = #{coupon_name}
-    </if>
-    <!-- 쿠폰 조회 이름순 오름차순-->
-    <if test="order=='coupon_name'">ORDER BY COUPON_NAME ASC</if>
-    
-    <!-- 쿠폰 조회 각칼럼 높은순 -->
-    <if test="order=='coupon_discountASC'">ORDER BY COUPON_DISCOUNT ASC</if>
-    <if test="order=='coupon_dateASC'">ORDER BY COUPON_DATE ASC</if>
-    <if test="order=='coupon_limitASC'">ORDER BY COUPON_LIMIT ASC</if>
-    <if test="order=='coupon_statusASC'">ORDER BY COUPON_STATUS ASC</if>
-    
-    <!-- 쿠폰 조회 각 칼럼 낮은순 -->
-    <if test="order=='coupon_discountDESC'">ORDER BY COUPON_DISCOUNT DESC</if>
-    <if test="order=='coupon_dateDESC'">ORDER BY COUPON_DATE DESC</if>
-    <if test="order=='coupon_limitDESC'">ORDER BY COUPON_LIMIT DESC</if>
-    <if test="order=='coupon_statusDESC'">ORDER BY COUPON_STATUS DESC</if>
-</select>
+
+	<sql id="couponSearch">
+		<if test="search=='coupon_name'">
+			<![CDATA[ coupon_name like '%' || #{keyword} || '%']]>
+		</if>
+	</sql>
+
+    <!-- 쿠폰 정보를 추가하는 쿼리문 -->
+    <insert id="insertCoupon" parameterType="coupon">
+        INSERT INTO coupon (COUPON_NO, COUPON_NAME, COUPON_DISCOUNT, COUPON_DATE , COUPON_LIMIT, COUPON_STATUS)
+        VALUES (COUPON_SEQ.NEXTVAL, #{coupon_name}, #{coupon_discount}, SYSDATE, #{coupon_limit}, #{coupon_status})
+    </insert>
+
+    <!-- 관리자 검색에서 정렬조건으로만으로도 검색이되고, 정렬조건과 입력값으로도 검색이 되는 SELECT 문 -->
+    <select id="couponList" parameterType="coupon" resultType="coupon">
+ <![CDATA[
+    SELECT COUPON_NO, COUPON_NAME, COUPON_DISCOUNT, TO_CHAR(COUPON_DATE, 'YYYY-MM-DD') as coupon_date, COUPON_LIMIT, COUPON_STATUS
+    FROM (
+        SELECT /*+ INDEX_DESC(faq SYS_C008568) */
+            rownum as rnum, coupon_no, coupon_name, coupon_discount, coupon_date, coupon_limit, coupon_status
+        FROM coupon
+        WHERE
+        <choose>
+        	<when test="search == 'all'">
+            </when>
+            
+            <when test="search == 'coupon_name'">
+                coupon_name like '%' || #{keyword} || '%'
+            </when>
+            <when test="search == 'coupon_discountASC'">
+                ORDER BY coupon_discount ASC
+            </when>
+            <when test="search == 'coupon_discountDESC'">
+                ORDER BY coupon_discount DESC
+            </when>
+            <when test="search == 'coupon_dateASC'">
+                ORDER BY coupon_date ASC
+            </when>
+            <when test="search == 'coupon_dateDESC'">
+                ORDER BY coupon_date DESC
+            </when>
+            <when test="search == 'coupon_limit ASC'">
+                ORDER BY coupon_limit ASC
+            </when>
+            <when test="search == 'coupon_limitDESC'">
+                ORDER BY coupon_limit DESC 
+            </when>
+            <when test="search == 'coupon_statusASC'">
+                ORDER BY coupon_status ASC
+            </when>
+            <when test="search == 'coupon_statusDESC'">
+                ORDER BY coupon_status DESC
+            </when>
+        </choose>
+        ) couponList
+    WHERE rnum <= #{pageNum} * #{amount}
+        AND rnum > (#{pageNum} - 1) * #{amount}
+    ]]>
+	</select>
+
+    <!-- 전체 쿠폰 레코드 수 조회 -->
+    <select id="couponListCnt" parameterType="coupon" resultType="int">
+       	select count(*) From coupon
+       <if test="search != null and !search.isEmpty()">
+    		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+        		<include refid="couponSearch"></include>
+    		</trim>
+		</if> 	
+    </select>
+
 	
 </mapper>

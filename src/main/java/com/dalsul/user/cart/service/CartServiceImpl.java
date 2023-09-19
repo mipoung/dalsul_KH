@@ -15,14 +15,14 @@ import lombok.Setter;
 public class CartServiceImpl implements CartService{
 	@Setter(onMethod_ =@Autowired )
 	private CartDAO cartDao;
-	/*
+	
 	@Override
 	public List<CartVO> cartList(UserVO uvo) {
 		List<CartVO> list;
 		list=cartDao.cartList(uvo);
 		return list;
 	}
-	*/
+	
 
 	@Override
 	public void cartInsert(CartVO cvo) {
@@ -45,6 +45,13 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int cartMinus(CartVO cvo) {
 		int result=cartDao.cartMinus(cvo);
+		return result;
+	}
+
+
+	@Override
+	public UserVO getUserInfo(UserVO uvo) {
+		UserVO result = cartDao.getUserInfo(uvo);
 		return result;
 	}
 
