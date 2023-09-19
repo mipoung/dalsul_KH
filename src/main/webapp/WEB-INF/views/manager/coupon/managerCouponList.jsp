@@ -67,7 +67,7 @@
 						<th class="text-center col-md-2">쿠폰할인가격</th>
 						<th data-value="b_date" class="order col-md-1">쿠폰생성일</th>
 						<th class="text-center col-md-1">쿠폰발급가능수량</th>
-						<th class="text-center col-md-1">사용가능 여부</th>
+						<th class="text-center col-md-1">발급가능 여부</th>
 					</tr>
 				</thead>
 				<tbody id="list" class="table-striped">
@@ -129,9 +129,11 @@
 		</div>
 		
 		<%-- 쿠폰 추가하기 페이지 이동 버튼 --%>
+	<%-- 
 		<div class="btn btn-success" style="text-align: right;">
 			<input type="button" value="쿠폰추가하기" id="insertFormBtn" class="btn btn-success" />
 		</div>
+	--%>
    
    
 	</body>
