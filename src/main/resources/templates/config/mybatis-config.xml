@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.dalsul.common.login.vo.UserVO" alias="userVO"/>
+		<typeAlias type="com.dalsul.common.login.vo.ManagerVO" alias="managerVO"/>
 		<typeAlias type="com.dalsul.user.review.vo.ReviewVO" alias="review"/>
 		<typeAlias type="com.dalsul.common.vo.CommonVO" alias="common"/>
 		<typeAlias type="com.dalsul.user.subscription.vo.SubscriptionVO" alias="subscription"/>

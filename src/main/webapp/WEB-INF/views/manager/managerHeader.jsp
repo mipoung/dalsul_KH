@@ -14,8 +14,8 @@
 	            회원관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="/manager/user/managerUser">메인</a></li>
-	            <li><a class="dropdown-item" href="#">메뉴3</a></li>
+	            <li><a class="dropdown-item" href="/manager/userManagement">회원 관리</a></li>
+	            <li><a class="dropdown-item" href="/manager/manager/">관리자 등록</a></li>
 	          </ul>
 	        </li>
 	      </ul>

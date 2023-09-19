@@ -5,13 +5,15 @@
 	<update id="updateUserPassword" parameterType="userVO">
 		UPDATE USERS
 		SET USER_SALT = #{user_salt},
-			USER_PASSWORD = #{user_password}
+			USER_PASSWORD = #{user_password},
+			USER_UPDATE_REG_DATE = SYSDATE
 		WHERE USER_NO = #{user_no}
 	</update>
 	
 	<update id="deleteUserAccount" parameterType="userVO">
 		UPDATE USERS
-		SET USER_STATUS = 'D'
+		SET USER_STATUS = 'D',
+		USER_UPDATE_REG_DATE = SYSDATE
 		WHERE USER_NO = #{user_no}
 	</update>
 	
