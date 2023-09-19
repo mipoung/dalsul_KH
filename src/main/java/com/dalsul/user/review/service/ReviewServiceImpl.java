@@ -25,6 +25,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewVO> myReviewList(UserVO uvo) {
 		List<ReviewVO> list = reviewDAO.myReviewList(uvo);
+		
 		return list;
 	}
 	
@@ -32,7 +33,10 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Override
 	public List<ReviewVO> managerReviewList(ReviewVO rvo) {
+		
 		List<ReviewVO> list = reviewDAO.managerReviewList(rvo);
+		
+		
 		return list;
 	}
 	
@@ -56,6 +60,9 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public int myReviewInsert(ReviewVO rvo) {
+		// 줄바꿈 처리
+		rvo.setReview_content(rvo.getReview_content().toString().replaceAll("\n", "<br>"));
+		
 		int result = reviewDAO.myReviewInsert(rvo);
 		
 		
@@ -66,6 +73,8 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public int myReviewUpdate(ReviewVO rvo) {
+		// 줄바꿈 처리
+		rvo.setReview_content(rvo.getReview_content().toString().replaceAll("\n", "<br>"));
 		int result = reviewDAO.myReviewUpdate(rvo);
 		return result;
 	}

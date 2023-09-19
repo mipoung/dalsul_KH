@@ -217,3 +217,23 @@ function chkKorean(item, msg) {
         return true;
     }
 }
+
+
+
+// 공백체크와 숫자인지 아닌지 체크
+function chkDataNum(item, msg) {
+	if ($(item).val().replace(/\s/g, "") == "") {
+		alert(msg + " 입력해 주세요.");
+		$(item).val("");
+		$(item).focus();
+		return false;
+	} else if (isNaN($(item).val().replace(/\s/g, ""))) {
+		alert("숫자만 입력해 주세요.");
+		$(item).val("");
+		$(item).focus();
+		return false;
+	} else {
+		return true;
+	}
+}
+

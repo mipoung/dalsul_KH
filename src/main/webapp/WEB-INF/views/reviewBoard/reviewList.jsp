@@ -4,7 +4,7 @@
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
       <title>리뷰조회 reviewList</title>
-      <!-- 주석22123 123123123-->
+      <!-- 주석-->
       <script>
       	$(function(){
       		
@@ -96,8 +96,10 @@
       			// 수정 폼으로 리뷰 내용 불러오기 
       			//$("#message-text").val("");
 	      		var reviewContentForm = $(this).closest(".card.mb-3").find("#reviewContent").attr("data-review-content");
-	   			console.log(reviewContentForm);
+	      		// 내용 가져올때 <br>태그 제거
+	      		reviewContentForm = reviewContentForm.replace(/<br>/gi, "");
 	   			
+	      		// 메세지 박스에 내용 채우기
       			$("#message-text").val(reviewContentForm);
       			console.log("content : " + reviewContentForm);
       			
@@ -353,6 +355,7 @@
 								  <div class="row g-0">
 								    <div class="col-md-4">
 								      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
+								      ${review.product_main_image}
 								    </div>
 								    <div class="col-md-8">
 								      <div class="card-body">
