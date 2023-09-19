@@ -13,6 +13,9 @@
 	</script>
   </head>
   <body>
+     <!-- 매니저 헤더 -->
+   <%@ include file="/WEB-INF/views/manager/managerHeader.jsp"%>
+   
     <h5>쿠폰테이블 CRUD 제약 조건없음(쿠폰 정보생성o ,조회  관리자 삭제 = 로직오류(불가능), 관리자 정보 쿠폰수정 = 발급가능여부만 수정구현해야함) </h5>
     <form name="useCoupon" id="useCoupon">
     	<input type="text" placeholder="쿠폰이름" name="coupon_name" id="coupon_name"/>	

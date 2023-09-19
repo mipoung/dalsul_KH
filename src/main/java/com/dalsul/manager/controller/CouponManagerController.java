@@ -20,23 +20,20 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/coupon/*")
+@RequestMapping("/manager/coupon/*")
 public class CouponManagerController {
 	
 	@Setter(onMethod_ =@Autowired)
 	private CouponManagerService couponManagerService;
 	
-	/*쿠폰 리스트 조회 페이지로 이동시키는 메소드*/
-	@GetMapping("managerCoupon")
-	public String managerCoupon() {
-		return "manager/coupon/managerCoupon";
-	}
-	
 	/*검색기능과 페이징 처리가 된 쿠폰리스트 목록조회*/
-	@GetMapping("/couponList")
+	@GetMapping("/managerCouponList")
 	public String couponList(@ModelAttribute CouponVO cvo, Model model) {
 		log.info("couponList() 메소드 호출...");
+		System.out.println(cvo.toString());
 		
+		cvo.setSearch("aaa");
+		System.out.println(cvo.toString());
 		//전체 레코드 조회
 		List<CouponVO> couponList = couponManagerService.couponList(cvo);
 		model.addAttribute("couponList" , couponList);
@@ -47,13 +44,13 @@ public class CouponManagerController {
 		model.addAttribute("pageMaker", new PageDTO(cvo, total));
 		//new PageDTO(CommonVO 또는 CommonVO 하위 클래스의 인스턴스 (BoardVO), 총 레코드수)
 		
-		return "/coupon/couponList"; //WEB-INF/views/coupon/couponList.jsp;
+		return "/manager/coupon/managerCouponList"; //  WEB-INF/views/coupon/couponList.jsp;
 		
 	}
 	
 	@GetMapping("/managerCouponInsertForm")
 	public String couponInsertForm() {
-		return "/coupon/CouponInsertForm"; 
+		return "/manager/coupon/managerCouponInsert"; 
 	}
 	
 	//쿠폰 정보 추가하는 메소드

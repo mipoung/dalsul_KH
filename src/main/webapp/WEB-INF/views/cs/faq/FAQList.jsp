@@ -123,7 +123,7 @@
 				<div class="form-group">
 					<label>검색조건</label>
 					<select id="search" name="search" class="form-control">
-						<option value="all">전체 목록 조회</option>
+						<option value="all">전체 목록 조회 조건</option>
 						<option value="faq_title">제목</option>
 						<option value="faq_answer">답변</option>
 					</select>

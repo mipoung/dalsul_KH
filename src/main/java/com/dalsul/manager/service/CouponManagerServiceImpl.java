@@ -11,7 +11,7 @@ import com.dalsul.user.coupon.vo.CouponVO;
 import lombok.Setter;
 
 @Service
-public class CouponManagerServiceImpl {
+public class CouponManagerServiceImpl implements CouponManagerService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private CouponManagerDAO couponManagerDAO;
