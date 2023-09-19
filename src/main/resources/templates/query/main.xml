@@ -9,7 +9,7 @@
 		from product p
 		left outer join review r on
 		p.product_no = r.product_no
-		where p.product_no = 010101011
+		where  p.product_no LIKE '10101%'
 		group by p.product_no, p.product_name,
 		p.product_price, p.product_main_image
 		order by p.product_no

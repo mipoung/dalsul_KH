@@ -46,7 +46,6 @@
 .mainslide {
 	width: 100%;
 	display: block;
-	width: 100%;
 	height: 35%;
 	object-fit: cover;
 	margin-top: 55px;
@@ -68,7 +67,23 @@
 	color: #999; /* 아이콘 색상 설정 */
 }
 /* 상품소개 슬라이드 모음 */
+.product-slide, .product-title, .product-price, .product-reputation {
+	width: 250px;
+}
 
+.product-slide {
+	border-radius: 5px;
+}
+
+
+
+.wrapperout {
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    flex-wrap: wrap; /* 필요한 경우 상품 슬라이드를 여러 행에 배치 */
+    gap: 20px; /* 각 상품 슬라이드 사이의 간격 조정 */
+}
 </style>
 <script src="/resources/include/common/js/jquery-3.7.0.min.js"></script>
 <script src="/resources/include/common/bootstrap/js/bootstrap.js"></script>
@@ -106,14 +121,15 @@
 				}
 			} ]
 		});
-
-		$('.wrap_center').slick({
+	});
+	$(function() {
+		$('.wrapperout').slick({
 			dots : false,
 			infinite : false,
 			speed : 400,
-			slidesToShow : 4,
-			slidesToScroll : 4,
-			responsive : [ {
+			slidesToShow: 4,
+			slidesToScroll: 4,    
+			/*responsive : [ {
 				breakpoint : 1024,
 				settings : {
 					slidesToShow : 3,
@@ -133,7 +149,7 @@
 					slidesToShow : 1,
 					slidesToScroll : 1
 				}
-			} ]
+			} ]*/
 		});
 	});
 </script>
@@ -174,45 +190,36 @@
 			<img src="resources/images/mainpage/mainslide9.jpg" class="mainslide" />
 		</div>
 	</div>
+	<h2> NEW </h2>
 	<!-- 상품 소개 슬라이드 모음 시작 !-->
-
-	<main class="wrap_center_main">
-		<div class="wrap_center">
-			<div class="wrap_center">
-				<div class="slider">
-					<c:forEach var="product" items="${products}">
-						<div class="slider_div">
-							<a href="/"> <img
-								src="resources/images/mainpage/product/${product.product_main_image}" alt=""
-								class="product-slide" />
-								<div class="product-title">${product.product_name}</div>
-								<div class="product-price">${product.product_price}원</div>
-								<div class="product-reputation">
-									별점 :
-									<c:choose>
-										<c:when test="${not empty product.review_rating}">
-                                ${product.review_rating}
-                            </c:when>
+	<div class="wrapperout">
+			<c:forEach var="product" items="${products}">		
+							<a href="/"> <img src="resources/images/mainpage/product/${product.product_main_image}" alt="" class="product-slide" />
+							<div class="product-title">${product.product_name}</div>
+							<div class="product-price">${product.product_price}원</div>
+							<div class="product-reputation">
+								별점 :
+								<c:choose>
+									<c:when test="${not empty product.review_rating}">
+                               			 ${product.review_rating}
+                            		</c:when>
 										<c:otherwise>
-                                0
-                            </c:otherwise>
-									</c:choose>
-									| 리뷰 :
-									<c:choose>
-										<c:when test="${not empty product.review_num}">
-                                ${product.review_num}
-                            </c:when>
+                                		0
+                            			</c:otherwise>
+								</c:choose>
+								| 리뷰 :
+								<c:choose>
+									<c:when test="${not empty product.review_num}">
+                                		${product.review_num}개
+                           			 </c:when>
 										<c:otherwise>
-                                0
-                            </c:otherwise>
-									</c:choose>
-								</div>
-							</a>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-	</main>
+                               			 0개
+                          				 </c:otherwise>
+								</c:choose>
+							</div>
+						</a>						
+			</c:forEach>
+	</div>
 	<%@ include file="footer.jsp"%>
 </body>
 </html>
