@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.dalsul.common.cs.vo.FAQVO;
 
-@Service
+
 public interface FAQService {
 
 	public List<FAQVO> faqList(FAQVO fvo);

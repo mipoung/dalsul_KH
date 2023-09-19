@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.dalsul.common.cs.vo.ReplyVO;
-@Service
 public interface ReplyService {
 
 	public List<ReplyVO> replyList(ReplyVO rvo);

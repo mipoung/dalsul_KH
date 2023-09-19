@@ -14,5 +14,6 @@
 		<typeAlias type="com.dalsul.users.vo.UsersVO" alias="user" />
 		<typeAlias type="com.dalsul.user.cart.vo.CartVO" alias="cart" />
 		<typeAlias type="com.dalsul.user.coupon.vo.CouponVO" alias="coupon" />
+		
 	</typeAliases>
 </configuration>
