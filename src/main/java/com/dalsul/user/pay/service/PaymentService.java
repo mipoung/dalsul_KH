@@ -10,4 +10,3 @@ public interface PaymentService {
 	public PayVO orderInsert(PayVO pvo);
 	
 }
-

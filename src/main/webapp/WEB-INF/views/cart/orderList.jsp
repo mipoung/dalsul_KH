@@ -12,7 +12,7 @@
 var grandTotal = 0;
 $(function(){
 	  $("#payBtn").click(function(){
-		 window.location.href = "/order/insertOrder";
+		// window.location.href = "/order/insertOrder";
 		 requestPay();
 	  })
 });	
@@ -43,6 +43,43 @@ $(function(){
 	        console.log(rsp);
 	      }
 	  });
+	  <%--
+	// JavaScript 함수를 이용하여 입력된 주소 정보를 가져옵니다.
+	  function getAddressInfo() {
+	      // HTML 입력 요소로부터 값을 가져옵니다.
+	      var receiver = document.getElementById("receiver").value;
+	      var name = document.getElementById("name").value;
+	      var postcode = document.getElementById("postcode").value;
+	      var roadAddress = document.getElementById("roadAddress").value;
+	      var jibunAddress = document.getElementById("jibunAddress").value;
+	      var detailAddress = document.getElementById("detailAddress").value;
+	      var extraAddress = document.getElementById("extraAddress").value;
+
+	      // 주소 정보를 ","로 구분하여 합칩니다.
+	      var addressInfo = [receiver, name, postcode, roadAddress, jibunAddress, detailAddress, extraAddress].join(',');
+
+	      // SQL 쿼리에 바인딩할 때 사용할 변수에 값을 할당합니다.
+	      var orderDeliveryInfo = addressInfo;
+
+	      // orderDeliveryInfo 값을 SQL 쿼리에 바인딩하여 서버로 전송하면 됩니다.
+	      
+	      // 예시: 서버로 데이터 전송하는 코드 (Ajax를 사용하는 경우)
+	      // $.ajax({
+	      //     type: "POST",
+	      //     url: "your_server_url",
+	      //     data: {
+	      //         orderDeliveryInfo: orderDeliveryInfo
+	      //     },
+	      //     success: function(response) {
+	      //         // 성공 시 처리
+	      //     },
+	      //     error: function(error) {
+	      //         // 오류 시 처리
+	      //     }
+	      // });
+	  }
+
+	  --%>
 	};
 	
 	function msg(rsp) {
@@ -109,11 +146,11 @@ $(function(){
  				   }
 	                
 
-	                // grandTotalClone 값을 화면에 업데이트합니다.
-	                 //var grandTotalElement = document.getElementById("grandTotal");
-	                 //grandTotalElement.innerText = grandTotalClone.toLocaleString();
+	               //  grandTotalClone 값을 화면에 업데이트합니다.
+	                 var grandTotalElement = document.getElementById("grandTotal");
+	                 grandTotalElement.innerText = grandTotalClone.toLocaleString();
 					
-					/////////////////////////////////////
+				<%--	/////////////////////////////////////
 	     		//마일리지 사용 함수
 // 초기 총 결제금액을 설정합니다.
     var originalUseMileageValue = 0;
@@ -147,9 +184,10 @@ $(function(){
             // 페이지에 표시된 총 결제금액을 업데이트합니다.
             var grandTotalElement = document.getElementById("grandTotal");
             grandTotalElement.innerText = grandTotalClone.toLocaleString();
+            console.log(grandTotalClone.toLocaleString());
         }
     });
-	     		
+	     		--%>
 	            ///////////////////////////////////////
 		         // grandTotal 값을 계산한 후 5% 값을 계산합니다.
 		            var couponPercentage = 0.05; // 5%에 해당하는 비율
@@ -329,7 +367,6 @@ $(function(){
 </div>		
  <div class="address_sys_container" >		
  <!-- 배송지정보를 입력받을,입력하는데 필요한 input태그 --> 
- 	
  		<input type="text" id="receiver" placeholder="받는사람(수취인) 이름" name="receiver">
  		<input type="text" id="name" name="name" placeholder="주소지 별명">
  		<input type="button" onclick="execDaumPostcode()" value="주소찾기"><br/>
@@ -352,20 +389,7 @@ $(function(){
     </select>
 </div>
 
-	<!-- 적립금 사용 -->
-<div class="mb3">
-	<label for="mileage" class="mileageLabel">사용 가능 적립금 > </label>
-	<span id="point_set">1000</span><br />
-	<!--  
-	<select id="mileage" class="mileage">
-		<option value="0">0원</option>
-        <option value="1000">1,000원</option>
-        <option value="2000">2,000원</option>
-	</select>
-	-->
-	
-	사용 적립금 : <input type="text" id="use_mileage" />
-</div>
+
 	
 	
 <div class="mb-3">
@@ -397,17 +421,13 @@ $(function(){
 			<td colspan="3">쿠폰 사용</td>
 			<td colspan="1" id="coupon_use"></td>
 		</tr>
-		<tr id="coupon tr">
-			<td colspan="3">적립금 사용</td>
-			<td colspan="1" id="mileage_use"></td>
-		</tr>
+
 		<tr id="totalRow">
             <td colspan="2">총 합</td>
             <td colspan="2" id="grandTotal"></td>
         </tr>
-        <tr>
-        
-        </tr>
+
+   		
 			</tbody>
 		</table>
 		

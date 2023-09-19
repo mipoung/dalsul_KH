@@ -11,6 +11,7 @@ import com.dalsul.user.pay.vo.PayVO;
 
 import lombok.Setter;
 
+
 @Service
 public class PaymentServiceImpl implements PaymentService {
 	@Setter(onMethod_ =@Autowired )
@@ -21,14 +22,5 @@ public class PaymentServiceImpl implements PaymentService {
 		PayVO result =payDao.orderInsert(pvo);
 		return result;
 	}
-
-//	@Override
-//	public List<PayVO> orderInsert(PayVO pvo) {
-//		List<PayVO> list;
-//		list=payDao.orderInsert(pvo);
-//		return list;
-//	}
 	
-	
-
 }
