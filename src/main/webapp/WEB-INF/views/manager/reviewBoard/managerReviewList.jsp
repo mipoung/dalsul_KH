@@ -294,9 +294,9 @@
 						<th scope="col" class="text-center miniSize">삭제</th>
 					</tr>
 				</thead>
-
+		
 				<tbody>
-
+					
 					<!-- 데이터 출력 -->
 					<c:choose>
 						<c:when test="${not empty reviewList}">
