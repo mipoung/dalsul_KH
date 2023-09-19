@@ -21,8 +21,7 @@
 	href="/resources/include/mainpage/css/slick.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/slick-theme.css" />
-<link rel="stylesheet" type="text/css"
-	href="/resources/include/mainpage/css/header.css" />
+
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/footer.css" />
 
@@ -110,8 +109,6 @@ a:link {
 <script src="/resources/include/mainpage/js/slick.min.js"></script>
 <script src="https://kit.fontawesome.com/312ff11b0d.js"
 	crossorigin="anonymous"></script>
-<script src="/resources/include/mainpage/js/header.js"></script>
-
 <script>
 	$(function() {
 		$('.center').slick({

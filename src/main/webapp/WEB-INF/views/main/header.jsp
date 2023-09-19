@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>	
+<link rel="stylesheet" type="text/css"
+	href="/resources/include/mainpage/css/header.css" />
+<script src="/resources/include/mainpage/js/header.js"></script>
+	
 <div id="main" class="fixed-top">
 		<ul class="nav fixied-top">
 			<nav id="navbar-example1" class="navbar bg-white px-3 mb-3" style="background-color:white">
