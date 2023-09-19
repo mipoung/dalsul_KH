@@ -1,0 +1,111 @@
+@charset "UTF-8";
+/* footer.css */
+
+.footer_out {
+	background-color: #333;
+	/* 배경색 조정 */
+	color: #fff;
+	/* 텍스트 색상 조정 */
+	padding: 20px 0;
+	display: flex;
+	flex-direction: column;
+	/* 세로 방향으로 정렬 */
+	align-items: center;
+	text-align: center;
+}
+
+.footer_wrapper {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+	/* 너비 100% 설정 */
+}
+
+.company_info {
+	width: 100%;
+	/* 너비 100% 설정 */
+}
+
+.company_name {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	/* 회사 이름과 고객센터 정보 사이에 여백 추가 */
+	text-align: left;
+	margin-left: -30px;
+}
+
+.company_call,
+.company_time {
+	font-size: 14px;
+	font-weight: normal;
+	margin-bottom: 5px;
+	/* 고객센터 정보와 평일 운영시간 사이에 여백 추가 */
+}
+
+.company_info2 {
+	width: 100%;
+	/* 너비 100% 설정 */
+	margin-top: 10px;
+	/* 이용약관 등의 링크와의 간격 추가 */
+	text-align: left;
+	margin-left: -30px;
+}
+
+.notimportant {
+	margin-right: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	opacity: 0.8;
+	/* 중요하지 않은 링크에 투명도 적용 */
+	text-decoration: none;
+	color: #fff;
+	/* 링크 텍스트 색상 조정 */
+}
+
+.company_info3 {
+	width: 100%;
+	/* 너비 100% 설정 */
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-top: 10px;
+	/* 회사 정보와 주소 사이에 여백 추가 */
+	margin-left: -30px;
+
+	font-size: 14px;
+	font-weight: normal;
+	opacity: 0.5;
+}
+
+.company_info3_1 {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.company_info3_1 p {
+	margin: 0;
+	margin-right: 10px;
+	white-space: nowrap;
+}
+
+.company_info3_2 {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.company_info3_2 p {
+	margin: 0;
+	margin-right: 10px;
+	white-space: nowrap;
+}
+
+/* 링크에 호버 효과 추가 */
+.notimportant:hover {
+	opacity: 1;
+	text-decoration: underline;
+}

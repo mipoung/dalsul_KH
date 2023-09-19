@@ -21,6 +21,7 @@
     	 <label><input type="radio" name="coupon_status" value="1" checked> 발급 가능</label>
     	 <label><input type="radio" name="coupon_status" value="0"> 발급 불가능</label>
     </form>
+    <!--  -->
     	<input type="button" id="insertCouponBtn" name="insertCouponBtn" value="쿠폰추가">
     	<input type="button" id="couponListBtn" name="couponListBtn" value="전체생성쿠폰 조회" onclick="location.href='/coupon/couponList'">
   </body>

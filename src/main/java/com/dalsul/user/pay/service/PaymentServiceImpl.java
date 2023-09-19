@@ -1,58 +1,34 @@
 package com.dalsul.user.pay.service;
 
-import java.util.Map;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dalsul.user.pay.dao.PayDAO;
+import com.dalsul.user.pay.vo.PayVO;
+
+import lombok.Setter;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
+	@Setter(onMethod_ =@Autowired )
+	private PayDAO payDao;
 
 	@Override
-	public String paidCheck(String iD) {
-		// TODO Auto-generated method stub
-		return null;
+	public PayVO orderInsert(PayVO pvo) {
+		PayVO result =payDao.orderInsert(pvo);
+		return result;
 	}
 
-	@Override
-	public void rePaid(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void paid(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void paidUpdate(int months) {
-		// TODO Auto-generated method stub
-		
-	}
-//	PayDAO padDao;
-//	
-//	//ServiceImpl
 //	@Override
-//	public void paid(Map<String, Object> map) {
-//		padDao.paid(map);
+//	public List<PayVO> orderInsert(PayVO pvo) {
+//		List<PayVO> list;
+//		list=payDao.orderInsert(pvo);
+//		return list;
 //	}
-//
-//	@Override
-//	public void rePaid(Map<String, Object> map) {
-//		padDao.rePaid(map);		
-//	}
-//
-//	@Override
-//	public String paidCheck(String ID) {
-//	    return padDao.paidCheck(ID);
-//	}
-//	@Override
-//	public void paidUpdate(int months) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	
+	
 
 }

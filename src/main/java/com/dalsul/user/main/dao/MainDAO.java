@@ -9,5 +9,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MainDAO {
-    List<ProductVO> getMainPageProducts();
+    public List<ProductVO> getMainPageProducts();
+    
+    public List<ProductVO> getSearchResult(String str);
+    
+    public ProductVO getDetailPageProducts(ProductVO vo);
 }
