@@ -1,5 +1,7 @@
 package com.dalsul.user.coupon.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class CouponServiceImpl implements CouponService {
 	private CouponDAO couponDAO;
 	
 	/*쿼리문을 실행하고 성공과 실패여부를 1과 0으로 반환받음, 그결과를 확인하기위해 console에서 확인*/
-	/*
+	
 	@Override
 	public int insertCoupon(CouponVO cvo) {
 		int result =0;
@@ -28,6 +30,20 @@ public class CouponServiceImpl implements CouponService {
 		}
 		return result;
 	}
-	*/
+	
+	/*쿠폰목룍 구현*/
+	@Override
+	public List<CouponVO> couponList(CouponVO cvo) {
+		List<CouponVO> list =null;
+		list = couponDAO.couponList(cvo);
+		return list;
+	}
+	
+	/*페이징 구현*/
+	@Override
+	public int couponListCnt(CouponVO cvo) {
+		return couponDAO.couponListCnt(cvo);
+	}
+	
 	
 }

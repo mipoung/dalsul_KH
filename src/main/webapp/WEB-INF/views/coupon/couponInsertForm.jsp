@@ -7,7 +7,9 @@
     <meta charset="utf-8">
 	<script type="text/javascript" src="/resources/include/coupon/couponInsert.js"></script>
 	<script type="text/javascript">
-	
+		$(function() {
+			
+		});
 	</script>
   </head>
   <body>
@@ -20,6 +22,6 @@
     	 <label><input type="radio" name="coupon_status" value="0"> 발급 불가능</label>
     </form>
     	<input type="button" id="insertCouponBtn" name="insertCouponBtn" value="쿠폰추가">
-    	<input type="button" id="selectAllCouponBtn" name="selectAllCouponBtn" value="전체생성쿠폰 조회">
+    	<input type="button" id="couponListBtn" name="couponListBtn" value="전체생성쿠폰 조회" onclick="location.href='/coupon/couponList'">
   </body>
 </html>

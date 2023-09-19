@@ -55,7 +55,7 @@
             // 요청할 URL 주소
             url: "/coupon/insertCoupon", // 실제 서버 엔드포인트 URL로 변경해야 합니다.
             // 요청 방식
-            type: "POST",
+            type: "post",
             // 전송할 데이터
             data: {
             	coupon_name: coupon_name,

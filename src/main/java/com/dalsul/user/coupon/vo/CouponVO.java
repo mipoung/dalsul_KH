@@ -1,13 +1,13 @@
 package com.dalsul.user.coupon.vo;
 
-import lombok.AllArgsConstructor;
+import com.dalsul.common.vo.CommonVO;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class CouponVO {
+@EqualsAndHashCode(callSuper = false)
+public class CouponVO extends CommonVO{
 	private int coupon_no;			//쿠폰 고유 번호
 	private String coupon_name;		//쿠폰 이름
 	private int coupon_discount;	//쿠폰 할인 가격

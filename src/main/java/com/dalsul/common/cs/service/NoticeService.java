@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.dalsul.common.cs.vo.NoticeVO;
 
-@Service
+
 public interface NoticeService {
 
 	public List<NoticeVO> noticeList(NoticeVO nvo);

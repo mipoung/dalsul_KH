@@ -1,8 +1,14 @@
 package com.dalsul.common.vo;
 
-import lombok.Data;
+//import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+//@Data
+@ToString
+@Setter
+@Getter
 public class CommonVO {
 	private String search = "";
 	private String keyword = "";
