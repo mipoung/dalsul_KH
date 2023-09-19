@@ -21,13 +21,13 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/emailCheck/*")
 public class EmailCertificationController {
-	//wsdfgsdfg
+	
 	@Autowired
 	private EmailCertificationService emailService;
 	
 	@Autowired
 	private HttpSession session;
-	
+	//
 	@ResponseBody
 	@PostMapping("/sendEmail")
 	public String sendEmail(@RequestParam("emailAddr") String emailAddr) throws Exception{
