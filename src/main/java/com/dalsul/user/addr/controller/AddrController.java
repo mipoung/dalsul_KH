@@ -40,12 +40,12 @@ public class AddrController {
         
         log.info("chkUserAddr 메소드 호출..");
         
-        boolean chkUserAddrCount = addrService.chkUserAddr(bvo);
-        log.info("chkUserAddrCount" + chkUserAddrCount);
-        if (chkUserAddrCount == true) {
+        String chkUserAddrCount = addrService.chkUserAddr(bvo);
+        
+        log.info("chkUserAddrCount = " + chkUserAddrCount);
+        
+        if (chkUserAddrCount.equals("true")) {
         	return "배송지는 최대 5개까지 입력할 수 있습니다.";
-        	// 해당 유저(user_no)의 현재 배송지 개수 select
-        	// if select문의 결과 == 5 return "최대 배송지 저장 개수 초과";
         }// 5개 이하일경우 insert 실행 
         else {
         	int result = addrService.insertAddr(bvo );

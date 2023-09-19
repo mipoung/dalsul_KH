@@ -69,8 +69,8 @@ public class AddrServiceImpl implements AddrService {
 	
 	/*사용자 입력 레코드 개수 검증 함수 */
 	@Override
-	public boolean chkUserAddr(AddrVO bvo) {
-		boolean chkUserAddr;
+	public String chkUserAddr(AddrVO bvo) {
+		String chkUserAddr;
 		
 		chkUserAddr = addrApiDAO.chkUserAddr(bvo);
 		
