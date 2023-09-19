@@ -84,7 +84,11 @@ body{
 </style>
 
 <script>
-$(function(){	
+$(function(){
+	// 현재 페이지 url의 path정보 가져오기 ex)userInfoDetailView
+	const page = (window.location.pathname).replace("/mypage/","");
+	$("."+page).css("color","#FFBB00");
+	
 	$(".go_detail").hover(function() {        
         $(this).css({
         	"cursor" : "pointer",
@@ -144,7 +148,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="go_detail">
-			<div class="userInfoDetailView">
+			<div class="deleveryDetailView">
 				<div>배송지 관리</div>
 				<img src="/resources/images/mypage/mypageHeader/truck.png" alt="address">
 			</div>
