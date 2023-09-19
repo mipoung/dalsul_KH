@@ -28,21 +28,20 @@
                <label>검색조건</label>
                <select id="search" name="search" class="form-control">
                   <option value="all">전체</option>
-                  <option value="coupon_name">쿠폰이름 오름차순</option>
-                  
+                  <option value="coupon_name">쿠폰이름 오름차순</option>             
                   <!-- 쿠폰 조회 각칼럼 높은순 -->
                   <option value="coupon_discountASC">할인율 높은순</option>
-                  <option value="coupon_dateASC">생성일 빠른순</option>
-                  <option value="coupon_limitASC">쿠폰사용가능량 많은순</option>
-                  <option value="coupon_statusASC">쿠폰사용가능우선</option>
-                  <!-- 쿠폰 조회 각칼럼 낮은순 -->
                   <option value="coupon_discountDESC">할인율 낮은순</option>
+                  <option value="coupon_dateASC">생성일 빠른순</option>
                   <option value="coupon_dateDESC">생성일 늦은순</option>
+                  <option value="coupon_limitASC">쿠폰사용가능량 많은순</option>
                   <option value="coupon_limitDESC">쿠폰사용가능량 적은순</option>
+                  <option value="coupon_statusASC">쿠폰사용가능우선</option>
                   <option value="coupon_statusDESC">쿠폰사용 불가능 우선</option>
+                  <!-- 쿠폰 조회 각칼럼 낮은순 -->
                   
                </select>
-               <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control"/>
+               <input type="text" name="keyword" id="keyword" placeholder="쿠폰 이름 검색" class="form-control"/>
                <button type="button" name="searchData" id="searchData" class="btn btn-success">검색</button>
             </div>
          </form>
