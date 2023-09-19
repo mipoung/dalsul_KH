@@ -313,7 +313,7 @@
    	</form>
    	-->
    	<br>
-   	<h2>제품번호 <span>12</span></h2>
+   	
    	<input type="hidden" id="user_no" value="${sessionScope.UserLogin.user_no}">
    	
    		

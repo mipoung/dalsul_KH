@@ -104,7 +104,7 @@
 	
 
 	<!-- 제품 넘버로 리뷰 조회(상세페이지) -->
-	<select id="detailReviewList" parameterType="com.dalsul.user.main.vo.ProductVO" resultType="review">
+	<select id="detailReviewList" parameterType="product" resultType="review">		
 			select r.*, p.product_no, p.product_name, p.product_main_image
 			from review r
 			left join product p on r.product_no = p.product_no
