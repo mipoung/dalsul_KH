@@ -327,12 +327,7 @@ public class ReviewController {
 			
 			log.info("관리자입니다.");
 			reviewService.myReviewDelete(rvo);
-			
-		
-		
-		
-		
-		
+
 		return "redirect:/review/managerReviewList";
 	}
 	

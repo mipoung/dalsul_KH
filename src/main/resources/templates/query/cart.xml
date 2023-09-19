@@ -3,43 +3,52 @@
 <mapper namespace="com.dalsul.user.cart.dao.CartDAO" >
 
 <!-- 장바구니 조회 -->
-<select id="cartList" parameterType="cart">
-	select product_no,product_price,quantity
-	from cart
+<select id="cartList" parameterType="userVO" resultType="cart">
+	SELECT quantity,product_no,product_price 
+	FROM cart JOIN cart_list
+	ON cart.cart_id = cart_list.cart_id
+	WHERE CART.CART_ID = #{user_no}
 </select>
 
 
 <!-- 장바구니 추가 -->
 <insert id="cartInsert" parameterType="cart">
-    INSERT INTO cart
+    INSERT INTO cart_list
     VALUES (#{product_no}, #{product_price}, #{quantity})
       ON DUPLICATE KEY UPDATE
-    quantity = quantity + #{quantity};
+    quantity = quantity + #{quantity}
 </insert>
 
 
 <!-- 장바구니 개수 수정(+) -->
 <update id="cartPlus" parameterType="cart">
-	update cart
+	update cart_list
 	set quantity = quantity+1
-	where product_no = #{product_no}
+	where product_no = #{product_no} and cart_id = #{cart_id}
 </update>
 
 
 <!-- 장바구니 개수 수정(-) -->
 <update id="cartMinus" parameterType="cart">
-    update cart
+    update cart_list
     set quantity = case 
     	when quantity > 1 then quantity - 1
         else quantity
     end
-    where product_no = #{product_no}
+    where product_no = #{product_no} and cart_id = #{cart_id}
 </update>
 
 
 <!-- 장바구니 삭제 -->
 <delete id="cartDelete" parameterType="cart">
-	delete from cart where product_no=#{product_no}
+	delete from cart_list where product_no=#{product_no}
 </delete>
+
+<!-- 회원 정보 가져오기 -->
+<select id="getUserInfo" parameterType="userVO" resultType="userVO">
+	select user_name, user_phone as user_phone_num 
+	from users
+	where user_no = #{user_no}
+</select>
 
 </mapper>

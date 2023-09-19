@@ -143,7 +143,7 @@
 			</thead>
 			<tbody>
 				<!-- FAQ 목록 데이터 반복 출력 -->
-				<c:forEach items="${inquiryList}" var="notice">
+				<c:forEach items="${inquiryList}" var="inquiry">
 					<tr>
 						<td>${inquiry.inquiry_no}</td>
 						<td><a href="/inquiry/inquiryDetail?inquiry_no=${inquiry.inquiry_no}">
@@ -196,11 +196,5 @@
 
 
 
-	<!-- Bootstrap JS 및 jQuery -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+	</body>
 </html>

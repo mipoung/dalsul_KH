@@ -10,13 +10,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 //import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dalsul.common.cs.service.InquiryService;
 import com.dalsul.common.cs.vo.InquiryVO;
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.PageDTO;
 
 import lombok.Setter;
@@ -55,18 +59,24 @@ public class InquiryController {
 	}
 	//글쓰기, 작성하기
 	@PostMapping("/inquiryInsert")
-	public String inquiryInsert(/*@SessionAttribute("userLogin") UserRegInfo rvo,*/InquiryVO ivo, Model model) throws Exception{
+	public String inquiryInsert(@SessionAttribute(value = "userLogin", required = false) UserVO uvo,InquiryVO ivo, Model model) throws Exception{
 		
 		int result = 0;
 		String url = "";
+		if(uvo == null) {
+			ivo.setUser_no(999999999);
+		}else {
+			ivo.setUser_no(uvo.getUser_no());
+		}
 		
 		result = inquiryService.inquiryInsert(ivo);
+		System.out.println(result);
 		if(result == 1) {
-			url = "redirect:/inquiry/inquiryList";
+			url = "/inquiry/inquiryList";
 		} else {
-			url = "redirect:/inquiry/inquiryWriteForm";
+			url = "/inquiry/inquiryWriteForm";
 		}
-		return "redirect" + url;
+		return "redirect:" + url;
 	}
 	
 	//글 클릭하였을때 상세보기
@@ -80,16 +90,16 @@ public class InquiryController {
 	}
 	
 	//글에대한 비밀번호
-	@ResponseBody
+	@ResponseBody	
 	@PostMapping(value = "/pwdConfirm", produces = "text/plain; charset=UTF-8")
 	public String pwdConfirm(InquiryVO ivo) {
 		String value = "";
 		
 		int result = inquiryService.pwdConfirm(ivo);
 		if(result == 1) {
-			value = "성공!"; //추후수정
+			value = "success"; 
 		} else {
-			value = "실패!"; //추후수정
+			value = "fail"; 
 		}
 		return value;
 		
@@ -108,31 +118,44 @@ public class InquiryController {
 	
 	//글 수정
 	@PostMapping("/inquiryUpdate")
-	public String inquiryupdate(@ModelAttribute InquiryVO ivo) {
-		int result = 0;
-		String url = "";
-		
-		result = inquiryService.inquiryUpdate(ivo);
-		
-		if(result == 1) {
-			url = "redirect:/inquiry/inquiryDetail?inquiry_no=" + ivo.getInquiry_no();
-		} else {
-			url = "redirect:/inquiry/inquiryUpdateForm?inquiry_no=" + ivo.getInquiry_no();
-		}
-		return "redirect:" + url;
+	public String inquiryupdate(@SessionAttribute(value = "userLogin", required = false) UserVO uvo, @ModelAttribute("updadeForm") InquiryVO ivo, Model model) {
+	    int result = 0;
+	    String url = "";
+
+	    if (uvo == null) {
+	        ivo.setUser_no(999999999); // 로그인하지 않은 사용자의 user_no 설정
+	    } else {
+	        ivo.setUser_no(uvo.getUser_no()); // 로그인한 사용자의 user_no 설정
+	    }   
+	    
+	    result = inquiryService.inquiryUpdate(ivo);
+	    
+	    if (result == 1) {
+	        url = "/inquiry/inquiryDetail?inquiry_no=" + ivo.getInquiry_no();
+	    	//url = "/inquiry/inquiryDetail";
+	    } else {
+	        url = "/inquiry/inquiryUpdateForm?inquiry_no=" + ivo.getInquiry_no();
+	    	//url = "/inquiry/inquiryUpdateForm";
+	    }
+	    
+	    //return url;
+	    return "redirect:" + url;
 	}
-	@PostMapping("/inquiryDelete")
+	
+	@GetMapping("/inquiryDelete")
 	public String inquiryDelete(@ModelAttribute InquiryVO ivo, RedirectAttributes ras) throws Exception{
 		int result = 0;
 		String url = "";
+		
+		System.out.println(ivo.toString());
 		
 		result = inquiryService.inquiryDelete(ivo);
 		ras.addFlashAttribute("InquiryVO", ivo);
 		
 		if(result == 1) {
-			url = "redirect:/inquiry/inquiryList";
+			url = "/inquiry/inquiryList";
 		} else {
-			url = "redirect:/inquiry/inquiryDetail?inquiry_no=" + ivo.getInquiry_no();
+			url = "/inquiry/inquiryDetail?inquiry_no=" + ivo.getInquiry_no();
 		}
 		return "redirect:" + url;
 	}

@@ -19,6 +19,8 @@
 		WHERE faq_no = #{faq_no}
 <!-- 게시판 리스트 -->		
 	</select>
+	
+	
 		<select id="faqList" parameterType="FAQ" resultType="FAQ">
 		<![CDATA[
 		select

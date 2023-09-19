@@ -3,21 +3,21 @@
 <mapper namespace="com.dalsul.user.review.dao.ReviewDAO">
 	
 	<sql id="reviewSearch">
-			<if test="search=='review_content'">
-				<![CDATA[ LOWER(review_content) like '%'|| LOWER( #{keyword} ) || '%' ]]>
-			</if>
-			<if test="search=='product_name'">
-				<![CDATA[ LOWER(product_name) like '%'|| LOWER( #{keyword} ) || '%' ]]>
-			</if>
-			<if test="search=='review_no'">
-				<![CDATA[ review_no = #{keyword} ]]>
-			</if>
-			<if test="search=='user_no'">
-				<![CDATA[ user_no = #{keyword} ]]>
-			</if>
-			<if test="search=='review_rating'">
-				<![CDATA[ review_rating = #{keyword} ]]>
-			</if>
+		<if test="search=='review_content'">
+			<![CDATA[ LOWER(review_content) like '%'|| LOWER( #{keyword} ) || '%' ]]>
+		</if>
+		<if test="search=='product_name'">
+			<![CDATA[ LOWER(product_name) like '%'|| LOWER( #{keyword} ) || '%' ]]>
+		</if>
+		<if test="search=='review_no'">
+			<![CDATA[ review_no = #{keyword} ]]>
+		</if>
+		<if test="search=='user_no'">
+			<![CDATA[ user_no = #{keyword} ]]>
+		</if>
+		<if test="search=='review_rating'">
+			<![CDATA[ review_rating = #{keyword} ]]>
+		</if>
 	</sql>
 	
 	
@@ -44,80 +44,71 @@
 
 	
  
- 
- 	<!-- 관리자페이지 조회, 검색, 페이지네이션 
- 	<select id="managerReviewList" parameterType="common" resultType="review">
-		 <![CDATA[
-			select 
-			myReviewList.REVIEW_NO as REVIEW_NO, 
-			myReviewList.ORDER_NO as ORDER_NO, 
-			myReviewList.PRODUCT_NO as PRODUCT_NO, 
-			myReviewList.USER_NO as USER_NO, 
-			myReviewList.REVIEW_CONTENT as REVIEW_CONTENT, 
-			myReviewList.REVIEW_RATING as REVIEW_RATING, 
-			myReviewList.REVIEW_LIKE_COUNT as REVIEW_LIKE_COUNT, 
-			TO_CHAR(myReviewList.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE, 
-			(select count(review_no) from review where review_no = myReviewList.review_no) as r_cnt, 
-			myReviewList.product_name as product_name,
-			myReviewList.product_alcohol as product_alcohol,
-			myReviewList.package_product_no as package_product_no,
-			myReviewList.package_name as package_name
-			from(
-			    select /*+ INDEX_DESC(review review_no_index) */
-			    rownum as rnum, r.REVIEW_NO, r.ORDER_NO, r.PRODUCT_NO, r.USER_NO, r.REVIEW_CONTENT, r.REVIEW_RATING, r.REVIEW_LIKE_COUNT, r.REVIEW_DATE, p.product_name, p.product_alcohol, pk.package_product_no, sp.package_name
-			    from review r inner join product p on r.product_no = p.product_no join package_product pk on pk.product_no = p.product_no join SUBSCRIPTION_PACKAGE sp on sp.package_no = pk.package_no
-			    where ]]>
-		       <![CDATA[ rownum <= #{pageNum} * #{amount}
-						    ) myReviewList
-						WHERE rnum > (#{pageNum} -1) * #{amount}
-						]]>
-			   	<trim prefix="AND">
-				    	<include refid="reviewSearch"></include>
-				    </trim>
-						
-		  
-	</select>
-	-->
 	<!--  관리자 페이지 리뷰 조회 (뷰) -->
  	<select id="managerReviewList" parameterType="review" resultType="review">
-					
-			SELECT * FROM REVIEW_VIEW
-			<!-- <if test="orderByReviewNo=='orderByReviewNo'">
-				order by review_no
+		SELECT
+		    REVIEW_NO, REVIEW_CONTENT, REVIEW_RATING, REVIEW_LIKE_COUNT, PRODUCT_NAME, PRODUCT_TYPE, PRODUCT_NO,
+		    PRODUCT_ML, PRODUCT_PRICE, USER_NO, TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') as REVIEW_DATE, rnum
+		from (
+		    SELECT
+		        REVIEW_NO, 
+		        REVIEW_CONTENT, 
+		        REVIEW_DATE,
+		        REVIEW_RATING,
+		        REVIEW_LIKE_COUNT,
+		        ROWNUM RNUM,
+		        USER_NO,
+		        PRODUCT_NAME,
+		        PRODUCT_TYPE,
+		        PRODUCT_ML,
+		        PRODUCT_PRICE,
+		        PRODUCT_NO
+		   		FROM 
+		   		(
+		    SELECT 
+		    R.REVIEW_NO,
+		    R.REVIEW_CONTENT,
+		    R.REVIEW_DATE,
+		    R.REVIEW_RATING,
+		    R.REVIEW_LIKE_COUNT,
+		    R.USER_NO,
+		    P.PRODUCT_NAME,
+		    P.PRODUCT_TYPE,
+		    P.PRODUCT_ML,
+		    P.PRODUCT_PRICE,
+		    P.PRODUCT_NO
+		    from REVIEW r FULL OUTER JOIN PRODUCT p ON r.PRODUCT_NO = p.PRODUCT_NO 
+		    <if test="reviewOrderBy != null">
+			    <choose>
+			        <when test="reviewOrderBy == 'obReviewNo'">order by review_no desc</when>
+			        <when test="reviewOrderBy == 'obUserNo'">order by user_no desc</when>
+			        <when test="reviewOrderBy == 'obLikeCount'">order by review_like_count desc</when>
+			        <when test="reviewOrderBy == 'obReviewDate'">order by review_date desc</when>
+			        <otherwise>order by review_no desc</otherwise>
+			    </choose>
 			</if>
-			<if test="orderByUserNo=='orderByUserNo'">
-				order by user_no
-			</if> -->
-		
-			<trim prefix="WHERE">
-			    <include refid="reviewSearch"></include>
+			)
+		    WHERE 
+		    <trim prefix="" suffix=" AND ">
+			   <include refid="reviewSearch"></include>
 			</trim>
-			
-			
-		
-	</select>
-
-	<!-- 제품 넘버로 리뷰 조회(상세페이지) -->
-	<select id="detailReviewList" parameterType="review" resultType="review">
-			SELECT R.REVIEW_NO, R.ORDER_NO, R.USER_NO, R.REVIEW_CONTENT, R.REVIEW_RATING, R.REVIEW_LIKE_COUNT, TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE
-			FROM REVIEW R
-			JOIN PRODUCT_ORDER PO ON R.ORDER_NO = PO.ORDER_NO
-			WHERE 1 = 1 AND PO.product_no = #{product_no}
-			ORDER BY R.REVIEW_NO desc
-	</select>
-	<!--  리뷰 조회 쿼리문 하나로 합치기 -->
-	<select id="reviewList" parameterType="review" resultType="review">
-		SELECT * FROM REVIEW_VIEW
-		<!-- 만약 제품 번호가 있으면 아래 쿼리 실행 -->
-		<if test="product_no != 0">
-			WHERE product_no = #{product_no}
-		</if>
-        ORDER BY REVIEW_NO desc
+		    <if test="searchDate2 != null and searchDate1 != null">
+				<![CDATA[ review_date between #{searchDate1} and #{searchDate2} and ]]>
+			</if>	
+			 <![CDATA[    rownum <= #{pageNum} * 10) 
+				where rnum > (#{pageNum} -1) * 10]]>
 	</select>
 	
 
+	
+	
 
-
+	<!-- 제품 넘버로 리뷰 조회(상세페이지) -->
+	<select id="detailReviewList" parameterType="review" resultType="review">
+			SELECT * FROM REVIEW_VIEW
+			WHERE PRODUCT_NO = #{product_no}
+	</select>
+	
 
 	<!--  리뷰 삭제  -->
 	<delete id="myReviewDelete" parameterType="review">
@@ -126,15 +117,12 @@
 	</delete>
 
 
-
 	
 	<!-- 마이페이지 리뷰작성 (#{order_no}, #{user_no}) -->
 	<insert id="myReviewInsert" parameterType="review">
 		insert into review(review_no, order_no, user_no, review_content, review_rating, review_like_count, review_date, product_no)
-		values(review_no_seq.nextval, 2, #{user_no}, #{review_content}, #{review_rating}, 0, sysdate, #{product_no})
+		values(review_seq.nextval, 2, #{user_no}, #{review_content}, #{review_rating}, 0, sysdate, #{product_no})
 	</insert>
-
-
 
 
 
@@ -147,12 +135,10 @@
 	
 	
 	<!--  좋아요 클릭시  -->
-
 	<update id="reviewLikeCountPlus" parameterType="review">
 		UPDATE REVIEW
 		SET REVIEW_LIKE_COUNT = REVIEW_LIKE_COUNT + 1
 		WHERE REVIEW_NO = #{review_no}
-	
 	</update>
 
 
@@ -172,9 +158,6 @@
 			<include refid="reviewSearch"></include>
 		</trim>
 	</select>
-
-
-
 
 
 </mapper>

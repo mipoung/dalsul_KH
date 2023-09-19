@@ -15,6 +15,7 @@ public class AddrServiceImpl implements AddrService {
 	private AddrApiDAO addrApiDAO;
 
 	/*쿼리문을 실행하고 성공과 실패여부를 1과 0으로 반환받음, 그결과를 확인하기위해 console에서 확인*/
+	
 	@Override
 	public int insertAddr(AddrVO bvo) {
 		int result = 0;
@@ -65,5 +66,16 @@ public class AddrServiceImpl implements AddrService {
 		}	
 		return result;
 	}
+	
+	/*사용자 입력 레코드 개수 검증 함수 */
+	@Override
+	public String chkUserAddr(AddrVO bvo) {
+		String chkUserAddr;
+		
+		chkUserAddr = addrApiDAO.chkUserAddr(bvo);
+		
+		return chkUserAddr;
+	}
+	
 
 }
