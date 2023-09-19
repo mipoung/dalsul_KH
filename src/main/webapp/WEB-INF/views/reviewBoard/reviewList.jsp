@@ -4,7 +4,7 @@
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
       <title>리뷰조회 reviewList</title>
-      <!-- 주석22123 123123123-->
+      <!-- 주석-->
       <script>
       	$(function(){
       		
