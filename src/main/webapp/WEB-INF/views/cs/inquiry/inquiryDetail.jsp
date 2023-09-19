@@ -91,7 +91,7 @@
 	<div>
 		<form name="f_data" id="f_data" method="get">
 			<input type="hidden" name="inquiry_no" value="${detail.inquiry_no}"/>
-			<%-- <input type="hidden" name="user_no" value="${detail.user_no}"/> --%>
+			<%--<input type="hidden" name="user_no" value="${detail.user_no}"/> --%>
 		</form>
 		<div>
 			<h1>문의사항 상세 정보</h1>

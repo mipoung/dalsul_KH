@@ -85,6 +85,6 @@
 	<delete id="inquiryDelete" parameterType="Inquiry">
 		DELETE FROM inquiry
 		WHERE inquiry_no = #{inquiry_no}
-		AND user_no = #{user_no}  <!-- user_no를 추가 -->
+		<!-- AND user_no = #{user_no}  --> <!-- user_no를 추가 -->
 	</delete>
 </mapper>
