@@ -2,11 +2,9 @@ package com.dalsul.common.cs.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 
 import com.dalsul.common.cs.vo.NoticeVO;
 
-@Service
 public interface NoticeService {
 
 	public List<NoticeVO> noticeList(NoticeVO nvo);
