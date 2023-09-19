@@ -47,9 +47,11 @@
 
 	</select>
 	<!-- 게시판 비밀번호 확인 -->
-	<select id="pwdConfirm" parameterType="Inquiry" resultType="int"> SELECT 
+	<select id="pwdConfirm" parameterType="Inquiry" resultType="int">
+		SELECT 
 		NVL((SELECT 1 FROM inquiry WHERE inquiry_no = #{inquiry_no} AND inquiry_password 
-		= #{inquiry_password}), 0) as state FROM dual </select>
+		= #{inquiry_password}), 0) as state FROM dual
+	</select>
 	<!-- 페이지네이션 -->
 	<select id="inquiryListCnt" parameterType="Inquiry"
 		resultType="int">
@@ -66,24 +68,23 @@
 			SELECT USER_NO_SEQUENCE.nextval FROM DUAL
 		</selectKey>
 		INSERT INTO inquiry(inquiry_no, user_no, inquiry_title,
-		inquiry_question, inquiry_date, inquiry_update_date)
+		inquiry_question, inquiry_password, inquiry_date, inquiry_update_date)
 		VALUES(#{inquiry_no}, #{user_no}, #{inquiry_title},
-		#{inquiry_question}, SYSDATE, SYSDATE)
+		#{inquiry_question},#{inquiry_password}, SYSDATE, SYSDATE)
 	</insert>
 	<!-- 문의사항 수정 -->
 	<update id="inquiryUpdate" parameterType="Inquiry">
-		UPDATE inquiry
-		SET inquiry_title = #{inquiry_title},
-		inquiry_question =
-		#{inquiry_question},
-		user_no = #{user_no},  <!-- user_no를 추가 -->
-		inquiry_update_date = SYSDATE
-		WHERE inquiry_no = #{inquiry_no}
+    	UPDATE inquiry
+   	 	SET inquiry_title = #{inquiry_title},
+    	inquiry_question = #{inquiry_question},
+    	inquiry_update_date = SYSDATE
+    	WHERE inquiry_no = #{inquiry_no}
+    	AND user_no = #{user_no} <!-- 로그인한 사용자의 USER_NO -->
 	</update>
 	<!-- 문의사항 삭제 -->
 	<delete id="inquiryDelete" parameterType="Inquiry">
 		DELETE FROM inquiry
 		WHERE inquiry_no = #{inquiry_no}
-		AND user_no = #{user_no}  <!-- user_no를 추가 -->
+		<!-- AND user_no = #{user_no}  --> <!-- user_no를 추가 -->
 	</delete>
 </mapper>

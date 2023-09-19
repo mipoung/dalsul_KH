@@ -21,4 +21,15 @@ public class MainServiceImpl implements MainService {
 	public List<ProductVO> getMainPageProducts() {
 		return mainDao.getMainPageProducts();
 	}
+	
+	@Override
+	public List<ProductVO> getSearchResult(String str) {
+		return mainDao.getSearchResult(str);
+	}
+	
+	@Override
+	public ProductVO getDetailPageProducts(ProductVO vo) {
+			
+		return mainDao.getDetailPageProducts(vo);
+	}
 }

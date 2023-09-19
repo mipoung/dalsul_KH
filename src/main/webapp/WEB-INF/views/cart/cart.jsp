@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf"%>
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
 
 <script>
 	//페이지 로드 시 상단 수량 총합을 계산하여 표시하는 함수
@@ -86,8 +86,6 @@
 		// 페이지 로드 시 총합을 업데이트
 		updateTotalForAllItems();
 		
-		
-		
 		$("#payBtn").click(function() {
 			 window.location.href = "/cart/orderList";
 		});
@@ -121,6 +119,7 @@
 						},
 						"dataType" : "text",
 						success : function(data) {
+							console.log(data);
 							if (data == 1) {
 								$("#cartItem-" + product_no + " > .quantity")
 										.text(product_quantity + 1);
