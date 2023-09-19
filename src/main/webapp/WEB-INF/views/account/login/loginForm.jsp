@@ -84,9 +84,9 @@ body {
 
 			<div class="form-outline mb-4">
 				<!-- Submit button -->
-				<button type="button" id="loginBtn" class="btn btn-primary btn-block mb-4">로그인</button>
+				<button type="button" id="loginBtn" class="btn btn-primary btn-block">로그인</button>
 				<!-- Register buttons -->
-				<button type="button" id="registerBtn" class="btn btn-secondary btn-block mb-4">이메일 회원가입</button>
+				<button type="button" id="registerBtn" class="btn btn-secondary btn-block">이메일 회원가입</button>
 			</div>
 			<!-- 2 column grid layout for inline styling -->
 			<div class="form-outline mb-4">
