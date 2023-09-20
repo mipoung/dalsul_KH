@@ -51,7 +51,6 @@ public class ManagerLoginController {
 	@ResponseBody
 	public String managerLoginProcess(ManagerVO mvo) {
 		log.info("managerLoginProcess() 호출");
-		System.out.println("mvo 값 : "+mvo.toString());
 		
 		// 솔트값에 비밀번호 붙이기
 		String salt = loginService.getSalt(mvo);
@@ -74,13 +73,13 @@ public class ManagerLoginController {
 	}
 	
 	@GetMapping("/managerLogout")
-	public String managerLogoutProcess(SessionStatus sessionStatus) {
+	public String managerLogoutProcess(HttpSession sessionStatus) {
 		log.info("managerLogoutProcess() 호출");
 		String returnURL = "";
 		
 		if(sessionStatus != null) {
 			// session이 존재한다면 logout
-			sessionStatus.setComplete();
+			sessionStatus.invalidate();
 			returnURL = "/account/login/managerLoginForm";
 		} else {
 			// session이 존재하지 않는다면

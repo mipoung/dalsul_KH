@@ -45,6 +45,16 @@
 		</trim>
 	</select>
 	
+	<delete id="dropUsers" parameterType="java.util.List">
+    	DELETE FROM USERS
+    	WHERE USER_NO IN
+    	<foreach collection="list" item="user_no" open="(" separator="," close=")">
+        	#{user_no}
+    	</foreach>
+	</delete>
+	
+	
+	
 	<!-- product에서 가져오려는데 productVO가 설정 파일에 없음... 
 	<select id="managerMainChart" resultType="product">
 	</select>

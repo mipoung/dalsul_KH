@@ -31,9 +31,7 @@ public class CouponManagerController {
 	public String couponList(@ModelAttribute CouponVO cvo, Model model) {
 		log.info("couponList() 메소드 호출...");
 		System.out.println(cvo.toString());
-		
-		cvo.setSearch("aaa");
-		System.out.println(cvo.toString());
+	
 		//전체 레코드 조회
 		List<CouponVO> couponList = couponManagerService.couponList(cvo);
 		model.addAttribute("couponList" , couponList);
@@ -42,7 +40,7 @@ public class CouponManagerController {
 		int total = couponManagerService.couponListCnt(cvo);
 		//페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(cvo, total));
-		//new PageDTO(CommonVO 또는 CommonVO 하위 클래스의 인스턴스 (BoardVO), 총 레코드수)
+		//new PageDTO(CommonVO 또는 CommonVO 하위 클래스의 인스턴스 (CouponVO), 총 레코드수)
 		
 		return "/manager/coupon/managerCouponList"; //  WEB-INF/views/coupon/couponList.jsp;
 		
