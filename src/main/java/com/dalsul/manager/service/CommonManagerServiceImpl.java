@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.manager.dao.CommonManagerDAO;
-import com.dalsul.manager.vo.ManagerVO;
+import com.dalsul.manager.vo.ManagerCommonVO;
 import com.dalsul.user.main.vo.ProductVO;
 
 import lombok.Setter;
@@ -25,8 +25,8 @@ public class CommonManagerServiceImpl implements CommonManagerService {
 	}
 
 	@Override
-	public List<ManagerVO> managerMainCount() {
-		List<ManagerVO> result = managerDAO.managerMainCount();
+	public List<ManagerCommonVO> managerMainCount() {
+		List<ManagerCommonVO> result = managerDAO.managerMainCount();
 		return result;
 	}
 

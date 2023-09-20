@@ -83,7 +83,7 @@
 	
 	
 	
-	<select id="managerMainCount" resultType="managerVO">
+	<select id="managerMainCount" resultType="managerCommon">
 		SELECT 
 		   (SELECT COUNT(product_no) FROM product) AS product_count,
 		   (SELECT COUNT(review_no) FROM review) AS review_count,
