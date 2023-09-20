@@ -6,6 +6,14 @@
 <script type="text/javascript" src="/resources/include/common/js/chkRegex.js"></script>
 <script>
 	$(function() {
+		// 검색 후 검색 대상과 검색 단어 출력
+		let word = "<c:out value='${userVO.keyword}'/>";
+		let value = "";
+		if(word!=""){
+			$("#keyword").val("<c:out value='${userVO.keyword}'/>");
+			$("#search").val("<c:out value='${userVO.search}'/>");
+		}
+		
 		// 입력 양식 enter 제거
 		$("#keyword").bind("keydown", function(e){
 			if(e.keyCode == 13){
@@ -33,24 +41,91 @@
 			goPage();
 		});
 		
-		// 검색을 위한 함수 goPage()
-		function goPage(){
-			if($("#search").val()=="all"){
-				$("#keyword").val("");
-			}
-			
-			$("#f_search").attr({
-				"method" : "get",
-				"action" : "/manager/userManagement"
-			});
-			$("#f_search").submit();
+		// 목록 페이지 이동
+		$(".paginate_button a").click(function(e) {
+			e.preventDefault();
+			$("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
+			goPage();
+		});
+		
+	}); // end of page load function
+	
+	// 검색을 위한 함수 goPage()
+	function goPage(){
+		if($("#search").val()=="all"){
+			$("#keyword").val("");
 		}
-	});
+		
+		$("#f_search").attr({
+			"method" : "get",
+			"action" : "/manager/userManagement"
+		});
+		$("#f_search").submit();
+	}
 </script>
 <style>
-	.container{
+.container{
 	margin-top: 15px;
-	}
+}
+/* 페이징 컨테이너 스타일 */
+.pagination_area {
+    text-align: center;
+}
+
+/* 페이징 목록 스타일 */
+.pagination {
+    list-style: none;
+    display: inline-flex;
+    padding: 0;
+}
+
+/* 페이징 아이템 스타일 */
+.pagination li {
+    margin-right: 5px;
+}
+
+/* 활성화된 페이징 아이템 스타일 */
+.pagination li.active {
+    font-weight: bold;
+}
+
+/* 이전 및 다음 버튼 스타일 */
+.pagination li.previous,
+.pagination li.next {
+    font-weight: bold;
+}
+
+/* 링크 스타일 */
+.pagination a {
+    text-decoration: none;
+    color: white; /* 링크 색상은 원하는 색상으로 변경 가능 */
+    background-color : #212529;
+    padding: 5px 10px;
+    border: 1px solid #212529;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 활성화된 페이징 아이템의 링크 스타일 */
+.pagination li.active a {
+    background-color: white; /* 활성화된 페이징 아이템 배경 색상 */
+    color: black; /* 활성화된 페이징 아이템 텍스트 색상 */
+    cursor: default;
+}
+
+/* 이전 및 다음 버튼의 링크 스타일 */
+.pagination li.previous a,
+.pagination li.next a {
+    background-color: #212529; /* 이전 및 다음 버튼 배경 색상 */
+    color: white; /* 이전 및 다음 버튼 텍스트 색상 */
+}
+
+/* 링크 호버 효과 */
+.pagination a:hover {
+    background-color: white; /* 호버 시 배경 색상 변경 */
+    color: black; /* 호버 시 텍스트 색상 변경 */
+}
+
 </style>
 </head>
 <body>
@@ -60,6 +135,7 @@
 	<div class="container">
 		
 		<!-- 회원 정보 출력 -->
+		<div>
 		<table class="table">
 			<thead class="thead-dark">
 				<tr class="text-center">
@@ -97,10 +173,10 @@
 				</c:choose>
 			</tbody>
 		</table>
+		</div>
 		
 		<!-- 페이징 기능 -->
-		<%-- 페이징 --%>
-		<div class="text-center">
+		<div class="pagination_area" style="text-align: center;">
 			<ul class="pagination">
 				<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
 				<c:if test="${pageMaker.prev}">
@@ -123,11 +199,18 @@
 					</li>
 				</c:if>
 			</ul>
+			
+			<!-- 선택 회원 삭제, 관리자 등록 기능 -->
+			<div>
+				<button type="button" id="deleteBtn" class="btn btn-dark">삭제</button>
+				<button type="button" id="regManagerBtn" class="btn btn-dark">관리자 등록</button>
+			</div>
 		</div>
 		
 		<!-- 검색 기능 -->
 		<div class="userSearch" style="text-align: right;">
 		    <form id="f_search" name="f_search" class="form-inline justify-content-end" style="display:inline-block;">
+		    	<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.startPage}">
 		        <div class="form-group row">
 		            <div class="col-4">
 		                <select id="search" name="search" class="form-control">
@@ -139,7 +222,7 @@
 		                </select>
 		            </div>
 		            <div class="col">
-		                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어">
+		                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어" value="전체 목록 조회">
 		            </div>
 		            <div class="col-2">
 		                <button class="btn btn-dark" id="searchData" type="button">검색</button>

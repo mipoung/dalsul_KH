@@ -6,4 +6,5 @@ import com.dalsul.common.login.vo.UserVO;
 
 public interface ManagerService {
 	public List<UserVO> getUserList(UserVO uvo);
+	public int userListCnt(UserVO uvo);
 }

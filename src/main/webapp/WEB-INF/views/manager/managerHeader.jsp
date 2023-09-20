@@ -15,7 +15,6 @@
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
 	            <li><a class="dropdown-item" href="/manager/userManagement">회원 관리</a></li>
-	            <li><a class="dropdown-item" href="/manager/manager/">관리자 등록</a></li>
 	          </ul>
 	        </li>
 	      </ul>

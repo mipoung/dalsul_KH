@@ -11,4 +11,5 @@ import com.dalsul.user.review.vo.ProductVO;
 public interface ManagerDAO {
 	public List<ProductVO> managerMainChart(ProductVO pvo);
 	public List<UserVO> getUserList(UserVO uvo);
+	public int userListCnt(UserVO uvo);
 }

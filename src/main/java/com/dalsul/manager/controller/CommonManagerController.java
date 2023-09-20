@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.dalsul.common.login.vo.ManagerVO;
 import com.dalsul.manager.service.ManagerService;
+import com.dalsul.common.vo.PageDTO;
 import com.dalsul.common.login.vo.UserVO;
 import java.util.List;
 
@@ -40,6 +41,13 @@ public class CommonManagerController {
 		
 		List<UserVO> userList = managerService.getUserList(uvo);
 		model.addAttribute("user", userList);
+		
+		// 전체 레코드 수 반환
+		int total = managerService.userListCnt(uvo);
+
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(uvo, total));
+		// new PageDTO(CommonVO 또는 CommonVO 하위 클래스의 인스턴스 (BoardVO), 총 레코드 수)
 		
 		return "/manager/user/userManagement";
 	}

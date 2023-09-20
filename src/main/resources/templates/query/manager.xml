@@ -37,6 +37,14 @@
 		WHERE rnum > (#{pageNum} - 1) * #{amount} ]]>
 	</select>
 	
+	<select id="userListCnt" parameterType="userVO" resultType="int">
+		SELECT count(*) 
+		FROM USERS
+		<trim prefix=" where (" suffix=")">
+			<include refid="userSearch"></include>
+		</trim>
+	</select>
+	
 	<!-- product에서 가져오려는데 productVO가 설정 파일에 없음... 
 	<select id="managerMainChart" resultType="product">
 	</select>-->
