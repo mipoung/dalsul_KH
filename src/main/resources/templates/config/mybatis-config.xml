@@ -3,7 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.dalsul.common.login.vo.UserVO" alias="userVO"/>
-		<typeAlias type="com.dalsul.common.login.vo.ManagerVO" alias="managerVO"/>
+		
 		<typeAlias type="com.dalsul.user.review.vo.ReviewVO" alias="review"/>
 		<typeAlias type="com.dalsul.common.vo.CommonVO" alias="common"/>
 		<typeAlias type="com.dalsul.common.cs.vo.FAQVO" alias="FAQ"/>
@@ -15,8 +15,9 @@
 		<typeAlias type="com.dalsul.user.addr.vo.AddrVO" alias="addr" />
 		<typeAlias type="com.dalsul.user.cart.vo.CartVO" alias="cart" />
 		<typeAlias type="com.dalsul.user.pay.vo.PayVO" alias="pay" />
+		<typeAlias type="com.dalsul.manager.vo.ManagerVO" alias="manager" />
+		
 		<typeAlias type="com.dalsul.user.main.vo.ProductVO" alias="product" />
-
-		<typeAlias type="com.dalsul.user.coupon.vo.CouponVO" alias="coupon" />
+		
 	</typeAliases>
 </configuration>

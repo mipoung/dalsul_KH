@@ -20,4 +20,11 @@ public class ProductVO {
     
     private int review_num;				  // 리뷰개수 - 화면 표시	
     private double review_rating;		  // 별점 - 화면 표시
+    
+    
+    private int product_type_count; // 관리자페이지 메인에서 제품 타입별 개수를 보여주려고 추가함(영훈)
+    private String avg_price;
+    private String avg_rating;
+    private String best_product;
+    private String reviewOrderBy; // 상세페이지 리뷰 정렬 용도
 }

@@ -10,7 +10,6 @@ import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.user.main.vo.ProductVO;
 import com.dalsul.user.review.dao.ReviewDAO;
-
 import com.dalsul.user.review.vo.ReviewVO;
 
 import lombok.Setter;
@@ -101,6 +100,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public int reviewListCnt(ReviewVO rvo) {
 		int result = reviewDAO.reviewListCnt(rvo);
 		return result;
+	}
+
+
+
+	@Override
+	public List<ReviewVO> detailReviewListBest(ProductVO pvo) {
+		List<ReviewVO> bestReview = reviewDAO.detailReviewListBest(pvo);
+		return bestReview;
 	}
 
 

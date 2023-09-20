@@ -1,37 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
+<%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
 <script type="text/javascript" src="/resources/include/reviewBoard/js/reviewMyPage.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
+
       <title>리뷰조회 reviewList</title>
-      <!-- 주석-->
-     
- 
-      
-       
-      
+
    </head>
    
   
    <body>
-   <!--
-   	<form id="f_myReviewData">
-   		 <input type="text" id="review_no" name="review_no" value=""> 
-   		
-   	</form>
-   	-->
-   	<br>
+ 
+   	
    	<input type="hidden" id="user_no" value="${sessionScope.UserLogin.user_no}">
    	
-   	
-   	<form id="detailReviewOrderBy">
-   		<!-- 정렬데이터 전송을 위한 폼 -->
-		<input type="hidden" id="reviewOrderBy" name="reviewOrderBy" value="">
-   	
-   	</form>
-   		
-	
+   	<h5 style="text-align:center;">마이페이지 리뷰 조회  ✍️</h5>
 
 	<div class="card-body">
 		 <c:choose>
@@ -39,7 +24,7 @@
 		        <c:forEach var="bestReivew" items="${bestReview}" varStatus="status">
 		        	
 	            	<form id="r_BestListForm">
-					    <div class="card mb-3" id="bestReviewDiv" data-review-no="${bestReivew.review_no}" style="max-width: 700px;">
+					    <div class="card mb-3" id="bestReviewDiv" data-review-no="${bestReivew.review_no}">
 						  <div class="row g-0">
 						  <p id="bestReviewHeader">가장 많은 추천을 받은 리뷰</p>
 						    <div class="col-md-4">
@@ -82,7 +67,7 @@
 				
 	 		 <!-- 카드 시작 -->
 	 		 <form id="r_ListForm">
-			    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
+			    <div class="card mb-3" data-review-no="${review.review_no}">
 				  <div class="row g-0">
 				    <div class="col-md-4">
 				      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
@@ -196,6 +181,10 @@
 							</div>
 						</div>
 					</div>
-				</div>   
+				</div>
+
+	
+   
+   
    </body>
 </html>

@@ -20,7 +20,6 @@ import com.dalsul.user.review.dao.ReviewDAO;
 import com.dalsul.common.vo.PageDTO;
 
 import com.dalsul.user.review.service.ReviewService;
-
 import com.dalsul.user.review.vo.ReviewVO;
 
 import lombok.Setter;
@@ -60,14 +59,19 @@ public class ReviewController {
 	/*********** 완성 **********/
 	@GetMapping("detailReviewList")
 	public String detailReviewList(Model model, ProductVO pvo) {
+		
 			log.info("detailReviewList() 메서드 호출");
-			
 			//rvo.setPackage_product_no(1);
 			log.info("뷰에서 받아온 값: " + pvo.toString());
 			List<ReviewVO> reviewList = reviewService.detailReviewList(pvo);
 			log.info("담긴 값:" + reviewList.toString());
 			
 			model.addAttribute("reviewList", reviewList);
+			
+			
+			List<ReviewVO> bestReview = reviewService.detailReviewListBest(pvo);
+			model.addAttribute("bestReview", bestReview);
+			
 	
 			return "reviewBoard/reviewList";
 	}
@@ -247,13 +251,13 @@ public class ReviewController {
 	
 	
 	
-	// 수정 폼 
+	/* 수정 폼 
 	@PostMapping("reviewUpdateForm")
 	public String reviewUpdateForm() {
 		
 		return "reviewBoard/reviewUpdateForm";
 	}
-	
+	*/
 	
 	
 	
@@ -267,7 +271,7 @@ public class ReviewController {
 		
 		result = reviewService.myReviewUpdate(rvo);
 		
-		return "redirect:myReviewList";
+		return "redirect:/mypage/reviewDetailView";
 	}
 	
 	

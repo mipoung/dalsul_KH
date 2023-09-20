@@ -38,7 +38,8 @@ public class MainController {
 	    }
 	    
 	    @Setter(onMethod_ = @Autowired)
-	    ReviewService reviewService;
+	    private ReviewService reviewService;
+	    
 	    
 		/* 시작화면 호출 */
 	  	@GetMapping("/")
