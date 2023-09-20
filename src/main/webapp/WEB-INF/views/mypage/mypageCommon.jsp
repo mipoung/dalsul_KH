@@ -147,7 +147,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="go_detail">
-			<div class="deleveryDetailView">
+			<div class="userAddrInfo">
 				<div>배송지 관리</div>
 				<img src="/resources/images/mypage/mypageHeader/truck.png" alt="address">
 			</div>

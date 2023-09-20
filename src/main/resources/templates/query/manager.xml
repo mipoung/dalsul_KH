@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dalsul.manager.dao.ManagerDAO">
+<mapper namespace="com.dalsul.manager.dao.CommonManagerDAO">
 
 	<!-- 회원 조회 검색어 -->
 	<sql id="userSearch"> 
@@ -55,6 +55,54 @@
 	
 	<!-- product에서 가져오려는데 productVO가 설정 파일에 없음... 
 	<select id="managerMainChart" resultType="product">
-	</select>-->
+	</select>
 	
+		select product_type, count(*) as product_type_count
+		from product
+		group by product_type
+	
+	</select>
+	-->
+	
+	<select id="managerMainChart" resultType="product">
+		
+		SELECT 
+		    p.product_type, 
+		    COUNT(distinct p.product_no) as product_type_count,
+		    floor(AVG(p.product_price)) as avg_price,
+		    ROUND(AVG(r.review_rating),1) as avg_rating,
+		    MAX(CASE WHEN r.review_rating = sub.max_rating THEN p.product_name ELSE NULL END) as best_product
+		FROM 
+		product p FULL OUTER JOIN review r ON p.product_no = r.product_no
+		    JOIN (
+		        SELECT 
+		            product_type,
+		            MAX(review_rating) as max_rating
+		        FROM 
+		            product p 
+		            FULL OUTER JOIN review r ON p.product_no = r.product_no
+		        GROUP BY 
+		            product_type
+		    ) sub ON p.product_type = sub.product_type
+		GROUP BY 
+		    p.product_type
+				
+	</select>
+	
+	
+	
+	<select id="managerMainCount" resultType="managerVO">
+		SELECT 
+		   (SELECT COUNT(product_no) FROM product) AS product_count,
+		   (SELECT COUNT(review_no) FROM review) AS review_count,
+		   (SELECT COUNT(user_no) FROM USERS) AS users_count,
+		   (SELECT COUNT(user_no) FROM users WHERE user_reg_date >= TRUNC(sysdate)) AS today_users_count,
+		   (SELECT COUNT(review_no) FROM review WHERE review_date >= TRUNC(sysdate)) AS today_review_count,
+		   (SELECT COUNT(product_no) FROM product WHERE product_reg_date >= TRUNC(sysdate)) AS today_product_count
+		FROM DUAL
+	
+	</select>
+
+
+
 </mapper>

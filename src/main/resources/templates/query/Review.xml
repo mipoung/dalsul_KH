@@ -21,6 +21,19 @@
 	</sql>
 	
 	
+	<sql id="reviewOrderBySql">
+		 <if test="reviewOrderBy != null">
+		    <choose>
+		        <when test="reviewOrderBy == 'obReviewNo'">order by review_no desc</when>
+		        <when test="reviewOrderBy == 'obUserNo'">order by user_no desc</when>
+		        <when test="reviewOrderBy == 'obLikeCount'">order by review_like_count desc</when>
+		        <when test="reviewOrderBy == 'obReviewDate'">order by review_date desc</when>
+		        <otherwise>order by review_no desc</otherwise>
+		    </choose>
+		</if>
+	</sql>
+	
+	
 	<!-- 제품 번호로 리뷰 조회(상세페이지) pk.package_product_no = #{package_product_no}
 	<select id="detailReviewList" parameterType="review" resultType="review">
 		SELECT * FROM REVIEW_VIEW
@@ -78,15 +91,7 @@
 		    P.PRODUCT_PRICE,
 		    P.PRODUCT_NO
 		    from REVIEW r FULL OUTER JOIN PRODUCT p ON r.PRODUCT_NO = p.PRODUCT_NO 
-		    <if test="reviewOrderBy != null">
-			    <choose>
-			        <when test="reviewOrderBy == 'obReviewNo'">order by review_no desc</when>
-			        <when test="reviewOrderBy == 'obUserNo'">order by user_no desc</when>
-			        <when test="reviewOrderBy == 'obLikeCount'">order by review_like_count desc</when>
-			        <when test="reviewOrderBy == 'obReviewDate'">order by review_date desc</when>
-			        <otherwise>order by review_no desc</otherwise>
-			    </choose>
-			</if>
+		    <include refid="reviewOrderBySql"></include>
 			)
 		    WHERE 
 		    <trim prefix="" suffix=" AND ">
@@ -104,9 +109,39 @@
 	
 
 	<!-- 제품 넘버로 리뷰 조회(상세페이지) -->
-	<select id="detailReviewList" parameterType="review" resultType="review">
-			SELECT * FROM REVIEW_VIEW
-			WHERE PRODUCT_NO = #{product_no}
+	<select id="detailReviewList" parameterType="product" resultType="review">
+					
+		select 
+		r.review_no, 
+		r.review_rating, 
+		r.user_no, 
+		TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') as REVIEW_DATE, 
+		p.product_name, 
+		p.product_main_image, 
+		p.product_no, 
+		r.review_like_count, 
+		r.review_content
+		from review r left outer join product p on r.product_no = p.product_no
+        where r.product_no = #{product_no}
+	</select>
+	
+	<!-- 해당 제품중 리뷰 점수가 가장 높은 리뷰 -->
+	<select id="detailReviewListBest" parameterType="product" resultType="review">
+		
+		SELECT
+		    r.review_no, 
+		    r.review_rating, 
+		    r.user_no, 
+		    TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') as REVIEW_DATE, 
+		    p.product_name, 
+		    p.product_main_image, 
+		    p.product_no, 
+		    r.review_like_count, 
+		    r.review_content
+		FROM review r
+		LEFT OUTER JOIN product p ON r.product_no = p.product_no
+		WHERE r.product_no = #{product_no} AND r.review_like_count = 
+		    (SELECT MAX(review_like_count) FROM review WHERE product_no = #{product_no})
 	</select>
 	
 

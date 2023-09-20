@@ -56,3 +56,33 @@
       		
        	
        	}
+       	
+       		#star > span {
+    		cursor: pointer;
+		}
+		
+		#textCount {
+			font-size : 13px;
+			text-align : right;
+			margin-top:5px;
+			color:gray;
+		}
+		
+		#bestReviewDiv{
+			border : 5px solid deepskyblue;
+		}
+		
+		#r_BestListForm {
+			margin-bottom : 60px;
+			
+		}
+		
+		#bestReviewHeader {
+			background-color: deepskyblue;margin-bottom: 0px;
+			text-align : center;
+		}
+		/*
+		.card {
+			width: 100%;
+			
+		}*/

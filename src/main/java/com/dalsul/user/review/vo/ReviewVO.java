@@ -1,6 +1,7 @@
 package com.dalsul.user.review.vo;
 
 import com.dalsul.common.vo.CommonVO;
+import com.dalsul.user.main.vo.ProductVO;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,28 +18,27 @@ public class ReviewVO extends CommonVO {
 	private int review_rating = 0;
 	private int review_like_count= 0;
 	private String review_date;
-	private int product_no = 0;
 	private int review_total_count = 0;
 
+	private int product_no;
+	private String product_name;
+	private int product_alcohol;
+	private String product_type;
+	private String product_main_image;
+	private int product_ml;
+	private int product_price;
 	
+	private ProductVO pvo;
+
 	// 정렬을 위한 필드 
 	private String reviewOrderBy="";
+	private String best_review;
 
 	// 날짜 범위 검색을 위한 필드
 	private String searchDate1;
 	private String searchDate2;
 	
 	
-	
-	// productVO에도 있음
-	private String product_name;
-	private String product_alcohol;
-	private String product_type;
-	private String product_main_image;
-	private String product_ml;
-	private String product_price;
-	
-	private ProductVO pvo;
 	
 	
 	
@@ -50,6 +50,9 @@ public class ReviewVO extends CommonVO {
         return "";
     }
 	*/
+	
+	
+	
 	
 	
 	

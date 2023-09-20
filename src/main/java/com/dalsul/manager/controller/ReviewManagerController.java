@@ -79,4 +79,17 @@ public class ReviewManagerController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	// 리뷰 차트 및 통계
+	@GetMapping("managerReviewChart")
+	public String managerReviewChart() {
+		
+		return "manager/reviewBoard/managerReviewChart";
+	}
+	
+	
 }

@@ -40,6 +40,7 @@ public class AddrController {
         
         log.info("chkUserAddr 메소드 호출..");
         
+        //사용자가 이미 입력한 배송지가 5개일경우 를 찾는 메소드
         String chkUserAddrCount = addrService.chkUserAddr(bvo);
         
         log.info("chkUserAddrCount = " + chkUserAddrCount);
@@ -58,7 +59,7 @@ public class AddrController {
         }
     }
     
-    /*내가 추가한 기본배송지 정보 조회하는 매핑*/
+    /*내가 추가한 기본배송지 정보 전체 조회하는 매핑*/
    @GetMapping(value = "/selectAddr")
    public String selectAddr(AddrVO bvo, Model model) {
 	   log.info("selectAddr() 매소드 호출...");

@@ -290,11 +290,13 @@ $(function() {
 						</div>
 					</div>
 					<div class="detailproductinfo3">
-						<div id="relationproductrecommend">			
+						<div id="relationproductrecommend">
 						</div>						
 					</div>
 					<div class="detailproductinfo4">
-						<div id="productreview"></div>
+						<div id="productreview">
+						<%@ include file="/WEB-INF/views/reviewBoard/reviewList.jsp"%>	
+						</div>
 					</div>
 				</div>
 				<div class="right-side">
