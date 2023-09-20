@@ -122,6 +122,8 @@
     			</form>
 			</div>
 		</div>
+		<!-- 댓글 -->
+		<jsp:include page="reply.jsp" /> 
 	</div>
 </body>
 </html>
