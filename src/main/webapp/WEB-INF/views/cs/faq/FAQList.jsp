@@ -115,6 +115,30 @@
                   
             });
           </script>
+          <style>
+			#keyword{
+				width:300px;
+			}
+			#search{
+				width:210px;
+            }
+            	
+            .form-row > div {
+            	display : inline-block;
+            }
+            #searchData{
+                margin-bottom: 5px;	
+            }
+            .pagination {
+				justify-content: center;
+				margin-top: 20px;
+			}
+			.pagination li {
+			    display: inline-block;
+			    margin-right: 5px;
+			}
+            
+        </style>
     </head>
     <body>
     	<div>
@@ -145,15 +169,20 @@
 				<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}"/>
 				<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 				
-				<div class="form-group">
-					<label>검색조건</label>
-					<select id="search" name="search" class="form-control">
-						<option value="all">전체 목록 조회</option>
-						<option value="faq_title">제목</option>
-						<option value="faq_answer">답변</option>
-					</select>
-					<input type="text" name="keyword" id="keyword" class="form-control" />
-					<button type="button" id="searchData">검색</button>
+				<div class="form-row align-items-center">
+				    <div class="col-auto">
+				        <label class="sr-only" for="search">검색조건</label>
+				        <select class="form-select" id="search" name="search" aria-label="Default select example">
+				            <option value="faq_title">제목</option>
+				            <option value="faq_answer">답변</option>
+				        </select>
+				    </div>
+				    <div class="col-auto">
+				        <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를 입력하세요" />
+				    </div>
+				    <div class="col-auto">
+				        <button type="button" id="searchData" class="btn btn-primary">검색</button>
+				    </div>
 				</div>
 			</form>
 		</div>		
@@ -163,9 +192,9 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>글번호</th>
-					<th>제목</th>
-					<th>작성일</th>
+					<th class="text-center col-md-1">글번호</th>
+					<th class="text-center col-md-6">제목</th>
+					<th data-value="b_date" class="order col-md-1">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -183,7 +212,7 @@
 
 		
 
-		<!-- 페이징 -->
+<!-- 페이징 -->
 		<div class="text-center">
 			<ul class="pagination">
 				<!--  이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인  -->
@@ -212,7 +241,6 @@
 		
 		
 		</div>
-
 
 		
 		<!-- 작성하기 -->
