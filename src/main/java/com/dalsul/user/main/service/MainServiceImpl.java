@@ -28,6 +28,11 @@ public class MainServiceImpl implements MainService {
 	}
 	
 	@Override
+	public List<ProductVO> getTotalPageProducts() {
+		return mainDao.getTotalPageProducts();
+	}
+	
+	@Override
 	public ProductVO getDetailPageProducts(ProductVO vo) {
 			
 		return mainDao.getDetailPageProducts(vo);

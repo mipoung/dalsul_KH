@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.user.main.dao.MainDAO">
 	
-	<select id="getMainPageProducts" resultType="com.dalsul.user.main.vo.ProductVO">
+	<!--  메인페이지 호출 시 쿼리문 -->
+	<select id="getMainPageProducts" resultType="product">
 		select p.product_no, p.product_name, p.product_price, p.product_main_image,
 		count(r.review_no) review_num, round(avg(r.review_rating),1)
 		review_rating
@@ -14,14 +15,29 @@
 		p.product_price, p.product_main_image
 		order by p.product_no
 	</select>
-
-	<select id="getSearchResult" parameterType="java.lang.String" resultType="com.dalsul.user.main.vo.ProductVO">
+	
+	<!--  제품검색 시 검색결과 쿼리문 -->
+	<select id="getSearchResult" parameterType="java.lang.String" resultType="product">
 		select product_no, product_name
 		from product
 		where replace(product_name, ' ', '') like '%' || replace(#{keyword}, ' ', '') || '%'
 	</select>
 	
-	<select id="getDetailPageProducts" parameterType="com.dalsul.user.main.vo.ProductVO" resultType="com.dalsul.user.main.vo.ProductVO">
+	<!-- 전체페이지 호출 시 쿼리문 -->
+	<select id="getTotalPageProducts" resultType="product">
+		select p.product_no, p.product_name, p.product_price, p.product_main_image,
+		count(r.review_no) review_num, round(avg(r.review_rating),1)
+		review_rating
+		from product p
+		left outer join review r on
+		p.product_no = r.product_no
+		group by p.product_no, p.product_name,
+		p.product_price, p.product_main_image
+		order by p.product_no
+	</select>
+	
+	<!-- 상세페이지 호출 시 쿼리문 -->
+	<select id="getDetailPageProducts" parameterType="product" resultType="product">
 		select p.product_no, p.product_name, p.product_type, p.product_ml, p.product_alcohol,  p.product_price,
 		p.product_main_image, p.product_explain_image, count(r.review_no) review_num, round(avg(r.review_rating),1) review_rating
 		from product p

@@ -71,6 +71,19 @@ public class MainController {
 	        return result;
 	    }
 	    
+	    /* 전체페이지로 이동 */
+	    @GetMapping("/total")
+	    public String totalPage(Model model) {
+	    	
+	    	log.info("전체페이지 호출 성공");
+	    	
+	    	List<ProductVO> total = mainService.getTotalPageProducts();
+	    	model.addAttribute("total", total);
+	    	
+	    	log.info("상품개수 : "+total.size());
+	    	return "main/total";
+	    }
+	    
 	    /* 상세페이지로 이동 */
 	    @GetMapping("/detail")
 	    public String detailPage(ProductVO vo, Model model) {
