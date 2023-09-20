@@ -3,302 +3,11 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
+<script type="text/javascript" src="/resources/include/reviewBoard/js/reviewMyPage.js"></script>
       <title>리뷰조회 reviewList</title>
       <!-- 주석-->
-      <script>
-      	$(function(){
-      		
-      		// 리뷰리스트에서 별점을 별로 치환하기
-      		$(".reviewRating").each(function(){
-      			let rating = $(this).text();
-      			$(this).css("color","red");
-      			
-      		    if(rating === "5") $(this).text("★★★★★");
-      		    else if(rating === "4") $(this).text("★★★★");
-      			else if(rating === "3") $(this).text("★★★");
-      			else if(rating === "2") $(this).text("★★");
-      			else if(rating === "1") $(this).text("★");
-      			else if(rating === "0") $(this).text("별점없음");
-      		});
-      		
-      		
-      		
-      		// 수정 모달에서 별점 클릭했을 때 색 변환하고 값 넣기
-      		
-      		$("#star > span").click(function(){
-      			$("#star > span").css("color", "gray");
-      			
-      		    if(this === $("#star1")[0]){
-      		        $(this).css("color","red");
-      		      	$("#review_rating").val(1);
-      		    } else if(this === $("#star2")[0]){
-      		    	$("#star1").css("color","red");
-      		   		$(this).css("color","red");
-      		   		$("#review_rating").val(2);
-      		    } else if(this === $("#star3")[0]){
-      		    	$("#star1").css("color","red");
-      		    	$("#star2").css("color","red");
-      		   		$(this).css("color","red");
-      		  		$("#review_rating").val(3);
-      		    } else if(this === $("#star4")[0]){
-      		    	$("#star1").css("color","red");
-      		    	$("#star2").css("color","red");
-      		    	$("#star3").css("color","red");
-      		   		$(this).css("color","red");
-      		  		$("#review_rating").val(4);
-      		    } else if(this === $("#star5")[0]){
-      		    	$("#star1").css("color","red");
-      		    	$("#star2").css("color","red");
-      		    	$("#star3").css("color","red");
-      		    	$("#star4").css("color","red");
-      		   		$(this).css("color","red");
-      		 	 	$("#review_rating").val(5);
-      		    } 
-      		    console.log("저장된 별점 값 : "+$("#review_rating").val());
-      		    
-      		    
-      		});
-
-      		
-
-
-      		
-      		
-      		
-      		// 삭제
-      		$(".r_DeleteBtn").click(function(){
-      			if(confirm("정말 삭제 하시겠습니까?")){
-	      			var userNo = $(this).attr("data-user-no");
-	      			var reviewNo = $(this).closest(".card.mb-3").attr("data-review-no");
-	      			
-	      		    console.log("User No: " + userNo);
-	      		   
-	      		    
-	      		    $("#r_ListForm").append('<input type="hidden" name="user_no" value="' + userNo + '">');
-	      		    $("#r_ListForm").append('<input type="hidden" name="review_no" value="' + reviewNo + '">');
-	
-	      		
-	      			$("#r_ListForm").attr({
-	      				"method" : "post",
-	      				"action" : "/review/myReviewDelete"
-	      				
-	      			});
-	      			
-	      			$("#r_ListForm").submit();
-      			}
-      			
-      		});
-      		
-      		
-      		
-      		/**************** 리스트에서 수정 버튼 클릭(모달창 띄우면서 폼 불러오기) ****************/
-      		$(".r_UpdateFormBtn").click(function(){
-      			// 수정 폼으로 리뷰 내용 불러오기 
-      			//$("#message-text").val("");
-	      		var reviewContentForm = $(this).closest(".card.mb-3").find("#reviewContent").attr("data-review-content");
-	      		// 내용 가져올때 <br>태그 제거
-	      		reviewContentForm = reviewContentForm.replace(/<br>/gi, "");
-	   			
-	      		// 메세지 박스에 내용 채우기
-      			$("#message-text").val(reviewContentForm);
-      			console.log("content : " + reviewContentForm);
-      			
-      			// jsp에서 리뷰번호 가져오기
-      			var reviewNo = $(this).closest(".card.mb-3").attr("data-review-no");
-      			console.log("Review No: " + reviewNo);
-      			
-      			// 가져온 리뷰 번호를 myReviewData의 value에 대입
-      			$("#review_no").val(reviewNo);
-      			
-      			
-      			/* 리스트에 있는 리뷰 별점 값 가져오기 */
-      			$(document).on('click', '.r_UpdateFormBtn', function() {
-      			    // 가장 가까운 .card.mb-3 부모 요소를 찾고, 그 안에서 .reviewRating 요소를 찾아 data-review-rating 값을 가져온다.
-      			    var ratingValue = $(this).closest('.card.mb-3').find('.reviewRating').data('review-rating');
-      			  	
-      			    // 모달창에 별점 설정
-      			  	$("#review_rating").val(ratingValue);
-      			  	
-     			    console.log("폼에 입력된 별점 : " + $("#review_rating").val());
-     			    
-     			    
-     			    // 별점 색 변경
-     			    if($("#review_rating").val() === "1"){
-     			    	$("#star1").css("color","red");
-     			    	
-     			    } else if($("#review_rating").val() === "2"){
-     			    	$("#star1").css("color","red");
-     			    	$("#star2").css("color","red");
-     			    } else if($("#review_rating").val() === "3"){
-     			    	$("#star1").css("color","red");
-     			    	$("#star2").css("color","red");
-     			    	$("#star3").css("color","red");
-     			    } else if($("#review_rating").val() === "4"){
-     			    	$("#star1").css("color","red");
-     			    	$("#star2").css("color","red");
-     			    	$("#star3").css("color","red");
-     			    	$("#star4").css("color","red");
-     			    } else if($("#review_rating").val() === "5"){
-     			    	$("#star1").css("color","red");
-     			    	$("#star2").css("color","red");
-     			    	$("#star3").css("color","red");
-     			    	$("#star4").css("color","red");
-     			    	$("#star5").css("color","red");
-     			    }; 
-     			    
-     			    
-      			 
-      			});
-
-
-      		});
-      		/*******************리스트에서 수정 버튼 클릭(모달창 띄우면서 폼 불러오기) 끝 ************************/
-      		
-      		
-      		
-      		
-      		
-      		
-
-      		/********* 모달창 취소버튼 눌렀을 때 별점 색상 회색으로 초기화 ********/
-      		$("#r_CancelBtn").click(function(){
-      			$("#star > span").css("color", "gray");
-      		});
-      		$(".btn-close").click(function(){
-      			$("#star > span").css("color", "gray");
-      		});
-      		/***********************************************************************/
-      		
-      		
-      		
-      		
-      		
-      		
-      		
-      		
-      		
-      		// 모달창에서 수정버튼 클릭
-      		$(".r_UpdateBtn").click(function(){
-      			if(confirm("수정 하시겠습니까?")){
-      			
-	      			$("#r_UpdateForm").attr({
-	      				"method" : "post",
-	      				"action" : "/review/reviewUpdate"
-	      				
-	      			});
-	      			$("#r_UpdateForm").submit();
-      			}
-      		});
-      		
-      		
-      		
-      		
-      		
-      		// 모달창 글자수 보여주기
-      		$('#message-text').keyup(function (e) {
-      			let content = $(this).val();
-      		    
-	      		    // 글자수 세기
-	      		    if (content.length == 0 || content == '') {
-	      		    	$('#textCount').text('0자/250자');
-	      		    } else {
-	      		    	$('#textCount').text(content.length + '/250자');
-	      		    } 
-      		    
-      		    
-	      		  if (content.length > 250) {
-	      	        // 200자 넘으면 알림창 뜨도록
-	      	        alert('글자수는 250자까지 입력 가능합니다.');
-      	  		  };
-      		    
-      		    
-      		});	
-      		
-      		
-      		/********************
-      		
-      		
-
-      		$(".reviewLikeBtn").click(function(){
-      			var $thisBtn = $(this);
-      		    var review_no = $thisBtn.closest('.card').data('review-no');
-      			  var user_no = $("#user_no").val();  // user_no 값을 가져옵니다.
-      		    $.ajax({
-      				url : "/review/likePlus",
-      				type: "POST",
-      				data: { review_no: review_no, user_no: user_no },
-      				 success: function(response){
-      					$thisBtn.find(".likeCount").text(response);
-      					console.log(response);
-      		        },
-      				error : function(error){
-      					console.error('Error',error);
-      				}
-      				
-      				
-      			});
-      			
-      			
-      			
-      		});
-      		
-      		/********************/
-      		
-   			$(document).on('click', '.reviewLikeBtn', function() {
-   				var cardElement = $(this).closest('.card');
-   				var review_no = $(this).closest('.card').data('review-no');
-   				var cookieName = 'review_' + review_no;
-   				console.log(cookieName);
-   				
-   				// 해당 리뷰에 대한 쿠키가 있는지 확인
-   			    if(!$.cookie(cookieName)) {
-   				    // 쿠키에 리뷰 ID 저장 (24시간 동안 유효)
-   			        $.cookie(cookieName, true, { expires: 24, path: '/' });
-   			    	
-   				    // ajax로 좋아요 +1 하고 갯수 반환받기
-	   			     $.ajax({
-	       				url : "/review/likePlus",
-	       				type: "GET",
-	       				data: { review_no: review_no },
-	       				 success: function(response){
-	      
-	       					// 좋아요 값 변경 왜 안되냐~
-	       					$(this).closest(".card.mb-3").find(".likeCount").text("sss");
-	       					
-	       		        },
-	       				error : function(error){
-	       					console.error('Error',error);
-	       				}
-	       				
-	       				
-	       			});
-   			    
-   			    } else {
-   			        alert("이미 추천하셨습니다.");
-   			    }
-   				
-   			});
-      		
-      		
-      		
-      		
-      	});
-      
-      
-      </script>
-      <style>
-      	#star > span {
-    		cursor: pointer;
-		}
-		
-		#textCount {
-			font-size : 13px;
-			text-align : right;
-			margin-top:5px;
-			color:gray;
-		}
-      
-      </style>
+     
+ 
       
        
       
@@ -313,91 +22,108 @@
    	</form>
    	-->
    	<br>
-   	
    	<input type="hidden" id="user_no" value="${sessionScope.UserLogin.user_no}">
    	
+   	
+   	<form id="detailReviewOrderBy">
+   		<!-- 정렬데이터 전송을 위한 폼 -->
+		<input type="hidden" id="reviewOrderBy" name="reviewOrderBy" value="">
+   	
+   	</form>
    		
 	
-	
-	
-	<!-- 새로운 디자인 -->
-	
-	
-				
-				<!-- 리뷰 리스트 시작 -->
-						<div class="card text-center">
+
+	<div class="card-body">
+		 <c:choose>
+		    <c:when test="${not empty bestReview}">
+		        <c:forEach var="bestReivew" items="${bestReview}" varStatus="status">
+		        	
+	            	<form id="r_BestListForm">
+					    <div class="card mb-3" id="bestReviewDiv" data-review-no="${bestReivew.review_no}" style="max-width: 700px;">
+						  <div class="row g-0">
+						  <p id="bestReviewHeader">가장 많은 추천을 받은 리뷰</p>
+						    <div class="col-md-4">
+						      <img src="/resources/images/mainpage/product/${bestReivew.product_main_image}" class="img-fluid rounded-start" alt="...">
+			
+						    </div>
+						    <div class="col-md-8">
+						      <div class="card-body">
+						        <h6 class="card-title">${bestReivew.review_no} | ${bestReivew.user_no} | ${bestReivew.review_date} | ${bestReivew.product_name} </h6>
+						        <p class="card-text text-left" id="reviewContent" data-review-content="${bestReivew.review_content}">${bestReivew.review_content }</p>
+						        
+						      </div>
+						      <div id="cordBtn">
+						       <div class="reviewRating" id="reviewRating" data-review-rating="${bestReivew.review_rating}">${bestReivew.review_rating}</div>
+						       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${bestReivew.review_like_count}</span></button>
+						      
+						      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
+						            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+						               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+						    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${bestReivew.user_no}">삭제</button>
+						            </c:if>
+						      </div>
+						     
+						    </div>
+						  </div>
+						</div>
 						
-						  <div class="card-header">
-							    <ul class="nav nav-tabs card-header-tabs">
-							      <li class="nav-item">
-							       	 <a class="nav-link active" aria-current="true" href="#">최신 순</a>
-							      </li>
-							      <li class="nav-item">
-							    	    <a class="nav-link" href="#">별점 순</a>
-							      </li>
-							      <li class="nav-item">
-							     	   <a class="nav-link" href="#">좋아요 순</a>
-							      </li>
-							    </ul>
-						  </div>
-						  
-						  <div class="card-body">
-						  
-												  
-							<c:choose>
-								<c:when test="${not empty reviewlist}">
-									<c:forEach var="review" items="${reviewlist}" varStatus="status">					
-						 		 <!-- 카드 시작 -->
-						 		 <form id="r_ListForm">
-							    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
-								  <div class="row g-0">
-								    <div class="col-md-4">
-								      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="..." style="height: 160px; width: 150px; border-radius: 10px;">
-								    </div>
-								    <div class="col-md-8">
-								      <div class="card-body">
-								        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
-								        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
-								        
-								      </div>
-								      <div id="cordBtn">
-								       <div class="reviewRating" id="reviewRating" data-review-rating="${review.review_rating}">${review.review_rating}</div>
-								       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning .likeCount">${review.review_like_count}</span></button>
-								       <!-- 
-								       <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBt" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
-								       <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
-								        -->
-								      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-								            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
-								               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
-								    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
-								            </c:if>
-								      </div>
-								     
-								    </div>
-								  </div>
-								</div>
-								
-								</form>
-								<!-- 카드 끝 -->
-								
-								
-								
-									</c:forEach>
-								</c:when>
-									<c:otherwise>
-										<div>
-											<div class="tac text-center">등록된 게시글이 존재하지 않습니다.</div>
-										</div>
-									</c:otherwise>
-							</c:choose>
-										
-								
-								
-								
-								
-						  </div>
+					</form>
+		        </c:forEach>
+		    </c:when>
+		</c:choose>
+
+						
+		<!-- --------------- -->				
+							  
+		<c:choose>
+			<c:when test="${not empty reviewList}">
+				<c:forEach var="review" items="${reviewList}" varStatus="status">
+				
+				
+	 		 <!-- 카드 시작 -->
+	 		 <form id="r_ListForm">
+			    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
+				  <div class="row g-0">
+				    <div class="col-md-4">
+				      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="...">
+				    </div>
+				    <div class="col-md-8">
+				      <div class="card-body">
+				        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
+				        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
+				        
+				      </div>
+				      <div id="cordBtn">
+				       <div class="reviewRating" id="reviewRating" data-review-rating="${review.review_rating}">${review.review_rating}</div>
+				       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
+				      
+				      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
+				            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+				               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+				    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
+				            </c:if>
+				      </div>
+				     
+				    </div>
+				  </div>
+				</div>
+				
+			</form>
+			<!-- 카드 끝 -->
+			
+			
+			
+				</c:forEach>
+			</c:when>
+				<c:otherwise>
+					<div>
+						<div class="tac text-center">등록된 게시글이 존재하지 않습니다.</div>
 					</div>
+				</c:otherwise>
+		</c:choose>
+					
+	
+	</div>
 				<!--  리뷰 리스트 끝  -->
 				
 

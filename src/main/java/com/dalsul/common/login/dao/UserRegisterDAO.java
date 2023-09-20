@@ -10,4 +10,5 @@ public interface UserRegisterDAO {
 	public int userRegistring(UserVO uvo);
 	public int chkDuplicatedPhone(String PhoneNumber);
 	public int chkDuplicatedEmail(String mailAddress);
+	public int userCreateCart(UserVO uvo);
 }

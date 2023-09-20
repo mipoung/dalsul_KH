@@ -46,7 +46,7 @@ public class ReplyController {
 	}
 	
 	/*댓글 글쓰기*/
-	@PostMapping(value = "/replyInsert", consumes = "application/json",  produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/replyInsert", consumes = "application/json",  produces = MediaType.TEXT_PLAIN_VALUE)
 	public String replyInsert(@RequestBody ReplyVO rvo) {
 		int result = 0;
 		
@@ -56,17 +56,17 @@ public class ReplyController {
 	}
 	
 	/*댓글 수정*/
-	@PutMapping(value = "/{inquiry_no}", consumes = "application/json",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public String replyUpdate(@PathVariable("inquiry_no") int inquiry_no, @RequestBody ReplyVO rvo) {
-		rvo.setInquiry_no(inquiry_no);
+	@PutMapping(value = "/{reply_no}", consumes = "application/json",  produces = MediaType.TEXT_PLAIN_VALUE)
+	public String replyUpdate(@PathVariable("reply_no") int reply_no, @RequestBody ReplyVO rvo) {
+		rvo.setReply_no(reply_no);
 		int result = replyService.replyUpdate(rvo);
 		return (result == 1) ? "SUCCESS" : "FAILURE";
 	}
 	
 	/*댓글 삭제*/
-	@DeleteMapping(value = "/{inquiry_no}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String replyDelete(@PathVariable("inquiry_no") int inquiry_no) {
-		int result = replyService.replyDelete(inquiry_no);
+	@DeleteMapping(value = "/{reply_no}", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String replyDelete(@PathVariable("reply_no") int reply_no) {
+		int result = replyService.replyDelete(reply_no);
 		
 		return (result == 1) ? "SUCCESS" : "FAILURE";
 	}

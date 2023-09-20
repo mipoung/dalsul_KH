@@ -32,6 +32,7 @@ public class ReviewVO extends CommonVO {
 
 	// 정렬을 위한 필드 
 	private String reviewOrderBy="";
+	private String best_review;
 
 	// 날짜 범위 검색을 위한 필드
 	private String searchDate1;
@@ -49,6 +50,9 @@ public class ReviewVO extends CommonVO {
         return "";
     }
 	*/
+	
+	
+	
 	
 	
 	

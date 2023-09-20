@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+.table{
+		width :100%;
+}
+
+.miniSize {
+	width :100px;
+	font-size : 15px;
+}
+
+.bigSize {
+	width :400px;
+}
+
+#pageNav {
+	
+	    margin: 0 auto;
+	    width: 100px;
+	    margin-bottom : 100px;
+
+}
+
+#packageNameSpan{
+	color : blue;
+	font-size : 13px;
+}
+
+.mb-3 {
+	display :inline-flex;
+	margin-top : 10px;
+}
+
+#searchData {
+	width : 150px;
+}
+
+#search{
+	width : 250px;
+}
+
+#mainSection {
+	margin :15px;
+}
+
+#keyword{
+	margin-left : 5px;
+	margin-right :5px;
+}
+
+#FlexDiv {
+	display : flex;
+
+}
+
+#Flex2 {
+	margin-left : 50px;
+}

@@ -43,6 +43,11 @@ public class UserRegisterServiceImpl implements UserRegisterService{
 		
 		int result = userRegisterDAO.userRegistring(uvo);
 		
+		// 계정이 성공적으로 생성되었다면 장바구니 생성
+		if(result == 1) {
+			userRegisterDAO.userCreateCart(uvo);
+		}
+		
 		return result;
 	}
 

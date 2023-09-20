@@ -15,6 +15,8 @@ public interface ReviewService {
 	public List<ReviewVO> detailReviewList(ProductVO pvo);
 	public List<ReviewVO> managerReviewList(ReviewVO rvo);
 	
+	public List<ReviewVO> detailReviewListBest(ProductVO pvo);
+	
 	public void myReviewDelete(ReviewVO rvo);
 	public int myReviewInsert(ReviewVO rvo);
 	public int myReviewUpdate(ReviewVO rvo);

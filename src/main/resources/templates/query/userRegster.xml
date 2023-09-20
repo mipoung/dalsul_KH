@@ -17,6 +17,21 @@
 			 )
 	</insert>
 	
+	<insert id="userCreateCart" parameterType="userVO">
+		INSERT INTO CART
+		VALUES
+		(
+			(SELECT USER_NO
+			 FROM USERS
+			 WHERE USER_EMAIL = #{user_email}
+			),
+			(SELECT USER_NO
+			 FROM USERS
+			 WHERE USER_EMAIL = #{user_email}
+			)
+		)
+	</insert>
+	
 	<select id="chkDuplicatedPhone" parameterType="String" resultType="_int">
 		SELECT COUNT(*)
 		FROM USERS
