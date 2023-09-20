@@ -8,5 +8,6 @@ public interface CouponManagerService {
 
 	public List<CouponVO> couponList(CouponVO cvo); /*검색포함 글목록 구현 메소드*/
 	public int couponListCnt(CouponVO cvo); /*페이징 처리 메소드*/
-	public int insertCoupon(CouponVO cvo);
+	
+	public int insertCoupon(CouponVO cvo); 
 }

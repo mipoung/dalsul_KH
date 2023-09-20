@@ -10,27 +10,78 @@
 
 <script>
 var grandTotal = 0;
+var grandTotalClone=0;
+
+//$(function() {
+    // "주문하기" 버튼을 클릭할 때 함수 호출
+    function sendOrderData() {
+    	console.log("sendOrderData함수 실행");
+    	
+    	const deleveryAddr = $("#receiver").val() + "," +
+    						 $("#postcode").val() + "," +
+    						 $("#roadAddress").val() + "," +
+    						 $("#jibunAddress").val() + "," +
+    						 $("#detailAddress").val() + "," +
+    						 $("#extraAddress").val();
+    	
+    	let productNumbers = $(".product_no").map(function() {
+    	    					return $(this).text();
+    						 }).get();
+    	
+    	let productQuantity = $(".quantity").map(function() {
+			return parseInt($(this).text());
+		 }).get();
+    	
+    	
+    	let orderData = {
+		    order_delivery_info: deleveryAddr,
+		    order_total_price: parseInt($("#grandTotal").text().replace(",", "")),
+		    order_use_coupon: parseInt($("#coupon").val()),
+		    product_no : productNumbers
+		    quantity : productQuantity
+    	};
+			console.log("성공?");
+			console.log('orderData:', orderData);
+    	    // AJAX를 사용하여 주문 정보와 결제 정보를 서버로 전송
+    	    $.ajax({
+    	        url: "/order/orderInsert", //컨트롤러
+    	        method: "POST",
+    	        contentType: "application/json",
+    	        data: JSON.stringify(orderData),
+    	        dataType:"text",
+    	        success: function(response) {
+    	        	console.log(response);
+    	        	//window.location.href = "/cart/success";
+    	        	alert('결제 성공');
+    	        },
+    	        error:function(error) {
+                	alert('실패 실패');
+                    console.error(error); // 오류를 콘솔에 출력
+    	        }
+            });
+        }
+    //});
+
 $(function(){
 	  $("#payBtn").click(function(){
-		 window.location.href = "/order/insertOrder";
 		 requestPay();
 	  })
 });	
+
 
 	var IMP = window.IMP; 
 	IMP.init("imp57485457"); 
 
 	
 	function requestPay() {
-		
-		
+		console.log("function 시작");
 	  IMP.init('imp57485457'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
 	  IMP.request_pay({
-	    pg: "html5_inicis.INIBillTst",
+	    pg: "kakaopay.TC0ONETIME",
 	    pay_method: "card",
 	    merchant_uid : 'merchant_'+new Date().getTime(),
 	    name : '달술',
-	    amount : grandTotal,
+	    amount : grandTotalClone,
 	    buyer_email : 'iamport@siot.do',
 	    buyer_name : "${userInfo.user_name}",
 	    buyer_tel : "${userInfo.user_phone_num}",
@@ -38,25 +89,36 @@ $(function(){
 	    buyer_postcode : '123-456'
 	  }, function (rsp) { // callback
 	      if (rsp.success) {
-	    	  console.log(rsp);
-	      } else {
-	        console.log(rsp);
+	    	      console.log("결제가 성공했습니다.");
+	    	      console.log(rsp); 
+	    	      // 결제 성공 후 주문 데이터 전송
+	    	     sendOrderData();
+	    	     //window.location.href = "/order/success";
+	    	    } else {
+	    	      var msg = '결제에 실패하였습니다.';
+                  msg += '에러내용 : ' + rsp.error_msg;
+	    	      console.log("결제가 취소되었습니다.");
 	      }
-	  });
+	  })
 	};
-	
+
+	<%--
 	function msg(rsp) {
-	    console.log(rsp);
+	   // console.log(rsp);
 	    if (rsp.success) {
+	      console.log("결제가 성공했습니다.");
 	      var msg = '결제가 완료되었습니다.';
 	      alert(msg);
-	      location.href = "결제 완료 후 이동할 페이지 url"
+	      
+	      //location.href = "cart/success";
 	    } else {
 	      var msg = '결제에 실패하였습니다.';
 	      msg += '에러내용 : ' + rsp.error_msg;
 	      alert(msg);
 	    }
 	 }
+	
+	--%>
 	// 페이지 로드가 완료되면 실행되는 함수
 	window.onload = function() {
 		
@@ -109,11 +171,11 @@ $(function(){
  				   }
 	                
 
-	                // grandTotalClone 값을 화면에 업데이트합니다.
-	                 //var grandTotalElement = document.getElementById("grandTotal");
-	                 //grandTotalElement.innerText = grandTotalClone.toLocaleString();
+	               //  grandTotalClone 값을 화면에 업데이트합니다.
+	                 var grandTotalElement = document.getElementById("grandTotal");
+	                 grandTotalElement.innerText = grandTotalClone.toLocaleString();
 					
-					/////////////////////////////////////
+				<%--	/////////////////////////////////////
 	     		//마일리지 사용 함수
 // 초기 총 결제금액을 설정합니다.
     var originalUseMileageValue = 0;
@@ -147,9 +209,10 @@ $(function(){
             // 페이지에 표시된 총 결제금액을 업데이트합니다.
             var grandTotalElement = document.getElementById("grandTotal");
             grandTotalElement.innerText = grandTotalClone.toLocaleString();
+            console.log(grandTotalClone.toLocaleString());
         }
     });
-	     		
+	     		--%>
 	            ///////////////////////////////////////
 		         // grandTotal 값을 계산한 후 5% 값을 계산합니다.
 		            var couponPercentage = 0.05; // 5%에 해당하는 비율
@@ -326,10 +389,13 @@ $(function(){
 		  
 	<!-- <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소 입력">-->
 	 <label for="exampleFormControlInput1" class="form-label">주소</label>
-</div>		
+</div>
+		
  <div class="address_sys_container" >		
+ <form id="addrForm" name="addrForm">
+ <!-- <input type="hidden" id="addrInfo" name="order_delevery_info" value=""/> -->
+ 
  <!-- 배송지정보를 입력받을,입력하는데 필요한 input태그 --> 
- 	
  		<input type="text" id="receiver" placeholder="받는사람(수취인) 이름" name="receiver">
  		<input type="text" id="name" name="name" placeholder="주소지 별명">
  		<input type="button" onclick="execDaumPostcode()" value="주소찾기"><br/>
@@ -339,7 +405,8 @@ $(function(){
         <span id="guide" style="color:#999;display:none"></span>
         <input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress">
         <input type="text" id="extraAddress" onclick="execDaumPostcode()" placeholder="참고항목" readonly="readonly" name="extraAddress">
-    </div><br/>	
+   </form> 
+   </div><br/>	
 		<!-- 주소입력 컨테이터 종료 -->	
 		
 	<!-- 쿠폰 사용 -->
@@ -352,22 +419,7 @@ $(function(){
     </select>
 </div>
 
-	<!-- 적립금 사용 -->
-<div class="mb3">
-	<label for="mileage" class="mileageLabel">사용 가능 적립금 > </label>
-	<span id="point_set">1000</span><br />
-	<!--  
-	<select id="mileage" class="mileage">
-		<option value="0">0원</option>
-        <option value="1000">1,000원</option>
-        <option value="2000">2,000원</option>
-	</select>
-	-->
-	
-	사용 적립금 : <input type="text" id="use_mileage" />
-</div>
-	
-	
+
 <div class="mb-3">
 	<label for="exampleFormControlTextarea1" class="form-label">결제 예정 상품</label>
 	<div id="orderTableDiv">
@@ -389,6 +441,7 @@ $(function(){
 						<td class="total"></td>
 					</tr>
 				</c:forEach>
+		
 		<tr id="dlv_fee">
 			<td colspan="3">배송비</td>
 			<td colspan="1">3,000</td>	
@@ -397,24 +450,21 @@ $(function(){
 			<td colspan="3">쿠폰 사용</td>
 			<td colspan="1" id="coupon_use"></td>
 		</tr>
-		<tr id="coupon tr">
-			<td colspan="3">적립금 사용</td>
-			<td colspan="1" id="mileage_use"></td>
-		</tr>
+				
 		<tr id="totalRow">
             <td colspan="2">총 합</td>
             <td colspan="2" id="grandTotal"></td>
         </tr>
-        <tr>
-        
-        </tr>
 			</tbody>
 		</table>
-		
+		<form name="t_data" id="t_data">
+   			<input type="hidden" name="order_total_price" value="" />
+   			<input type="hidden" name="order_use_coupon" value="" />
+   		</form>
 		<span id="couponMessage"></span>
 		
 		<div id="totalDiv">
-			<button onclick="requestPay()" id="payBtn">결제하기</button>
+			<button id="payBtn">결제하기</button>
 		</div>
 		
 	</div>
