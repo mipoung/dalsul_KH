@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalsul.common.login.dao.EditUserDAO">
+	
+	<update id="updateUserPassword" parameterType="userVO">
+		UPDATE USERS
+		SET USER_SALT = #{user_salt},
+			USER_PASSWORD = #{user_password},
+			USER_UPDATE_REG_DATE = SYSDATE
+		WHERE USER_NO = #{user_no}
+	</update>
+	
+	<update id="deleteUserAccount" parameterType="userVO">
+		UPDATE USERS
+		SET USER_STATUS = 'D',
+		USER_UPDATE_REG_DATE = SYSDATE
+		WHERE USER_NO = #{user_no}
+	</update>
+	
+</mapper>

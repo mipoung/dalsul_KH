@@ -111,7 +111,8 @@
 .update-password{
 	color : #368AFF;
 }
-.delete-user{
+
+.delete-user > a {
 	color : #FF3636;
 }
 
@@ -126,7 +127,48 @@
 
 <script>
 	$(function(){
-		$("v")
+		$.ajax({
+			url : "/mypage/getUserInfo",
+			method : "post",
+			data : {"user_no" : ${uvo.user_no}},
+			dataType : "json",
+			success : function(resultData){
+				$("#user_name").text(resultData.user_name);
+				$("#user_email").text(resultData.user_email);
+				$("#user_phone_num").text(resultData.user_phone_num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+			}, error : function(){
+				alert("시스템 오류");
+			}
+		});
+		
+		$(".delete-user").click(function(){
+			if(prompt("정말 탈퇴하시겠어요? 😥\n탈퇴를 원하시면 '탈퇴합니다'를 입력해 주세요.")==="탈퇴합니다"){
+				$.ajax({
+					url : "/edit/deleteUserAccount",
+					method : "post",
+					dataType : "text",
+					success : function(result){
+						if(result=="SUCCESS"){
+							alert("정상적으로 탈퇴되었습니다");
+							location.href = "/login/userLogout";	
+						}else{
+							Swal.fire({
+								icon: 'error',
+								title: '탈퇴 진행도중 오류가 발생하였습니다',
+								html: '잠시후 다시 시도해 주세요'
+							});	
+						}
+					}, error(){
+						Swal.fire({
+							icon: 'error',
+							title: '시스템 오류...',
+							html: '잠시후 다시 시도해 주세요'
+						});
+						return;
+					}
+				})
+			}
+		});
 	});
 </script>
 </head>
@@ -140,7 +182,7 @@
 			<div id="user_info_detail">
 				<div class="user-details-row">
 					<div class="user-details-label">회원명</div>
-					<div class="user-details-data">홍길동</div>
+					<div class="user-details-data" id="user_name"></div>
 				</div>
 				<div class="user-details-row">
 					<div class="user-details-label">비밀번호</div>
@@ -148,14 +190,14 @@
 				</div>
 				<div class="user-details-row">
 					<div class="user-details-label">이메일</div>
-					<div class="user-details-data">tester@gmail.com</div>
+					<div class="user-details-data" id="user_email"></div>
 				</div>
 				<div class="user-details-row">
 					<div class="user-details-label">휴대폰 번호</div>
-					<div class="user-details-data">010-1234-5678</div>
+					<div class="user-details-data" id="user_phone_num"></div>
 				</div><br>
 				<div class="update-password"><a href="/edit/updatePasswordView">비밀번호 변경</a></div>
-				<div class="delete-user"><a href="/edit/deleteUserView">회원 탈퇴</a></div>
+				<div class="delete-user"><a href="javascript:void(0);">회원 탈퇴</a></div>
 			</div>
 		</div>
 	</div>
