@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
-<script type="text/javascript" src="/resources/include/reviewBoard/js/reviewMyPage.js"></script>
+<script type="text/javascript" src="/resources/include/reviewBoard/js/reviewList.js"></script>
       <title>리뷰조회 reviewList</title>
       <!-- 주석-->
      
@@ -57,7 +57,7 @@
 						       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${bestReivew.review_like_count}</span></button>
 						      
 						      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-						            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+						            <c:if test="${not empty userLogin and userLogin.user_no == bestReivew.user_no}">
 						               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
 						    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${bestReivew.user_no}">삭제</button>
 						            </c:if>
@@ -90,7 +90,7 @@
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
-				        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
+				        <h6 class="card-title" data-product-no="${review.product_no}">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
 				        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
 				        
 				      </div>
@@ -99,7 +99,7 @@
 				       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
 				      
 				      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-				            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+				             <c:if test="${not empty userLogin and userLogin.user_no == review.user_no}">
 				               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
 				    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
 				            </c:if>
@@ -186,6 +186,9 @@
 									<input type="hidden" id="review_no" name="review_no" value="" />
 									<!-- 별점 저장을 위한 히든 폼 -->
 									<input type="hidden" id="review_rating" name="review_rating" value="" />
+									
+									<!-- 제품 넘버 저장을 위한 히든 폼 -->
+									<input type="hidden" id="product_no" name="product_no" value="" />
 									
 								</form>
 			

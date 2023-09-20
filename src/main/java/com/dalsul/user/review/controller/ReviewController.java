@@ -82,7 +82,7 @@ public class ReviewController {
 	/*********** 완성 **********/
 	// 마이페이지에서 보여주기
 	@GetMapping("myReviewList") 
-	public String myReviewList(@SessionAttribute(name="UserLogin", required = false) UserVO user, Model model) {
+	public String myReviewList(@SessionAttribute(name="userLogin", required = false) UserVO user, Model model) {
 		// 세션 값이 없으면 메인으로 리다이렉트 or 경고문 출력
 		
 		
@@ -116,7 +116,7 @@ public class ReviewController {
 	/*********** 완성 **********/
 	// 관리자페이지 보여주기
 	@GetMapping("managerReviewList")
-	public String managerReviewList(@SessionAttribute(name="UserLogin", required = false) UserVO user, CommonVO cvo, ReviewVO rvo, Model model){
+	public String managerReviewList(@SessionAttribute(name="userLogin", required = false) UserVO user, CommonVO cvo, ReviewVO rvo, Model model){
 		// 관리자 세션이 있으면 페이지 보여주기
 		if(user == null || !(user.getUser_no() == 1)) {
 			model.addAttribute("msg", "관리자가 아닙니다.");
@@ -151,7 +151,7 @@ public class ReviewController {
 	/*********** 완성 **********/
 	// 작성 폼
 		@GetMapping("reviewWriteForm")
-		public String reviewWriteForm(@SessionAttribute(name="UserLogin", required = false) UserVO user, Model model) {
+		public String reviewWriteForm(@SessionAttribute(name="userLogin", required = false) UserVO user, Model model) {
 			// 회원이 아니면 로그인 페이지로 보냄
 			if(user == null) {
 				// msg에 경고 담아 보내기 => 로그인 페이지 위에 띄우면 좋겠음
@@ -183,7 +183,7 @@ public class ReviewController {
 	// 리뷰작성은 마이페이지에 주문내역에서만 가능
 	// 세션이 있고 주문내역이 있는 사람만 작성 가능
 	@PostMapping("myReviewInsert")
-	public String myReviewInsert(@SessionAttribute(name="UserLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
+	public String myReviewInsert(@SessionAttribute(name="userLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
 		log.info("=== myReviewInsert() 호출 성공 ===");
 		int result = 0;
 		String url = "";
@@ -224,7 +224,7 @@ public class ReviewController {
 	/*********** 완성(필요없음) **********/
 	// 관리자 페이지 리뷰 작성
 	@PostMapping("managerReviewInsert")
-	public String managerReviewInsert(@SessionAttribute(name="UserLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
+	public String managerReviewInsert(@SessionAttribute(name="userLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
 		log.info("=== managerReviewInsert() 호출 성공 ===");
 		int result = 0;
 		String url = "";
@@ -268,11 +268,12 @@ public class ReviewController {
 	public String reviewUpdate(ReviewVO rvo) {
 		int result = 0;
 		
-		log.info(rvo.toString());
+		log.info("수정 누르면 결과 값 : "+rvo.toString());
 		
 		result = reviewService.myReviewUpdate(rvo);
 		
-		return "redirect:/mypage/reviewDetailView";
+		//return "redirect:/mypage/reviewDetailView";
+		return "redirect:/detail?product_no="+rvo.getProduct_no();
 	}
 	
 	
@@ -284,7 +285,7 @@ public class ReviewController {
 	// 유저 마이페이지 삭제 기능
 	// 세션 user_no와 리뷰의 user_no가 같은 경우만 삭제 허용
 	@PostMapping("myReviewDelete")
-	public String myReviewDelete(@SessionAttribute(name="UserLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
+	public String myReviewDelete(@SessionAttribute(name="userLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
 		// 세션 값이 있을 때만 세션 체크하기
 		
 		String url = "";
@@ -296,7 +297,8 @@ public class ReviewController {
 					// 로그인 세션 user_no와 리뷰 user_no가 같으면
 					reviewService.myReviewDelete(rvo);
 					
-					url="myReviewList";
+					//url="myReviewList";
+					url="/detail?product_no="+rvo.getProduct_no();
 			} else {
 				log.info("작성자가 아니므로 삭제 불가합니다.");
 					url="myReviewList";
@@ -323,7 +325,7 @@ public class ReviewController {
 	// 관리자 삭제 기능 (완료)
 	// 관리자 세션을 가진 사람만 삭제 가능
 	@PostMapping("managerReviewDelete")
-	public String managerReviewDelete(@SessionAttribute(name="UserLogin", required = false) UserVO user, ReviewVO rvo) {
+	public String managerReviewDelete(@SessionAttribute(name="userLogin", required = false) UserVO user, ReviewVO rvo) {
 		
 		// 로그인하지 않은 사용자이거 관리자가 아니면 
 		if(user == null || !(user.getUser_no() == 1)) {
@@ -341,7 +343,7 @@ public class ReviewController {
 	
 	@ResponseBody
 	@GetMapping(value = "likePlus", produces = "text/plain; charset=UTF-8")
-	public String likePlus(@SessionAttribute(name="UserLogin", required = false) UserVO user, @ModelAttribute ReviewVO rvo, Model model) {
+	public String likePlus(@SessionAttribute(name="userLogin", required = false) UserVO user, @ModelAttribute ReviewVO rvo, Model model) {
 		log.info("likePlus 실행" + rvo.toString() + user.getUser_no());
 		
 		

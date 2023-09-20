@@ -46,7 +46,7 @@
 
 	
 	<!-- 마이페이지 리뷰 조회 -->
-	<select id="myReviewList" parameterType="review" resultType="review">
+	<select id="myReviewList" parameterType="UserVO" resultType="review">
 	
 	
 		SELECT * FROM REVIEW

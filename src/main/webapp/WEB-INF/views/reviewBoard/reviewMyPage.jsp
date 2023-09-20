@@ -81,13 +81,13 @@
 				      </div>
 				      <div id="cordBtn">
 				       <div class="reviewRating" id="reviewRating" data-review-rating="${review.review_rating}">${review.review_rating}</div>
-				       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
+				       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">추천수 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
 				      
 				      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-				            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+				          
 				               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
 				    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
-				            </c:if>
+				            
 				      </div>
 				     
 				    </div>
