@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
+import com.dalsul.user.main.vo.ProductVO;
 import com.dalsul.user.review.dao.ReviewDAO;
 
 import com.dalsul.common.vo.PageDTO;
-import com.dalsul.user.review.dao.ReviewDAO;
+
 import com.dalsul.user.review.service.ReviewService;
-import com.dalsul.user.review.vo.ProductVO;
+
 import com.dalsul.user.review.vo.ReviewVO;
 
 import lombok.Setter;
@@ -58,12 +59,12 @@ public class ReviewController {
 	
 	/*********** 완성 **********/
 	@GetMapping("detailReviewList")
-	public String detailReviewList(Model model, ReviewVO rvo) {
+	public String detailReviewList(Model model, ProductVO pvo) {
 			log.info("detailReviewList() 메서드 호출");
-			rvo.setProduct_no(1); // 출력할 제품 번호(테스트용)
+			
 			//rvo.setPackage_product_no(1);
-			log.info("뷰에서 받아온 값: " + rvo.toString());
-			List<ReviewVO> reviewList = reviewService.detailReviewList(rvo);
+			log.info("뷰에서 받아온 값: " + pvo.toString());
+			List<ReviewVO> reviewList = reviewService.detailReviewList(pvo);
 			log.info("담긴 값:" + reviewList.toString());
 			
 			model.addAttribute("reviewList", reviewList);

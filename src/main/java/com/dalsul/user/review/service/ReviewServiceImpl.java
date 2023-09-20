@@ -8,8 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
+import com.dalsul.user.main.vo.ProductVO;
 import com.dalsul.user.review.dao.ReviewDAO;
-import com.dalsul.user.review.vo.ProductVO;
+
 import com.dalsul.user.review.vo.ReviewVO;
 
 import lombok.Setter;
@@ -44,8 +45,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	@Override
-	public List<ReviewVO> detailReviewList(ReviewVO rvo) {
-		List<ReviewVO> list = reviewDAO.detailReviewList(rvo);
+	public List<ReviewVO> detailReviewList(ProductVO pvo) {
+		List<ReviewVO> list = reviewDAO.detailReviewList(pvo);
 		return list;
 	}
 

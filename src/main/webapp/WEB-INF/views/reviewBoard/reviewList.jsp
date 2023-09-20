@@ -313,7 +313,7 @@
    	</form>
    	-->
    	<br>
-   	<h2>제품번호 <span>12</span></h2>
+   	
    	<input type="hidden" id="user_no" value="${sessionScope.UserLogin.user_no}">
    	
    		
@@ -345,17 +345,14 @@
 						  
 												  
 							<c:choose>
-								<c:when test="${not empty reviewList}">
-									<c:forEach var="review" items="${reviewList}" varStatus="status">
-									
-									
+								<c:when test="${not empty reviewlist}">
+									<c:forEach var="review" items="${reviewlist}" varStatus="status">					
 						 		 <!-- 카드 시작 -->
 						 		 <form id="r_ListForm">
 							    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
 								  <div class="row g-0">
 								    <div class="col-md-4">
-								      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
-								      ${review.product_main_image}
+								      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="..." style="height: 160px; width: 150px; border-radius: 10px;">
 								    </div>
 								    <div class="col-md-8">
 								      <div class="card-body">
@@ -472,10 +469,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-
-	
-   
-   
+				</div>   
    </body>
 </html>

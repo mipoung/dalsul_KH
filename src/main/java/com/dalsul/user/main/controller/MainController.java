@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.main.service.MainService;
 import com.dalsul.user.main.vo.ProductVO;
+import com.dalsul.user.review.service.ReviewService;
+import com.dalsul.user.review.vo.ReviewVO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -33,6 +36,9 @@ public class MainController {
 	    public MainController(MainService mainService) {
 	        this.mainService = mainService;
 	    }
+	    
+	    @Setter(onMethod_ = @Autowired)
+	    ReviewService reviewService;
 	    
 		/* 시작화면 호출 */
 	  	@GetMapping("/")
@@ -65,17 +71,35 @@ public class MainController {
 	        return result;
 	    }
 	    
+	    /* 전체페이지로 이동 */
+	    @GetMapping("/total")
+	    public String totalPage(Model model) {
+	    	
+	    	log.info("전체페이지 호출 성공");
+	    	
+	    	List<ProductVO> total = mainService.getTotalPageProducts();
+	    	model.addAttribute("total", total);
+	    	
+	    	log.info("상품개수 : "+total.size());
+	    	return "main/total";
+	    }
+	    
 	    /* 상세페이지로 이동 */
 	    @GetMapping("/detail")
 	    public String detailPage(ProductVO vo, Model model) {
 	    	
 	    	log.info("상세페이지 호출 성공");
-	    	vo.setProduct_no(10101011);
 	    	
 	    	ProductVO detail = mainService.getDetailPageProducts(vo);
+	    	
+	    	List<ReviewVO> review = reviewService.detailReviewList(vo);	
+	    	
+	    	
 	    	model.addAttribute("detail", detail);
+	    	model.addAttribute("reviewlist", review);
 	    	
-	    	
+	    	log.info("review" + review);
+	 
 	    	return "main/detail"; // detail.jsp 페이지로 이동
 	    }
 

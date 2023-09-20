@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
-import com.dalsul.user.review.vo.ProductVO;
+import com.dalsul.user.main.vo.ProductVO;
 import com.dalsul.user.review.vo.ReviewVO;
 
 
 public interface ReviewService {
 	public List<ReviewVO> myReviewList(UserVO uvo);
-	public List<ReviewVO> detailReviewList(ReviewVO rvo);
+	public List<ReviewVO> detailReviewList(ProductVO pvo);
 	public List<ReviewVO> managerReviewList(ReviewVO rvo);
 	
 	public void myReviewDelete(ReviewVO rvo);
