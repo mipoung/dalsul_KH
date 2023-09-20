@@ -47,15 +47,15 @@
 	
 	<!-- product에서 가져오려는데 productVO가 설정 파일에 없음... 
 	<select id="managerMainChart" resultType="product">
-	</select>-->
+	</select>
 	
 		select product_type, count(*) as product_type_count
 		from product
 		group by product_type
 	
 	</select>
-	
 	-->
+	
 	<select id="managerMainChart" resultType="product">
 		
 		SELECT 
@@ -83,7 +83,7 @@
 	
 	
 	
-	<select id="managerMainCount" resultType="manager">
+	<select id="managerMainCount" resultType="managerVO">
 		SELECT 
 		   (SELECT COUNT(product_no) FROM product) AS product_count,
 		   (SELECT COUNT(review_no) FROM review) AS review_count,

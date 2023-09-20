@@ -1,5 +1,7 @@
 package com.dalsul.user.mypage.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import com.dalsul.user.mypage.service.MyPageService;
 import org.springframework.web.bind.annotation.RequestParam;
