@@ -78,13 +78,13 @@ public class UserLoginController {
 	}
 	
 	@GetMapping("/userLogout")
-	public String userLogoutProcess(SessionStatus sessionStatus) {
+	public String userLogoutProcess(HttpSession sessionStatus) {
 		log.info("userLogoutProcess() 호출");
 		String returnURL = "";
-		
+		System.out.println(sessionStatus);
 		if(sessionStatus != null) {
 			// session이 존재한다면 logout
-			sessionStatus.setComplete();
+			sessionStatus.invalidate();
 			returnURL = "/account/login/loginForm";
 		} else {
 			// session이 존재하지 않는다면
