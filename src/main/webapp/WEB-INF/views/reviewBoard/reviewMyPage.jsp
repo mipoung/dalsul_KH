@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
+<%@ include file="/WEB-INF/views/main/header.jsp"%>
 <%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/resources/include/reviewBoard/js/reviewMyPage.js"></script>
@@ -70,8 +71,8 @@
 			    <div class="card mb-3" data-review-no="${review.review_no}">
 				  <div class="row g-0">
 				    <div class="col-md-4">
-				      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
-				      ${review.product_main_image}
+				      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="...">
+				     
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
@@ -187,4 +188,5 @@
    
    
    </body>
+<%@ include file="/WEB-INF/views/main/footer.jsp"%>
 </html>

@@ -36,30 +36,30 @@
 	<div class="card-body">
 		 <c:choose>
 		    <c:when test="${not empty bestReview}">
-		        <c:forEach var="bestReivew" items="${bestReview}" varStatus="status">
+		        <c:forEach var="bestReview" items="${bestReview}" varStatus="status">
 		        	
 	            	<form id="r_BestListForm">
-					    <div class="card mb-3" id="bestReviewDiv" data-review-no="${bestReivew.review_no}" style="max-width: 700px;">
+					    <div class="card mb-3" id="bestReviewDiv" data-review-no="${bestReview.review_no}" style="max-width: 700px;">
 						  <div class="row g-0">
 						  <p id="bestReviewHeader">가장 많은 추천을 받은 리뷰</p>
 						    <div class="col-md-4">
-						      <img src="/resources/images/mainpage/product/${BestReview.product_main_image}" class="img-fluid rounded-start" alt="...">
+						      <img src="/resources/images/mainpage/product/${bestReview.product_main_image}" class="img-fluid rounded-start" alt="...">
 						      
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body">
-						        <h6 class="card-title">${bestReivew.review_no} | ${bestReivew.user_no} | ${bestReivew.review_date} | ${bestReivew.product_name} </h6>
-						        <p class="card-text text-left" id="reviewContent" data-review-content="${bestReivew.review_content}">${bestReivew.review_content }</p>
+						        <h6 class="card-title">${bestReview.review_no} | ${bestReview.user_no} | ${bestReview.review_date} | ${bestReview.product_name} </h6>
+						        <p class="card-text text-left" id="reviewContent" data-review-content="${bestReview.review_content}">${bestReview.review_content }</p>
 						        
 						      </div>
 						      <div id="cordBtn">
-						       <div class="reviewRating" id="reviewRating" data-review-rating="${bestReivew.review_rating}">${bestReivew.review_rating}</div>
-						       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${bestReivew.review_like_count}</span></button>
+						       <div class="reviewRating" id="reviewRating" data-review-rating="${bestReview.review_rating}">${bestReview.review_rating}</div>
+						       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${bestReview.review_like_count}</span></button>
 						      
 						      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-						            <c:if test="${not empty userLogin and userLogin.user_no == bestReivew.user_no}">
+						            <c:if test="${not empty userLogin and userLogin.user_no == bestReview.user_no}">
 						               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
-						    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${bestReivew.user_no}">삭제</button>
+						    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${bestReview.user_no}">삭제</button>
 						            </c:if>
 						      </div>
 						     
