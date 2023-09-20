@@ -53,6 +53,8 @@
     	</foreach>
 	</delete>
 	
+	
+	
 	<!-- product에서 가져오려는데 productVO가 설정 파일에 없음... 
 	<select id="managerMainChart" resultType="product">
 	</select>
