@@ -23,27 +23,59 @@
 	href="/resources/include/mainpage/css/slick-theme.css" />
 
 <style>
-.mainwrapper {
+/* body {
 	width: 100%;
+} */
+.content {
+	width: 1000px;
+	margin: 0 auto;
 }
+
 .product {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성합니다. */
 	grid-gap: 20px; /* 각 열과 행 사이의 간격 설정 */
+	align-content: center;
+	justify-content: space-evenly;
 }
 
 .wrapperin1 {
-	border: 1px solid #ccc; /* 각 항목의 테두리 설정 */
 	padding: 10px; /* 각 항목의 내부 여백 설정 */
 	text-align: left; /* 텍스트 가운데 정렬 */
-	width: 300px;
+	width: 250px;
+}
+
+a {
+  text-decoration: none; /* 텍스트 디코레이션 제거 */
+  color: inherit; /* 링크 텍스트 색상을 상위 요소에서 상속받음 */
 }
 
 .product-slide, .product-title, .product-price, .product-reputation {
-	width: 200px;
-	margin-left:50px;
-	margin-right:5px;
+	width: 250px;
+	height: auto;
+	max-height : 333.33px;
+	margin-right: 5px;
+	
+	border-radius: 5px;
 }
+
+.product-info {
+	margin-top: 10px;
+}
+
+.product-title, .product-price {
+	font-weight: bold;
+}
+
+.product-reputation {
+	font-size: 12px;
+	color: rgb(128, 128, 128);
+}
+
+
+
+
+
 </style>
 
 <script src="/resources/include/common/js/jquery-3.7.0.min.js"></script>
@@ -65,27 +97,29 @@
 								<a href="/detail?product_no=${total.product_no}"> <img
 									src="resources/images/mainpage/product/${total.product_main_image}"
 									alt="" class="product-slide" />
-									<div class="product-title">${total.product_name}</div>
-									<div class="product-price">${total.product_price}원</div>
-									<div class="product-reputation">
-										별점 :
-										<c:choose>
-											<c:when test="${not empty total.review_rating}">
+									<div class="product-info">
+										<div class="product-title">${total.product_name}</div>
+										<div class="product-price">${total.product_price}원</div>
+										<div class="product-reputation">
+											별점 :
+											<c:choose>
+												<c:when test="${not empty total.review_rating}">
                                			 ${total.review_rating}
                             		</c:when>
-											<c:otherwise>
+												<c:otherwise>
                                 		0
                             			</c:otherwise>
-										</c:choose>
-										| 리뷰 :
-										<c:choose>
-											<c:when test="${not empty total.review_num}">
+											</c:choose>
+											| 리뷰 :
+											<c:choose>
+												<c:when test="${not empty total.review_num}">
                                 		${total.review_num}개
                            			 </c:when>
-											<c:otherwise>
+												<c:otherwise>
                                			 0개
                           				 </c:otherwise>
-										</c:choose>
+											</c:choose>
+										</div>
 									</div>
 								</a>
 							</div>
@@ -93,7 +127,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
 		<%@ include file="footer.jsp"%>
 	</div>
