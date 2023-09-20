@@ -118,7 +118,9 @@ $(function(){
 		<div class="user_info">
 			<div class="benefit">
 				<div class="point">잔여 포인트 : 1,000</div>
-				<div class="coupon">잔여 쿠폰 : 2</div>
+			<div class="go_detail">
+				<div class="usercouponList">잔여 쿠폰 : 2</div>
+			</div>	
 			</div>
 		</div>
 	</div>

@@ -1,13 +1,17 @@
 package com.dalsul.user.coupon_recive.vo;
 
+import com.dalsul.common.vo.CommonVO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Coupon_reciveVO {
+@EqualsAndHashCode(callSuper = false)
+public class Coupon_reciveVO extends CommonVO {
 
 	private int coupon_recive_no; //발급받은 쿠폰 하나의 아이디 시퀀스
 	private int user_no;	//발급받은 사용자가 누구인지 알수있는 user_no 참조키
