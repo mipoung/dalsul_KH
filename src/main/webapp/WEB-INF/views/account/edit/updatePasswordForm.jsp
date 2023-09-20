@@ -28,12 +28,17 @@ $(function(){
 		else if (!chkPwdConfirm("password_confirm")) return;
 		
 		$.ajax({
-			url : "",
+			url : "/edit/updatePasswordchk",
 			method : "post",
-			data : {"userPassword" : $("#prev_password").val()},
+			data : {
+						"userPassword" : $("#prev_password").val(),
+						"changePassword" : $("#user_password").val()
+				   },
 			dataType : "text",
 			success : function(result){
-				
+				console.log(result);
+				alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+				location.href = "/login/userLogout";
 			}, error(){
 				Swal.fire({
 					icon: 'error',

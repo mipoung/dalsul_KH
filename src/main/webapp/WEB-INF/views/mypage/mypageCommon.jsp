@@ -85,6 +85,10 @@ body{
 
 <script>
 $(function(){
+	// 현재 페이지 url의 path정보 가져오기 ex)userInfoDetailView
+	const page = (window.location.pathname).replace("/mypage/","");
+	$("."+page).css("color","#FFBB00");
+	
 	$(".go_detail").hover(function() {        
         $(this).css({
         	"cursor" : "pointer",
@@ -109,7 +113,7 @@ $(function(){
 <div class="mb-3 mypage_menu">
 	<div class="member-info-wrapper" id="user_info">
 		<div class="name-header">
-			<div class="name-text">TEST님</div>
+			<div class="name-text">${uvo.user_name}님</div>
 		</div>
 		<div class="user_info">
 			<div class="benefit">
@@ -144,7 +148,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="go_detail">
-			<div class="userInfoDetailView">
+			<div class="deleveryDetailView">
 				<div>배송지 관리</div>
 				<img src="/resources/images/mypage/mypageHeader/truck.png" alt="address">
 			</div>

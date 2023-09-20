@@ -34,7 +34,7 @@ public class EncryptionServiceImpl implements EncryptionService {
 		
 		System.out.println("해싱 값 : "+hashingValue);
 		
-		return hashingValue; 
+		return hashingValue;
 	}
 		
 }

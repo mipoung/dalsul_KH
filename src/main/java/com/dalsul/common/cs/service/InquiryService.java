@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.dalsul.common.cs.vo.InquiryVO;
 
-
 public interface InquiryService {
 
 	public List<InquiryVO> inquiryList(InquiryVO ivo);

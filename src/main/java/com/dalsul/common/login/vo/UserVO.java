@@ -1,13 +1,17 @@
 package com.dalsul.common.login.vo;
 
+import com.dalsul.common.vo.CommonVO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVO {
+@EqualsAndHashCode(callSuper = false)
+public class UserVO extends CommonVO{
 	private int user_no;
 	private String user_email;
 	private String user_password;

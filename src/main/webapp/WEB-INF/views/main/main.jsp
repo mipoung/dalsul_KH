@@ -14,7 +14,6 @@
 <link rel="shortcut icon" href="/resources/images/icon.png" />
 <link rel="apple-touch-icon" href="/resources/images/icon.png" />
 
-
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/common/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css"
@@ -101,7 +100,6 @@ h2 {
 <script src="/resources/include/mainpage/js/slick.min.js"></script>
 <script src="https://kit.fontawesome.com/312ff11b0d.js"
 	crossorigin="anonymous"></script>
-<script src="/resources/include/mainpage/js/header.js"></script>
 
 <script>
 	$(function() {
