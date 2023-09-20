@@ -13,9 +13,17 @@
 			INSERT INTO ADDR (addr_NO, user_no, addr_post, addr_jibun, addr_road, addr_detail, addr_receiver, addr_name)
 			VALUES (ADDR_SEQ.NEXTVAL, #{user_no}, #{addr_post}, #{addr_jibun}, #{addr_road}, #{addr_detail}, #{addr_receiver}, #{addr_name})
 	</insert>
+	
+	<!-- 한 유저의 생성된 모든 배송지 정보를 조회하는 쿼리문 -->
+	<select id="choiceAddr" parameterType="addr">
+		SELECT addr_NO, addr_post, addr_jibun, addr_road, addr_detail, addr_receiver, addr_name
+		FROM ADDR
+		WHERE user_no= #{user_no}
+	</select>
 		
 	<!-- 기본배송지 정보를 담고있는 배송지 테이블을 조회하는 쿼리문 -->
 	<!-- 그리고 기본배송지 업데이트 폼에서 조회할 배송지 테이블을 조회하는 쿼리문 -->
+	<!-- 사용자가 특정 주소를 클릭했을때 그 정보를 표출해주는 쿼리문 -->
 	<select id="selectAddr" parameterType="addr">
 		SELECT addr_NO, user_no, addr_post, addr_jibun, addr_road, addr_detail, addr_receiver, addr_name
 		FROM ADDR
