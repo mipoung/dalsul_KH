@@ -92,12 +92,15 @@ public class MainController {
 	    	log.info("상세페이지 호출 성공");
 	    	
 	    	ProductVO detail = mainService.getDetailPageProducts(vo);
+	    	log.info("제품넘버" + vo.getProduct_no());
 	    	
 	    	List<ReviewVO> review = reviewService.detailReviewList(vo);	
 	    	
+	    	List<ReviewVO> bestReview = reviewService.detailReviewListBest(vo);
+			model.addAttribute("bestReview", bestReview);
 	    	
 	    	model.addAttribute("detail", detail);
-	    	model.addAttribute("reviewlist", review);
+	    	model.addAttribute("reviewList", review);
 	    	
 	    	log.info("review" + review);
 	 

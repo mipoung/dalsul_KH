@@ -61,6 +61,7 @@ public class ReviewController {
 	public String detailReviewList(Model model, ProductVO pvo) {
 		
 			log.info("detailReviewList() 메서드 호출");
+			pvo.setProduct_no(1);
 			//rvo.setPackage_product_no(1);
 			log.info("뷰에서 받아온 값: " + pvo.toString());
 			List<ReviewVO> reviewList = reviewService.detailReviewList(pvo);

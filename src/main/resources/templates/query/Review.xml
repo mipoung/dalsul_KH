@@ -47,7 +47,9 @@
 	
 	<!-- 마이페이지 리뷰 조회 -->
 	<select id="myReviewList" parameterType="review" resultType="review">
-		SELECT * FROM REVIEW_VIEW
+	
+	
+		SELECT * FROM REVIEW
 		<if test="user_no != null">
 		WHERE USER_NO = #{user_no}
 		</if>
