@@ -20,4 +20,22 @@ public class ManagerServiceImpl implements ManagerService {
 		return result;
 	}
 
+	@Override
+	public int userListCnt(UserVO uvo) {
+		int result = managerDAO.userListCnt(uvo);
+		return result;
+	}
+
+	@Override
+	public int dropUsers(List<Integer> user_no) {
+		int result = managerDAO.dropUsers(user_no);
+		return result;
+	}
+
+	@Override
+	public int appointManager(List<Integer> user_no) {
+		int result = managerDAO.appointManager(user_no);
+		return result;
+	}
+
 }

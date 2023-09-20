@@ -113,11 +113,10 @@ $(function(){
 <div class="mb-3 mypage_menu">
 	<div class="member-info-wrapper" id="user_info">
 		<div class="name-header">
-			<div class="name-text">${uvo.user_name}님</div>
+			<div class="name-text">${userLogin.user_name}님</div>
 		</div>
 		<div class="user_info">
 			<div class="benefit">
-				<div class="point">잔여 포인트 : 1,000</div>
 				<div class="coupon">잔여 쿠폰 : 2</div>
 			</div>
 		</div>
