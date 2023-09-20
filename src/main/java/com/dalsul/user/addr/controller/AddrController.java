@@ -60,32 +60,35 @@ public class AddrController {
     }
     
     /*내가 추가한 기본배송지 정보 전체 조회하는 매핑*/
+    /*
    @GetMapping(value = "/selectAddr")
    public String selectAddr(AddrVO bvo, Model model) {
 	   log.info("selectAddr() 매소드 호출...");
 	   log.info(bvo.toString());
 	   
-	   AddrVO result = addrService.selectAddr(bvo);
+	   AddrVO result = addrService.userAddrInfo(bvo);
 	   model.addAttribute("addr", result);
 	  
 	   
 	   return "/addr/addrInfoView";
    }
-   
+   */
    
    /*내가 추가한 기본배송지 정보 조회하고 그 배송지의 정보를 업데이트하는 매핑*/
-   @GetMapping(value = "/updateAddrForm")
+   /*
+    @GetMapping(value = "/updateAddrForm")
    public String updateAddrForm(AddrVO bvo, Model model) {
 	   log.info("updateAddrForm() 매소드 호출...");
 	   log.info("selectAddr() 매소드 호출...");
 	   log.info(bvo.toString());
 	   
-	   AddrVO result = addrService.selectAddr(bvo);
+	   AddrVO result = addrService.userAddrInfo(bvo);
 	   model.addAttribute("addr", result);
 	  
 	   
 	   return "/addr/addrUpdateView";
    }
+   */
    
    /* 기본 배송지 테이블에 새로운 배송지 정보 업데이트 메소드 컨트롤러 */
    @ResponseBody

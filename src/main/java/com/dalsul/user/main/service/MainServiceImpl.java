@@ -37,4 +37,6 @@ public class MainServiceImpl implements MainService {
 			
 		return mainDao.getDetailPageProducts(vo);
 	}
+
+
 }

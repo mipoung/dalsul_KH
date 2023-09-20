@@ -1,8 +1,11 @@
 package com.dalsul.user.addr.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.addr.dao.AddrApiDAO;
 import com.dalsul.user.addr.vo.AddrVO;
 
@@ -31,9 +34,9 @@ public class AddrServiceImpl implements AddrService {
 	
 	
 	@Override
-	public AddrVO selectAddr(AddrVO bvo) {
-		AddrVO result = null;
-		result = addrApiDAO.selectAddr(bvo);
+	public List<AddrVO> userAddrInfo(UserVO uvo) {
+		List<AddrVO> result= null;
+		result = addrApiDAO.userAddrInfo(uvo);
 				
 		return result;
 		

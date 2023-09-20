@@ -24,10 +24,10 @@
 	<!-- 기본배송지 정보를 담고있는 배송지 테이블을 조회하는 쿼리문 -->
 	<!-- 그리고 기본배송지 업데이트 폼에서 조회할 배송지 테이블을 조회하는 쿼리문 -->
 	<!-- 사용자가 특정 주소를 클릭했을때 그 정보를 표출해주는 쿼리문 -->
-	<select id="selectAddr" parameterType="addr">
-		SELECT addr_NO, user_no, addr_post, addr_jibun, addr_road, addr_detail, addr_receiver, addr_name
+	<select id="userAddrInfo" parameterType="userVO" resultType="addr">
+		SELECT user_no, addr_post, addr_jibun, addr_road, addr_detail, addr_receiver, addr_name
 		FROM ADDR
-		WHERE addr_NO = #{addr_no} and user_no= #{user_no}
+		WHERE user_no= #{user_no}
 	</select>
 	
 	<!-- 기본배송지 정보를 업데이트하는 쿼리문 api로 입력받은값을 전달받고 그대상 값은  select로 이미 가지고있는 값을 전달한다(이미 선택한값) -->
