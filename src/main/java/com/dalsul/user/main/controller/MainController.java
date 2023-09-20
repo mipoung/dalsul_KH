@@ -2,20 +2,20 @@ package com.dalsul.user.main.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.dalsul.common.login.vo.UserVO;
+import com.dalsul.user.cart.service.CartService;
+import com.dalsul.user.cart.vo.CartVO;
 import com.dalsul.user.main.service.MainService;
 import com.dalsul.user.main.vo.ProductVO;
 import com.dalsul.user.review.service.ReviewService;
@@ -31,7 +31,10 @@ import lombok.extern.slf4j.Slf4j;
 public class MainController {
 		
 	  	private final MainService mainService;
-
+	  	
+	  	@Autowired
+		private HttpSession session;
+	  	
 	    @Autowired
 	    public MainController(MainService mainService) {
 	        this.mainService = mainService;
@@ -92,20 +95,33 @@ public class MainController {
 	    	log.info("상세페이지 호출 성공");
 	    	
 	    	ProductVO detail = mainService.getDetailPageProducts(vo);
+	    	log.info("제품넘버" + vo.getProduct_no());
 	    	
 	    	List<ReviewVO> review = reviewService.detailReviewList(vo);	
+	    	
 	    	List<ReviewVO> bestReview = reviewService.detailReviewListBest(vo);
-				    	
+			model.addAttribute("bestReview", bestReview);
+	    	
 	    	model.addAttribute("detail", detail);
 	    	model.addAttribute("reviewList", review);
-	    	model.addAttribute("bestReview", bestReview);
 	    	
 	    	log.info("review" + review);
 	 
 	    	return "main/detail"; // detail.jsp 페이지로 이동
 	    }
-
-	  
+	    
+	    //로그인 세션 받아오기
+	    @GetMapping("/login")
+	     public String getSession() {
+	 		UserVO uvo = new UserVO();
+	 		uvo.setUser_no(3);
+	 		uvo.setUser_name("김지연");
+	 		//uvo.setUser_no(2);
+	 		//uvo.setUser_no(1);
+	    	 session.setAttribute("userLogin", uvo);
+	    	return "cart/test";
+	     }
 	 
-
+	    
+	 
 }

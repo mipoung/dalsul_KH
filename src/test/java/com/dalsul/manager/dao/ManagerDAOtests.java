@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.dalsul.manager.vo.ManagerVO;
+import com.dalsul.manager.vo.ManagerCommonVO;
 import com.dalsul.user.main.vo.ProductVO;
 
 import lombok.Setter;
@@ -33,7 +33,7 @@ public class ManagerDAOtests {
 	public void testManagerMainCount() {
 		log.info("======= testManagerMainCount 호출 ======");
 			
-		List<ManagerVO> result = null;
+		List<ManagerCommonVO> result = null;
 		result = commonManagerDAO.managerMainCount();
 		
 		log.info("결과 : " + result.toString());

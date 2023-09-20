@@ -45,6 +45,16 @@
 		</trim>
 	</select>
 	
+	<delete id="dropUsers" parameterType="java.util.List">
+    	DELETE FROM USERS
+    	WHERE USER_NO IN
+    	<foreach collection="list" item="user_no" open="(" separator="," close=")">
+        	#{user_no}
+    	</foreach>
+	</delete>
+	
+	
+	
 	<!-- product에서 가져오려는데 productVO가 설정 파일에 없음... 
 	<select id="managerMainChart" resultType="product">
 	</select>
@@ -83,7 +93,7 @@
 	
 	
 	
-	<select id="managerMainCount" resultType="managerVO">
+	<select id="managerMainCount" resultType="managerCommon">
 		SELECT 
 		   (SELECT COUNT(product_no) FROM product) AS product_count,
 		   (SELECT COUNT(review_no) FROM review) AS review_count,
