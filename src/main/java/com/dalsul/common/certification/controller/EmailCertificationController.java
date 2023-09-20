@@ -27,7 +27,7 @@ public class EmailCertificationController {
 	
 	@Autowired
 	private HttpSession session;
-	
+	//
 	@ResponseBody
 	@PostMapping("/sendEmail")
 	public String sendEmail(@RequestParam("emailAddr") String emailAddr) throws Exception{

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.dalsul.common.cs.vo.FAQVO;
 
-
 public interface FAQService {
 
 	public List<FAQVO> faqList(FAQVO fvo);

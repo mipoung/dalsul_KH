@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.manager.dao.CommonManagerDAO;
 import com.dalsul.manager.vo.ManagerVO;
 import com.dalsul.user.main.vo.ProductVO;
@@ -28,5 +29,7 @@ public class CommonManagerServiceImpl implements CommonManagerService {
 		List<ManagerVO> result = managerDAO.managerMainCount();
 		return result;
 	}
+
+
 
 }

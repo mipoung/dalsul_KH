@@ -72,20 +72,38 @@ public class MainController {
 	        return result;
 	    }
 	    
+	    /* 전체페이지로 이동 */
+	    @GetMapping("/total")
+	    public String totalPage(Model model) {
+	    	
+	    	log.info("전체페이지 호출 성공");
+	    	
+	    	List<ProductVO> total = mainService.getTotalPageProducts();
+	    	model.addAttribute("total", total);
+	    	
+	    	log.info("상품개수 : "+total.size());
+	    	return "main/total";
+	    }
+	    
 	    /* 상세페이지로 이동 */
 	    @GetMapping("/detail")
 	    public String detailPage(ProductVO vo, Model model) {
 	    	
 	    	log.info("상세페이지 호출 성공");
-	    	vo.setProduct_no(10101011);
 	    	
 	    	ProductVO detail = mainService.getDetailPageProducts(vo);
+	    	log.info("제품넘버" + vo.getProduct_no());
 	    	
+	    	List<ReviewVO> review = reviewService.detailReviewList(vo);	
+	    	
+	    	List<ReviewVO> bestReview = reviewService.detailReviewListBest(vo);
+			model.addAttribute("bestReview", bestReview);
 	    	
 	    	model.addAttribute("detail", detail);
+	    	model.addAttribute("reviewList", review);
 	    	
-	    	
-	    	
+	    	log.info("review" + review);
+	 
 	    	return "main/detail"; // detail.jsp 페이지로 이동
 	    }
 

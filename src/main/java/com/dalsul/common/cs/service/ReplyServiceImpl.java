@@ -46,7 +46,6 @@ public class ReplyServiceImpl implements ReplyService{
 		int result = 0;
 		result = replyDAO.replyDelete(r_num);
 		
-		
 		return result;
 	}
 

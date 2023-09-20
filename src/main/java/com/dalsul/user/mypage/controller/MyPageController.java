@@ -2,6 +2,11 @@ package com.dalsul.user.mypage.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+import com.dalsul.user.mypage.service.MyPageService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +32,19 @@ public class MyPageController {
 	
 	
 
+	@Autowired
+	private HttpSession session;
+	
+	@Autowired
+	private MyPageService mypageService;
+	
 	@GetMapping("/userInfoDetailView")
-	public String userInfoDetailView() {
+	public String userInfoDetailView(@SessionAttribute(name = "userLogin", required = true) UserVO uvo, Model model) {
 		log.info("userInfoDetailView() 메소드 실행");
+		
+		UserVO userInfo = (UserVO) session.getAttribute("userLogin");
+		
+		model.addAttribute("uvo", userInfo);
 		
 		return "/mypage/userInfo";
 	}
@@ -134,6 +149,15 @@ public class MyPageController {
 		log.info("deleveryDetailView() 메소드 실행");
 		
 		return "/mypage/delevery";
+	}
+	
+	@ResponseBody
+	@PostMapping("/getUserInfo")
+	public UserVO getUserInfo(@RequestParam("user_no") int user_no) {
+		
+		UserVO userInfo = mypageService.getUserInfo(user_no);
+		
+		return userInfo;
 	}
 	
 }

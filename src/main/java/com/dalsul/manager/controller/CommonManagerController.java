@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.dalsul.common.login.vo.UserVO;
+import com.dalsul.common.vo.PageDTO;
 import com.dalsul.manager.service.CommonManagerService;
 import com.dalsul.manager.vo.ManagerVO;
 import com.dalsul.user.main.vo.ProductVO;
@@ -28,7 +32,7 @@ public class CommonManagerController {
 	
 	// 관리자페이지 메인으로 이동
 		@GetMapping("/manager/managerMain")
-		public String managerMain(Model model) {
+		public String managerMain(@SessionAttribute(name="managerLogin", required = false) ManagerVO mvo,  Model model) {
 			
 			List<ProductVO> result = managerService.managerMainChart();
 			model.addAttribute("result", result);
@@ -50,10 +54,8 @@ public class CommonManagerController {
 			model.addAttribute("chartData", jsonDataChart);
 			
 			
-			
-			
-			
-			return "manager/managerMain";
+			return "/manager/managerMain";
 		}
+	
 	
 }

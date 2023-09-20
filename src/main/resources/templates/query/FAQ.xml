@@ -37,10 +37,7 @@
 	   <![CDATA[ rownum <= #{pageNum} * #{amount}
 	   		)faqList
 	   	WHERE rnum > (#{pageNum} -1) * #{amount}
-	
-	   
 	   ]]>
-	
 	</select>
 <!-- 페이지네이션 -->
 		<select id="faqListCnt" parameterType="FAQ" resultType="int">

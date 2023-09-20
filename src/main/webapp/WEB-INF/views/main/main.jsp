@@ -14,18 +14,12 @@
 <link rel="shortcut icon" href="/resources/images/icon.png" />
 <link rel="apple-touch-icon" href="/resources/images/icon.png" />
 
-
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/common/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/slick.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/slick-theme.css" />
-<link rel="stylesheet" type="text/css"
-	href="/resources/include/mainpage/css/header.css" />
-<link rel="stylesheet" type="text/css"
-	href="/resources/include/mainpage/css/footer.css" />
-
 <style>
 
 /* 슬라이드 모음 */
@@ -36,12 +30,36 @@
 }
 
 .slick-prev {
-	left: 15px; /* 왼쪽 버튼의 위치 설정 */
+	left: 20px; /* 왼쪽 버튼의 위치 설정 */
 }
 
 .slick-next {
-	right: 15px; /* 오른쪽 버튼의 위치 설정 */
+	right: 20px; /* 오른쪽 버튼의 위치 설정 */
 }
+
+/* 위에 왼쪽 */
+button.slick-prev.slick-arrow.slick-disabled {
+	top: 165px;
+	left: -15px;
+	
+	
+}
+
+/*위에 오른쪽*/
+button.slick-next.slick-arrow{
+       top: 165px;
+    	right: -40px;
+}
+
+/* 아래 왼쪽 */
+button.slick-prev.slick-arrow {
+	top: 165px;
+	left: -15px;
+
+	
+}
+
+
 
 .mainslide {
 	width: 100%;
@@ -66,9 +84,10 @@
 	font-size: 20px; /* 아이콘 크기 조절 */
 	color: #999; /* 아이콘 색상 설정 */
 }
+
 /* 상품소개 슬라이드 모음 */
 
-.wrapperout {
+.wrapperout1, .wrapperout2 {
     display: flex;
     justify-content: center; /* 수평 가운데 정렬 */
     flex-wrap: wrap; /* 필요한 경우 상품 슬라이드를 여러 행에 배치 */
@@ -81,16 +100,27 @@ h2 {
 	text-align: center;
 }
 
+a:link {
+    color: black;
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
 
 .product-slide, .product-title, .product-price, .product-reputation {
 	width: 250px;
-	margin-left:5px;
+	margin-left:50px;
 	margin-right:5px;
 }
 
 .product-slide {
 	border-radius: 5px;
 }
+
+.product-title, .product-price, .product-reputation {
+	color: black;
+	font-weight: bold;
+}
+
+
 
 </style>
 
@@ -101,8 +131,7 @@ h2 {
 <script src="/resources/include/mainpage/js/slick.min.js"></script>
 <script src="https://kit.fontawesome.com/312ff11b0d.js"
 	crossorigin="anonymous"></script>
-<script src="/resources/include/mainpage/js/header.js"></script>
-
+	
 <script>
 	$(function() {
 		$('.center').slick({
@@ -113,7 +142,7 @@ h2 {
 			adaptiveHeight : true, // 슬라이드 높이 맞춤 
 			autoplay : true, // 자동 이동 옵션
 			autoplaySpeed : 3000, // 자동 이동 속도(ms)
-			arrows : true, // 옆으로 이동하는 화살표 표시
+			arrows : false, // 옆으로 이동하는 화살표 표시
 
 			draggable : false, // 드레그 옵션
 			responsive : [ // 반응형 왭 구현 옵션	
@@ -133,14 +162,13 @@ h2 {
 		});
 	});
 	$(function() {
-		$('.wrapperout').slick({
+		$('.wrapperout1').slick({
 			dots : false,
 			infinite : false,
 			speed : 400,
-			slidesToShow: 4,
-			slidesToScroll: 4, 
-			arrows : true, // 옆으로 이동하는 화살표 표시  
-			appendArrows: $('#arrows'), //좌우 화살표 변경
+			slidesToShow: 4,  // 최대 4개까지 표시
+			slidesToScroll: 4,  // 최대 4개까지 스크롤
+			arrows : true, // 옆으로 이동하는 화살표 표시 
 			responsive : [ {
 				breakpoint : 1024,
 				settings : {
@@ -164,6 +192,37 @@ h2 {
 			} ]
 		});
 	});
+		$(function() {
+			$('.wrapperout2').slick({
+				dots : false,
+				infinite : false,
+				speed : 400,
+				slidesToShow: 4,  // 최대 4개까지 표시
+				slidesToScroll: 4,  // 최대 4개까지 스크롤
+				arrows : true, // 옆으로 이동하는 화살표 표시 
+				responsive : [ {
+					breakpoint : 1024,
+					settings : {
+						slidesToShow : 3,
+						slidesToScroll : 3,
+						infinite : true,
+						dots : true
+					}
+				}, {
+					breakpoint : 600,
+					settings : {
+						slidesToShow : 2,
+						slidesToScroll : 2
+					}
+				}, {
+					breakpoint : 480,
+					settings : {
+						slidesToShow : 1,
+						slidesToScroll : 1
+					}
+				} ]
+			});
+		});
 </script>
 
 </head>
@@ -204,10 +263,11 @@ h2 {
 	</div>
 	<h2> BEST </h2>
 	<!-- 상품 소개 슬라이드 모음 시작 !-->
-	<div class="wrapperout">		
+		<div class="wrapperout1">	
 			<c:forEach var="product" items="${products}">
-				<div class="wrapperin">	
-							<a href="/"> <img src="resources/images/mainpage/product/${product.product_main_image}" alt="" class="product-slide" />
+				<div class="wrapperin1">	
+							<a href="/detail?product_no=${product.product_no}" > 
+							<img src="resources/images/mainpage/product/${product.product_main_image}" alt="" class="product-slide" />
 							<div class="product-title">${product.product_name}</div>
 							<div class="product-price">${product.product_price}원</div>
 							<div class="product-reputation">
@@ -233,13 +293,14 @@ h2 {
 						</a>	
 					</div>					
 			</c:forEach>
-	</div>
+		</div>
 	<br />
 	<h2>NEW</h2>
-		<div class="wrapperout">		
+		<div class="wrapperout2">	
 			<c:forEach var="product" items="${products}">
-				<div class="wrapperin">	
-							<a href="/"> <img src="resources/images/mainpage/product/${product.product_main_image}" alt="" class="product-slide" />
+				<div class="wrapperin2">	
+							<a href="/detail?product_no=${product.product_no}"> 
+							<img src="resources/images/mainpage/product/${product.product_main_image}" alt="" class="product-slide" />
 							<div class="product-title">${product.product_name}</div>
 							<div class="product-price">${product.product_price}원</div>
 							<div class="product-reputation">

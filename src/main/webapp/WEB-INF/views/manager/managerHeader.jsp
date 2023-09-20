@@ -14,8 +14,7 @@
 	            회원관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="/manager/user/managerUser">메인</a></li>
-	            <li><a class="dropdown-item" href="#">메뉴3</a></li>
+	            <li><a class="dropdown-item" href="/manager/userManagement">회원 관리</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -75,7 +74,8 @@
 					<button class="btn btn-dark dropdown-toggle"
 						data-bs-toggle="dropdown" aria-expanded="false">쿠폰관리</button>
 					<ul class="dropdown-menu dropdown-menu-dark">
-						<li><a class="dropdown-item" href="/manager/coupon/managerCoupon">쿠폰 등록</a></li>
+						<li><a class="dropdown-item" href="/manager/coupon/managerCouponList">쿠폰 조회</a></li>
+						<li><a class="dropdown-item" href="/manager/coupon/managerCouponInsertForm">쿠폰 생성</a></li>
 					</ul>
 				</li>
 			</ul>

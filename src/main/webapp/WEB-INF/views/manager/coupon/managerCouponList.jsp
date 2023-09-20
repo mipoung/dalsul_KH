@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
-<%@ page trimDirectiveWhitespaces="true" %>
-<!DOCTYPE html>
+<!-- 관리자페이지 드롭다운 사용을 위해 필요한 스크립트 -->
+<script type="text/javascript" src="/resources/include/common/bootstrap/js/bootstrap.bundle.min.js"></script>
 <html lang="ko">
 <script type="text/javascript">
     $(document).ready(function() {
@@ -12,13 +12,17 @@
         });
     });
 </script>
-
-		<!-- 히든으로 다음 요청페이지로 보낼 기준 값 -->
-		<form id="detailForm">
-			<input type="hidden" id="coupon_no" name="coupon_no" />
-		</form>
-
-		<!-- 검색기능 -->
+</head>
+   <body>
+   <!-- 매니저 헤더 -->
+   <%@ include file="/WEB-INF/views/manager/managerHeader.jsp"%>
+   <!-- 여기서 작성하시면 됩니다. -->
+   
+   <!-- 히든으로 다음 요청페이지로 보낼 기준 값 -->
+	<form id="detailForm">
+		<input type="hidden" id="coupon_no" name="coupon_no" />
+	</form>
+   	<!-- 검색기능 -->
 	<div id="couponSearch" class="text-right">
          <form id="f_search" name="f_search" class="form-inline" style="display:inline-block;">
          	<!-- 페이징 처리를 위한 파라미터 -->
@@ -28,8 +32,14 @@
                <label>검색조건</label>
                <select id="search" name="search" class="form-control">
                   <option value="all">전체</option>
-                  <option value="coupon_name">쿠폰이름 오름차순</option>             
-                  <!-- 쿠폰 조회 각칼럼 높은순 -->
+                  
+                  <option value="coupon_name">쿠폰이름 </option>
+               </select>
+               <!--  
+               <label>정렬조건</label>
+               <select id="order" name="order" class="form-control">
+                  <option value="all">전체</option>
+                  <option value="coupon_nameASC">쿠폰이름 오름차순</option>             
                   <option value="coupon_discountASC">할인율 높은순</option>
                   <option value="coupon_discountDESC">할인율 낮은순</option>
                   <option value="coupon_dateASC">생성일 빠른순</option>
@@ -38,10 +48,10 @@
                   <option value="coupon_limitDESC">쿠폰사용가능량 적은순</option>
                   <option value="coupon_statusASC">쿠폰사용가능우선</option>
                   <option value="coupon_statusDESC">쿠폰사용 불가능 우선</option>
-                  <!-- 쿠폰 조회 각칼럼 낮은순 -->
-                  
                </select>
-               <input type="text" name="keyword" id="keyword" placeholder="쿠폰 이름 검색" class="form-control"/>
+                -->
+        
+               <input type="text" name="keyword" id="keyword" placeholder="쿠폰 검색" class="form-control"/>
                <button type="button" name="searchData" id="searchData" class="btn btn-success">검색</button>
             </div>
          </form>
@@ -57,7 +67,7 @@
 						<th class="text-center col-md-2">쿠폰할인가격</th>
 						<th data-value="b_date" class="order col-md-1">쿠폰생성일</th>
 						<th class="text-center col-md-1">쿠폰발급가능수량</th>
-						<th class="text-center col-md-1">사용가능 여부</th>
+						<th class="text-center col-md-1">발급가능 여부</th>
 					</tr>
 				</thead>
 				<tbody id="list" class="table-striped">
@@ -119,8 +129,13 @@
 		</div>
 		
 		<%-- 쿠폰 추가하기 페이지 이동 버튼 --%>
+	<%-- 
 		<div class="btn btn-success" style="text-align: right;">
 			<input type="button" value="쿠폰추가하기" id="insertFormBtn" class="btn btn-success" />
 		</div>
-		
+	--%>
+   
+   
+	</body>
+	
 </html>

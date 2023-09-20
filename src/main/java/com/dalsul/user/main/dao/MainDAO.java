@@ -13,5 +13,9 @@ public interface MainDAO {
     
     public List<ProductVO> getSearchResult(String str);
     
+    public List<ProductVO> getTotalPageProducts();
+    
     public ProductVO getDetailPageProducts(ProductVO vo);
+    
+    
 }

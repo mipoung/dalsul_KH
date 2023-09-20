@@ -19,9 +19,9 @@
 	</select>
 	
 	<select id="getUserInfo" parameterType="userVO" resultType="userVO">
-		SELECT USER_NO, USER_NAME
+		SELECT USER_NO, USER_NAME, USER_EMAIL
 		FROM USERS
-		WHERE USER_EMAIL = #{user_email}
+		WHERE USER_EMAIL = #{user_email} AND USER_STATUS = 'E'
 	</select>
 
 </mapper>
