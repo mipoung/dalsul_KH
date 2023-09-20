@@ -68,6 +68,11 @@ public class ReviewController {
 			log.info("담긴 값:" + reviewList.toString());
 			
 			model.addAttribute("reviewList", reviewList);
+			
+			
+			List<ReviewVO> bestReview = reviewService.detailReviewListBest(pvo);
+			model.addAttribute("bestReview", bestReview);
+			
 	
 			return "reviewBoard/reviewList";
 	}

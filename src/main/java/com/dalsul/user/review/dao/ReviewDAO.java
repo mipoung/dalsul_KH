@@ -15,6 +15,8 @@ public interface ReviewDAO {
 	public List<ReviewVO> detailReviewList(ProductVO pvo);
 	public List<ReviewVO> managerReviewList(ReviewVO rvo);
 	
+	public List<ReviewVO> detailReviewListBest(ProductVO pvo);
+	
 	
 	
 	public int myReviewDelete(ReviewVO rvo);

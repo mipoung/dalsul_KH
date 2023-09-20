@@ -104,6 +104,14 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 
+	@Override
+	public List<ReviewVO> detailReviewListBest(ProductVO pvo) {
+		List<ReviewVO> bestReview = reviewDAO.detailReviewListBest(pvo);
+		return bestReview;
+	}
+
+
+
 
 
 

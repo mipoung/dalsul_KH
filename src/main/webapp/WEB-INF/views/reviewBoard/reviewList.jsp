@@ -297,9 +297,10 @@
    			/* 정렬 폼 데이터 전송 */
    			$(".orderByBtn").on("click", function(){
 			    var selectedValue = $(this).data('order-by'); // `.data()` 메서드를 사용하여 데이터 속성 값을 가져옵니다.
-			    console.log(selectedValue);
-
+			   
     			$("#reviewOrderBy").val(selectedValue);
+			    console.log($("#reviewOrderBy").val()); // 값 잘 들어감
+			    
    				$("#detailReviewOrderBy").attr({
    					"method" : "GET",
    					"action" : "/review/detailReviewList"
@@ -324,6 +325,10 @@
 			text-align : right;
 			margin-top:5px;
 			color:gray;
+		}
+		
+		.bestReivew{
+			
 		}
       
       </style>
@@ -352,89 +357,97 @@
    	</form>
    		
 	
-	
-	
-	<!-- 새로운 디자인 -->
-	
-	
-				
-				<!-- 리뷰 리스트 시작 -->
-						<div class="card text-center">
+
+	<div class="card-body bestReivew">
+		 <c:choose>
+		    <c:when test="${not empty bestReview}">
+		        <c:forEach var="bestReivew" items="${bestReview}" varStatus="status">
+	            	<form id="r_BestListForm">
+					    <div class="card mb-3" data-review-no="${bestReivew.review_no}" style="max-width: 700px;">
+						  <div class="row g-0">
+						    <div class="col-md-4">
+						      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
+						      ${bestReivew.product_main_image}
+						    </div>
+						    <div class="col-md-8">
+						      <div class="card-body">
+						        <h6 class="card-title">${bestReivew.review_no} | ${bestReivew.user_no} | ${bestReivew.review_date} | ${bestReivew.product_name} </h6>
+						        <p class="card-text text-left" id="reviewContent" data-review-content="${bestReivew.review_content}">${bestReivew.review_content }</p>
+						        
+						      </div>
+						      <div id="cordBtn">
+						       <div class="reviewRating" id="reviewRating" data-review-rating="${bestReivew.review_rating}">${bestReivew.review_rating}</div>
+						       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${bestReivew.review_like_count}</span></button>
+						      
+						      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
+						            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+						               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+						    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${bestReivew.user_no}">삭제</button>
+						            </c:if>
+						      </div>
+						     
+						    </div>
+						  </div>
+						</div>
 						
-						  <div class="card-header">
-							    <ul class="nav nav-tabs card-header-tabs">
-							      <li class="nav-item">
-								 		<button type="button" class="btn btn-light orderByBtn" data-order-by="obLikeCount">좋아요 순</button>
-							      </li>
-							      <li class="nav-item">
-							    	   <button type="button" class="btn btn-light orderByBtn" data-order-by="aaa">Light</button>
-							      </li>
-							      <li class="nav-item">
-							     	   <button type="button" class="btn btn-light" data-order-by="aaa">Light</button>
-							      </li>
-							    </ul>
-						  </div>
-						  
-						  <div class="card-body">
-						  
-												  
-							<c:choose>
-								<c:when test="${not empty reviewList}">
-									<c:forEach var="review" items="${reviewList}" varStatus="status">
-									
-									
-						 		 <!-- 카드 시작 -->
-						 		 <form id="r_ListForm">
-							    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
-								  <div class="row g-0">
-								    <div class="col-md-4">
-								      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
-								      ${review.product_main_image}
-								    </div>
-								    <div class="col-md-8">
-								      <div class="card-body">
-								        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
-								        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
-								        
-								      </div>
-								      <div id="cordBtn">
-								       <div class="reviewRating" id="reviewRating" data-review-rating="${review.review_rating}">${review.review_rating}</div>
-								       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
-								       <!-- 
-								       <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBt" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
-								       <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
-								        -->
-								      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-								            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
-								               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
-								    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
-								            </c:if>
-								      </div>
-								     
-								    </div>
-								  </div>
-								</div>
-								
-								</form>
-								<!-- 카드 끝 -->
-								
-								
-								
-									</c:forEach>
-								</c:when>
-									<c:otherwise>
-										<div>
-											<div class="tac text-center">등록된 게시글이 존재하지 않습니다.</div>
-										</div>
-									</c:otherwise>
-							</c:choose>
-										
-								
-								
-								
-								
-						  </div>
+					</form>
+		        </c:forEach>
+		    </c:when>
+		</c:choose>
+
+						safda
+		<!-- --------------- -->				
+							  
+		<c:choose>
+			<c:when test="${not empty reviewList}">
+				<c:forEach var="review" items="${reviewList}" varStatus="status">
+				
+				
+	 		 <!-- 카드 시작 -->
+	 		 <form id="r_ListForm">
+			    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
+				  <div class="row g-0">
+				    <div class="col-md-4">
+				      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
+				      ${review.product_main_image}
+				    </div>
+				    <div class="col-md-8">
+				      <div class="card-body">
+				        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
+				        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
+				        
+				      </div>
+				      <div id="cordBtn">
+				       <div class="reviewRating" id="reviewRating" data-review-rating="${review.review_rating}">${review.review_rating}</div>
+				       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
+				      
+				      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
+				            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+				               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+				    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
+				            </c:if>
+				      </div>
+				     
+				    </div>
+				  </div>
+				</div>
+				
+			</form>
+			<!-- 카드 끝 -->
+			
+			
+			
+				</c:forEach>
+			</c:when>
+				<c:otherwise>
+					<div>
+						<div class="tac text-center">등록된 게시글이 존재하지 않습니다.</div>
 					</div>
+				</c:otherwise>
+		</c:choose>
+					
+	
+	</div>
 				<!--  리뷰 리스트 끝  -->
 				
 

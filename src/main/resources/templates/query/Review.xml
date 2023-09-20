@@ -115,14 +115,33 @@
 		r.review_no, 
 		r.review_rating, 
 		r.user_no, 
-		r.review_date, 
+		TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') as REVIEW_DATE, 
 		p.product_name, 
 		p.product_main_image, 
 		p.product_no, 
 		r.review_like_count, 
 		r.review_content
-		from review r left outer join product p on r.product_no = #{product_no}
-	 	<include refid="reviewOrderBySql"></include>
+		from review r left outer join product p on r.product_no = p.product_no
+        where r.product_no = #{product_no}
+	</select>
+	
+	<!-- 해당 제품중 리뷰 점수가 가장 높은 리뷰 -->
+	<select id="detailReviewListBest" parameterType="product" resultType="review">
+		
+		SELECT
+		    r.review_no, 
+		    r.review_rating, 
+		    r.user_no, 
+		    TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') as REVIEW_DATE, 
+		    p.product_name, 
+		    p.product_main_image, 
+		    p.product_no, 
+		    r.review_like_count, 
+		    r.review_content
+		FROM review r
+		LEFT OUTER JOIN product p ON r.product_no = p.product_no
+		WHERE r.product_no = #{product_no} AND r.review_like_count = 
+		    (SELECT MAX(review_like_count) FROM review WHERE product_no = #{product_no})
 	</select>
 	
 
