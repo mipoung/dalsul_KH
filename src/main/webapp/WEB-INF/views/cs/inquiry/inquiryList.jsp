@@ -100,7 +100,7 @@
                     
                     $("#f_search").attr({
                         "method" : "get",
-                        "action" : "/cs/inquiry/inquiryList"
+                        "action" : "/inquiry/inquiryList"
                     });
                     $("#f_search").submit();
                     
