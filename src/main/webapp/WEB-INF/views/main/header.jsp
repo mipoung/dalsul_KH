@@ -8,7 +8,8 @@
 <div id="main" class="fixed-top">
 		<ul class="nav fixied-top">
 			<nav id="navbar-example1" class="navbar bg-white px-3 mb-3" style="background-color:white">
-				<a class="navbar-brand" href="/"><img id="logo" src="/resources/images/dalsul_logo.png"></a>
+				<a class="navbar-brand" href="/"><img id="logo"
+					src="/resources/images/dalsul_logo.png"></a>
 				<ul class="nav nav-pills">
 					<li class="nav-item" id="subscribe"><a class="nav-link"
 						href="/">구독</a></li>
@@ -36,7 +37,7 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/faq/FAQList">고객센터</a></li>
 				</ul>
-				<a class="nav-link" href="/cart/"><img id="img2" src="/resources/images/mainpage/basketIcon.png"></a>
+				<a class="nav-link" href="/cartList"><img id="img2" src="/resources/images/mainpage/basketIcon.png"></a>
 			</nav>
 		</ul>
 	</div>

@@ -123,6 +123,10 @@
 	margin-bottom : 20px;
 	text-decoration:underline;
 }
+
+.container {
+	margin-top : 65px;
+}
 </style>
 
 <script>
@@ -173,6 +177,7 @@
 </script>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/main/header.jsp"%>
 	<div class="container">
 		<%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
 		<div id="user_info_div">

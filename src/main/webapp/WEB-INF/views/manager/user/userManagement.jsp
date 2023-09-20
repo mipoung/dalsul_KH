@@ -48,7 +48,109 @@
 			goPage();
 		});
 		
+		// 삭제 버튼 클릭 시 이벤트
+		$("#deleteUserBtn").click(function(){
+			if(ChkSelect() == false) return;
+			Swal.fire({
+			  title: '정말로 삭제하시겠습니까?',
+			  html: "선택한 회원이 데이터베이스에서 물리적으로 삭제되며<br>복구가 불가능합니다",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '삭제'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    $.ajax({
+			    	url : "/manager/user/dropUsers",
+			    	method : "post",
+			    	data : $("#selectedUsers").serialize(),
+			    	dataType : "text",
+			    	success : function(result){
+			    		if(result === "SUCCESS"){
+			    			Swal.fire({
+					    	  icon: 'success',
+					    	  title: '성공적으로 삭제되었습니다.'
+					    	}).then( function(){
+					    		location.href="/manager/user/userManagement";
+					    	});
+			    		} else {
+			    			Swal.fire({	
+					    	  icon: 'error',
+					    	  title: '시스템 오류...',
+					    	  text: '잠시후 다시 시도해 주세요',
+					    	})
+			    		}
+			    	}, error : function(error){
+			    		Swal.fire({
+					    	  icon: 'error',
+					    	  title: '시스템 오류...',
+					    	  text: 'Error Code'+error,
+					    });
+			    	}
+			    });
+			  }
+			})
+		});
+		
+		// 관리자 등록 버튼 클릭 시
+		$("#regManagerBtn").click(function(){
+			if(ChkSelect() == false) return;
+			Swal.fire({
+			  title: '선택된 사용자를 관리자로 등록하시겠습니까?',
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '등록'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    $.ajax({
+			    	url : "/manager/user/appointManager",
+			    	method : "post",
+			    	data : $("#selectedUsers").serialize(),
+			    	dataType : "text",
+			    	success : function(result){
+			    		if(result === "SUCCESS"){
+			    			Swal.fire({
+					    	  icon: 'success',
+					    	  title: '성공적으로 등록되었습니다.'
+					    	}).then( function(){
+					    		location.href="/manager/user/userManagement";
+					    	});
+			    		} else {
+			    			Swal.fire({	
+					    	  icon: 'error',
+					    	  title: '시스템 오류...',
+					    	  text: '잠시후 다시 시도해 주세요',
+					    	})
+			    		}
+			    	}, error : function(error){
+			    		Swal.fire({
+					    	  icon: 'error',
+					    	  title: '시스템 오류...',
+					    	  text: 'Error Code'+error,
+					    });
+			    	}
+			    });
+			  }
+			})
+		});
+		
 	}); // end of page load function
+	
+	function ChkSelect(){
+		const check_item = $("[name='selectedItems']:checked").length;
+		if(check_item === 0){
+			Swal.fire({	
+		      icon: 'warning',
+		      title: '체크 박스를 선택해 주세요.'
+		    });
+			return false;
+		}else{
+			return true;
+		}
+	}
 	
 	// 검색을 위한 함수 goPage()
 	function goPage(){
@@ -58,7 +160,7 @@
 		
 		$("#f_search").attr({
 			"method" : "get",
-			"action" : "/manager/userManagement"
+			"action" : "/manager/user/userManagement"
 		});
 		$("#f_search").submit();
 	}
@@ -126,6 +228,10 @@
     color: black; /* 호버 시 텍스트 색상 변경 */
 }
 
+.userControll{
+	float: right;
+}
+
 </style>
 </head>
 <body>
@@ -150,27 +256,31 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:choose>
-					<c:when test="${not empty user}">
-						<c:forEach var="users" items="${user}" varStatus="status">
-							<tr class="text-center" data-num="${users.user_no}">
-								<td>${users.user_no}</td>
-								<td>${users.user_email}</td>
-								<td>${users.user_name}</td>
-								<td>${users.user_birth}</td>
-								<td>${users.user_phone_num}</td>
-								<td>${users.user_reg_date}</td>
-								<td>${users.user_status}</td>
-								<td><input type="checkbox" class="form-check-input" value="${users.user_no}"/></td>
+				<form id="selectedUsers" name="selectedUsers">
+					<c:choose>
+						<c:when test="${not empty user}">
+							<c:forEach var="users" items="${user}" varStatus="status">
+								<tr class="text-center" data-num="${users.user_no}">
+									<td>${users.user_no}</td>
+									<td>${users.user_email}</td>
+									<td>${users.user_name}</td>
+									<td>${users.user_birth}</td>
+									<td>${users.user_phone_num}</td>
+									<td>${users.user_reg_date}</td>
+									<td>${users.user_status}</td>
+									<td>
+										<input type="checkbox" name="selectedItems" class="form-check-input" value="${users.user_no}"/>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="8" class="tac text-center">등록되거나 검색조건에 부합하는 회원이 존재하지 않습니다.</td>
 							</tr>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<tr>
-							<td colspan="8" class="tac text-center">등록되거나 검색조건에 부합하는 회원이 존재하지 않습니다.</td>
-						</tr>
-					</c:otherwise>
-				</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</form>
 			</tbody>
 		</table>
 		</div>
@@ -201,9 +311,9 @@
 			</ul>
 			
 			<!-- 선택 회원 삭제, 관리자 등록 기능 -->
-			<div>
-				<button type="button" id="deleteBtn" class="btn btn-dark">삭제</button>
-				<button type="button" id="regManagerBtn" class="btn btn-dark">관리자 등록</button>
+			<div class="userControll">
+				<button type="button" id="regManagerBtn" class="btn btn-success">관리자 등록</button>
+				<button type="button" id="deleteUserBtn" class="btn btn-danger">삭제</button>
 			</div>
 		</div>
 		
@@ -222,7 +332,7 @@
 		                </select>
 		            </div>
 		            <div class="col">
-		                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어" value="전체 목록 조회">
+		                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어" value="전체 목록 조회" readonly="true">
 		            </div>
 		            <div class="col-2">
 		                <button class="btn btn-dark" id="searchData" type="button">검색</button>
