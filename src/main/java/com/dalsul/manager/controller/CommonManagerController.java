@@ -8,7 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.dalsul.common.login.vo.ManagerVO;
+
+import com.dalsul.manager.service.CommonManagerService;
+import com.dalsul.manager.vo.ManagerVO;
+import com.dalsul.user.main.vo.ProductVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.Setter;
+
 
 @Controller
 public class CommonManagerController {
@@ -29,7 +37,7 @@ public class CommonManagerController {
 			model.addAttribute("result", result);
 			
 			
-			List<ManagerVO> count = managerService.managerMainCount();
+			List  <ManagerVO> count = managerService.managerMainCount();
 			model.addAttribute("count", count);
 			
 			

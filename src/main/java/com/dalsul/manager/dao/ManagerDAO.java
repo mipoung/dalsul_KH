@@ -5,7 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.dalsul.common.login.vo.UserVO;
-import com.dalsul.user.review.vo.ProductVO;
+import com.dalsul.user.main.vo.ProductVO;
+
 
 @Mapper
 public interface ManagerDAO {
