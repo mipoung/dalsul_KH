@@ -252,13 +252,13 @@ public class ReviewController {
 	
 	
 	
-	// 수정 폼 
+	/* 수정 폼 
 	@PostMapping("reviewUpdateForm")
 	public String reviewUpdateForm() {
 		
 		return "reviewBoard/reviewUpdateForm";
 	}
-	
+	*/
 	
 	
 	
@@ -272,7 +272,7 @@ public class ReviewController {
 		
 		result = reviewService.myReviewUpdate(rvo);
 		
-		return "redirect:myReviewList";
+		return "redirect:/mypage/reviewDetailView";
 	}
 	
 	
