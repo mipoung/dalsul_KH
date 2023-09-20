@@ -248,22 +248,23 @@
    				var cardElement = $(this).closest('.card');
    				var review_no = $(this).closest('.card').data('review-no');
    				var cookieName = 'review_' + review_no;
+   				var likeVal = "";
    				console.log(cookieName);
    				
    				// 해당 리뷰에 대한 쿠키가 있는지 확인
    			    if(!$.cookie(cookieName)) {
    				    // 쿠키에 리뷰 ID 저장 (24시간 동안 유효)
    			        $.cookie(cookieName, true, { expires: 24, path: '/' });
+   				    
+   				    // 버튼 비활성화 시키기
+   			     	$(this).closest(".card.mb-3").find(".reviewLikeBtn").attr('disabled', true);
    			    	
-   				    // ajax로 좋아요 +1 하고 갯수 반환받기
+   				    // ajax로 좋아요 +1 DB에 INSERT하기
 	   			     $.ajax({
 	       				url : "/review/likePlus",
 	       				type: "GET",
 	       				data: { review_no: review_no },
 	       				 success: function(response){
-	      
-	       					// 좋아요 값 변경 왜 안되냐~
-	       					$(this).closest(".card.mb-3").find(".likeCount").text("sss");
 	       					
 	       		        },
 	       				error : function(error){
@@ -272,12 +273,39 @@
 	       				
 	       				
 	       			});
-   			    
+   				    
+   				  // 좋아요 카운트 표시 +1 하기
+	   			  var likeVal = $(this).closest(".card.mb-3").find(".likeCount").text();
+	   			  likeVal = parseInt(likeVal);
+	   			  $(this).closest(".card.mb-3").find(".likeCount").text(likeVal+1);
    			    } else {
+   			    	// 추천된 쿠기가 이미 있으면
    			        alert("이미 추천하셨습니다.");
+   				 	// 버튼 비활성화 시키기
+   			     	$(this).closest(".card.mb-3").find(".reviewLikeBtn").attr('disabled', true);
    			    }
    				
    			});
+      		
+      		
+
+      		
+      		
+      		
+      		
+      		
+   			/* 정렬 폼 데이터 전송 */
+   			$(".orderByBtn").on("click", function(){
+			    var selectedValue = $(this).data('order-by'); // `.data()` 메서드를 사용하여 데이터 속성 값을 가져옵니다.
+			    console.log(selectedValue);
+
+    			$("#reviewOrderBy").val(selectedValue);
+   				$("#detailReviewOrderBy").attr({
+   					"method" : "GET",
+   					"action" : "/review/detailReviewList"
+   				});
+   				$("#detailReviewOrderBy").submit();
+   			})
       		
       		
       		
@@ -316,6 +344,12 @@
    	<h2>제품번호 <span>12</span></h2>
    	<input type="hidden" id="user_no" value="${sessionScope.UserLogin.user_no}">
    	
+   	
+   	<form id="detailReviewOrderBy">
+   		<!-- 정렬데이터 전송을 위한 폼 -->
+		<input type="hidden" id="reviewOrderBy" name="reviewOrderBy" value="">
+   	
+   	</form>
    		
 	
 	
@@ -330,13 +364,13 @@
 						  <div class="card-header">
 							    <ul class="nav nav-tabs card-header-tabs">
 							      <li class="nav-item">
-							       	 <a class="nav-link active" aria-current="true" href="#">최신 순</a>
+								 		<button type="button" class="btn btn-light orderByBtn" data-order-by="obLikeCount">좋아요 순</button>
 							      </li>
 							      <li class="nav-item">
-							    	    <a class="nav-link" href="#">별점 순</a>
+							    	   <button type="button" class="btn btn-light orderByBtn" data-order-by="aaa">Light</button>
 							      </li>
 							      <li class="nav-item">
-							     	   <a class="nav-link" href="#">좋아요 순</a>
+							     	   <button type="button" class="btn btn-light" data-order-by="aaa">Light</button>
 							      </li>
 							    </ul>
 						  </div>
@@ -365,7 +399,7 @@
 								      </div>
 								      <div id="cordBtn">
 								       <div class="reviewRating" id="reviewRating" data-review-rating="${review.review_rating}">${review.review_rating}</div>
-								       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning .likeCount">${review.review_like_count}</span></button>
+								       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
 								       <!-- 
 								       <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBt" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
 								       <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>

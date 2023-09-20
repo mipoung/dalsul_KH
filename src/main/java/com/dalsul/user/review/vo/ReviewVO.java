@@ -1,6 +1,7 @@
 package com.dalsul.user.review.vo;
 
 import com.dalsul.common.vo.CommonVO;
+import com.dalsul.user.main.vo.ProductVO;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -50,6 +51,9 @@ public class ReviewVO extends CommonVO {
         return "";
     }
 	*/
+	
+	
+	
 	
 	
 	

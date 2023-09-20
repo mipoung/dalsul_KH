@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.main.service.MainService;
 import com.dalsul.user.main.vo.ProductVO;
+import com.dalsul.user.review.service.ReviewService;
+import com.dalsul.user.review.vo.ReviewVO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -33,6 +36,10 @@ public class MainController {
 	    public MainController(MainService mainService) {
 	        this.mainService = mainService;
 	    }
+	    
+	    @Setter(onMethod_ = @Autowired)
+	    private ReviewService reviewService;
+	    
 	    
 		/* 시작화면 호출 */
 	  	@GetMapping("/")
@@ -73,7 +80,10 @@ public class MainController {
 	    	vo.setProduct_no(10101011);
 	    	
 	    	ProductVO detail = mainService.getDetailPageProducts(vo);
+	    	
+	    	
 	    	model.addAttribute("detail", detail);
+	    	
 	    	
 	    	
 	    	return "main/detail"; // detail.jsp 페이지로 이동
