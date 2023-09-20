@@ -94,10 +94,11 @@ public class MainController {
 	    	ProductVO detail = mainService.getDetailPageProducts(vo);
 	    	
 	    	List<ReviewVO> review = reviewService.detailReviewList(vo);	
-	    	
-	    	
+	    	List<ReviewVO> bestReview = reviewService.detailReviewListBest(vo);
+				    	
 	    	model.addAttribute("detail", detail);
-	    	model.addAttribute("reviewlist", review);
+	    	model.addAttribute("reviewList", review);
+	    	model.addAttribute("bestReview", bestReview);
 	    	
 	    	log.info("review" + review);
 	 

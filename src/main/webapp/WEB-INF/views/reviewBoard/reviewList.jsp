@@ -43,8 +43,8 @@
 						  <div class="row g-0">
 						  <p id="bestReviewHeader">가장 많은 추천을 받은 리뷰</p>
 						    <div class="col-md-4">
-						      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
-						      ${bestReivew.product_main_image}
+						      <img src="/resources/images/mainpage/product/${bestReivew.product_main_image}" class="img-fluid rounded-start" alt="...">
+			
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body">
@@ -85,8 +85,7 @@
 			    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
 				  <div class="row g-0">
 				    <div class="col-md-4">
-				      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
-				      ${review.product_main_image}
+				      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="...">
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
