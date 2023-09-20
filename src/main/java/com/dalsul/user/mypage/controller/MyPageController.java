@@ -60,12 +60,20 @@ public class MyPageController {
 		return "/mypage/review";
 	}
 	
-	@GetMapping("/deleveryDetailView")
+	@GetMapping("/userAddrInfo")
 	public String deleveryDetailView() {
 		log.info("deleveryDetailView() 메소드 실행");
 		
-		return "/mypage/delevery";
+		return "/mypage/userAddrInfo";
 	}
+	
+	/*
+	@PostMapping
+	@ResponseBody
+	public AddrVO getUserAddress(@SessionAttribute(name = "userLogin", required = true) AddrVO avo) {
+		
+	}
+	*/
 	
 	@ResponseBody
 	@PostMapping("/getUserInfo")

@@ -113,7 +113,7 @@ $(function(){
 <div class="mb-3 mypage_menu">
 	<div class="member-info-wrapper" id="user_info">
 		<div class="name-header">
-			<div class="name-text">${uvo.user_name}님</div>
+			<div class="name-text">${userLogin.user_name}님</div>
 		</div>
 		<div class="user_info">
 			<div class="benefit">
@@ -148,7 +148,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="go_detail">
-			<div class="deleveryDetailView">
+			<div class="userAddrInfo">
 				<div>배송지 관리</div>
 				<img src="/resources/images/mypage/mypageHeader/truck.png" alt="address">
 			</div>
