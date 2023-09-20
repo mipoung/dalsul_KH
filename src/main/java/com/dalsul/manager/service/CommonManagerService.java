@@ -10,7 +10,6 @@ import com.dalsul.user.main.vo.ProductVO;
 public interface CommonManagerService {
 	public List<ProductVO> managerMainChart();
 	public List<ManagerVO> managerMainCount();
-	public List<UserVO> getUserList(UserVO uvo);
-	public int userListCnt(UserVO uvo);
+
 
 }

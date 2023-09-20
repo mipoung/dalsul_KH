@@ -30,16 +30,6 @@ public class CommonManagerServiceImpl implements CommonManagerService {
 		return result;
 	}
 
-	@Override
-	public List<UserVO> getUserList(UserVO uvo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public int userListCnt(UserVO uvo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

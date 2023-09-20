@@ -57,23 +57,5 @@ public class CommonManagerController {
 			return "/manager/managerMain";
 		}
 	
-	// 회원 정보 조회
-	@GetMapping("/manager/userManagement")
-	public String userManagement(@SessionAttribute(name="managerLogin", required = false) ManagerVO mvo, @ModelAttribute UserVO uvo, Model model) {
-		if(mvo==null) {
-			return "account/login/managerLoginForm";
-		}
-		
-		List<UserVO> userList = managerService.getUserList(uvo);
-		model.addAttribute("user", userList);
-		
-		// 전체 레코드 수 반환
-		int total = managerService.userListCnt(uvo);
-
-		// 페이징 처리
-		model.addAttribute("pageMaker", new PageDTO(uvo, total));
-		// new PageDTO(CommonVO 또는 CommonVO 하위 클래스의 인스턴스 (BoardVO), 총 레코드 수)
-		
-		return "/manager/user/userManagement";
-	}
+	
 }
