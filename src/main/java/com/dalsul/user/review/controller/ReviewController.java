@@ -324,13 +324,14 @@ public class ReviewController {
 	
 	// 관리자 삭제 기능 (완료)
 	// 관리자 세션을 가진 사람만 삭제 가능
+	/*
 	@PostMapping("managerReviewDelete")
-	public String managerReviewDelete(@SessionAttribute(name="userLogin", required = false) UserVO user, ReviewVO rvo) {
+	public String managerReviewDelete(@SessionAttribute(name="managerLogin", required = false) UserVO user, ReviewVO rvo) {
 		
-		// 로그인하지 않은 사용자이거 관리자가 아니면 
-		if(user == null || !(user.getUser_no() == 1)) {
+		// 로그인하지 않은 사용자이거 관리자가 아니면  || !(user.getUser_no() == 1)
+		if(user == null) {
 			log.info("로그인하지 않았거나 관리자가 아닙니다.");
-			return "common/error";
+			return "/common/error";
 		}
 			
 			log.info("관리자입니다.");
@@ -338,7 +339,7 @@ public class ReviewController {
 
 		return "redirect:/review/managerReviewList";
 	}
-	
+	*/
 	
 	
 	@ResponseBody

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.dalsul.common.login.vo.ManagerVO;
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.common.vo.PageDTO;
@@ -71,10 +72,10 @@ public class ReviewManagerController {
 	
 	// 관리자페이지 삭제 기능
 	@PostMapping("managerReviewDelete")
-	public String managerReviewDelete(@SessionAttribute(name="UserLogin", required = false) UserVO user, ReviewVO rvo) {
+	public String managerReviewDelete(@SessionAttribute(name="managerLogin", required = false) ManagerVO mvo, ReviewVO rvo) {
 		
-		// 로그인하지 않은 사용자이거 관리자가 아니면 
-		if(user == null || !(user.getUser_no() == 1)) {
+		// 로그인하지 않은 사용자이거 관리자가 아니면 || !(user.getUser_no() == 1)
+		if(mvo == null) {
 			log.info("로그인하지 않았거나 관리자가 아닙니다.");
 			return "common/error";
 		}

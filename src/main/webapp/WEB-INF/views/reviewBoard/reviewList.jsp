@@ -84,12 +84,13 @@
 	 		 <form id="r_ListForm">
 			    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
 				  <div class="row g-0">
-				    <div class="col-md-4">
+				    <div class="col-md-4" data-image-no="${review.product_main_image}">
 				      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="...">
 				      
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
+				      	<span id="productNameSpan" data-product-name="${review.product_name}"></span>
 				        <h6 class="card-title" data-product-no="${review.product_no}">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
 				        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
 				        
@@ -148,7 +149,7 @@
 									<div class="card mb-3" style="max-width: 540px;">
 										<div class="row g-0">
 											<div class="col-md-4">
-												<img src="/resources/images/common/icon.png"
+												<img src=""
 													class="img-fluid rounded-start" alt="...">
 											</div>
 											<div class="col-md-8">

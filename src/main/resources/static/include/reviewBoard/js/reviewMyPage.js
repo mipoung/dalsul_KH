@@ -91,6 +91,28 @@
 	      		// 내용 가져올때 <br>태그 제거
 	      		reviewContentForm = reviewContentForm.replace(/<br>/gi, "");
 	   			
+	   			
+	   			
+	   			// 제품명 가져오기
+			    var productName = $(this).closest(".card.mb-3").find("#productNameSpan").attr("data-product-name");
+			    console.log(productName);
+			
+			    // 모달 창 내부에 제목 설정
+			    $("#exampleModal .card-title").text(productName);
+	   			
+	   			
+	   			
+	      		// 이미지 불러와서 모달창에 설정
+	      		var imageNo = $(this).closest(".card.mb-3").find(".col-md-4").attr("data-image-no");
+    			console.log(imageNo);
+    				
+    			$("#exampleModal .col-md-4 img").attr("src", "/resources/images/mainpage/product/" + imageNo);
+  				console.log($("#exampleModal .col-md-4 img").attr("src"));
+	   			
+	   			
+	   			
+	   			
+	   			
 	      		// 메세지 박스에 내용 채우기
       			$("#message-text").val(reviewContentForm);
       			console.log("content : " + reviewContentForm);
