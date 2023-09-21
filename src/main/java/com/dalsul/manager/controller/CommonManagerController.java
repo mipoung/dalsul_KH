@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-
+import com.dalsul.common.login.vo.ManagerVO;
 import com.dalsul.manager.service.CommonManagerService;
 import com.dalsul.manager.vo.ManagerCommonVO;
 import com.dalsul.user.main.vo.ProductVO;
@@ -24,14 +24,13 @@ public class CommonManagerController {
 	@Setter(onMethod_ = @Autowired)
 	private CommonManagerService managerService;
 	
-	
-	
-	
-	
-	
 	// 관리자페이지 메인으로 이동
 		@GetMapping("/manager/managerMain")
-		public String managerMain(@SessionAttribute(name="managerLogin", required = false) ManagerCommonVO mvo,  Model model) {
+		public String managerMain(@SessionAttribute(name="managerLogin", required = false) ManagerVO mvo,  Model model) {
+
+			if(mvo==null) {
+				return "/account/login/managerLoginForm";
+			}
 			
 			List<ProductVO> result = managerService.managerMainChart();
 			model.addAttribute("result", result);

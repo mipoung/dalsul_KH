@@ -269,7 +269,7 @@
 									<td>${users.user_reg_date}</td>
 									<td>${users.user_status}</td>
 									<td>
-											<input type="checkbox" name="selectedItems" class="form-check-input" value="${users.user_no}"/>
+										<input type="checkbox" name="selectedItems" class="form-check-input" value="${users.user_no}"/>
 									</td>
 								</tr>
 							</c:forEach>
@@ -332,7 +332,7 @@
 		                </select>
 		            </div>
 		            <div class="col">
-		                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어" value="전체 목록 조회">
+		                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어" value="전체 목록 조회" readonly="true">
 		            </div>
 		            <div class="col-2">
 		                <button class="btn btn-dark" id="searchData" type="button">검색</button>

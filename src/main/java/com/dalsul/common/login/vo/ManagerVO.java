@@ -18,4 +18,4 @@ public class ManagerVO {
 	private String manager_reg_date;
 	private String manager_update_reg_date;
 	private String manager_status;
-} 
+}
