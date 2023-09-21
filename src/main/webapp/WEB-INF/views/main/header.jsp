@@ -38,7 +38,7 @@
 						href="/faq/FAQList">고객센터</a></li>
 				</ul>
 				<a class="nav-link" href="/cartList"><img id="img2"
-					src="resources/images/mainpage/basketIcon.png"></a>
+					src="/resources/images/mainpage/basketIcon.png"></a>
 			</nav>
 		</ul>
 	</div>

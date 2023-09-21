@@ -9,7 +9,7 @@
 <body>
     <h1>공지사항 수정 폼</h1>
     <!-- FAQ 수정 폼 내용 입력 폼과 버튼 등을 구현합니다. -->
-    <form action="/notice/adminNoticeUpdate" method="post">
+    <form action="/notice/managerNoticeUpdate" method="post">
         <!-- 입력 폼 -->
         <input type="hidden" name="notice_no" value="${updateData.notice_no}">
 

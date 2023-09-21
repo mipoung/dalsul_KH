@@ -49,7 +49,7 @@
 		
 	</select>
 <!-- notice 등록 -->	
-	<insert id="adminNoticeInsert" parameterType="Notice">
+	<insert id="managerNoticeInsert" parameterType="Notice">
 		<selectKey keyProperty="notice_no" resultType="int" order="BEFORE">
 			select notice_no_seq.nextval from dual
 		</selectKey>
@@ -59,7 +59,7 @@
 		
 	</insert>
 <!-- notice 수정 -->
-	<update id="adminNoticeUpdate" parameterType="Notice">
+	<update id="managerNoticeUpdate" parameterType="Notice">
 		UPDATE notice
 		SET notice_title = #{notice_title},
 			notice_subject = #{notice_subject},
@@ -67,7 +67,7 @@
 			WHERE notice_no = #{notice_no}
 	</update>
 <!-- notice 삭제 -->
-	<delete id="adminNoticeDelete" parameterType="Notice">
+	<delete id="managerNoticeDelete" parameterType="Notice">
 		DELETE FROM NOTICE
    		WHERE notice_no = #{notice_no}
 	</delete>

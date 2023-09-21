@@ -245,7 +245,7 @@
 
 		
 		<!-- 작성하기 -->
-		<a href="/notice/adminNoticeWriteForm" class="btn btn-primary">작성하기</a>
+		<a href="/notice/managerNoticeWriteForm" class="btn btn-primary" style="margin-bottom: 15px">작성하기</a>
             </div>
         </div>
     </div>

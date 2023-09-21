@@ -12,12 +12,12 @@
     	}
         
         function goToEditPage(noticeNo) {
-            window.location.href = "/notice/managerNoticeUpdateForm?notice_no=" + noticeNo;
+            window.location.href = "/notice/adminNoticeUpdateForm?notice_no=" + noticeNo;
         }
         
         function deleteNotice(noticeNo) {
             if (confirm("정말로 이 공지사항을 삭제하시겠습니까?")) {
-                window.location.href = "/notice/managerNoticeDelete?notice_no=" + noticeNo;
+                window.location.href = "/notice/adminNoticeDelete?notice_no=" + noticeNo;
             }
         }
     </script>
