@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import com.dalsul.user.mypage.service.MyPageService;
+import com.dalsul.user.pay.service.PaymentService;
+import com.dalsul.user.pay.vo.PayVO;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,7 +33,8 @@ public class MyPageController {
 	@Setter(onMethod_ = @Autowired)
 	private ReviewService reviewService;
 	
-	
+	@Autowired
+	private PaymentService paymentService;
 
 	@Autowired
 	private HttpSession session;
@@ -49,11 +53,30 @@ public class MyPageController {
 		return "/mypage/userInfo";
 	}
 	
+	//마이페이지-주문내역 조회
 	@GetMapping("/orderlistDetailView")
-	public String orderlistDetailView() {
+	public String orderlistDetailView(@SessionAttribute(name = "userLogin", required = true) UserVO uvo,Model model) {
 		log.info("orderlistDetailView() 메소드 실행");
+		//log.info("세션 유저 넘버 "+uvo.getUser_no());
+		List<PayVO> orderList = paymentService.orderList(uvo);
+		//log.info("가져온 값 :" + orderList.toString());
+		
+		model.addAttribute("orderList", orderList);
 		
 		return "/mypage/orderlist";
+	}
+	
+	//주문번호로 주문 상세 조회
+	@GetMapping("/orderListDetail")
+	public String orderlistDetailList(PayVO pvo,Model model) {
+		log.info("orderlistDetailList() 메소드 실행");
+		log.info("주문번호 : " + pvo.getOrder_no());
+		
+		List<PayVO> orderListDetail = paymentService.orderListDetail(pvo);
+		
+		model.addAttribute("orderListDetail", orderListDetail);
+		log.info("훌루루루룰" + orderListDetail.toString());
+		return "/mypage/orderDetail";
 	}
 	
 	@GetMapping("/refundDetailView")

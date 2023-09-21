@@ -31,9 +31,8 @@ public class CartController {
 	
      List<Product> cart = new ArrayList<>();
      
-		/*
-		 * @GetMapping("/") public String index() { return "/cart"; }
-		 */
+	
+		 
  	@GetMapping("/login")
      public String getSession() {
  		UserVO uvo = new UserVO();
