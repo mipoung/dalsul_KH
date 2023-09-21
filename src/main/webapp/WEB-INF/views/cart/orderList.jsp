@@ -11,18 +11,22 @@
 <script>
 var grandTotal = 0;
 var grandTotalClone=0;
+var buyerAddrValue = "";
 
 //$(function() {
     // "주문하기" 버튼을 클릭할 때 함수 호출
     function sendOrderData() {
     	console.log("sendOrderData함수 실행");
     	
-    	const deleveryAddr = $("#receiver").val() + "," +
-    						 $("#postcode").val() + "," +
-    						 $("#roadAddress").val() + "," +
-    						 $("#jibunAddress").val() + "," +
-    						 $("#detailAddress").val() + "," +
+    	const deleveryAddr = $("#receiver").val() + 
+    						 $("#postcode").val() + 
+    						 $("#roadAddress").val() +
+    						 $("#jibunAddress").val() + 
+    						 $("#detailAddress").val() +
     						 $("#extraAddress").val();
+    	
+    	// deleveryAddr 값을 postcodeValue에 할당
+    	 var buyerAddrValue = deleveryAddr;
     	
     	let productNumbers = $(".product_no").map(function() {
     	    					return $(this).text();
@@ -37,7 +41,7 @@ var grandTotalClone=0;
 		    order_delivery_info: deleveryAddr,
 		    order_total_price: parseInt($("#grandTotal").text().replace(",", "")),
 		    order_use_coupon: parseInt($("#coupon").val()),
-		    product_no : productNumbers
+		    product_no : productNumbers,
 		    quantity : productQuantity
     	};
 			console.log("성공?");
@@ -50,9 +54,13 @@ var grandTotalClone=0;
     	        data: JSON.stringify(orderData),
     	        dataType:"text",
     	        success: function(response) {
-    	        	console.log(response);
-    	        	//window.location.href = "/cart/success";
-    	        	alert('결제 성공');
+    	        	if(response==="SUCCESS"){
+    	        		alert('결제가 완료되었습니다');
+    	        		window.location.href = "/order/success";
+    	        		
+    	        	} else {
+    	        		alert('시스템 오류, 잠시후 다시 시도해 주세요.');
+    	        	}
     	        },
     	        error:function(error) {
                 	alert('실패 실패');
@@ -60,13 +68,14 @@ var grandTotalClone=0;
     	        }
             });
         }
-    //});
+
 
 $(function(){
 	  $("#payBtn").click(function(){
 		 requestPay();
 	  })
 });	
+
 
 
 	var IMP = window.IMP; 
@@ -82,11 +91,11 @@ $(function(){
 	    merchant_uid : 'merchant_'+new Date().getTime(),
 	    name : '달술',
 	    amount : grandTotalClone,
-	    buyer_email : 'iamport@siot.do',
+	    buyer_email : "${userInfo.user_email}",
 	    buyer_name : "${userInfo.user_name}",
 	    buyer_tel : "${userInfo.user_phone_num}",
-	    buyer_addr : '서울특별시 강남구 삼성동',
-	    buyer_postcode : '123-456'
+	    buyer_addr : buyerAddrValue,
+	    buyer_postcode : $("#postcode").val()
 	  }, function (rsp) { // callback
 	      if (rsp.success) {
 	    	      console.log("결제가 성공했습니다.");
@@ -102,23 +111,6 @@ $(function(){
 	  })
 	};
 
-	<%--
-	function msg(rsp) {
-	   // console.log(rsp);
-	    if (rsp.success) {
-	      console.log("결제가 성공했습니다.");
-	      var msg = '결제가 완료되었습니다.';
-	      alert(msg);
-	      
-	      //location.href = "cart/success";
-	    } else {
-	      var msg = '결제에 실패하였습니다.';
-	      msg += '에러내용 : ' + rsp.error_msg;
-	      alert(msg);
-	    }
-	 }
-	
-	--%>
 	// 페이지 로드가 완료되면 실행되는 함수
 	window.onload = function() {
 		
@@ -155,7 +147,7 @@ $(function(){
 	            var couponSelect = document.getElementById("coupon");
 	            
 	            // 콤보박스의 변경 이벤트에 대한 이벤트 리스너를 추가합니다.
-	            couponSelect.addEventListener("change", function() {
+	            $("#coupon").on("click change", function() {
 	            	grandTotalClone = grandTotal;//총 값 복제
 	            	
 	                // 선택한 마일리지 값을 가져옵니다.
@@ -175,46 +167,7 @@ $(function(){
 	                 var grandTotalElement = document.getElementById("grandTotal");
 	                 grandTotalElement.innerText = grandTotalClone.toLocaleString();
 					
-				<%--	/////////////////////////////////////
-	     		//마일리지 사용 함수
-// 초기 총 결제금액을 설정합니다.
-    var originalUseMileageValue = 0;
-
-    // "use_mileage" 입력 필드에 포커스가 들어왔을 때 이벤트 처리
-    $("#use_mileage").on("focus", function() {
-        // 현재 입력된 값을 저장합니다.
-        originalUseMileageValue = parseInt($(this).val()) || 0;
-    });
-
-    // 다른 곳을 클릭할 때 "use_mileage" 입력 필드에서 포커스를 제거합니다.
-    $(document).on("click", function(event) {
-        var target = $(event.target);
-        var useMileageInput = $("#use_mileage");
-        if (!target.is(useMileageInput)) {
-            // 현재 입력된 값을 가져옵니다.
-            var currentUseMileageValue = parseInt(useMileageInput.val()) || 0;
-
-            // 입력된 값과 원래 값의 차이를 계산합니다.
-            var difference = currentUseMileageValue - originalUseMileageValue;
-
-            // 만약 입력된 값이 0이면, 원래 값으로 복구합니다.
-            if (currentUseMileageValue === null) {
-                grandTotalClone += difference;
-                originalUseMileageValue = 0;
-            } else {
-                // 그렇지 않으면 차감합니다.
-                grandTotalClone -= difference;
-            }
-
-            // 페이지에 표시된 총 결제금액을 업데이트합니다.
-            var grandTotalElement = document.getElementById("grandTotal");
-            grandTotalElement.innerText = grandTotalClone.toLocaleString();
-            console.log(grandTotalClone.toLocaleString());
-        }
-    });
-	     		--%>
-	            ///////////////////////////////////////
-		         // grandTotal 값을 계산한 후 5% 값을 계산합니다.
+				 // grandTotal 값을 계산한 후 5% 값을 계산합니다.
 		            var couponPercentage = 0.05; // 5%에 해당하는 비율
 	
 		            // 5% 적립금을 계산합니다.
@@ -226,7 +179,7 @@ $(function(){
 		            // mileageMessage에 5% 적립금을 표시합니다.
 		            couponMessageElement.innerText = "결제 예정 적립금: " + couponAmount.toLocaleString() + "원";
 				}); //mileageSelect.addEventListener
-
+				$("#coupon").trigger("click");
 
 	        var grandTotalElement = document.getElementById("grandTotal");
 	        var formatGrandTotal = grandTotal.toLocaleString();
@@ -250,39 +203,6 @@ $(function(){
 	    	    displayElement.innerText = "-" + selectedValue ; // 선택한 값을 표시
 	    	});
 
-	        /* $("#coupon").change(function(){
-	        	let amount = grandTotalClone;
-	        	
-                // 선택한 쿠폰 값을 가져옵니다.
-                let couponValue = parseInt($("#coupon option:selected").val());
-
-                // 선택한 쿠폰 따라 amount 값을 조정합니다.
-                if (couponValue === 0) {
-                	amount-=0;
-				   } else if (couponValue === 2000) {
-					   amount -= 2000;
-					 } else if (couponValue === 1000) {
-						 amount -= 1000;
-				   }
-
-                // grandTotalClone 값을 화면에 업데이트합니다.
-                  var grandTotalElement = document.getElementById("grandTotal");
-                  grandTotalElement.innerText = amount.toLocaleString();
-
-     
-            
-	         // grandTotal 값을 계산한 후 5% 값을 계산합니다.
-	            var mileagePercentage = 0.05; // 5%에 해당하는 비율
-
-	            // 5% 적립금을 계산합니다.
-	            var mileageAmount = (amount-3000) * mileagePercentage;
-	         
-	            // mileageMessage 요소를 가져옵니다.
-	            var mileageMessageElement = document.getElementById("mileageMessage");
-
-	            // mileageMessage에 5% 적립금을 표시합니다.
-	            mileageMessageElement.innerText = "결제 예정 적립금: " + mileageAmount.toLocaleString() + "원";
-	        }); */
 	};
 	
 	  
@@ -337,13 +257,7 @@ $(function(){
                           guideTextBox.innerHTML = '';
                           guideTextBox.style.display = 'none';
                       }
-                
-                      /* 메소드 실행후 api 반환값 확인
-                      console.log(data.address + " 기본주소");
-                      console.log(data.jibunAddress + " 지번");
-                      console.log(data.roadAddress + " 도로명주소 반환");
-                      console.log(data.zonecode + " 우편번호 반환5자리");
-                     */
+
                   }
               }).open();
           }

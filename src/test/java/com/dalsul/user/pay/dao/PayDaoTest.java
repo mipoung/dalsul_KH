@@ -1,7 +1,6 @@
 package com.dalsul.user.pay.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dalsul.user.cart.vo.CartVO;
 import com.dalsul.user.pay.vo.PayVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -60,15 +58,23 @@ public void testOrderDetail() {
 }
 ***********************/
 	    
+//@Test
+//public void testCartDelete() {
+//	//PayVO pvo=new PayVO();
+//	CartVO cvo = new CartVO();
+//
+//	log.info("삭제된 것 : " + payDao.cartDelete(cvo));
+//	
+//}
 @Test
-public void testCartDelete() {
-	//PayVO pvo=new PayVO();
-	CartVO cvo = new CartVO();
-
-	log.info("삭제된 것 : " + payDao.cartDelete(cvo));
-	
-}
-
+ public void testDetailList() {
+	 PayVO pvo = new PayVO();
+	 
+	 pvo.setOrder_no(121);
+	 List<PayVO> list =   payDao.orderListDetail(pvo); 
+	 
+     log.info(list.toString());
+ }
 
 }
 
