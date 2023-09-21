@@ -39,7 +39,7 @@ body {
 	function setCookie(cookieName, value, exdays) {
 		let exdate = new Date();
 		exdate.setDate(exdate.getDate() + exdays);
-		let cookieValue = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toGMTString());
+		let cookieValue = btoa(escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toGMTString()));
 		document.cookie = cookieName + "=" + cookieValue;
 	}
 	
@@ -61,12 +61,13 @@ body {
 			let end = cookieData.indexOf(';', start);
 			if (end == -1) // 쿠키 값의 마지막 위치 인덱스 번호 설정 
 				end = cookieData.length;
-			cookieValue = cookieData.substring(start, end);
+			cookieValue = atob(cookieData.substring(start, end));
 		}
 		return unescape(cookieValue);
 	}
 
 	$(function(){
+		
 		
 		// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
 	    let key = getCookie("dalsul");

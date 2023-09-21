@@ -14,6 +14,11 @@
 			$("#search").val("<c:out value='${userVO.search}'/>");
 		}
 		
+		for(let i=0 ; i<10 ; i++){
+			let price = $(".product_price:eq("+i+")").text().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			$(".product_price:eq("+i+")").text(price);
+		}
+		
 		// 입력 양식 enter 제거
 		$("#keyword").bind("keydown", function(e){
 			if(e.keyCode == 13){
@@ -23,7 +28,7 @@
 		
 		// 검색 대상이 변경될 때마다 처리 이벤트
 		$("#search").change(function(){
-			if($("#search").val() == "all"){
+			if($("#search").val() == "all"){	
 				$("#keyword").val("전체 목록 조회");
 				$("#keyword").prop("readonly",true);
 			}else if($("#search").val() != "all"){
@@ -136,7 +141,7 @@
 			  }
 			})
 		});
-		
+
 	}); // end of page load function
 	
 	function ChkSelect(){

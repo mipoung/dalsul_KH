@@ -32,7 +32,7 @@
 	            제품관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="/manager/product/managerProduct">메인</a></li>
+	            <li><a class="dropdown-item" href="/manager/product/productListView">제품 조회</a></li>
 	            <li><a class="dropdown-item" href="#">메뉴3</a></li>
 	          </ul>
 	        </li>
