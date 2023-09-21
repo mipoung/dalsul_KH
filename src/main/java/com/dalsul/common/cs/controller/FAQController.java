@@ -2,14 +2,14 @@ package com.dalsul.common.cs.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -28,12 +28,12 @@ public class FAQController {
     private FAQService faqService;
     
     /*실험용 세션부여*/
-    @GetMapping("/setFAQAdminSession")
-    public String setAdminSession(HttpSession session) {
-        // 세션에 isAdmin 속성을 true로 설정
-        session.setAttribute("isAdmin", true);
+    /*@GetMapping("/setFAQmanagerSession")
+    public String setmanagerSession(HttpSession session) {
+        // 세션에 ismanager 속성을 true로 설정
+        session.setAttribute("ismanager", true);
         return "redirect:/faq/FAQList"; // FAQ 목록 페이지로 리다이렉트
-    }
+    }*/
     
     /*FAQ목록 , 페이지네이팅 */
     @GetMapping("/FAQList")
@@ -50,34 +50,34 @@ public class FAQController {
  
 
     //관리자가 사용하는 faq 글쓰기 폼/ 작성하기 폼 
-    @GetMapping(value="/adminFAQWriteForm")
-    public String adminFAQWriteForm(HttpSession session) {
+    /*@GetMapping(value="/managerFAQWriteForm")
+    public String managerFAQWriteForm(HttpSession session) {
     	// 관리자 권한 확인
-        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
-        if (isAdmin != null && isAdmin) {
-            return "cs/faq/adminFAQWriteForm";
+        Boolean ismanager = (Boolean) session.getAttribute("ismanager");
+        if (ismanager != null && ismanager) {
+            return "cs/faq/managerFAQWriteForm";
         } else {
             // 관리자가 아닌 경우
             return "redirect:/faq/FAQList";
         }
-    }
+    }*/
     
     /*관리자가 사용하는 faq 글쓰기*/
-    @PostMapping("/adminFAQInsert")
-    public String adminFAQInsert(FAQVO fvo, Model model, HttpSession session) throws Exception {
+    /*@PostMapping("/managerFAQInsert")
+    public String managerFAQInsert(FAQVO fvo, Model model, HttpSession session) throws Exception {
         int result = 0;
         String url = "";
     
-        // 세션에서 isAdmin 속성을 가져옴
-        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        // 세션에서 ismanager 속성을 가져옴
+        Boolean ismanager = (Boolean) session.getAttribute("ismanager");
     
         // 관리자 권한 확인
-        if (isAdmin != null && isAdmin) {
-            result = faqService.adminFAQInsert(fvo);
+        if (ismanager != null && ismanager) {
+            result = faqService.managerFAQInsert(fvo);
             if (result == 1) {
                 url = "redirect:/faq/FAQList";
             } else {
-            	url = "redirect:/faq/adminFAQWriteForm";
+            	url = "redirect:/faq/managerFAQWriteForm";
             }
         } else {
             // 관리자가 아닌 경우에 대한 처리
@@ -85,7 +85,7 @@ public class FAQController {
         }
     
         return  url;
-    }
+    }*/
     
     /*faq 글을 눌렀을때 글 상세보기*/
     @GetMapping("/FAQDetail")
@@ -99,55 +99,55 @@ public class FAQController {
     }
     
     /*관리자가 사용하는 faq글 수정 폼/ 업데이트 폼*/
-    @GetMapping(value="/adminFAQUpdateForm")
-    public String adminFAQUpdateForm(@ModelAttribute FAQVO fvo, Model model, HttpSession session) {
+    /*@GetMapping(value="/managerFAQUpdateForm")
+    public String managerFAQUpdateForm(@ModelAttribute FAQVO fvo, Model model, HttpSession session) {
 
     
-        // 세션에서 isAdmin 속성을 가져옴
-        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        // 세션에서 ismanager 속성을 가져옴
+        Boolean ismanager = (Boolean) session.getAttribute("ismanager");
     
         // 관리자 권한 확인
-        if (isAdmin != null && isAdmin) {
-            FAQVO updateData = faqService.adminFAQUpdateForm(fvo);
+        if (ismanager != null && ismanager) {
+            FAQVO updateData = faqService.managerFAQUpdateForm(fvo);
             model.addAttribute("updateData", updateData);
-            return "cs/faq/adminFAQUpdateForm";
+            return "cs/faq/managerFAQUpdateForm";
         } else {
             // 관리자가 아닌 경우에 대한 처리
           
             return "redirect:/faq/FAQList";
         }
-    }
+    }*/
     
     /*관리자가 사용하는 글 수정 / 업데이트*/
-    @PostMapping("/adminFAQUpdate")
-    public String adminFAQUpdate(@ModelAttribute FAQVO fvo, HttpSession session) {
+    /*@PostMapping("/managerFAQUpdate")
+    public String managerFAQUpdate(@ModelAttribute FAQVO fvo, HttpSession session) {
         
-        // 세션에서 isAdmin 속성을 가져옴
-        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        // 세션에서 ismanager 속성을 가져옴
+        Boolean ismanager = (Boolean) session.getAttribute("ismanager");
     
         // 관리자 권한 확인
-        if (isAdmin != null && isAdmin) {
-            int result = faqService.adminFAQUpdate(fvo);
+        if (ismanager != null && ismanager) {
+            int result = faqService.managerFAQUpdate(fvo);
             if (result == 1) {
                 return "redirect:/faq/FAQDetail?faq_no=" + fvo.getFaq_no();
             } else {
-                return "redirect:/faq/adminFAQUpdateForm?faq_no=" + fvo.getFaq_no();
+                return "redirect:/faq/managerFAQUpdateForm?faq_no=" + fvo.getFaq_no();
             }
         } else {
             // 관리자가 아닌 경우에 대한 처리
             return "redirect:/faq/FAQList"; 
         }
-    }
+    }*/
     
     /*관리자가 사용하는 글 삭제*/
-    @GetMapping(value = "/adminFAQDelete")
-    public String adminFAQDelete(@ModelAttribute FAQVO fvo, HttpSession session) throws Exception {
+    /*@GetMapping(value = "/managerFAQDelete")
+    public String managerFAQDelete(@ModelAttribute FAQVO fvo, HttpSession session) throws Exception {
 
     
-        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        Boolean ismanager = (Boolean) session.getAttribute("ismanager");
     
-        if (isAdmin != null && isAdmin) {
-            int result = faqService.adminFAQDelete(fvo);
+        if (ismanager != null && ismanager) {
+            int result = faqService.managerFAQDelete(fvo);
             if (result == 1) {
                 return "redirect:/faq/FAQList";
             } else {
@@ -157,5 +157,5 @@ public class FAQController {
     
         // 관리자가 아닌 경우에도 FAQ 목록 페이지로 리다이렉트
         return "redirect:/faq/FAQList";
-    }
+    }*/
 }

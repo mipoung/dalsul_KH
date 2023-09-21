@@ -33,9 +33,9 @@ public class InquiryController {
 	@Setter(onMethod_ = @Autowired)
 	private InquiryService inquiryService; 
 
-	/*@GetMapping("setInquiryAdminSession") // 실험용 세션부여
-	public String setAdminSession(HttpSession session) {
-		session.setAttribute("isAdmin", true);
+	/*@GetMapping("setInquirymanagerSession") // 실험용 세션부여
+	public String setmanagerSession(HttpSession session) {
+		session.setAttribute("ismanager", true);
 		return "redirect:/inquiry/inquiryList";
 	}*/
 

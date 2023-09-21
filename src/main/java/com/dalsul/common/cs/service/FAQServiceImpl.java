@@ -26,10 +26,10 @@ public class FAQServiceImpl implements FAQService{
 		return list;
 	}
 	@Override
-	public int adminFAQInsert(FAQVO fvo) {
+	public int managerFAQInsert(FAQVO fvo) {
 		int result = 0;
 		
-		result = faqDAO.adminFAQInsert(fvo);
+		result = faqDAO.managerFAQInsert(fvo);
 
 		return result;
 		
@@ -46,22 +46,22 @@ public class FAQServiceImpl implements FAQService{
 		
 	}
 	@Override
-	public FAQVO adminFAQUpdateForm(FAQVO fvo) {
+	public FAQVO managerFAQUpdateForm(FAQVO fvo) {
 		FAQVO updateData = null;
 		updateData = faqDAO.faqDetail(fvo);
 		return updateData;
 	}
 	@Override
-	public int adminFAQUpdate(FAQVO fvo) {
+	public int managerFAQUpdate(FAQVO fvo) {
 		int result = 0;
-		result = faqDAO.adminFAQUpdate(fvo);
+		result = faqDAO.managerFAQUpdate(fvo);
 		return result;
 		
 	}
 	@Override
-	public int adminFAQDelete(FAQVO fvo) {
+	public int managerFAQDelete(FAQVO fvo) {
 	    int result = 0;
-	    result = faqDAO.adminFAQDelete(fvo);
+	    result = faqDAO.managerFAQDelete(fvo);
 	    return result;
 	}
 	@Override

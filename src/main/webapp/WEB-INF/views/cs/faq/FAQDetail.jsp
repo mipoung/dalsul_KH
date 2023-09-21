@@ -16,12 +16,12 @@
     	}
         
         function goToEditPage(faqNo) {
-            window.location.href = "/faq/adminFAQUpdateForm?faq_no=" + faqNo;
+            window.location.href = "/faq/managerFAQUpdateForm?faq_no=" + faqNo;
         }
         
         function deleteFAQ(faqNo) {
             if (confirm("정말로 이 FAQ를 삭제하시겠습니까?")) {
-                window.location.href = "/faq/adminFAQDelete?faq_no=" + faqNo;
+                window.location.href = "/faq/managerFAQDelete?faq_no=" + faqNo;
             }
         }
         </script>

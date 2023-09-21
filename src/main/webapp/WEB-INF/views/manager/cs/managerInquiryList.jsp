@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <!-- 관리자페이지 드롭다운 사용을 위해 필요한 스크립트 -->
 <script type="text/javascript" src="/resources/include/common/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+<title>문의사항</title>
 
 </head>
    <body>

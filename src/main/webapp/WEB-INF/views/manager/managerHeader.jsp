@@ -93,9 +93,9 @@
 					<button class="btn btn-dark dropdown-toggle"
 						data-bs-toggle="dropdown" aria-expanded="false">고객지원</button>
 					<ul class="dropdown-menu dropdown-menu-dark">
-						<li><a class="dropdown-item" href="/manager/cs/managerFaq">FAQ 관리</a></li>
-						<li><a class="dropdown-item" href="#">공지사항 관리</a></li>
-						<li><a class="dropdown-item" href="#">문의사항 관리</a></li>
+						<li><a class="dropdown-item" href="/manager/cs/managerFAQList">FAQ 관리</a></li>
+						<li><a class="dropdown-item" href="/manager/cs/managerInquiryList">공지사항 관리</a></li>
+						<li><a class="dropdown-item" href="/manager/cs/managerNoticeList">문의사항 관리</a></li>
 					</ul>
 				</li>
 			</ul>

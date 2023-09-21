@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 	<style>
-		#item-template{display:none;}
+		#item-template{display:none;
+		}
+		.panel-body {
+        font-size: 18px;
+    	}
 	</style>
 	<script type="text/javascript">
 		
@@ -219,16 +223,17 @@
 			<div>
 				<table class="table">
 					<tbody>
-						<tr>
+						<!-- <tr>
 							<td >
-								<button type="button" id="replyInsertBtn" class="btn btn-success gap sendBtn">저장</button>
-								<input type="button" value="뒤로가기" onclick="history.back()">	
+								<button type="button" id="replyInsertBtn" class="btn btn-primary">댓글 저장</button>
+								<input type="button" value="뒤로가기" onclick="history.back()" class="btn btn-primary">	
 							</td>
-						</tr>
+						</tr> -->
 						<tr>
-							
 							<td colspan="4">
 								<textarea rows="2" cols="40" name="reply_answer" id="reply_answer"></textarea>
+								<button type="button" id="replyInsertBtn" class="btn btn-primary">댓글 저장</button>
+								<input type="button" value="뒤로가기" onclick="history.back()" class="btn btn-primary">	
 							</td>
 						</tr>
 					</tbody>
@@ -243,14 +248,15 @@
 		<div id="reviewList">
 			<div id="item-template" class="panel panel-success">
 				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="name"></span>
-						<span class="date"></span>
-						<button type="button" data-btn="upBtn" class="btn btn-default gap">수정하기</button>
-						<button type="button" data-btn="delBtn" class="btn btn-default gap">삭제하기</button>
-					</h3>
+					<p class="panel-title">
+						<span class="date" style="margin-left : 11px"></span>
+					</p>
 				</div>
-				<div class="panel-body"></div>
+				
+				<div class="panel-body" style="margin-left : 11px"></div>
+				<button type="button" data-btn="upBtn" class="btn btn-primary" style="margin-left : 11px">수정하기</button>
+				<button type="button" data-btn="delBtn" class="btn btn-primary">삭제하기</button>
+				
 			</div>	
 		</div>
 

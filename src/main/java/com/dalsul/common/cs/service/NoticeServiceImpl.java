@@ -23,10 +23,10 @@ public class NoticeServiceImpl implements NoticeService{
 		return list;
 	}
 	@Override
-	public int adminNoticeInsert(NoticeVO nvo) {
+	public int managerNoticeInsert(NoticeVO nvo) {
 		int result = 0;
 		
-		result = noticeDAO.adminNoticeInsert(nvo);
+		result = noticeDAO.managerNoticeInsert(nvo);
 		
 		return result;
 		
@@ -41,21 +41,21 @@ public class NoticeServiceImpl implements NoticeService{
 		return detail;
 	}
 	@Override
-	public NoticeVO adminNoticeUpdateForm(NoticeVO nvo) {
+	public NoticeVO managerNoticeUpdateForm(NoticeVO nvo) {
 		NoticeVO updateData = null;
 		updateData = noticeDAO.noticeDetail(nvo);
 		return updateData;
 	}
 	@Override
-	public int adminNoticeUpdate(NoticeVO nvo) {
+	public int managerNoticeUpdate(NoticeVO nvo) {
 		int result = 0;
-		result = noticeDAO.adminNoticeUpdate(nvo);
+		result = noticeDAO.managerNoticeUpdate(nvo);
 		return result;
 	}
 	@Override
-	public int adminNoticeDelete(NoticeVO nvo) {
+	public int managerNoticeDelete(NoticeVO nvo) {
 		int result = 0;
-		result = noticeDAO.adminNoticeDelete(nvo);
+		result = noticeDAO.managerNoticeDelete(nvo);
 		return result;
 	}
 	@Override

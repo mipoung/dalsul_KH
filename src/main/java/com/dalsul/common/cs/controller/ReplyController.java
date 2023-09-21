@@ -29,9 +29,9 @@ public class ReplyController {
 	private ReplyService replyService;
 	
 	/*실험용 세션부여*/
-	/*@GetMapping("setRepliesAdminSession")
-	public String setAdminSession(HttpSession session) {
-		session.setAttribute("isAdmin", true);
+	/*@GetMapping("setRepliesmanagerSession")
+	public String setmanagerSession(HttpSession session) {
+		session.setAttribute("ismanager", true);
 		return "redirect:/inquiry/inquiryList";
 	}*/
 	
