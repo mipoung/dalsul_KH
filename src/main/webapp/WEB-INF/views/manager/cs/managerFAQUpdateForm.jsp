@@ -9,11 +9,7 @@
 <body>
     <h1>FAQ 수정 폼</h1>
     <!-- FAQ 수정 폼 내용 입력 폼과 버튼 등을 구현합니다. -->
-<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/manager/cs/managerFAQUpdateForm.jsp
     <form action="/manager/cs/managerFAQUpdate" method="post">
-========
-    <form action="/faq/managerFAQUpdate" method="post">
->>>>>>>> 64f026d8882ec660f1984d563e088515528e80b0:src/main/webapp/WEB-INF/views/cs/faq/managerFAQUpdateForm.jsp
         <!-- 입력 폼 -->
         <input type="hidden" name="faq_no" value="${updateData.faq_no}">
 

@@ -9,11 +9,7 @@
 <body>
     <h1>FAQ 작성 폼</h1>
     <!-- FAQ 작성 폼 내용 입력 폼과 버튼 등을 구현합니다. -->
-<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/manager/cs/managerFAQWriteForm.jsp
     <form action="/manager/cs/managerFAQInsert" method="post">
-========
-    <form action="/faq/managerFAQInsert" method="post">
->>>>>>>> 64f026d8882ec660f1984d563e088515528e80b0:src/main/webapp/WEB-INF/views/cs/faq/managerFAQWriteForm.jsp
         <!-- 입력 폼 -->
         <label for="faq_title">제목:</label>
         <input type="text" id="faq_title" name="faq_title" required><br>
