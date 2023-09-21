@@ -2,7 +2,7 @@ package com.dalsul.manager.controller;
 
 import java.util.List;
 
-//import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +46,7 @@ public class CsManagerController {
 	//private ReplyService replyService;
 	
 	
-	/*@GetMapping("/setManagerSession") // 임의의 URL로 관리자 세션을 설정
+	@GetMapping("/setManagerSession") // 임의의 URL로 관리자 세션을 설정
     public String setManagerSession(HttpSession session) {
         // 여기에서 관리자로 로그인한 사용자를 세션에 설정
         ManagerVO managerUser = new ManagerVO();
@@ -56,7 +56,7 @@ public class CsManagerController {
         session.setAttribute("managerLogin", managerUser); 
 
         return "redirect:/manager/cs/managerFAQList";
-    }*/
+    }
 
 	
 	
