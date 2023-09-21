@@ -15,14 +15,14 @@
         window.location.href = "/faq/FAQList";
     	}
         
-        function goToEditPage(faqNo) {
+        /* function goToEditPage(faqNo) {
             window.location.href = "/faq/managerFAQUpdateForm?faq_no=" + faqNo;
         }
         
         function deleteFAQ(faqNo) {
             if (confirm("정말로 이 FAQ를 삭제하시겠습니까?")) {
                 window.location.href = "/faq/managerFAQDelete?faq_no=" + faqNo;
-            }
+            } */
         }
         </script>
         <style>
@@ -78,11 +78,11 @@
                     </table>
                     <!-- 뒤로 가기 버튼 -->
 			        <button onclick="goToFAQList()" class="btn btn-primary" id="faqBtn">FAQ 목록으로 이동</button>
-			        <!-- 수정하기 버튼 -->
+			       <%--  <!-- 수정하기 버튼 -->
 			        <button onclick="goToEditPage(${detail.faq_no})" class="btn btn-primary" id="faqBtn">수정하기</button>
 			        <!-- 삭제하기 버튼 -->
 			        <button onclick="deleteFAQ(${detail.faq_no})" class="btn btn-primary" id="faqBtn">삭제하기</button>
-                    
+ --%>                    
             	</div>
         	</div>
         	        	
