@@ -33,10 +33,11 @@ public class CommonManagerController {
 		@GetMapping("/manager/managerMain")
 		public String managerMain(@SessionAttribute(name="managerLogin", required = false) ManagerCommonVO mvo,  Model model) {
 			
+			/* 차트 데이터 */
 			List<ProductVO> result = managerService.managerMainChart();
 			model.addAttribute("result", result);
 			
-			
+			/* 통계 데이터 */
 			List<ManagerCommonVO> count = managerService.managerMainCount();
 			model.addAttribute("count", count);
 			

@@ -10,6 +10,7 @@ import com.dalsul.user.main.vo.ProductVO;
 public interface CommonManagerService {
 	public List<ProductVO> managerMainChart();
 	public List<ManagerCommonVO> managerMainCount();
-
+	public List<ManagerCommonVO> managerReviewChart();
+	public List<ManagerCommonVO> managerReviewStatistics();
 
 }

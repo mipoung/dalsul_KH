@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.common.vo.PageDTO;
+import com.dalsul.manager.service.CommonManagerService;
+import com.dalsul.manager.service.ManagerService;
+import com.dalsul.manager.vo.ManagerCommonVO;
 import com.dalsul.user.review.service.ReviewService;
 import com.dalsul.user.review.vo.ReviewVO;
 
@@ -26,6 +29,9 @@ public class ReviewManagerController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ReviewService reviewService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private CommonManagerService commonManagerService;
 	
 	
 	/*********** 완성 **********/
@@ -86,7 +92,14 @@ public class ReviewManagerController {
 	
 	// 리뷰 차트 및 통계
 	@GetMapping("managerReviewChart")
-	public String managerReviewChart() {
+	public String managerReviewChart(Model model) {
+		List<ManagerCommonVO> reviewChartData = commonManagerService.managerReviewChart();
+		log.info("데이터 값 : " + reviewChartData);
+		model.addAttribute("revieweChartData", reviewChartData);
+		
+		
+		List<ManagerCommonVO> reviewStaticsData = commonManagerService.managerReviewStatistics();
+		model.addAttribute("reviewStaticsData", reviewStaticsData);
 		
 		return "manager/reviewBoard/managerReviewChart";
 	}
