@@ -43,40 +43,100 @@
 	margin: 0 auto;
 }
 
-.filter {
+button {
+	cursor: pointer;
+}
+
+.filter1, .filter2, .filter3, .filter4, .filter5 {
 	background-color: white;
 	border: 2px solid rgb(242, 242, 242);
 	border-radius: 5px;
 	font-weight: bold;
 	color: rgb(128, 128, 128);
 	padding: 5px 10px; /* 버튼 내부 요소 주변의 간격 설정 */
+	
+	
 }
 
-.filter span {
+.filter1 span, .filter2 span, .filter3 span, .filter4 span, .filter5 span {
 	margin-right: 10px; /* <span> 태그 뒤의 간격 설정 */
 }
 
-.filter img {
+
+
+.filter1 img, .filter2 img .filter3 span {
 	margin-left: 10px; /* <img> 태그 앞의 간격 설정 */
 }
 
-/* 숨겨진 화면 표시 */
-.hidecheckboxout {
+
+
+/* 숨겨진 화면 표시 - 주종 ● 원료 */
+.hidecheckboxout1, .hidecheckboxout4 {
 	display: none;
 	position: absolute;
 	left: 50;
 	top: 30;
 	width: 20%;
-	height: 25%;
+	height: 20%;
 	justify-content: center;
 	align-items: center;
-	display: none;
 	background-color: #fff;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	margin-top: 10px;
 }
+
+/* 숨겨진 화면 표시 - 도수 */
+.hidecheckboxout2 {
+	display: none;
+	position: absolute;
+	left: 50;
+	top: 30;
+	width: 20%;
+	height: 14%;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	margin-top: 10px;
+}
+
+/* 숨겨진 화면 표시 - 맛 */
+.hidecheckboxout3 {
+	display: none;
+	position: absolute;
+	left: 50;
+	top: 30;
+	width: 20%;
+	height: 7%;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	margin-top: 10px;
+}
+
+.hidecheckboxout5 {
+	display: none;
+	position: absolute;
+	left: 50;
+	top: 30;
+	width: 20%;
+	height: 20%;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	margin-top: 10px;
+}
+
 
 .hidecheckboxin {
 	display: flex;
@@ -85,13 +145,26 @@
 	align-items: center; /* 세로로 가운데 정렬 */
 }
 
+.hidecheckboxin2 {
+	display: flex;
+	flex-wrap: wrap; /* 요소들이 가로로 나열되면서 자동으로 줄 바꿈됨 */
+	justify-content: space-between; /* 요소들을 가로로 고르게 배치 */
+	align-items: center; /* 세로로 가운데 정렬 */
+	width:420px;
+}
+
+.hidecheckboxout5 {
+	width: 375px;
+    height: 110px;
+}
+
 .checkboxwrapper {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	padding: 5px;
-	border: 1px solid #ccc;
+	border: none;
 	border-radius: 5px;
 	margin: 5px;
 	width: calc(50% - 10px); /* 가로로 두 개씩 출력 */
@@ -111,6 +184,23 @@
 .ucimg {
 	width: 25px;
 	height: 25px;
+}
+
+.option-text {
+	background-color: white;
+	border: none;
+	font-weight: bold;
+	color: rgb(128, 128, 128);
+}
+
+.option-text2 {
+	background-color: white;
+	border: none;
+	font-weight: bold;
+	color: rgb(128, 128, 128);
+	
+	text-align: left;
+	width: 110px;
 }
 
 .selectbar2 {
@@ -166,76 +256,111 @@ a {
 
 <script src="/resources/include/common/js/jquery-3.7.0.min.js"></script>
 <script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// 초기 상태 설정
+		var isFilterVisible = [ false, false, false, false, false ];
 
-document.addEventListener("DOMContentLoaded", function() {
-    // 페이지가 로드될 때 숨겨진 상태로 설정
-    var checkboxOut = document.querySelector('.hidecheckboxout');
-    checkboxOut.style.display = 'none';
+		// filter 버튼 클릭 이벤트 핸들러
+		function toggleFilterVisibility(filterIndex) {
+			return function() {
+				for (var i = 0; i < isFilterVisible.length; i++) {
+					if (i === filterIndex) {
+						continue;
+					}
+					isFilterVisible[i] = false;
+					var checkboxOut = document.querySelector('.hidecheckboxout'
+							+ (i + 1));
+					var filterButton = document.querySelector('.filter'
+							+ (i + 1));
+					checkboxOut.style.display = 'none';
+					filterButton.style.borderColor = 'rgb(242, 242, 242)';
+					filterButton.style.color = 'rgb(128, 128, 128)';
+				}
 
-    // 버튼 클릭 시 숨김 상태를 토글하고 배경색을 변경
-    var filterButton = document.querySelector('.filter');
-    var isFilterVisible = false;
-
-    filterButton.addEventListener('click', function() {
-        if (!isFilterVisible) {
-            checkboxOut.style.display = 'block'; // 보이도록 변경
-            filterButton.style.borderColor = 'rgb(81, 151, 242)'; // 테두리 색상을 파란색으로 변경
-            filterButton.style.color = 'rgb(81, 151, 242)'; // 글자색을 파란색으로 변경
-        } else {
-            checkboxOut.style.display = 'none'; // 숨김 처리
-            filterButton.style.backgroundColor = ''; // 배경색 제거
-        }
-
-        isFilterVisible = !isFilterVisible; // 상태를 토글
-    });
-});
-$(function () {
-	// 클릭 이벤트 핸들러 함수
-	function handleCheckboxAndOptionTextClick(checkboxButton, optionText) {
-	    // 이미지 요소 선택
-	    var img = checkboxButton.querySelector('.ucimg');
-
-	    // 이미지의 현재 src 값을 확인하여 이미지를 토글
-	    var currentSrc = img.src;
-	    if (currentSrc.includes("unchecked_square.png")) {
-	        img.src = "/resources/images/mainpage/checked_square.png";
-	    } else {
-	        img.src = "/resources/images/mainpage/unchecked_square.png";
+				isFilterVisible[filterIndex] = !isFilterVisible[filterIndex];
+				var checkboxOut = document.querySelector('.hidecheckboxout'
+						+ (filterIndex + 1));
+				var filterButton = document.querySelector('.filter'
+						+ (filterIndex + 1));
+				if (isFilterVisible[filterIndex]) {
+					checkboxOut.style.display = 'block';
+					filterButton.style.borderColor = 'rgb(81, 151, 242)';
+					filterButton.style.color = 'rgb(81, 151, 242)';
+				} else {
+					checkboxOut.style.display = 'none';
+					filterButton.style.borderColor = 'rgb(242, 242, 242)';
+					filterButton.style.color = 'rgb(128, 128, 128)';
+				}
+			};
+		}
+		
+		 // 공백 영역 클릭 이벤트 핸들러
+	    function handleDocumentClick(event) {
+	        if (!event.target.classList.contains('filter') && !event.target.classList.contains('hidecheckboxout')) {
+	            for (var i = 0; i < isFilterVisible.length; i++) {
+	                isFilterVisible[i] = false;
+	                var checkboxOut = document.querySelector('.hidecheckboxout' + (i + 1));
+	                var filterButton = document.querySelector('.filter' + (i + 1));
+	                checkboxOut.style.display = 'none';
+	                filterButton.style.borderColor = 'rgb(242, 242, 242)';
+	                filterButton.style.color = 'rgb(128, 128, 128)';
+	            }
+	        }
 	    }
-	}
 
-	// .custom-checkbox 클래스를 가진 요소들 선택
-	var checkboxElements = document.querySelectorAll('.custom-checkbox');
-
-	// 선택된 모든 .custom-checkbox 요소에 대한 클릭 이벤트 핸들러 추가
-	checkboxElements.forEach(function(checkboxButton) {
-	    var optionText = checkboxButton.parentElement.querySelector('.option-text');
-	    checkboxButton.addEventListener('click', function() {
-	        handleCheckboxAndOptionTextClick(checkboxButton, optionText); // 공통 핸들러 함수 호출
-	    });
+		// 각 filter 버튼에 이벤트 핸들러 추가
+		for (var i = 0; i < isFilterVisible.length; i++) {
+			var filterButton = document.querySelector('.filter' + (i + 1));
+			filterButton.addEventListener('click', toggleFilterVisibility(i));
+			
+			
+		}
+		
+	
 	});
 
-	// .option-text 클래스를 가진 요소들 선택
-	var optionTextElements = document.querySelectorAll('.option-text');
+	$(function() {
 
-	// 선택된 모든 .option-text 요소에 대한 클릭 이벤트 핸들러 추가
-	optionTextElements.forEach(function(optionText) {
-	    var checkboxButton = optionText.parentElement.querySelector('.custom-checkbox');
-	    optionText.addEventListener('click', function() {
-	        handleCheckboxAndOptionTextClick(checkboxButton, optionText); // 공통 핸들러 함수 호출
-	    });
+		// 클릭 이벤트 핸들러 함수
+		function handleCheckboxAndOptionTextClick(checkboxButton, optionText) {
+			// 이미지 요소 선택
+			var img = checkboxButton.querySelector('.ucimg');
+
+			// 이미지의 현재 src 값을 확인하여 이미지를 토글
+			var currentSrc = img.src;
+			if (currentSrc.includes("unchecked_square.png")) {
+				img.src = "/resources/images/mainpage/checked_square.png";
+			} else {
+				img.src = "/resources/images/mainpage/unchecked_square.png";
+			}
+		}
+
+		// .custom-checkbox 클래스를 가진 요소들 선택
+		var checkboxElements = document.querySelectorAll('.custom-checkbox');
+
+		// 선택된 모든 .custom-checkbox 요소에 대한 클릭 이벤트 핸들러 추가
+		checkboxElements.forEach(function(checkboxButton) {
+			var optionText = checkboxButton.parentElement
+					.querySelector('.option-text');
+			checkboxButton.addEventListener('click', function() {
+				handleCheckboxAndOptionTextClick(checkboxButton, optionText); // 공통 핸들러 함수 호출
+			});
+		});
+
+		// .option-text 클래스를 가진 요소들 선택
+		var optionTextElements = document.querySelectorAll('.option-text');
+
+		// 선택된 모든 .option-text 요소에 대한 클릭 이벤트 핸들러 추가
+		optionTextElements.forEach(function(optionText) {
+			var checkboxButton = optionText.parentElement
+					.querySelector('.custom-checkbox');
+			optionText.addEventListener('click', function() {
+				handleCheckboxAndOptionTextClick(checkboxButton, optionText); // 공통 핸들러 함수 호출
+			});
+		});
+
 	});
-});
-
-
-
-
-
-
 </script>
-
-</script>
-
 
 </head>
 <body>
@@ -247,12 +372,12 @@ $(function () {
 					<div class="selectbarin">
 						<div class="selectbarwrapper">
 							<div class="filter-container">
-								<button class="filter">
+								<button class="filter1">
 									<span>주종 </span><img
 										src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png"
 										width="20px" class="img" alt="arrow-down">
 								</button>
-								<div class="hidecheckboxout">
+								<div class="hidecheckboxout1">
 									<div class="hidecheckboxin">
 										<div class="checkboxwrapper">
 											<div class="checkboxwrapper1">
@@ -306,39 +431,223 @@ $(function () {
 															class="ucimg">
 													</button>
 												</div>
-												<button class="option-text">기타소주</button>
+												<button class="option-text">기타주류</button>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="filter-container">
-								<button class="filter">
+								<button class="filter2">
 									<span>도수 </span><img
 										src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png"
 										width="20px" class="img" alt="arrow-down">
 								</button>
+								<div class="hidecheckboxout2">
+									<div class="hidecheckboxin">
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">0%-10%</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">10%-20%</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">20%-30%</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">30% 이상</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
+
 							<div class="filter-container">
-								<button class="filter">
+								<button class="filter3">
 									<span>맛 </span><img
 										src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png"
 										width="20px" class="img" alt="arrow-down">
 								</button>
+
+								<div class="hidecheckboxout3">
+									<div class="hidecheckboxin">
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">단맛</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">신맛</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="filter-container">
-								<button class="filter">
+								<button class="filter4">
 									<span>원료 </span><img
 										src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png"
 										width="20px" class="img" alt="arrow-down">
 								</button>
+								<div class="hidecheckboxout4">
+									<div class="hidecheckboxin">
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">과일</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">꽃</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">곡물</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">약재</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">기타</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 							</div>
 							<div class="filter-container">
-								<button class="filter">
+								<button class="filter5">
 									<span>가격 </span><img
 										src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png"
 										width="20px" class="img" alt="arrow-down">
 								</button>
+								<div class="hidecheckboxout5">
+									<div class="hidecheckboxin2">
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">~1만원</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text2">1만원~2만원</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text2">2만원~3만원</button>
+											</div>
+										</div>
+										<div class="checkboxwrapper">
+											<div class="checkboxwrapper1">
+												<div class="checkboxwrapper2">
+													<button type="button" class="custom-checkbox">
+														<img src="/resources/images/mainpage/unchecked_square.png"
+															class="ucimg">
+													</button>
+												</div>
+												<button class="option-text">3만원이상</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
