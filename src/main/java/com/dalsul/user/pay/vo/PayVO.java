@@ -21,6 +21,7 @@ public class PayVO {
 	private String order_update_date; //주문수정일자 sysdate
 	
 	private int order_detail_no; //주문 상세 번호 product_order pk
-	private String product_no; //product_order 상품일련번호
+	private int product_no; //product_order 상품일련번호
 	private int quantity; //상품 갯수
+	private String product_name; //상품명
 }

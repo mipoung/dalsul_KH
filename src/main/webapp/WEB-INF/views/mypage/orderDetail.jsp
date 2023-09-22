@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(function() {
     // refund 버튼 클릭 이벤트 핸들러 등록
-    $("#refund").on("click", function() {
+    /* $("#refund").on("click", function() {
         var confirmResult = confirm("환불하시겠습니까?");
         if (confirmResult) {
             var detailNo = $(this).closest('tr').find('td:first-child').text();
@@ -14,6 +14,28 @@ $(function() {
             
         } else {
             // 사용자가 취소(No)를 누른 경우 아무 동작 없음 (현재 페이지 유지)
+        }
+    }); */
+    
+    $("#refund").click(function(){
+    	var confirmResult = confirm("환불하시겠습니까?");
+        if (confirmResult) {
+        	$.ajax({
+        		url : "/mypage/refundDetailView",
+        		method : "get",
+        		data : {"order_no":$(".order_no:first").text()},
+        		dataType : "text",
+        		error : function(){
+        			alert("시스템 오류, 잠시후 다시 시도해 주세요.");
+        		}, success : function(resultData){
+        			if(resultData=="SUCCESS"){
+        				alert("환불 신청이 완료되었습니다");
+        				location.href="/mypage/orderlistDetailView";
+        			}else{
+        				alert("환불 신청 도중 오류가 발생했습니다.\n잠시후 다시 시도해 주세요.");
+        			}
+        		}
+        	});
         }
     });
 });
@@ -46,7 +68,7 @@ $(function() {
             <tbody>
                 <c:forEach items="${orderListDetail}" var="orderListDetail">
                      <tr>
-                        <td>${orderListDetail.order_detail_no}</td>
+                        <td class="order_no">${orderListDetail.order_no}</td>
                         <td>${orderListDetail.product_no}</td>
                         <td>${orderListDetail.quantity}</td>
                         <td>${orderListDetail.order_use_coupon}</td>

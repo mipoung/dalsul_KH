@@ -82,15 +82,16 @@ public class MyPageController {
 	
 	//구매자가 취소요청을 했을 경우
 	@GetMapping("/refundDetailView")
+	@ResponseBody
 	public String refundDetailView(@RequestParam("order_no") int order_no) {
 	    log.info("refundDetailView() 메소드 실행");
 	    
 	    int result = mypageService.updateOrderStatusToCancel(order_no);
 	    
 	    if (result > 0) {
-	        return "/mypage/orderlist";
+	        return "SUCCESS";
 	    } else {
-	        return "/";
+	        return "FAIL";
 	    }
 	}
 
