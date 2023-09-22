@@ -83,7 +83,6 @@
 				  <div class="row g-0">
 				    <div class="col-md-4" data-image-no="${review.product_main_image}">
 				      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="...">
-				      
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
