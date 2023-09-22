@@ -3,7 +3,7 @@
 <mapper namespace="com.dalsul.manager.dao.ManagerDAO">
 
 <select id="orderListViewM" resultType="map">
-    SELECT
+    SELECT DISTINCT
         ol.order_no AS order_no,
         ol.user_no AS user_no,
         ol.order_use_coupon AS order_use_coupon,
