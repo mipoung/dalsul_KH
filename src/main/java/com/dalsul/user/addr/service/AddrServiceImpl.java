@@ -1,8 +1,11 @@
 package com.dalsul.user.addr.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.addr.dao.AddrApiDAO;
 import com.dalsul.user.addr.vo.AddrVO;
 
@@ -17,10 +20,10 @@ public class AddrServiceImpl implements AddrService {
 	/*쿼리문을 실행하고 성공과 실패여부를 1과 0으로 반환받음, 그결과를 확인하기위해 console에서 확인*/
 	
 	@Override
-	public int insertAddr(AddrVO bvo) {
+	public int insertAddr(AddrVO avo) {
 		int result = 0;
 		
-		result = addrApiDAO.insertAddr(bvo);
+		result = addrApiDAO.insertAddr(avo);
 		if(result !=0) {
 			System.out.println("추가에 성공하였습니다.");
 		}else {
@@ -31,9 +34,9 @@ public class AddrServiceImpl implements AddrService {
 	
 	
 	@Override
-	public AddrVO selectAddr(AddrVO bvo) {
-		AddrVO result = null;
-		result = addrApiDAO.selectAddr(bvo);
+	public List<AddrVO> userAddrInfo(UserVO uvo) {
+		List<AddrVO> result= null;
+		result = addrApiDAO.userAddrInfo(uvo);
 				
 		return result;
 		
@@ -69,10 +72,10 @@ public class AddrServiceImpl implements AddrService {
 	
 	/*사용자 입력 레코드 개수 검증 함수 */
 	@Override
-	public String chkUserAddr(AddrVO bvo) {
+	public String chkUserAddr(UserVO uvo) {
 		String chkUserAddr;
 		
-		chkUserAddr = addrApiDAO.chkUserAddr(bvo);
+		chkUserAddr = addrApiDAO.chkUserAddr(uvo);
 		
 		return chkUserAddr;
 	}

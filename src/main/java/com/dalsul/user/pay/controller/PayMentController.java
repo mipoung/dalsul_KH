@@ -90,7 +90,7 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 //			return "cart/success"; 
 //	}
 
-//장바구니 페이지 조회
+//결제완료 페이지 조회
 	@GetMapping("/success")
 	public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo,Model model) {
 	if(uvo==null) {

@@ -2,39 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalsul.user.coupon_recive.dao.Coupon_reciveDAO">
 	
-	<!-- 검색  -->
-	<sql id="couponSearch">
-		<if test="search=='coupon_recive_status'">
-			<![CDATA[ coupon_recive_status like '%' || #{keyword} || '%' ]]>
-		</if>
-	</sql>
-	
-	<!-- 사용자가 발급받은 쿠폰을 조회하는 조회문 쿼리 페이지네이션 , 검색기능이 있다. -->
-	<select id="couponList" parameterType="coupon_recive" resultType="coupon_recive">
- 	<![CDATA[
-    SELECT COUPON_RECEIVE_NO, USER_NO, COUPON_NO, TO_CHAR(COUPON_RECIVE_DATE, 'YYYY-MM-DD') as COUPON_RECIVE_DATE, COUPON_RECIVE_STATUS
-    FROM (
-        SELECT /*+ INDEX_DESC(coupon_recive SYS_C008568) */
-            rownum as rnum, coupon_recive_no, user_no, coupon_no, coupon_recive_date, coupon_recive_status
-        FROM coupon_recive
-      where ]]>
-      <trim prefix="(" suffix=") AND " prefixOverrides="AND">
-            <include refid="couponSearch"></include>
-        </trim>
-       <![CDATA[ rownum <= #{pageNum} * #{amount}
-	   		)couponList
-	   	WHERE rnum > (#{pageNum} -1) * #{amount}
-	   ]]>
-	</select>
+<!-- 검색 -->
+<sql id="couponSearch">
+    <if test="search=='coupon_recive_status'">
+        <![CDATA[ coupon_recive_status like '%' || #{keyword} || '%' ]]>
+    </if>
+</sql>
 
-    <!-- 전체 쿠폰 레코드 수 조회 -->
-    <select id="couponListCnt" parameterType="coupon_recive" resultType="int">
-    select count(*) FROM coupon_recive
-    <if test="search != null and !search.isEmpty()">
-        <trim prefix=" where (" suffix=")" >
-			<include refid="couponSearch"></include>
-		</trim>
-    </if> 	
-	</select>
+<select id="couponList" parameterType="coupon_recive" resultType="coupon_recive">
+    SELECT
+        coupon_recive_no, user_no, coupon_no, TO_CHAR(coupon_recive_date, 'YYYY-MM-DD') as coupon_recive_date, coupon_recive_status, coupon_name, coupon_discount,
+        coupon_date, coupon_limit, coupon_status, rnum
+    FROM (
+        SELECT
+            coupon_recive_no,
+            user_no,
+            coupon_no,
+            coupon_recive_date,
+            coupon_recive_status,
+            coupon_name,
+            coupon_discount,
+            coupon_date,
+            coupon_limit,
+            coupon_status,
+            ROWNUM RNUM
+        FROM (
+            SELECT
+                C.COUPON_NO,
+                C.COUPON_NAME,
+                C.COUPON_DISCOUNT,
+                C.COUPON_DATE,
+                C.COUPON_LIMIT,
+                C.COUPON_STATUS,
+                CR.COUPON_RECIVE_NO,
+                CR.USER_NO,
+                CR.COUPON_RECIVE_DATE,
+                CR.COUPON_RECIVE_STATUS
+            FROM COUPON C
+            FULL OUTER JOIN COUPON_RECIVE CR ON C.COUPON_NO = CR.COUPON_NO
+            WHERE CR.USER_NO = #{user_no}
+        	)
+        )
+        WHERE
+        <![CDATA[ rownum <= #{pageNum} * 10
+        AND rnum > (#{pageNum} - 1) * 10 ]]>
+    </select>
+
+<!-- 전체 쿠폰 레코드 수 조회 -->
+<select id="couponListCnt" parameterType="coupon_recive" resultType="int">
+    SELECT count(*) FROM coupon_recive
+    <!-- 
+<if test="search != null and !search.isEmpty()">
+    <trim prefix=" where (" suffix=")" >
+        <include refid="couponSearch"></include>
+    </trim>
+</if> 	
+     -->
+</select>
 	
 </mapper>
