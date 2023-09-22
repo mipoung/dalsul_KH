@@ -100,24 +100,7 @@ public class CartController {
     return "redirect:/cart";
 }
 
-/*    //결제 주문 화면
-    @PostMapping("/orderList")
-    public String orderList(Model model, @RequestBody List<CartVO> orderData) {
-        model.addAttribute("orderData", orderData);
-        return "cart/orderList";
-    }
-*/
-    
-  //결제 주문 화면
-   /*
-    *  @GetMapping("/orderList")
-    public String orderList(UserVO uvo,Model model,CartVO cvo) {
-    	 List<CartVO>cartList = cartService.cartList(uvo);
-     	model.addAttribute("cartList", cartList);
-         
-        return "cart/orderList";
-    }
-    */
+
     
     @GetMapping("/orderList")
     public String orderList(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {

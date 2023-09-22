@@ -9,15 +9,7 @@ $(function(){
         console.log(orderNo)
         // 해당 값을 숨겨진 input 요소에 설정
         $('#no').val(orderNo);
-        
-        // 숨겨진 input 요소의 값을 콘솔에 출력
         console.log($('#no').val());
-        <%--
-    	$("#no").attr({
-			"method" : "get",
-			"action" : "mypage/orderlistDetailView"
-		});
-		--%>
 		$("#orderForm").submit();
     });
 })

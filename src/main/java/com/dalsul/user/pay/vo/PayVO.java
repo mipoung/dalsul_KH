@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PayVO {
-	private int	order_no;  //주문번호 시퀀스
+	private	int order_no;  //주문번호 시퀀스
 	private int user_no;  //회원 일련번호 시퀀스 -> usersVO에서 세션으로 받아옴
 	//private int order_use_point;  //사용적립금
 	private int order_dlv_fee; //배송비 default=3000

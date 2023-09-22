@@ -142,6 +142,35 @@
 	
 	</select>
 	
+
+<select id="orderListViewM" resultType="map">
+    SELECT
+        ol.order_no AS order_no,
+        ol.user_no AS user_no,
+        ol.order_use_point AS order_use_point,
+        ol.order_dlv_fee AS order_dlv_fee,
+        ol.order_total_price AS order_total_price,
+        ol.order_delivery_info AS order_delivery_info,
+        ol.order_status AS order_status,
+        ol.order_date AS order_date,
+        ol.order_update_date AS order_update_date,
+        po.order_detail_no AS order_detail_no,
+        po.product_no AS product_no,
+        po.user_no AS po_user_no,
+        po.quantity AS quantity,
+        p.product_name AS product_name
+    FROM
+        order_list ol
+    JOIN
+        product_order po
+    ON
+        ol.order_no = po.order_no
+    JOIN
+        product p
+    ON
+        po.product_no = p.product_no;
+</select>
+	
 	
 
 </mapper>

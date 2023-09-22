@@ -8,6 +8,12 @@
 		where user_no = #{user_no}
 	</select>
 	
+<!-- 구매자가 취소요청을 했을 경우 상태값 변경 쿼리 -->
+<update id="updateOrderStatusToCancel" parameterType="pay">
+    UPDATE order_list
+    SET order_status = '취소요청'
+    WHERE order_no = #{order_no};
+</update>
 
 	
 </mapper>
