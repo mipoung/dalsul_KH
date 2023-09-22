@@ -5,36 +5,45 @@
 <script type="text/javascript" src="/resources/include/common/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
 $(function(){
-    $("#saveButton").on("click", function () {
-        saveOrderStatus();
-    });
-
-    function saveOrderStatus() {
-        var selectedOrders = [];
+    $(".saveButton").on("click", function () {
+    	var selectedOrders = [];
         var selects = $(".orderStatusSelect");
 
-        selects.each(function () {
+        /* selects.each(function () {
             var orderNo = $(this).data("order-no"); //order_no의 값
             var orderStatus = $(this).val();	//상태값
-            if (orderStatus !== "상태변경") {
-                selectedOrders.push({ orderNo: orderNo, orderStatus: orderStatus });
+            if (orderStatus != "상태변경") {
+                selectedOrders.push({ order_no: orderNo, order_status: orderStatus });
             }
             console.log("Order No: " + orderNo);
             console.log("Order Status: " + orderStatus);
-        });
+        }); */
+        
+        var orderNo = $(this).parent().find("select").data("order-no") //order_no의 값
+        var orderStatus = $(this).parent().find("select").val()	//상태값
+        console.log(orderNo);
+        console.log(orderStatus);
+        if (orderStatus != "상태변경") {
+            selectedOrders.push({ order_no: orderNo, order_status: orderStatus });
+        }
+        
          $.ajax({
-             type: "GET",
-             url: "/controller-url", // 실제 컨트롤러 URL로 변경하세요.
+             type: "POST",
+             url: "/manager/order/updateStatus",
              data: JSON.stringify(selectedOrders),
              contentType: "application/json; charset=utf-8",
              success: function (data) {
-                 // 성공적으로 업데이트되었을 때 수행할 동작을 추가합니다.
-                 // 예를 들어, 화면 갱신 또는 메시지 표시 등을 할 수 있습니다.
+                 alert("상태값이 수정되었습니다.");
+                 location.replace("/manager/order/managerOrder")
              },
              error: function (error) {
-                 // 오류 처리 로직을 추가합니다.
+            	 alert("수정 실패");
              }
          });
+    });
+
+    function saveOrderStatus() {
+        
      }
 	
 	
@@ -49,7 +58,7 @@ $(function(){
    <%@ include file="/WEB-INF/views/manager/managerHeader.jsp"%>
    
   <h1>주문 내역</h1>
-		<button id="saveButton" onclick="saveOrderStatus()">저장</button>	
+		
     <div class="border border-success p-2 mb-2 whole-table">
         <table class="table table-bordered">
             <thead>
@@ -88,7 +97,9 @@ $(function(){
 					    <option value="배송출발">배송출발</option>
 					    <option value="배송완료">배송완료</option>
 					    <option value="취소완료">취소완료</option>
-				</select></td>
+				</select>
+				<button class="saveButton">저장</button>	
+				</td>
                         <td>${buyer.ORDER_DATE}</td>
                         <td>${buyer.ORDER_UPDATE_DATE}</td>
                     </tr>
