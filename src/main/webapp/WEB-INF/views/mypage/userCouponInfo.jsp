@@ -5,26 +5,6 @@
 	</head>
 	<body>
 	<div class="container">
-	<% 
-		// Controller를 통해 가져온 String 형식의 날짜 값
-		String dateStringFromController = "2023-09-22"; // 이 부분을 Controller에서 가져온 값으로 대체
-
-		// String 형식의 날짜를 java.util.Date 객체로 변환
-		java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date dateFromController = dateFormat.parse(dateStringFromController);
-
-		// 현재 시간을 가져옴
-		java.util.Date currentDate = new java.util.Date();
-
-		// 날짜 비교
-		if (dateFromController.after(currentDate)) {
-  		  out.println("<p>" + dateStringFromController + "은(는) 현재 시간 이후입니다.</p>");
-		} else if (dateFromController.before(currentDate)) {
- 		   out.println("<p>" + dateStringFromController + "은(는) 현재 시간 이전입니다.</p>");
-		} else {
- 		   out.println("<p>" + dateStringFromController + "과(와) 현재 시간은 동일합니다.</p>");
-		}
-		%>
 		<%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
 		<h4 class="text-center">내 쿠폰정보</h4>
 		<form id="detailCoupon">
