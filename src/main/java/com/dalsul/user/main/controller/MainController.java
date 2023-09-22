@@ -96,8 +96,7 @@ public class MainController {
 	    	
 	    	log.info("products" + products);
 	    	
-	    	return products;
-	    	
+	    	return products;	    	
 	    }
 	    
 	    
