@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dalsul.user.delivery.service.DeliveryService;
+import com.dalsul.user.delivery.vo.DeliveryVO;
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.cart.vo.CartVO;
 import com.dalsul.user.pay.service.PaymentService;
@@ -31,6 +33,9 @@ public class PayMentController {
 	
 @Autowired
 private PaymentService paymentService;
+
+@Autowired
+private DeliveryService deliveryService;
 
 @ResponseBody
 @PostMapping("/orderInsert")
@@ -58,6 +63,10 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 	System.out.println("orderInsert성공");
 	
 	pvo.setOrder_no(paymentService.getOrderNo(pvo));
+
+	//주문이 완료된 후 그 값을 참조해서 배송지 테이블에 배송정보를 담은 레코드 추가 (uvo에서 가져올 정보 , user_no, oreder_no)
+	log.info(pvo.toString());
+	//DeliveryVO insertDelivery = deliveryService.insertDelivery(pvo);
 	
 	for(int i=0 ; i<payDTO.getProduct_no().size() ; i++) {
 		pvo.setProduct_no(payDTO.getProduct_no().get(i));
@@ -95,12 +104,14 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 	public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo,Model model) {
 	if(uvo==null) {
 		return "login/userLoginView";
-		
+			
 	}
 	
 	List<PayVO> payList = paymentService.payList(uvo);
 	model.addAttribute("payList", payList);
+	
     
+	
     return "cart/success";
 }
 
