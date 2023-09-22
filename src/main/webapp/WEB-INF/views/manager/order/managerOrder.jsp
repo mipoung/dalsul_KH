@@ -8,16 +8,6 @@ $(function(){
     $(".saveButton").on("click", function () {
     	var selectedOrders = [];
         var selects = $(".orderStatusSelect");
-
-        /* selects.each(function () {
-            var orderNo = $(this).data("order-no"); //order_no의 값
-            var orderStatus = $(this).val();	//상태값
-            if (orderStatus != "상태변경") {
-                selectedOrders.push({ order_no: orderNo, order_status: orderStatus });
-            }
-            console.log("Order No: " + orderNo);
-            console.log("Order Status: " + orderStatus);
-        }); */
         
         var orderNo = $(this).parent().find("select").data("order-no") //order_no의 값
         var orderStatus = $(this).parent().find("select").val()	//상태값
@@ -34,7 +24,7 @@ $(function(){
              contentType: "application/json; charset=utf-8",
              success: function (data) {
                  alert("상태값이 수정되었습니다.");
-                 location.replace("/manager/order/managerOrder")
+                 location.replace("/manager/order/managerOrder");
              },
              error: function (error) {
             	 alert("수정 실패");
