@@ -13,6 +13,31 @@ var grandTotalClone = 0;
 var buyerAddrValue = "";
 
 $(function() {
+	//클릭하여 기본배송지 리스트를 모달로 반환받을수 있는 기능 
+        $("#leadBaseAddr").click(function() {
+        	console.log(${userLogin.user_no})
+        	 $.ajax({
+                 url: "/mypage/leadBaseAddr", // 컨트롤러
+                 method: "get",
+                 data: {"user_no" : "${userLogin.user_no}"},
+                 dataType: "text",
+                 success: function(response) {
+                     if (response !== null) {
+                         alert("조회성공하였습니다");
+                         console.log(response);
+                     } else {
+                         alert("시스템 오류, 잠시 후 다시 시도해 주세요.");
+                     }
+                 },
+                 error: function(error) {
+                     alert("로직오류, 관리자에게 문의하세요. 오류 확인");
+                     console.error(error); // 오류를 콘솔에 출력
+                 },
+             });
+        });
+   
+	
+	
     // "주문하기" 버튼을 클릭할 때 함수 호출
     function sendOrderData() {
         console.log("sendOrderData 함수 실행");
@@ -71,12 +96,7 @@ $(function() {
             },
         });
     }
-
-    $(function() {
-        $("#payBtn").click(function() {
-            requestPay();
-        });
-    });
+ 
 
     var IMP = window.IMP;
     IMP.init("imp57485457");
