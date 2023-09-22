@@ -194,6 +194,27 @@ public class MyPageController {
 	/*========================== 배송지 시작 =======================*/
 	
 	/*내가 추가한 기본 배송지 정보 전체 조회하는 매핑*/
+	@ResponseBody
+	@GetMapping("/leadBaseAddr")
+	public List<AddrVO> leadBaseAddr( UserVO uvo, Model model) {
+		log.info("leadBaseAddr() 매소드 호출...");
+		log.info(uvo.toString());
+		
+		List<AddrVO> result = addrService.userAddrInfo(uvo);
+		
+		for (AddrVO addrVO : result) {
+			System.out.println(addrVO);
+		}
+		
+		if(result==null) {
+			return null; 
+		}
+		
+			return result;
+	}
+
+	
+	/*내가 추가한 기본 배송지 정보 전체 조회하는 매핑*/
 	@GetMapping("/userAddrInfo")
 	public String userAddrInfo(@SessionAttribute(name = "userLogin") UserVO uvo, Model model) {
 		log.info("userAddrInfo() 매소드 호출...");
