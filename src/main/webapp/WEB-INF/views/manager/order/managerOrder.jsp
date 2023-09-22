@@ -28,7 +28,7 @@
                     <th scope="col">상품 일련 번호</th>
                     <th scope="col">상품명</th>
                     <th scope="col">주문 개수</th>
-                    
+                    <!--  -->
                 </tr>
             </thead>
             <tbody>
