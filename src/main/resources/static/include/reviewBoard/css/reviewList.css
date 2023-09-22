@@ -36,6 +36,7 @@
        	
        	.card-body {
        		min-height: 70%;
+       		min-height: 80%;
 
        	}
        	
@@ -81,6 +82,22 @@
 			background-color: deepskyblue;margin-bottom: 0px;
 			text-align : center;
 		}
+		
+		#myReviewSize {
+			width: 55%;
+			margin : 0 auto;
+			
+		}
+		
+		#detalReviewSize {
+			width: 90%;
+			margin : 0 auto;
+			
+		}
+		
+		
+		
+		
 		/*
 		.card {
 			width: 100%;

@@ -12,6 +12,7 @@
    
   
    <body>
+   
    <!--
    	<form id="f_myReviewData">
    		 <input type="text" id="review_no" name="review_no" value=""> 
@@ -29,8 +30,13 @@
    	</form>
    		
 	
+	
+   	<div id="detailReviewSize">
+	
 
 	<div class="card-body">
+	<hr>
+	<p style="text-align: center;"> 리뷰 리스트✍️</p>
 		 <c:choose>
 		    <c:when test="${not empty bestReview}">
 		        <c:forEach var="bestReview" items="${bestReview}" varStatus="status">
@@ -38,9 +44,9 @@
 	            	<form id="r_BestListForm">
 					    <div class="card mb-3" id="bestReviewDiv" data-review-no="${bestReview.review_no}" style="max-width: 700px;">
 						  <div class="row g-0">
-						  <p id="bestReviewHeader">가장 많은 추천을 받은 리뷰</p>
-						    <div class="col-md-4">
-						      <img src="/resources/images/mainpage/product/${bestReview.product_main_image}" class="img-fluid rounded-start" alt="...">
+						  <p id="bestReviewHeader">🥇 가장 많은 추천을 받은 리뷰</p>
+						    <div class="col-md-4" data-image-no="${review.product_main_image}">
+						      <img src="/resources/images/mainpage/product/${bestReview.product_main_image}" class="img-fluid rounded-start" alt="제품 리뷰 이미지">
 						      
 						    </div>
 						    <div class="col-md-8">
@@ -54,10 +60,7 @@
 						       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${bestReview.review_like_count}</span></button>
 						      
 						      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-						            <c:if test="${not empty userLogin and userLogin.user_no == bestReview.user_no}">
-						               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
-						    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${bestReview.user_no}">삭제</button>
-						            </c:if>
+						          
 						      </div>
 						     
 						    </div>
@@ -196,6 +199,7 @@
 							</div>
 						</div>
 					</div>
-				</div>   
+				</div>  
+		</div> 
    </body>
 </html>

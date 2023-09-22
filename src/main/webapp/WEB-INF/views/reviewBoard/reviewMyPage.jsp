@@ -25,6 +25,14 @@
    	
    	<input type="hidden" id="user_no" value="${sessionScope.UserLogin.user_no}">
    	
+   	
+   	
+   	<div id="myReviewSize">
+   	
+   	
+   	
+   	
+   	
    	<h5 style="text-align:center;">마이페이지 리뷰 조회  ✍️</h5>
 
 	<div class="card-body">
@@ -194,7 +202,7 @@
 				</div>
 
 	
-   
+  	</div>
    
    </body>
 <%@ include file="/WEB-INF/views/main/footer.jsp"%>

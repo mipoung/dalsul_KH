@@ -117,6 +117,13 @@
       			$("#message-text").val(reviewContentForm);
       			console.log("content : " + reviewContentForm);
       			
+      			
+      			
+	   			// 메세지 박스에 채워진 내용 글자수 세기
+	   			$('#textCount').text($('#message-text').val().length + '/250자');
+      			
+      			
+      			
       			// jsp에서 리뷰번호 가져오기
       			var reviewNo = $(this).closest(".card.mb-3").attr("data-review-no");
       			console.log("Review No: " + reviewNo);
