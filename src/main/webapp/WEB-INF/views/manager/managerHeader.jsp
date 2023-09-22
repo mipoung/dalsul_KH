@@ -45,7 +45,7 @@
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
 	            <li><a class="dropdown-item" href="/manager/delivery/managerDelivery">메인</a></li>
-	            <li><a class="dropdown-item" href="#">배송곤리</a></li>
+	            <li><a class="dropdown-item" href="#">배송관리</a></li>
 	          </ul>
 	        </li>
 	      </ul>
