@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.main.vo.ProductVO;
+import com.dalsul.user.pay.vo.PayVO;
 
 
 @Mapper
@@ -15,4 +16,6 @@ public interface ManagerDAO {
 	public int userListCnt(UserVO uvo);
 	public int dropUsers(List<Integer> user_no);
 	public int appointManager(List<Integer> user_no);
+	public List<PayVO> orderListViewM(PayVO pvo);
+	
 }

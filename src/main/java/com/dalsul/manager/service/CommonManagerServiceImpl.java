@@ -16,18 +16,30 @@ import lombok.Setter;
 public class CommonManagerServiceImpl implements CommonManagerService {
 	
 	@Setter(onMethod_ = @Autowired)
-	private CommonManagerDAO managerDAO;
+	private CommonManagerDAO commonManagerDAO;
 
 	@Override
 	public List<ProductVO> managerMainChart() {
-		List<ProductVO> result = managerDAO.managerMainChart();
+		List<ProductVO> result = commonManagerDAO.managerMainChart();
 		return result;
 	}
 
 	@Override
 	public List<ManagerCommonVO> managerMainCount() {
-		List<ManagerCommonVO> result = managerDAO.managerMainCount();
+		List<ManagerCommonVO> result = commonManagerDAO.managerMainCount();
 		return result;
+	}
+
+	@Override
+	public List<ManagerCommonVO> managerReviewChart() {
+		List<ManagerCommonVO> reviewChartData = commonManagerDAO.managerReviewChart();
+		return reviewChartData;
+	}
+
+	@Override
+	public List<ManagerCommonVO> managerReviewStatistics() {
+		List<ManagerCommonVO> reviewStaticsData = commonManagerDAO.managerReviewStatistics();
+		return reviewStaticsData;
 	}
 
 

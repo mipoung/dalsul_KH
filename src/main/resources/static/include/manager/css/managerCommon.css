@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+#piechart{
+	height: 400px;
+}
+
+.table {
+
+	margin-bottom : 50px;
+	width : 90%;
+	margin : 0 auto;
+	margin-bottom : 50px;
+}
+
+#mainSection {
+	
+	width : 100%;
+	margin : 0 auto;
+
+}
+
+#mainSubject {
+	margin-left : 8%;
+
+}

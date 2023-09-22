@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.manager.dao.ManagerDAO;
+import com.dalsul.user.pay.vo.PayVO;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
@@ -36,6 +38,13 @@ public class ManagerServiceImpl implements ManagerService {
 	public int appointManager(List<Integer> user_no) {
 		int result = managerDAO.appointManager(user_no);
 		return result;
+	}
+
+	@Override
+	public List<PayVO> orderListViewM(PayVO pvo) {
+		List<PayVO> list;
+		list=managerDAO.orderListViewM(pvo);
+		return list;
 	}
 
 }

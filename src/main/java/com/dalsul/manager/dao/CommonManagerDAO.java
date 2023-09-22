@@ -13,6 +13,8 @@ import com.dalsul.user.review.vo.ReviewVO;
 public interface CommonManagerDAO {
 	public List<ProductVO> managerMainChart();
 	public List<ManagerCommonVO> managerMainCount();
+	public List<ManagerCommonVO> managerReviewChart();
+	public List<ManagerCommonVO> managerReviewStatistics();
 	
 	
 }

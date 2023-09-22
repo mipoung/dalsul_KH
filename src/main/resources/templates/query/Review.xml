@@ -46,12 +46,19 @@
 
 	
 	<!-- 마이페이지 리뷰 조회 -->
-	<select id="myReviewList" parameterType="review" resultType="review">
-	
-	
-		SELECT * FROM REVIEW
+	<select id="myReviewList" parameterType="UserVO" resultType="review">
+		select
+			r.review_no,
+			r.user_no,
+			p.product_name,
+			r.review_content,
+			r.review_rating,
+			r.review_like_count,
+			p.product_main_image,
+			to_char(r.review_date, 'YYYY-MM-DD') as review_date
+		from review r left outer join product p on r.product_no = p.product_no
 		<if test="user_no != null">
-		WHERE USER_NO = #{user_no}
+		where user_no = #{user_no}
 		</if>
 		ORDER BY REVIEW_NO desc
 	</select>

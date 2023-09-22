@@ -1,8 +1,11 @@
 package com.dalsul.user.pay.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.cart.vo.CartVO;
 import com.dalsul.user.pay.dao.PayDAO;
 import com.dalsul.user.pay.vo.PayVO;
@@ -38,6 +41,28 @@ public class PaymentServiceImpl implements PaymentService {
 		int result = payDao.getOrderNo(pvo);
 		return result;
 	}
+
+	@Override
+	public List<PayVO> payList(UserVO uvo) {
+		List<PayVO> list;
+		list=payDao.payList(uvo);
+		return list;
+	}
+
+	@Override
+	public List<PayVO> orderList(UserVO uvo) {
+		List<PayVO> orderList;
+		orderList=payDao.orderList(uvo);
+		return orderList;
+	}
+
+	@Override
+	public List<PayVO> orderListDetail(PayVO pvo) {
+		List<PayVO> orderListDetail=payDao.orderListDetail(pvo);
+		return orderListDetail;
+	}
+
+
 
 	}
 	
