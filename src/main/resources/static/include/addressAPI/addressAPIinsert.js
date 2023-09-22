@@ -33,7 +33,7 @@
 				//보낼 값의 대한 정보 정의
                 $.ajax({
 					//요청할 url 주소
-                    url: "/addr/insertAddr",
+                    url: "/mypage/insertAddr",
                     //요청 방식
                     type: "post",
                     //값을 보낼 대상 form id

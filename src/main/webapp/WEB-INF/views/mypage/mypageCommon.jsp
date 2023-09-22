@@ -115,11 +115,6 @@ $(function(){
 		<div class="name-header">
 			<div class="name-text">${userLogin.user_name}님</div>
 		</div>
-		<div class="user_info">
-			<div class="benefit">
-				<div class="coupon">잔여 쿠폰 : 2</div>
-			</div>
-		</div>
 	</div>
 	<div class="mypage_menu_detail" id="mypage_side_bar">
 		<div class="go_detail">
@@ -150,6 +145,12 @@ $(function(){
 			<div class="userAddrInfo">
 				<div>배송지 관리</div>
 				<img src="/resources/images/mypage/mypageHeader/truck.png" alt="address">
+			</div>
+		</div>
+		<div class="go_detail">
+			<div class="couponList">
+				<div>쿠폰관리</div>
+				<img src="/resources/images/mypage/mypageHeader/coupon.png"alt="coupon">
 			</div>
 		</div>
 	</div>

@@ -3,6 +3,11 @@ package com.dalsul.user.mypage.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+
+import com.dalsul.user.addr.service.AddrService;
+import com.dalsul.user.addr.vo.AddrVO;
+import com.dalsul.user.coupon_recive.service.Coupon_reciveService;
+import com.dalsul.user.coupon_recive.vo.Coupon_reciveVO;
 import com.dalsul.user.mypage.service.MyPageService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,11 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.dalsul.common.login.vo.UserVO;
+import com.dalsul.common.vo.PageDTO;
 import com.dalsul.user.review.service.ReviewService;
 import com.dalsul.user.review.vo.ReviewVO;
 
@@ -30,7 +37,11 @@ public class MyPageController {
 	@Setter(onMethod_ = @Autowired)
 	private ReviewService reviewService;
 	
+	@Setter(onMethod_ = @Autowired)
+    private AddrService addrService;
 	
+	@Setter(onMethod_ = @Autowired)
+	private Coupon_reciveService coupon_reciveService;
 
 	@Autowired
 	private HttpSession session;
@@ -143,23 +154,126 @@ public class MyPageController {
 	/* ========================= 리뷰 끝 ======================== */
 	
 	
+	/*========================== 배송지 시작 =======================*/
 	
-	@GetMapping("/deleveryDetailView")
-	public String deleveryDetailView() {
-		log.info("deleveryDetailView() 메소드 실행");
-		
+	/*내가 추가한 기본 배송지 정보 전체 조회하는 매핑*/
+	@GetMapping("/userAddrInfo")
+	public String userAddrInfo(@SessionAttribute(name = "userLogin") UserVO uvo, Model model) {
+		log.info("userAddrInfo() 매소드 호출...");
+		log.info(uvo.toString());
+		   
+		List<AddrVO> result = addrService.userAddrInfo(uvo);
+		log.info(result.toString());
+		model.addAttribute("addr", result);
 		return "/mypage/userAddrInfo";
 	}
 	
-	/*
-	@PostMapping
-	@ResponseBody
-	public AddrVO getUserAddress(@SessionAttribute(name = "userLogin", required = true) AddrVO avo) {
+	 /* 기본 배송지 테이블에 새로운 배송지 추가 메소드 컨트롤러 */
+    @ResponseBody
+    @PostMapping(value = "/insertAddr", produces = "text/plain; charset=UTF-8")
+    public String insertAddr(@SessionAttribute(name = "userLogin") UserVO uvo, @ModelAttribute AddrVO avo) {
+        log.info("insertAddr () 메소드 호출...");
+        log.info("avo =" + avo.toString());
+        log.info("uvo =" + uvo.toString());
+        
+        log.info("chkUserAddr 메소드 호출..");
+        System.out.println(avo.toString());
+        //사용자가 이미 입력한 배송지가 5개일경우 를 찾는 메소드
+        String chkUserAddrCount = addrService.chkUserAddr(uvo);
+        
+        log.info("chkUserAddrCount = " + chkUserAddrCount);
+        
+        if (chkUserAddrCount.equals("true")) {
+        	return "배송지는 최대 5개까지 입력할 수 있습니다.";
+        }// 5개 이하일경우 insert 실행 
+        else {
+        	avo.setUser_no(uvo.getUser_no());
+        	int result = addrService.insertAddr(avo);
+        
+        	if(result == 1) {
+        		return "추가성공";
+        	} else {
+        		return "정상적인 입력값이 아닙니다";
+        	}
+        }
+    }
+	
+    /*내가 추가한 기본배송지 정보 조회하고 그 배송지의 정보를 업데이트하는 매핑*/
+    /*
+    @GetMapping(value = "/updateAddrForm")
+    public String updateAddrForm(AddrVO bvo, Model model) {
+ 	   log.info("updateAddrForm() 매소드 호출...");
+ 	   log.info("selectAddr() 매소드 호출...");
+ 	   log.info(bvo.toString());
+ 	   
+ 	   AddrVO result = addrService.userAddrInfo(bvo);
+ 	   model.addAttribute("addr", result);
+ 	  
+ 	   
+ 	   return "/addr/addrUpdateView";
+    }
+    */
+    
+    /* 기본 배송지 테이블에 새로운 배송지 정보 업데이트 메소드 컨트롤러 */
+    @ResponseBody
+    @PostMapping(value = "/updateAddr", produces = "text/plain; charset=UTF-8")
+    public String updateAddr(AddrVO bvo) {
+        log.info("updateAddr () 메소드 호출...");
+        log.info(bvo.toString());
+        
+        int result = addrService.updateAddr(bvo);
+        
+        if(result == 1) {
+        	return "수정성공";
+        } else {
+        	return "수정실패";
+        }
+    }
+    
+    /* 기본 배송지 테이블에 입력받은 배송지입력번호를 기준으로 삭제하는 삭제 메소드 컨트롤러 */
+    @ResponseBody
+    @PostMapping(value = "/deleteAddr", produces = "text/plain; charset=UTF-8")
+    public String deleteAddr(AddrVO bvo) {
+ 	   log.info("deleteAddr () 메소드 호출...");
+        log.info(bvo.toString());
+        
+        int result = addrService.deleteAddr(bvo);
+        
+        if(result == 1) {
+        	return "삭제성공";
+        } else {
+        	return "삭제실패";
+        }
+    }
+    
+    /*====================배송지 종료===========================*/
+    
+    /*=====================쿠폰시작 ===========================*/
+    
+    /*검색기능과 페이징 처리가 된 쿠폰발급 리스트 조회*/
+	@GetMapping("/couponList")
+	public String couponList(@SessionAttribute(name = "userLogin") UserVO uvo, Coupon_reciveVO cvo, Model model) {
+		log.info("couponList() 호출");
+		
+		//전체레코드에 세션에서 받은 user_no값을 설정해 쿼리문으로전달, 특정유저의 발급받은 쿠폰만 조회
+		cvo.setUser_no(uvo.getUser_no());
+		List<Coupon_reciveVO> list = coupon_reciveService.couponList(cvo);
+		model.addAttribute("coupon",list);
+		
+		//전체 레코드수 반환
+		int total  = coupon_reciveService.couponListCnt(cvo);
+		//페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(uvo, total));
+		//new PageDTO(CommonVO 또는 CommonVO 하위 클래스의 인스턴스 (Coupon_reciveVO), 총 레코드수)
+		
+		return "mypage/userCouponInfo"; //  WEB-INF/views/mypage/userAddrInfo.jsp;
 		
 	}
-	*/
+    
+    
+    /*======================쿠폰 종료 =======================*/
 	
-	@ResponseBody
+    @ResponseBody
 	@PostMapping("/getUserInfo")
 	public UserVO getUserInfo(@RequestParam("user_no") int user_no) {
 		

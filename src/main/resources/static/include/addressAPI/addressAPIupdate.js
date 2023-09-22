@@ -1,7 +1,6 @@
-$(function() {
-	 //전송버튼 클릭시 발생하는 이벤트
-        $("#updateAddrBtn").click(function() {
+function updateAddrProcess(addr_no, user_no) {
 			
+	 //전송버튼 클릭시 발생하는 이벤투
 			//사용자가 api를 통해 값을 조회했는지 검사
             if (!chkData("#roadAddress", "주소를 먼저")) return;
             else if (!chkData("#detailAddress", "상세주소를")) return;
@@ -29,16 +28,11 @@ $(function() {
                 return;
             //값이 다 있을경우 값을 특정 url로 보냄(/BaseDeliApi/insertAddr) 그리고 방식은 post, ajax로 보낸다
             } else {
-				
-				let addr_no = $("#addr_no").attr("data-addr-no");
-				let user_no = $("#user_no").attr("data-user-no");
-				console.log(addr_no);
-				console.log(user_no);
 					
 				//보낼 값의 대한 정보 정의
                 $.ajax({
 					//요청할 url 주소
-                    url: "/addr/updateAddr",
+                    url: "/mypage/updateAddr",
                     //요청 방식
                     type: "post",
                     //값을 보낼 대상 form id
@@ -83,5 +77,5 @@ $(function() {
                 });
 		
             }
-        });
-    });
+      
+}

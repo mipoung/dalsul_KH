@@ -30,13 +30,13 @@ public class Coupon_reciveController {
 	
 	/*검색기능과 페이징 처리가 된 쿠폰발급 리스트 조회*/
 	@GetMapping("/couponList")
-	public String couponList(@ModelAttribute @SessionAttribute(name = "userLogin") Coupon_reciveVO cvo, Model model) {
+	public String couponList(@SessionAttribute(name = "userLogin") UserVO uvo, Coupon_reciveVO cvo, Model model) {
 		log.info("couponList() 호출");
 		System.out.println(cvo.toString());
 		
 		//전체레코드에 세션에서 받은 user_no값을 설정해 쿼리문으로전달, 특정유저의 발급받은 쿠폰만 조회
 		List<Coupon_reciveVO> list = coupon_reciveService.couponList(cvo);
-		model.addAttribute("list",list);
+		model.addAttribute("coupon",list);
 		
 		//전체 레코드수 반환
 		int total  = coupon_reciveService.couponListCnt(cvo);

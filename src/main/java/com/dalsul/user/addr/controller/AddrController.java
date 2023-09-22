@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.addr.service.AddrService;
 import com.dalsul.user.addr.vo.AddrVO;
 //import com.dalsul.users.vo.UsersVO;
@@ -33,15 +36,15 @@ public class AddrController {
     
     /* 기본 배송지 테이블에 새로운 배송지 추가 메소드 컨트롤러 */
     @ResponseBody
-    @PostMapping(value = "/insertAddr", produces = "text/plain; charset=UTF-8")
-    public String insertAddr(AddrVO bvo ) {
+    @PostMapping( value = "/insertAddr", produces = "text/plain; charset=UTF-8")
+    public String insertAddr(@SessionAttribute(name = "userLogin") UserVO uvo, @ModelAttribute AddrVO avo) {
         log.info("insertAddr () 메소드 호출...");
-        log.info(bvo.toString());
+        log.info(uvo.toString());
         
         log.info("chkUserAddr 메소드 호출..");
         
         //사용자가 이미 입력한 배송지가 5개일경우 를 찾는 메소드
-        String chkUserAddrCount = addrService.chkUserAddr(bvo);
+        String chkUserAddrCount = addrService.chkUserAddr(uvo);
         
         log.info("chkUserAddrCount = " + chkUserAddrCount);
         
@@ -49,7 +52,7 @@ public class AddrController {
         	return "배송지는 최대 5개까지 입력할 수 있습니다.";
         }// 5개 이하일경우 insert 실행 
         else {
-        	int result = addrService.insertAddr(bvo );
+        	int result = addrService.insertAddr(avo);
         
         	if(result == 1) {
         		return "추가성공";
@@ -60,32 +63,35 @@ public class AddrController {
     }
     
     /*내가 추가한 기본배송지 정보 전체 조회하는 매핑*/
+    /*
    @GetMapping(value = "/selectAddr")
    public String selectAddr(AddrVO bvo, Model model) {
 	   log.info("selectAddr() 매소드 호출...");
 	   log.info(bvo.toString());
 	   
-	   AddrVO result = addrService.selectAddr(bvo);
+	   AddrVO result = addrService.userAddrInfo(bvo);
 	   model.addAttribute("addr", result);
 	  
 	   
 	   return "/addr/addrInfoView";
    }
-   
+   */
    
    /*내가 추가한 기본배송지 정보 조회하고 그 배송지의 정보를 업데이트하는 매핑*/
-   @GetMapping(value = "/updateAddrForm")
+   /*
+    @GetMapping(value = "/updateAddrForm")
    public String updateAddrForm(AddrVO bvo, Model model) {
 	   log.info("updateAddrForm() 매소드 호출...");
 	   log.info("selectAddr() 매소드 호출...");
 	   log.info(bvo.toString());
 	   
-	   AddrVO result = addrService.selectAddr(bvo);
+	   AddrVO result = addrService.userAddrInfo(bvo);
 	   model.addAttribute("addr", result);
 	  
 	   
 	   return "/addr/addrUpdateView";
    }
+   */
    
    /* 기본 배송지 테이블에 새로운 배송지 정보 업데이트 메소드 컨트롤러 */
    @ResponseBody
