@@ -85,11 +85,6 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 	return result;
 };
 
-//	@GetMapping("/success") 
-//		public String index() {
-//			return "cart/success"; 
-//	}
-
 //결제완료 페이지 조회
 	@GetMapping("/success")
 	public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo,Model model) {

@@ -182,17 +182,19 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">상품 ID</th>
+					<th scope="col">상품번호</th>
+					<th scope="col">상품명</th>
 					<th scope="col">가격</th>
 					<th scope="col">수량</th>
 					<th scope="col">총합</th>
-					<th scope="col">동작</th>
+					<th scope="col">삭제</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${cartList}" var="cartList">
 					<tr id="cartItem-${cartList.product_no}" class="cart-item">
 						<td class="product_no" >${cartList.product_no}</td>
+						<td class="product_name" >${cartList.product_name}</td>
 						<td class="product_price-quantity">
 							<button type="button" class="btn btn-primary btn-sm minusBtn" data-product-id="${cartList.product_no}">-</button> 
 							<span class="product_price">${cartList.product_price}</span>

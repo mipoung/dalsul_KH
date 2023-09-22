@@ -86,7 +86,7 @@ $(function(){
 		console.log("function 시작");
 	  IMP.init('imp57485457'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
 	  IMP.request_pay({
-	    pg: "kakaopay.TC0ONETIME",
+	   pg: "html5_inicis",
 	    pay_method: "card",
 	    merchant_uid : 'merchant_'+new Date().getTime(),
 	    name : '달술',
@@ -380,7 +380,8 @@ $(function(){
 		<div id="totalDiv">
 			<button id="payBtn">결제하기</button>
 		</div>
-		
+		 <a href="/mypage/orderlistDetailView">상세내역 조회하기</a>
+         <a href="/">메인으로 돌아가기</a>
 	</div>
 </div>
 
