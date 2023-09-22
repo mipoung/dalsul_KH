@@ -36,6 +36,21 @@
 		order by p.product_no
 	</select>
 	
+	<!-- 전체페이지 필터 사용시 쿼리문 -->
+	<select id="getTotalResult" parameterType="java.lang.String" resultType="product">
+		select p.product_no, p.product_name, p.product_price, p.product_main_image,
+		count(r.review_no) review_num, round(avg(r.review_rating),1)
+		review_rating
+		from product p
+		left outer join review r on
+		p.product_no = r.product_no
+		group by p.product_no, p.product_name,
+		p.product_price, p.product_main_image
+		order by p.product_no
+		
+	
+	</select>
+	
 	<!-- 상세페이지 호출 시 쿼리문 -->
 	<select id="getDetailPageProducts" parameterType="product" resultType="product">
 		select p.product_no, p.product_name, p.product_type, p.product_ml, p.product_alcohol,  p.product_price,
