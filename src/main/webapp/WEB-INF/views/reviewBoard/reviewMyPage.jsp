@@ -201,9 +201,6 @@
 					</div>
 				</div>
 				
-				
-				<button id="#loadMoreBtn">더보기</button>
-
 	
   	</div>
   	
