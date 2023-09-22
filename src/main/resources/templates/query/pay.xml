@@ -64,11 +64,11 @@ SELECT po.product_no, ol.order_use_coupon,ol.order_dlv_fee, ol.order_total_price
 -->
 
 <select id="orderListDetail" parameterType="pay" resultType="pay">
-   SELECT po.order_detail_no, po.product_no, po.quantity, ol.order_no,
+       SELECT po.order_detail_no, po.product_no, po.quantity, ol.order_no,
            ol.order_use_coupon, ol.order_dlv_fee, ol.order_total_price,
-           ol.order_delivery_info, ol.order_status, ol.order_date 
+           ol.order_delivery_info, ol.order_status, ol.order_date, p.product_name, p.product_main_image
     FROM order_list ol 
-    INNER JOIN product_order po ON ol.order_no = po.order_no
+    INNER JOIN product_order po ON ol.order_no = po.order_no inner join product p on p.product_no = po.product_no
     WHERE ol.order_no = #{order_no}
     
 </select>

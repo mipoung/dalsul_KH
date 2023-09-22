@@ -50,7 +50,7 @@
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body">
-						        <h6 class="card-title">${bestReivew.review_no} | ${bestReivew.user_no} | ${bestReivew.review_date} | ${bestReivew.product_name} </h6>
+						        <h6 class="card-title">글번호: ${bestReivew.review_no} | 유저: ${bestReivew.user_no} | ${bestReivew.review_date} | ${bestReivew.product_name} </h6>
 						        <p class="card-text text-left" id="reviewContent" data-review-content="${bestReivew.review_content}">${bestReivew.review_content }</p>
 						        
 						      </div>
@@ -93,7 +93,7 @@
 				    <div class="col-md-8">
 				      <div class="card-body">
 				      	<span id="productNameSpan" data-product-name="${review.product_name}"></span>
-				        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
+				        <h6 class="card-title">글번호: ${review.review_no} | 유저: ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
 				        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
 				        
 				      </div>
@@ -200,10 +200,12 @@
 						</div>
 					</div>
 				</div>
+				
+				
+				<button id="#loadMoreBtn">더보기</button>
 
 	
   	</div>
-   
-   </body>
+  	
 <%@ include file="/WEB-INF/views/main/footer.jsp"%>
 </html>
