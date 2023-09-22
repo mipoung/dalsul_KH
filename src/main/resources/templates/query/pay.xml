@@ -45,10 +45,11 @@ SELECT po.product_no, ol.order_use_coupon,ol.order_dlv_fee, ol.order_total_price
 
 <!-- 마이페이지 주문내역 -->
 <select id="orderList" parameterType="userVO" resultType="pay">
-    SELECT po.order_no, ol.order_total_price, ol.order_date, ol.order_status
+    SELECT distinct(po.order_no), ol.order_total_price, ol.order_date, ol.order_status
     FROM order_list ol
     INNER JOIN product_order po ON ol.order_no = po.order_no
     WHERE ol.user_no = #{user_no}
+    order by order_date desc
 </select>
 
 <!-- 주문 상세 내역 
@@ -63,7 +64,7 @@ SELECT po.product_no, ol.order_use_coupon,ol.order_dlv_fee, ol.order_total_price
 -->
 
 <select id="orderListDetail" parameterType="pay" resultType="pay">
-   SELECT po.order_detail_no, po.product_no, po.quantity,
+   SELECT po.order_detail_no, po.product_no, po.quantity, ol.order_no,
            ol.order_use_coupon, ol.order_dlv_fee, ol.order_total_price,
            ol.order_delivery_info, ol.order_status, ol.order_date 
     FROM order_list ol 

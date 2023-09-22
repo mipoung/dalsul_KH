@@ -3,12 +3,6 @@ package com.dalsul.user.mypage.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import com.dalsul.user.mypage.service.MyPageService;
-import com.dalsul.user.pay.service.PaymentService;
-import com.dalsul.user.pay.vo.PayVO;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.dalsul.common.login.vo.UserVO;
+import com.dalsul.user.mypage.service.MyPageService;
+import com.dalsul.user.pay.service.PaymentService;
+import com.dalsul.user.pay.vo.PayVO;
 import com.dalsul.user.review.service.ReviewService;
 import com.dalsul.user.review.vo.ReviewVO;
 
@@ -79,13 +78,24 @@ public class MyPageController {
 		return "/mypage/orderDetail";
 	}
 	
-	@GetMapping("/refundDetailView")
-	public String refundDetailView() {
-		log.info("refundDetailView() 메소드 실행");
-		
-		return "/mypage/refund";
-	}
 	
+	
+	//구매자가 취소요청을 했을 경우
+	@GetMapping("/refundDetailView")
+	@ResponseBody
+	public String refundDetailView(@RequestParam("order_no") int order_no) {
+	    log.info("refundDetailView() 메소드 실행");
+	    
+	    int result = mypageService.updateOrderStatusToCancel(order_no);
+	    
+	    if (result > 0) {
+	        return "SUCCESS";
+	    } else {
+	        return "FAIL";
+	    }
+	}
+
+
 	
 	
 	
