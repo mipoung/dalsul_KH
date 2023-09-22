@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -59,6 +60,12 @@ public class CartController {
         
         return "cart/cart";
     }
+    
+    @PostMapping("cartList")
+    public String cartPage() {
+    	return "cart/cart";
+    }
+    
     
     
     //장바구니 추가
