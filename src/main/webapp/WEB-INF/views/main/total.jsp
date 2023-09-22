@@ -210,8 +210,20 @@ button {
 }
 
 .selectbar2 select {
-	magin-right: 10px;
+	margin-right: 10px;
+	
+	border: none;
 }
+
+.selectbar2 select:focus {
+	background-color: rgb(242, 242, 242);
+	outline : none;
+}
+
+.selectbar2 select:focus option {
+  background-color: white; 
+}
+
 
 .product {
 	display: grid;
@@ -295,7 +307,7 @@ a {
 		}
 		
 		 // 공백 영역 클릭 이벤트 핸들러
-	    function handleDocumentClick(event) {
+	    /* function handleDocumentClick(event) {
 	        if (!event.target.classList.contains('filter') && !event.target.classList.contains('hidecheckboxout')) {
 	            for (var i = 0; i < isFilterVisible.length; i++) {
 	                isFilterVisible[i] = false;
@@ -306,17 +318,13 @@ a {
 	                filterButton.style.color = 'rgb(128, 128, 128)';
 	            }
 	        }
-	    }
+	    } */
 
 		// 각 filter 버튼에 이벤트 핸들러 추가
 		for (var i = 0; i < isFilterVisible.length; i++) {
 			var filterButton = document.querySelector('.filter' + (i + 1));
-			filterButton.addEventListener('click', toggleFilterVisibility(i));
-			
-			
-		}
-		
-	
+			filterButton.addEventListener('click', toggleFilterVisibility(i));			
+		}	
 	});
 
 	$(function() {
@@ -358,6 +366,42 @@ a {
 				handleCheckboxAndOptionTextClick(checkboxButton, optionText); // 공통 핸들러 함수 호출
 			});
 		});
+		
+		// filtering
+		   $.ajax({
+               url: '/filtering',
+               type: 'get',
+               data: { keyword: searchKeyword },
+               dataType: "json",
+               success: function(data) {
+                   if (data !== undefined) {
+                       $('#searchResult').empty();
+                       $.each(data, function() {
+                       	 var productName = this.product_name.replace(new RegExp(searchKeyword.replace(/\s+/g, ''), 'gi'), function(matched) {
+								return '<span style="color: orange; font-weight: bold;">' + matched + '</span>';
+								}); 
+                          /* var productName = this.product_name;
+                           // 검색어를 공백으로 분리하여 개별 단어로 처리
+                           var searchWords = searchKeyword.split(/\s+/);
+                           for (var i = 0; i < searchWords.length; i++) {
+                               var searchWord = searchWords[i];
+                               // 각 검색어에 대해 하이라이트 처리
+                               productName = productName.replace(new RegExp(searchWord, 'gi'), function(matched) {
+                                   return '<span style="color: orange; font-weight: bold;">' + matched + '</span>';
+                               });
+                           }*/
+                           $('#searchResult').append('<li><a href="/detail?product_no=' + this.product_no + '">' + productName + '</a></li>');
+                       });
+                   } else {
+                       console.log('데이터가 정의되지 않았습니다.');
+                   }
+               },
+               error: function(err) {
+                   console.log(err);
+               }
+           });
+		
+		
 
 	});
 </script>
@@ -654,7 +698,7 @@ a {
 				</div>
 				<div class="content">
 					<div class="selectbar2">
-						<select class="select" id="outlined-age-native-simple" name="age">
+						<select class="select" id="select" name="age">
 							<option value="recommend">추천순</option>
 							<option value="released_at">최신순</option>
 							<option value="rating">평점순</option>

@@ -33,6 +33,11 @@ public class MainServiceImpl implements MainService {
 	}
 	
 	@Override
+	public List<ProductVO> getTotalResult(String product) {
+		return mainDao.getTotalResult(product);
+	}
+	
+	@Override
 	public ProductVO getDetailPageProducts(ProductVO vo) {
 			
 		return mainDao.getDetailPageProducts(vo);
