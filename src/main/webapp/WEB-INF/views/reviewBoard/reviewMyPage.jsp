@@ -8,6 +8,14 @@
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
 
       <title>리뷰조회 reviewList</title>
+      
+      
+      <style>
+      	.mypage_menu{
+      		margin-top :70px;
+      	}
+      
+      </style>
 
    </head>
    

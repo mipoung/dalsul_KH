@@ -38,14 +38,21 @@ public class ReviewManagerController {
 	/*********** 완성 **********/
 	// 관리자페이지 보여주기
 	@GetMapping("managerReviewList")
-	public String managerReviewList(@SessionAttribute(name="UserLogin", required = false) UserVO user, CommonVO cvo, ReviewVO rvo, Model model){
+	public String managerReviewList(@SessionAttribute(name="managerLogin", required = false) ManagerVO mvo, CommonVO cvo, ReviewVO rvo, Model model){
 		// 관리자 세션이 있으면 페이지 보여주기(실제 사용할 때는 주석 풀어줘야됨)
 		/*
 		if(user == null || !(user.getUser_no() == 1)) {
 			model.addAttribute("msg", "관리자가 아닙니다.");
 			return "common/error";
 		}
+		
+		
 		*/
+		if(mvo==null) {
+			return "account/login/managerLoginForm";
+		}
+		
+		
 		// 세션이 있고 관리자 세션이면 출력
 		log.info("관리자 입니다.");
 		
@@ -75,10 +82,11 @@ public class ReviewManagerController {
 	public String managerReviewDelete(@SessionAttribute(name="managerLogin", required = false) ManagerVO mvo, ReviewVO rvo) {
 		
 		// 로그인하지 않은 사용자이거 관리자가 아니면 || !(user.getUser_no() == 1)
-		if(mvo == null) {
-			log.info("로그인하지 않았거나 관리자가 아닙니다.");
-			return "common/error";
+		if(mvo==null) {
+			return "account/login/managerLoginForm";
 		}
+		
+		
 			log.info("관리자입니다.");
 			reviewService.myReviewDelete(rvo);
 
@@ -93,7 +101,12 @@ public class ReviewManagerController {
 	
 	// 리뷰 차트 및 통계
 	@GetMapping("managerReviewChart")
-	public String managerReviewChart(Model model) {
+	public String managerReviewChart(@SessionAttribute(name="managerLogin", required = false) ManagerVO mvo, Model model) {
+		if(mvo==null) {
+			return "account/login/managerLoginForm";
+		}
+		
+		
 		List<ManagerCommonVO> reviewChartData = commonManagerService.managerReviewChart();
 		log.info("데이터 값 : " + reviewChartData);
 		model.addAttribute("revieweChartData", reviewChartData);

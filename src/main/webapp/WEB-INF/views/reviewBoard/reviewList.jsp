@@ -7,9 +7,6 @@
       <title>리뷰조회 reviewList</title>
       <!-- 주석-->
      
- 
-      
-       
       
    </head>
    
