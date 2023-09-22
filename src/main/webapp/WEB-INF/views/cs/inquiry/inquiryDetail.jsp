@@ -13,6 +13,8 @@
         <script>
             let buttonCheck = 0; /* 버튼 클릭 여부 확인 변수 */
             $(function(){
+            	
+            	
                 $("#pwdChk").hide(); 
         
                 // 수정 버튼 클릭 시 처리 이벤트
@@ -92,7 +94,9 @@
         </script>
         
         <style>
-
+			#inquiry_password{
+				width:350px;
+			}
         </style>
     </head>
     <body>
@@ -134,7 +138,7 @@
                             <tr>
 
 								<th scope="row">제목</th>
-                                <td>${detail.inquiry_title  }</td>
+                                <td>${detail.inquiry_title}</td>
                             </tr>
                             <tr>
                                 <th scope="row">질문</th>
@@ -156,9 +160,8 @@
                             <input type="hidden" name="inquiry_no" id="inquiry_no"
                                 value="${detail.inquiry_no}" />
                             <div class="form-group">
-                                <label for="inquiry_password" id="l_password">비밀번호 :</label> <input
-                                    type="password" class="form-control" name="inquiry_password"
-                                    id="inquiry_password" />
+                                <label for="inquiry_password" id="l_password">비밀번호 :</label>
+                                <input type="password" class="form-control" name="inquiry_password" id="inquiry_password" />
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary" id="pwdBtn">확인</button>

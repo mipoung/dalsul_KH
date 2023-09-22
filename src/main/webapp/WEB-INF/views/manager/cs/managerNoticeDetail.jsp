@@ -8,16 +8,16 @@
     <title>공지사항 상세 정보</title>
     <script>
     	function goToNoticeList() {
-        window.location.href = "/notice/noticeList";
+        window.location.href = "/manager/cs/managerNoticeList";
     	}
         
         function goToEditPage(noticeNo) {
-            window.location.href = "/notice/adminNoticeUpdateForm?notice_no=" + noticeNo;
+            window.location.href = "/manager/cs/managerNoticeUpdateForm?notice_no=" + noticeNo;
         }
         
         function deleteNotice(noticeNo) {
             if (confirm("정말로 이 공지사항을 삭제하시겠습니까?")) {
-                window.location.href = "/notice/adminNoticeDelete?notice_no=" + noticeNo;
+                window.location.href = "/manager/cs/managerNoticeDelete?notice_no=" + noticeNo;
             }
         }
     </script>

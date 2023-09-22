@@ -9,7 +9,7 @@
 <body>
     <h1>공지사항 작성 폼</h1>
     <!-- FAQ 작성 폼 내용 입력 폼과 버튼 등을 구현합니다. -->
-    <form action="/notice/managerNoticeInsert" method="post">
+    <form action="/manager/cs/notice/managerNoticeInsert" method="post">
         <!-- 입력 폼 -->
         <label for="notice_title">제목:</label>
         <input type="text" id="notice_title" name="notice_title" required><br>

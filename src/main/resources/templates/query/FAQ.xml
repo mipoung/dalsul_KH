@@ -26,7 +26,7 @@
 		select
 	  	  faq_no, faq_title, faq_question, faq_answer, to_char(faq_date,'YYYY-MM-DD') as faq_date
 		from(
-		    select /*+ INDEX_DESC(faq SYS_C008568) */
+		    select /*+ INDEX_DESC(faq SYS_C009679) */
 		            rownum as rnum, faq_no, faq_title, faq_question, faq_answer, faq_date
 	    from faq
 	    where ]]>

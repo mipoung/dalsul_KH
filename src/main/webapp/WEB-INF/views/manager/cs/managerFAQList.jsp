@@ -3,6 +3,12 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <!-- 관리자페이지 드롭다운 사용을 위해 필요한 스크립트 -->
 <script type="text/javascript" src="/resources/include/common/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap CSS 및 JavaScript 포함 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<!-- Popper.js 포함 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
 <title>faq</title>
         <script>
             $(function(){

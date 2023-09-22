@@ -2,12 +2,13 @@ package com.dalsul.manager.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +47,7 @@ public class CsManagerController {
 	//private ReplyService replyService;
 	
 	
-	@GetMapping("/setManagerSession") // 임의의 URL로 관리자 세션을 설정
+	/*@GetMapping("/setManagerSession") // 임의의 URL로 관리자 세션을 설정
     public String setManagerSession(HttpSession session) {
         // 여기에서 관리자로 로그인한 사용자를 세션에 설정
         ManagerVO managerUser = new ManagerVO();
@@ -56,7 +57,7 @@ public class CsManagerController {
         session.setAttribute("managerLogin", managerUser); 
 
         return "redirect:/manager/cs/managerFAQList";
-    }
+    }*/
 
 	
 	
@@ -211,7 +212,22 @@ public class CsManagerController {
 		}
 		noticeService.managerNoticeInsert(nvo);
 		
-		return "redirect:/manager/cs/managerNoticeWriteForm";
+		return "redirect:/manager/cs/managerNoticeList";
+	}
+	
+	/*관리자가 공지사항 글을 눌렀을때 글 상세보기*/
+	@GetMapping("/managerNoticeDetail")
+	public String noticeDetail(@SessionAttribute(name = "managerLogin", required = false) ManagerVO mvo, NoticeVO nvo, Model model) {
+		if (mvo == null || !(mvo.getManager_no() == 1)) {
+			model.addAttribute("msg", "관리자가 아닙니다.");
+			return "common.error";
+		}
+		
+		NoticeVO detail = noticeService.noticeDetail(nvo);
+		
+		model.addAttribute("detail", detail);
+		
+		return "manager/cs/managerNoticeDetail";
 	}
 	
 	/*관리자가 사용하는 Notice(공지사항) 글 수정 폼/ 업데이트 폼*/
@@ -223,7 +239,7 @@ public class CsManagerController {
 		}
 		NoticeVO updateData = noticeService.managerNoticeUpdateForm(nvo);
          model.addAttribute("updateData", updateData);
-         return "/manager/cs/managerNoticeUpdateForm";
+         return "manager/cs/managerNoticeUpdateForm";
 		
 	}
 	
@@ -236,7 +252,7 @@ public class CsManagerController {
 		}
     	noticeService.managerNoticeUpdate(nvo);
     	
-    	return "redirect:/manager/cs/managerNoticeUpdateForm?faq_no=" + nvo.getNotice_no();
+    	return "redirect:/manager/cs/managerNoticeDetail?notice_no=" + nvo.getNotice_no();
     }
     
     /*관리자가 사용하는 Notice(공지사항) 글 삭제*/
@@ -276,6 +292,21 @@ public class CsManagerController {
 		return "manager/cs/managerInquiryList";
 
 	}
+	
+	/*faq 글을 눌렀을때 글 상세보기*/
+    @GetMapping("/managerInquiryDetail")
+    public String managerInquiryDetail(@SessionAttribute(name = "managerLogin", required = false) ManagerVO mvo, InquiryVO ivo, Model model) {
+    	if (mvo == null || !(mvo.getManager_no() == 1)) {
+			model.addAttribute("msg", "관리자가 아닙니다.");
+			return "common.error";
+		}
+        InquiryVO detail = inquiryService.inquiryDetail(ivo);
+        
+        model.addAttribute("detail", detail);
+        
+        return "manager/cs/managerInquiryDetail";
+        
+    }
 	
 	/*관리자가 사용하는 Inquiry(문의사항)글 삭제*/
     @GetMapping(value = "/managerInquiryDelete")

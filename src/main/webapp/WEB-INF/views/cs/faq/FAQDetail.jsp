@@ -22,8 +22,8 @@
         function deleteFAQ(faqNo) {
             if (confirm("정말로 이 FAQ를 삭제하시겠습니까?")) {
                 window.location.href = "/faq/managerFAQDelete?faq_no=" + faqNo;
-            } */
-        }
+            } 
+        }*/
         </script>
         <style>
 

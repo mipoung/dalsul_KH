@@ -16,7 +16,7 @@
 		listAll(inquiry_no);
 
 		/** 글입력을 위한 Ajax 연동 처리 */
-		$(document).on(
+		/*$(document).on(
 				"click",
 				"#replyInsertBtn",
 				function() {
@@ -51,20 +51,20 @@
 							}
 						}
 					});
-				});
+				});*/
 		
 		/*수정버튼 제어 */
-		$(document).on("click", "button[data-btn='upBtn']", function() {
+		/*$(document).on("click", "button[data-btn='upBtn']", function() {
 			let panel = $(this).parents("div.panel");
 			let reply_no = panel.attr("data-num");
 			updateForm(reply_no, panel);
 		
 			
 			
-		});
+		});*/
 
 		/** 수정을 위한 Ajax 연동 처리 */
-		$(document).on(
+		/*$(document).on(
 				"click",
 				"#replyUpdateBtn",
 				function() {
@@ -97,15 +97,15 @@
 							}
 						}
 					});
-				});
+				});*/
 		
 		
 		
 		/* 삭제버튼 제어 */
-		$(document).on("click", "button[data-btn='delBtn']", function(){
+		/*$(document).on("click", "button[data-btn='delBtn']", function(){
 			let reply_no = $(this).parents("div.panel").attr("data-num");
 			deleteBtn(inquiry_no, reply_no);
-		});
+		});*/
 		
 		
 		
@@ -130,7 +130,7 @@
 	
 	
 	/* 글 삭제를 위한 Ajax 연동 처리 */
-	function deleteBtn(inquiry_no, reply_no){
+	/*function deleteBtn(inquiry_no, reply_no){
 		if(confirm("선택하신 댓글을 삭제하시겠습니까?")){
 			$.ajax({
 				
@@ -154,7 +154,7 @@
 			});
 			
 		}
-	}; // deleteBtn 종료
+	};*/ // deleteBtn 종료
 	
 	
 	
@@ -194,7 +194,7 @@
 	}
 
 	/** 수정 폼 화면 구현 함수 */
-	function updateForm(reply_no, panel) {
+	/*function updateForm(reply_no, panel) {
 		$("#replyForm .resetBtn").detach();
 
 		let content = panel.find(".panel-body").html();
@@ -210,7 +210,7 @@
 		//let resetButton = $("<button type='button' class='btn btn-success resetBtn'>");
 		//resetButton.html("취소");
 		//$("#replyForm .sendBtn").after(resetButton);
-	}
+	}*/
 
 </script>
 
@@ -229,13 +229,13 @@
 								<input type="button" value="뒤로가기" onclick="history.back()" class="btn btn-primary">	
 							</td>
 						</tr> -->
-						<tr>
+						<!-- <tr>
 							<td colspan="4">
 								<textarea rows="2" cols="40" name="reply_answer" id="reply_answer"></textarea>
 								<button type="button" id="replyInsertBtn" class="btn btn-primary">댓글 저장</button>
 								<input type="button" value="뒤로가기" onclick="history.back()" class="btn btn-primary">	
 							</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 			</div>
@@ -254,9 +254,9 @@
 				</div>
 				
 				<div class="panel-body" style="margin-left : 11px"></div>
-				<button type="button" data-btn="upBtn" class="btn btn-primary" style="margin-left : 11px">수정하기</button>
+				<!-- <button type="button" data-btn="upBtn" class="btn btn-primary" style="margin-left : 11px">수정하기</button>
 				<button type="button" data-btn="delBtn" class="btn btn-primary">삭제하기</button>
-				
+ -->				
 			</div>	
 		</div>
 

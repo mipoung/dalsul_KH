@@ -194,7 +194,7 @@
 				<tr>
 					<th class="text-center col-md-1">글번호</th>
 					<th class="text-center col-md-6">제목</th>
-					<th data-value="b_date" class="order col-md-1">작성일</th>
+					<th data-value="b_date" class="text-center order col-md-1">작성일</th>
 				</tr>
 			</thead>
 			<tbody>

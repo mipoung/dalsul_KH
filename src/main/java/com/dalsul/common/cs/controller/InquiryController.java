@@ -160,5 +160,7 @@ public class InquiryController {
 		return "redirect:" + url;
 	}
 	
+   
+	
 
 }

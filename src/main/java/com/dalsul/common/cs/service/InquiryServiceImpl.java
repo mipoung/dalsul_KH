@@ -76,5 +76,7 @@ public class InquiryServiceImpl implements InquiryService {
 		return result;
 		
 	}
+	
+
 
 }
