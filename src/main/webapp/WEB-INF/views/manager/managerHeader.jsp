@@ -41,19 +41,6 @@
 	      <ul class="navbar-nav">
 	        <li class="nav-item dropdown">
 	          <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	            배송관리
-	          </button>
-	          <ul class="dropdown-menu dropdown-menu-dark">
-	            <li><a class="dropdown-item" href="/manager/delivery/managerDelivery">메인</a></li>
-	            <li><a class="dropdown-item" href="#">배송관리</a></li>
-	          </ul>
-	        </li>
-	      </ul>
-	      
-	      
-	      <ul class="navbar-nav">
-	        <li class="nav-item dropdown">
-	          <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 	            리뷰관리
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">

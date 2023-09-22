@@ -21,6 +21,6 @@
 		<typeAlias type="com.dalsul.common.login.vo.ManagerVO" alias="managerVO" />
 		
 		<typeAlias type="com.dalsul.user.main.vo.ProductVO" alias="product" />
-		<typeAlias type="com.dalsul.user.delivery.vo.DeliveryVO" alias="delivery" />
+
 	</typeAliases>
 </configuration>

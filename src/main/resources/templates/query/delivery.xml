@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dalsul.user.delevery.dao.DeleveryDAO">
-	<insert id="deleveryList" parameterType="UserVO">
-    INSERT INTO DELIVERY (DELIVERY_NO, ORDER_NO, USER_NO, DELIVERY_STATUS, DELIVERY_START_DATE)
-    VALUES (DELIVERY_SEQ.NEXTVAL, #{order_no}, #{user_no}, '배송준비중', SYSDATE)
-</insert>
-</mapper>
