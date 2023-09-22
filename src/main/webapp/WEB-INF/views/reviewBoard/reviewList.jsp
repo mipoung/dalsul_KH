@@ -3,18 +3,16 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
-<script type="text/javascript" src="/resources/include/reviewBoard/js/reviewMyPage.js"></script>
+<script type="text/javascript" src="/resources/include/reviewBoard/js/reviewList.js"></script>
       <title>리뷰조회 reviewList</title>
       <!-- 주석-->
      
- 
-      
-       
       
    </head>
    
   
    <body>
+   
    <!--
    	<form id="f_myReviewData">
    		 <input type="text" id="review_no" name="review_no" value=""> 
@@ -32,35 +30,37 @@
    	</form>
    		
 	
+	
+   	<div id="detailReviewSize">
+	
 
 	<div class="card-body">
+	<hr>
+	<p style="text-align: center;"> 리뷰 리스트✍️</p>
 		 <c:choose>
 		    <c:when test="${not empty bestReview}">
-		        <c:forEach var="bestReivew" items="${bestReview}" varStatus="status">
+		        <c:forEach var="bestReview" items="${bestReview}" varStatus="status">
 		        	
 	            	<form id="r_BestListForm">
-					    <div class="card mb-3" id="bestReviewDiv" data-review-no="${bestReivew.review_no}" style="max-width: 700px;">
+					    <div class="card mb-3" id="bestReviewDiv" data-review-no="${bestReview.review_no}" style="max-width: 700px;">
 						  <div class="row g-0">
-						  <p id="bestReviewHeader">가장 많은 추천을 받은 리뷰</p>
-						    <div class="col-md-4">
-						      <img src="/resources/images/mainpage/product/${bestReivew.product_main_image}" class="img-fluid rounded-start" alt="...">
-			
+						  <p id="bestReviewHeader">🥇 가장 많은 추천을 받은 리뷰</p>
+						    <div class="col-md-4" data-image-no="${review.product_main_image}">
+						      <img src="/resources/images/mainpage/product/${bestReview.product_main_image}" class="img-fluid rounded-start" alt="제품 리뷰 이미지">
+						      
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body">
-						        <h6 class="card-title">${bestReivew.review_no} | ${bestReivew.user_no} | ${bestReivew.review_date} | ${bestReivew.product_name} </h6>
-						        <p class="card-text text-left" id="reviewContent" data-review-content="${bestReivew.review_content}">${bestReivew.review_content }</p>
+						        <h6 class="card-title">${bestReview.review_no} | ${bestReview.user_no} | ${bestReview.review_date} | ${bestReview.product_name} </h6>
+						        <p class="card-text text-left" id="reviewContent" data-review-content="${bestReview.review_content}">${bestReview.review_content }</p>
 						        
 						      </div>
 						      <div id="cordBtn">
-						       <div class="reviewRating" id="reviewRating" data-review-rating="${bestReivew.review_rating}">${bestReivew.review_rating}</div>
-						       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${bestReivew.review_like_count}</span></button>
+						       <div class="reviewRating" id="reviewRating" data-review-rating="${bestReview.review_rating}">${bestReview.review_rating}</div>
+						       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${bestReview.review_like_count}</span></button>
 						      
 						      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-						            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
-						               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
-						    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${bestReivew.user_no}">삭제</button>
-						            </c:if>
+						          
 						      </div>
 						     
 						    </div>
@@ -84,12 +84,13 @@
 	 		 <form id="r_ListForm">
 			    <div class="card mb-3" data-review-no="${review.review_no}" style="max-width: 700px;">
 				  <div class="row g-0">
-				    <div class="col-md-4">
+				    <div class="col-md-4" data-image-no="${review.product_main_image}">
 				      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="...">
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
-				        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
+				      	<span id="productNameSpan" data-product-name="${review.product_name}"></span>
+				        <h6 class="card-title" data-product-no="${review.product_no}">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
 				        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
 				        
 				      </div>
@@ -98,7 +99,7 @@
 				       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
 				      
 				      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-				            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+				             <c:if test="${not empty userLogin and userLogin.user_no == review.user_no}">
 				               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
 				    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
 				            </c:if>
@@ -147,7 +148,7 @@
 									<div class="card mb-3" style="max-width: 540px;">
 										<div class="row g-0">
 											<div class="col-md-4">
-												<img src="/resources/images/common/icon.png"
+												<img src=""
 													class="img-fluid rounded-start" alt="...">
 											</div>
 											<div class="col-md-8">
@@ -186,6 +187,9 @@
 									<!-- 별점 저장을 위한 히든 폼 -->
 									<input type="hidden" id="review_rating" name="review_rating" value="" />
 									
+									<!-- 제품 넘버 저장을 위한 히든 폼 -->
+									<input type="hidden" id="product_no" name="product_no" value="" />
+									
 								</form>
 			
 							</div>
@@ -195,6 +199,7 @@
 							</div>
 						</div>
 					</div>
-				</div>   
+				</div>  
+		</div> 
    </body>
 </html>

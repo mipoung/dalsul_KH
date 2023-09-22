@@ -62,17 +62,18 @@
       			if(confirm("정말 삭제 하시겠습니까?")){
 	      			var userNo = $(this).attr("data-user-no");
 	      			var reviewNo = $(this).closest(".card.mb-3").attr("data-review-no");
+	      			var productNo = $(this).closest(".card.mb-3").find(".card-title").data("product-no");
 	      			
 	      		    console.log("User No: " + userNo);
-	      		   
+	      		   $("#product_no").val(productNo);
 	      		    
 	      		    $("#r_ListForm").append('<input type="hidden" name="user_no" value="' + userNo + '">');
 	      		    $("#r_ListForm").append('<input type="hidden" name="review_no" value="' + reviewNo + '">');
-	
+					$("#r_ListForm").append('<input type="hidden" name="product_no" value="' + productNo + '">');
 	      		
 	      			$("#r_ListForm").attr({
 	      				"method" : "post",
-	      				"action" : "/mypage/myReviewDelete"
+	      				"action" : "/review/myReviewDelete"
 	      				
 	      			});
 	      			
@@ -90,18 +91,20 @@
 	      		var reviewContentForm = $(this).closest(".card.mb-3").find("#reviewContent").attr("data-review-content");
 	      		// 내용 가져올때 <br>태그 제거
 	      		reviewContentForm = reviewContentForm.replace(/<br>/gi, "");
-	   			
-	   			
-	   			
-	   			// 제품명 가져오기
+	      		
+	      		
+	      		
+	      		// 제품명 가져오기
 			    var productName = $(this).closest(".card.mb-3").find("#productNameSpan").attr("data-product-name");
 			    console.log(productName);
 			
 			    // 모달 창 내부에 제목 설정
 			    $("#exampleModal .card-title").text(productName);
 	   			
-	   			
-	   			
+	      		
+	      		
+	      		
+	      		
 	      		// 이미지 불러와서 모달창에 설정
 	      		var imageNo = $(this).closest(".card.mb-3").find(".col-md-4").attr("data-image-no");
     			console.log(imageNo);
@@ -110,6 +113,8 @@
   				console.log($("#exampleModal .col-md-4 img").attr("src"));
 	   			
 	   			
+	   					
+    		
 	   			
 	   			
 	   			
@@ -117,20 +122,18 @@
       			$("#message-text").val(reviewContentForm);
       			console.log("content : " + reviewContentForm);
       			
-      			
-      			
-	   			// 메세지 박스에 채워진 내용 글자수 세기
+      			// 메세지 박스에 채워진 내용 글자수 세기
 	   			$('#textCount').text($('#message-text').val().length + '/250자');
-      			
       			
       			
       			// jsp에서 리뷰번호 가져오기
       			var reviewNo = $(this).closest(".card.mb-3").attr("data-review-no");
+      			var productNo = $(this).closest(".card.mb-3").find(".card-title").data("product-no");
       			console.log("Review No: " + reviewNo);
-      			
+      			console.log("Product No: " + productNo);
       			// 가져온 리뷰 번호를 myReviewData의 value에 대입
       			$("#review_no").val(reviewNo);
-      			
+      			$("#product_no").val(productNo);
       			
       			/* 리스트에 있는 리뷰 별점 값 가져오기 */
       			$(document).on('click', '.r_UpdateFormBtn', function() {
@@ -204,7 +207,7 @@
       			
 	      			$("#r_UpdateForm").attr({
 	      				"method" : "post",
-	      				"action" : "/mypage/reviewUpdate"
+	      				"action" : "/review/reviewUpdate"
 	      				
 	      			});
 	      			$("#r_UpdateForm").submit();

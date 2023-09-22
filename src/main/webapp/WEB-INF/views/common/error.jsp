@@ -5,6 +5,6 @@
    <body>
    
    <h2>${msg}</h2>
-   
+   에러페이지
    </body>
 </html>

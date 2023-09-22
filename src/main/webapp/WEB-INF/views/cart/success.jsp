@@ -1,22 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-   <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-      
-      <title>Insert title here</title>
-      
-      <link rel="shortcut icon" href="../image/icon.png" />
-      <link rel="apple-touch-icon" href="../image/icon.png" />
-      
-      <!--[if lt IE 9]>
-      <script src="../js/html5shiv.js"></script>
-      <![endif]-->
-   </head>
-   <body>
-   결제 성공
-   </body>
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
+
+<body>
+    <h1>결제 내역</h1>
+    <div class="border border-success p-2 mb-2 whole-table">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">상품</th>
+                    <th scope="col">개수</th>
+                    <th scope="col">배송비</th>
+                    <th scope="col">쿠폰사용</th>
+                    <th scope="col">총합</th>
+                    <th scope="col">배송지</th>
+                    <th scope="col">주문 일자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${payList}" var="payList">
+                    <tr>
+                        <td>${payList.product_no}</td>
+                        <td>${payList.quantity}</td>
+                        <td>${payList.order_dlv_fee}</td>
+                        <td>${payList.order_use_coupon}</td>
+                        <td>${payList.order_total_price}</td>
+						<td>${payList.order_delivery_info}</td>
+                        <td>${payList.order_date}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</body>
 </html>

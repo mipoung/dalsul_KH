@@ -88,6 +88,19 @@ public class MainController {
 	    	return "main/total";
 	    }
 	    
+	    /* 전체페이지 데이터 필터링 */
+	    @GetMapping(value="/filtering", produces=MediaType.APPLICATION_JSON_VALUE) 
+	    @ResponseBody
+	    public List<ProductVO> filteringProduct(@RequestParam("product") String product) {
+	    	List<ProductVO> products = mainService.getTotalResult(product);
+	    	
+	    	log.info("products" + products);
+	    	
+	    	return products;
+	    	
+	    }
+	    
+	    
 	    /* 상세페이지로 이동 */
 	    @GetMapping("/detail")
 	    public String detailPage(ProductVO vo, Model model) {

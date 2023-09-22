@@ -329,7 +329,7 @@ $(function() {
 							<span class="totalpricein"></span>
 						</div>
 						<div class="btn-wrpper">
-							<button class="basket">장바구니</button>
+							<button class="basket"><a href="/cart/cartInsert">장바구니</a></button>
 							<button class="purchase">구매하기</button>
 						</div>
 					</div>
