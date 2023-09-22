@@ -1,12 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
+<%@ include file="/WEB-INF/views/main/header.jsp"%>
 <%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/resources/include/reviewBoard/js/reviewMyPage.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
 
       <title>리뷰조회 reviewList</title>
+      
+      
+      <style>
+      	.mypage_menu{
+      		margin-top :70px;
+      	}
+      
+      </style>
 
    </head>
    
@@ -69,25 +78,26 @@
 	 		 <form id="r_ListForm">
 			    <div class="card mb-3" data-review-no="${review.review_no}">
 				  <div class="row g-0">
-				    <div class="col-md-4">
-				      <img src="/resources/images/common/icon.png" class="img-fluid rounded-start" alt="...">
-				      ${review.product_main_image}
+				    <div class="col-md-4" data-image-no="${review.product_main_image}">
+				      <img src="/resources/images/mainpage/product/${review.product_main_image}" class="img-fluid rounded-start" alt="...">
+				     
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
+				      	<span id="productNameSpan" data-product-name="${review.product_name}"></span>
 				        <h6 class="card-title">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
 				        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
 				        
 				      </div>
 				      <div id="cordBtn">
 				       <div class="reviewRating" id="reviewRating" data-review-rating="${review.review_rating}">${review.review_rating}</div>
-				       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">좋아요 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
+				       <button type="button" class="btn btn-primary btn-sm float-end reviewLikeBtn">추천수 <span class="badge text-bg-warning likeCount">${review.review_like_count}</span></button>
 				      
 				      	 	<!-- 로그인 세션 확인 및 사용자가 작성자와 동일한 경우 삭제 버튼 표시 loginUser은 로그인 세션 이름 -->
-				            <c:if test="${not empty sessionScope.UserLogin and sessionScope.UserLogin.user_no == review.user_no}">
+				          
 				               	  <button type="button" class="btn btn-warning btn-sm float-end r_UpdateFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
 				    			  <button type="button" class="btn btn-warning btn-sm float-end r_DeleteBtn" data-user-no="${review.user_no}">삭제</button>
-				            </c:if>
+				            
 				      </div>
 				     
 				    </div>
@@ -187,4 +197,5 @@
    
    
    </body>
+<%@ include file="/WEB-INF/views/main/footer.jsp"%>
 </html>

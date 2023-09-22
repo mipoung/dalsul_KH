@@ -5,11 +5,11 @@
 <script type="text/javascript" src="/resources/include/common/bootstrap/js/bootstrap.bundle.min.js"></script>
 
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
+<link rel="stylesheet" href="/resources/include/manager/css/managerCommon.css"/>
  
 <script>
 
-var serverData = JSON.parse('${chartData}'); // Java 객체를 JSON 문자열로 변환했다고 가정
+var serverData = JSON.parse('${chartData}');
 console.log(serverData);
 google.charts.load('current', {'packages':['corechart']});
 //google.charts.setOnLoadCallback(drawChart);
@@ -17,7 +17,7 @@ google.charts.setOnLoadCallback(function() {
        drawChart(serverData);
 });
  
- var chartArray = [['Task', 'Hours per Day']];
+ var chartArray = [['주종', '등록개수']];
  
 //serverData를 반복하여 chartArray에 데이터 추가
  serverData.forEach(function(item) {
@@ -46,27 +46,6 @@ function drawChart() {
 </script>
 
 <style>
-#piechart{
-	height: 400px;
-}
-
-.table {
-
-	margin-bottom : 50px;
-	width : 90%;
-	margin : 0 auto;
-	margin-bottom : 50px;
-}
-
-#mainCount {
-	
-	width : 100%;
-	margin : 0 auto;
-
-}
-
-#mainBoard {
-	margin-left : 8%;
 
 }
 
@@ -82,8 +61,8 @@ function drawChart() {
    		<!-- 원형 도표 -->
   		<div class="container-sm" id="piechart"></div>
  
- 		<div id="mainCount">
- 		<h4 id="mainBoard">오늘의 통계</h4>
+ 		<div id="mainSection">
+ 		<h4 id="mainSubject">오늘의 통계</h4>
  		<c:choose>
 	 		<c:when test="${not empty count}">
 		 		<c:forEach var="count" items="${count}">
@@ -120,7 +99,7 @@ function drawChart() {
  		</div>
  		
  		<!-- 셀렉트해오기 -->
- 		<h4 id="mainBoard">주종별 통계</h4>
+ 		<h4 id="mainSubject">주종별 통계</h4>
  		<table class="table">
  		
 		  <thead>
@@ -161,5 +140,5 @@ function drawChart() {
 		</table>
 
    </body>
-   
+   <%@ include file="/WEB-INF/views/main/footer.jsp"%>
 </html>

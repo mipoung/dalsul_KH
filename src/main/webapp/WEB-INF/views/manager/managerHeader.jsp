@@ -58,6 +58,7 @@
 	          </button>
 	          <ul class="dropdown-menu dropdown-menu-dark">
 	            <li><a class="dropdown-item" href="/manager/review/managerReviewList">리뷰 검색 및 삭제</a></li>
+	            <li><a class="dropdown-item" href="/manager/review/managerReviewChart">리뷰 통계</a></li>
 	          </ul>
 	        </li>
 	      </ul>

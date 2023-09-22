@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import com.dalsul.user.mypage.service.MyPageService;
+import com.dalsul.user.pay.service.PaymentService;
+import com.dalsul.user.pay.vo.PayVO;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,7 +33,8 @@ public class MyPageController {
 	@Setter(onMethod_ = @Autowired)
 	private ReviewService reviewService;
 	
-	
+	@Autowired
+	private PaymentService paymentService;
 
 	@Autowired
 	private HttpSession session;
@@ -49,11 +53,30 @@ public class MyPageController {
 		return "/mypage/userInfo";
 	}
 	
+	//마이페이지-주문내역 조회
 	@GetMapping("/orderlistDetailView")
-	public String orderlistDetailView() {
+	public String orderlistDetailView(@SessionAttribute(name = "userLogin", required = true) UserVO uvo,Model model) {
 		log.info("orderlistDetailView() 메소드 실행");
+		//log.info("세션 유저 넘버 "+uvo.getUser_no());
+		List<PayVO> orderList = paymentService.orderList(uvo);
+		//log.info("가져온 값 :" + orderList.toString());
+		
+		model.addAttribute("orderList", orderList);
 		
 		return "/mypage/orderlist";
+	}
+	
+	//주문번호로 주문 상세 조회
+	@GetMapping("/orderListDetail")
+	public String orderlistDetailList(PayVO pvo,Model model) {
+		log.info("orderlistDetailList() 메소드 실행");
+		log.info("주문번호 : " + pvo.getOrder_no());
+		
+		List<PayVO> orderListDetail = paymentService.orderListDetail(pvo);
+		
+		model.addAttribute("orderListDetail", orderListDetail);
+		log.info("훌루루루룰" + orderListDetail.toString());
+		return "/mypage/orderDetail";
 	}
 	
 	@GetMapping("/refundDetailView")
@@ -69,7 +92,7 @@ public class MyPageController {
 	
 	/* ========================= 리뷰 ======================== */
 	@GetMapping("/reviewDetailView")
-	public String reviewDetailView(@SessionAttribute(name="UserLogin", required = false) UserVO user, Model model) {
+	public String reviewDetailView(@SessionAttribute(name="userLogin", required = false) UserVO user, Model model) {
 		log.info("reviewDetailView() 메소드 실행");
 		
 		if(user == null) {
@@ -95,11 +118,11 @@ public class MyPageController {
 	// 리뷰 수정
 	@PostMapping("/reviewUpdate")
 	public String reviewUpdate(ReviewVO rvo) {
-		int result = 0;
+		
 		
 		log.info(rvo.toString());
 		
-		result = reviewService.myReviewUpdate(rvo);
+		reviewService.myReviewUpdate(rvo);
 		
 		return "redirect:/mypage/reviewDetailView";
 	}
@@ -109,7 +132,7 @@ public class MyPageController {
 	// 유저 마이페이지 삭제 기능
 	// 세션 user_no와 리뷰의 user_no가 같은 경우만 삭제 허용
 	@PostMapping("/myReviewDelete")
-	public String myReviewDelete(@SessionAttribute(name="UserLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
+	public String myReviewDelete(@SessionAttribute(name="userLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
 		// 세션 값이 있을 때만 세션 체크하기
 		
 		String url = "";

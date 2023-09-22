@@ -29,6 +29,7 @@ public class ManagerDAOtests {
 	}
 	*/
 	
+	/*
 	@Test
 	public void testManagerMainCount() {
 		log.info("======= testManagerMainCount 호출 ======");
@@ -39,7 +40,17 @@ public class ManagerDAOtests {
 		log.info("결과 : " + result.toString());
 		
 	}
+	*/
 	
+	@Test
+	public void testManagerReviewChart() {
+		log.info("=======managerReviewChart 호출==========");
+		
+		List<ManagerCommonVO> reviewChartDate = commonManagerDAO.managerReviewChart();
+		
+		log.info("차트데이터 : " + reviewChartDate.toString());
+		
+	};
 	
 	
 	
