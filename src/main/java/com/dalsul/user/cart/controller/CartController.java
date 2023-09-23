@@ -46,7 +46,7 @@ public class CartController {
      }
      
     //장바구니 페이지 조회
-    @GetMapping("cartList")
+    /*@GetMapping("cartList")
     public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
         // required = 세션값이 필수인지 물어보는 속성. 기본값 :true -> 세션이 없으면 error
     	// 로그인을 하지 않았을 경우
@@ -59,11 +59,22 @@ public class CartController {
     	model.addAttribute("cartList", cartList);
         
         return "cart/cart";
-    }
+    }*/
     
     @PostMapping("cartList")
-    public String cartPage() {
-    	return "cart/cart";
+    public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
+    	
+    	// required = 세션값이 필수인지 물어보는 속성. 기본값 :true -> 세션이 없으면 error
+    	// 로그인을 하지 않았을 경우
+    	if(uvo==null) {
+    		return "login/userLoginView";
+    	}
+    	//System.out.println(uvo.toString());
+    	
+    	List<CartVO>cartList = cartService.cartList(uvo);
+    	model.addAttribute("cartList", cartList);
+        
+        return "cart/cart";
     }
     
     

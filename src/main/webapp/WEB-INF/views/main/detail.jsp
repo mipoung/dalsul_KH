@@ -209,7 +209,9 @@ $(function() {
                 contentType: "application/json",
                 success: function(response) {
                     // 성공적으로 처리된 경우
-                    alert("장바구니에 추가되었습니다.");
+                    alert("장바구니에 추가하시겠습니까?");
+                    
+                    window.location.href = "/cart/cartList"; // 장바구니 페이지 URL로 이동
                 },
                 error: function(error) {
                     // 오류 발생 시

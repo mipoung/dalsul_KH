@@ -3,6 +3,18 @@
 <%@ page trimDirectiveWhitespaces="true" %>	
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/header.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+
+<style>
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+}
+</style>	
+	
 <script src="/resources/include/mainpage/js/header.js"></script>
 	
 <div id="main" class="fixed-top">
