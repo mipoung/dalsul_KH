@@ -92,7 +92,19 @@ $(function() {
                         <td>${orderListDetail.order_delivery_info}</td>
                         <td>${orderListDetail.order_status}</td>
                         <td data-order-date="${orderListDetail.order_date}">${orderListDetail.order_date}</td>
-                        <td><button class="btn btn-primary ReviewInsertFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">리뷰 작성</button></td> 
+                        <td>
+	                        <!-- 리뷰 작성 여부에 따라 버튼 상태 변경 -->
+	                         <c:choose>
+				                <c:when test="${productReviewMap[orderListDetail.product_no] == 0}">
+				                    <button class="btn btn-primary ReviewInsertFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">리뷰 작성</button>
+				                    
+				                </c:when>
+				                <c:otherwise>
+				                    <p>리뷰 작성완료</p>
+				                </c:otherwise>
+				             </c:choose>
+				             <!-- 리뷰 작성 여부에 따라 버튼 상태 변경 끝 -->
+                        </td> 
                     </tr>
                 </c:forEach>
             </tbody>

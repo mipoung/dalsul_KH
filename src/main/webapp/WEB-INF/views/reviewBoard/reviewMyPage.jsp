@@ -6,7 +6,6 @@
 <script  src="/resources/include/reviewBoard/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/resources/include/reviewBoard/js/reviewMyPage.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/reviewBoard/css/reviewList.css"/>
-
       <title>리뷰조회 reviewList</title>
       
       
@@ -167,7 +166,7 @@
 														</div>
 														
 													<p class="card-text">
-														<small class="text-body-secondary">주문일 : </small>
+														<small class="text-body-secondary"><br>내용을 250자 이내로 작성해주세요.<br>주제와 무관한 리뷰, 악플, 배송문의 등의 글은 임의 삭제될 수 있습니다. </small>
 													</p>
 												</div>
 											</div>

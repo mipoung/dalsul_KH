@@ -12,8 +12,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 		
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-		<link rel="shortcut icon" href="/resources/images/common/icon.png" />
-		<link rel="apple-touch-icon" href="/resources/images/common/icon.png" />
+		<link rel="shortcut icon" href="/resources/images/icon.png" />
+		<link rel="apple-touch-icon" href="/resources/images/icon.png" />
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

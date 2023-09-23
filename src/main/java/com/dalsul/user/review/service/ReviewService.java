@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.user.main.vo.ProductVO;
+import com.dalsul.user.pay.vo.PayVO;
 import com.dalsul.user.review.vo.ReviewVO;
 
 
@@ -26,6 +27,12 @@ public interface ReviewService {
 	
 	
 	public int reviewListCnt(ReviewVO rvo);
+	
+	
+	
+	
+	// 주문 상세페이지 버튼제어를 위한 리뷰작성여부 체크
+	List<PayVO> isReviewResults(PayVO pvo);
 	
 	
 }

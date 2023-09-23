@@ -25,4 +25,8 @@ public class PayVO {
 	private int quantity; //상품 갯수
 	private String product_name; //상품명
 	private String product_main_image; //상품이미지
+	
+	
+	
+	private Integer isReviewed;
 }

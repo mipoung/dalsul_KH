@@ -144,7 +144,8 @@ $(function(){
   	    mm = (mm < 10) ? '0' + mm : mm;
   	    dd = (dd < 10) ? '0' + dd : dd;
 
-  	    var formattedDate = yyyy + '-' + mm + '-' + (dd+1);
+  	    var formattedDate = yyyy + '-' + mm + '-' + (dd);
+  	    console.log(formattedDate);
   		$("#searchDate2").val(formattedDate);
   		
   	});

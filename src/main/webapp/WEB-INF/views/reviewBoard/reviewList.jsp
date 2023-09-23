@@ -165,7 +165,7 @@
 														</div>
 														
 													<p class="card-text">
-														<small class="text-body-secondary">주문일 : </small>
+														<small class="text-body-secondary"><br>내용을 250자 이내로 작성해주세요.<br>주제와 무관한 리뷰, 악플, 배송문의 등의 글은 임의 삭제될 수 있습니다. </small>
 													</p>
 												</div>
 											</div>

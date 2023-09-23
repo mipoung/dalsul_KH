@@ -60,7 +60,7 @@ $(function(){
 							 <!-- 날짜 범위로 검색 -->
 							<div>
 								<input type="date" id="searchDate1" name="searchDate1" value="2023-09-12"/> <span>~</span>
-								<input type="date" id="searchDate2" name="searchDate2"/>
+								<input type="date" id="searchDate2" name="searchDate2" value=""/>
 							</div>
 			
 							<!-- 검색 옵션 -->

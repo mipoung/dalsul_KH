@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
 import com.dalsul.user.main.vo.ProductVO;
+import com.dalsul.user.pay.vo.PayVO;
 import com.dalsul.user.review.dao.ReviewDAO;
 import com.dalsul.user.review.vo.ReviewVO;
 
@@ -108,6 +109,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewVO> detailReviewListBest(ProductVO pvo) {
 		List<ReviewVO> bestReview = reviewDAO.detailReviewListBest(pvo);
 		return bestReview;
+	}
+
+
+
+	@Override
+	public List<PayVO> isReviewResults(PayVO pvo) {
+		List<PayVO> isReviewResults = reviewDAO.isReviewed(pvo);
+		return isReviewResults;
 	}
 
 

@@ -1,5 +1,7 @@
 package com.dalsul.manager.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,30 @@ public class ReviewManagerController {
 		if(mvo==null) {
 			return "account/login/managerLoginForm";
 		}
+		
+		if(rvo.getSearchDate1() == null || rvo.getSearchDate2() == null) {
+			
+			// 오늘 날짜를 얻기
+	        LocalDate today = LocalDate.now();
+	        // 오늘 날짜에 1일을 더하기
+	        LocalDate tomorrow = today.plusDays(1);
+	        // 날짜를 문자열로 변환 (예: "2023-09-25")
+	        String formattedDate = tomorrow.format(DateTimeFormatter.ISO_LOCAL_DATE);
+
+			
+			
+			rvo.setSearchDate1("2000-09-09");
+	        rvo.setSearchDate2(formattedDate);
+		
+		}
+		
+		// String을 LocalDate로 변환
+        LocalDate date = LocalDate.parse(rvo.getSearchDate2());
+        // 1일을 더함
+        LocalDate nextDate = date.plusDays(1);
+        // LocalDate를 String으로 변환
+        String resultDateString = nextDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        rvo.setSearchDate2(resultDateString);
 		
 		
 		// 세션이 있고 관리자 세션이면 출력

@@ -193,7 +193,7 @@
 	<!-- 마이페이지 리뷰작성 (#{order_no}, #{user_no}) -->
 	<insert id="myReviewInsert" parameterType="review">
 		insert into review(review_no, order_no, user_no, review_content, review_rating, review_like_count, review_date, product_no)
-		values(review_seq.nextval, 2, #{user_no}, #{review_content}, #{review_rating}, 0, sysdate, #{product_no})
+		values(review_seq.nextval, #{order_no}, #{user_no}, #{review_content}, #{review_rating}, 0, sysdate, #{product_no})
 	</insert>
 
 
@@ -230,6 +230,29 @@
 			<include refid="reviewSearch"></include>
 		</trim>
 	</select>
+	
+	
+	
+	<!-- 주문 상세 페이지에서 리뷰 작성했는지 체크  -->
+	<select id="isReviewed" parameterType="pay" resultType="pay">
+		SELECT 
+		    po.product_no,
+		    CASE WHEN r.REVIEW_NO IS NOT NULL THEN 1 ELSE 0 END AS isReviewed
+		FROM
+		    product_order po
+		LEFT JOIN
+		    REVIEW r ON po.ORDER_NO = r.ORDER_NO AND po.PRODUCT_NO = r.PRODUCT_NO
+		WHERE
+		    po.ORDER_NO = #{order_no}
+	
+	
+	</select>
+	
+	
+	
+	
+	
+	
 
 
 </mapper>
