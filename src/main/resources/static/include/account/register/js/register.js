@@ -127,7 +127,10 @@ $(function() {
 			});
 			return;
 		}
-		Swal.fire("회원가입 완료!", "").then(() => {
+		Swal.fire({
+			icon: 'success',
+			title: '회원가입 완료!'
+		}).then( ()=> {
 			$("#registerForm").attr({
 				"method": "post",
 				"action": "/register/registeringProcess"
