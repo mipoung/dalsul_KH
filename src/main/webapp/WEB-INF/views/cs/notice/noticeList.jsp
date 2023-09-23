@@ -194,7 +194,7 @@
 				<tr>
 					<th class="text-center col-md-1">글번호</th>
 					<th class="text-center col-md-6">제목</th>
-					<th data-value="b_date" class="order col-md-1">작성일</th>
+					<th data-value="b_date" class="text-center order col-md-1">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -244,9 +244,9 @@
 
 
 		
-		<!-- 작성하기 -->
-		<a href="/notice/adminNoticeWriteForm" class="btn btn-primary">작성하기</a>
-            </div>
+ <!-- 작성하기 -->
+<!-- 		<a href="/notice/managerNoticeWriteForm" class="btn btn-primary" style="margin-bottom: 15px">작성하기</a>   -->          
+		</div>
         </div>
     </div>
         <!-- Bootstrap core JS-->

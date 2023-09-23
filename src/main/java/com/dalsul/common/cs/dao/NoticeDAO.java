@@ -10,10 +10,10 @@ import com.dalsul.common.cs.vo.NoticeVO;
 public interface NoticeDAO {
 
 	public List<NoticeVO> noticeList(NoticeVO nvo);
-	public int adminNoticeInsert(NoticeVO nvo);
+	public int managerNoticeInsert(NoticeVO nvo);
 	public NoticeVO noticeDetail(NoticeVO nvo);
-	public int adminNoticeUpdate(NoticeVO nvo);
-	public int adminNoticeDelete(NoticeVO nvo);
+	public int managerNoticeUpdate(NoticeVO nvo);
+	public int managerNoticeDelete(NoticeVO nvo);
 	public int noticeListCnt(NoticeVO nvo);
 
 

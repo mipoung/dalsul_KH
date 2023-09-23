@@ -16,4 +16,5 @@ public interface InquiryService {
 	public int inquiryUpdate(InquiryVO ivo);
 	public int inquiryDelete(InquiryVO ivo);
 
+
 }

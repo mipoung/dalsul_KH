@@ -14,7 +14,7 @@
 	<select id="inquiryDetail" parameterType="Inquiry"
 		resultType="Inquiry">
 		SELECT
-		inquiry_no, inquiry_title, inquiry_question,
+		inquiry_no,  inquiry_title, USER_NAME, inquiry_question,
 		TO_CHAR(inquiry_date, 'YYYY-MM-DD') AS inquiry_date
 		FROM inquiry
 		WHERE
@@ -27,11 +27,11 @@
 		resultType="Inquiry">
 		<![CDATA[
 		select
-	  	  inquiry_no, inquiry_title, inquiry_question, to_char(inquiry_date,'YYYY-MM-DD') as inquiry_date,
+	  	  inquiry_no,  inquiry_title, USER_NAME, inquiry_question, to_char(inquiry_date,'YYYY-MM-DD') as inquiry_date,
 	  	  (select count(inquiry_no) from inquiry_reply where inquiry_no = inquiryList.INQUIRY_NO)
 		from(
 		    select /*+ INDEX_DESC(inquiry pk_inquiry_no) */
-		            rownum as rnum, inquiry_no, inquiry_title, inquiry_question, inquiry_date
+		            rownum as rnum, inquiry_no,  inquiry_title, USER_NAME, inquiry_question, inquiry_date
 	    from inquiry
 	    where ]]>
 		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
@@ -65,11 +65,11 @@
 	<insert id="inquiryInsert" parameterType="Inquiry">
 		<selectKey keyProperty="inquiry_no" resultType="int"
 			order="BEFORE">
-			SELECT USER_NO_SEQUENCE.nextval FROM DUAL
+			SELECT USER_NO_SEQ.nextval FROM DUAL
 		</selectKey>
-		INSERT INTO inquiry(inquiry_no, user_no, inquiry_title,
+		INSERT INTO inquiry(inquiry_no, user_no, inquiry_title, user_name,
 		inquiry_question, inquiry_password, inquiry_date, inquiry_update_date)
-		VALUES(#{inquiry_no}, #{user_no}, #{inquiry_title},
+		VALUES(#{inquiry_no}, #{user_no}, #{inquiry_title}, #{user_name},
 		#{inquiry_question},#{inquiry_password}, SYSDATE, SYSDATE)
 	</insert>
 	<!-- 문의사항 수정 -->

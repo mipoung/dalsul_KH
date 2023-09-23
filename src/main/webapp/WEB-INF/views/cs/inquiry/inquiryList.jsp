@@ -192,8 +192,9 @@
 			<thead>
 				<tr>
 					<th class="text-center col-md-1">글번호</th>
-					<th class="text-center col-md-6">제목</th>
-					<th data-value="b_date" class="order col-md-1">작성일</th>
+					<th class="text-center col-md-5">제목</th>
+					<th class="text-center col-md-1">작성자</th>
+					<th data-value="b_date" class="text-center order col-md-1">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -203,6 +204,7 @@
 						<td>${inquiry.inquiry_no}</td>
 						<td><a href="/inquiry/inquiryDetail?inquiry_no=${inquiry.inquiry_no}">
 								${inquiry.inquiry_title} </a></td>
+						<td>${inquiry.user_name}</td>
 						<td>${inquiry.inquiry_date}</td>
 					</tr>
 				</c:forEach>
@@ -244,7 +246,7 @@
 
 		
 			<!-- 작성하기 -->
-			<a href="/inquiry/inquiryWriteForm" class="btn btn-primary">작성하기</a>
+			<a href="/inquiry/inquiryWriteForm" class="btn btn-primary" style="margin-bottom: 15px">작성하기</a>
             </div>
         </div>
     </div>

@@ -24,8 +24,10 @@ import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.PageDTO;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 
 @RequestMapping("/inquiry/*")
 public class InquiryController {
@@ -33,9 +35,9 @@ public class InquiryController {
 	@Setter(onMethod_ = @Autowired)
 	private InquiryService inquiryService; 
 
-	/*@GetMapping("setInquiryAdminSession") // 실험용 세션부여
-	public String setAdminSession(HttpSession session) {
-		session.setAttribute("isAdmin", true);
+	/*@GetMapping("setInquirymanagerSession") // 실험용 세션부여
+	public String setmanagerSession(HttpSession session) {
+		session.setAttribute("ismanager", true);
 		return "redirect:/inquiry/inquiryList";
 	}*/
 
@@ -94,7 +96,7 @@ public class InquiryController {
 	@PostMapping(value = "/pwdConfirm", produces = "text/plain; charset=UTF-8")
 	public String pwdConfirm(InquiryVO ivo) {
 		String value = "";
-		
+		log.info(ivo.getInquiry_password());
 		int result = inquiryService.pwdConfirm(ivo);
 		if(result == 1) {
 			value = "success"; 
@@ -159,6 +161,8 @@ public class InquiryController {
 		}
 		return "redirect:" + url;
 	}
+	
+   
 	
 
 }

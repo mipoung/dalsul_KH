@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
+<!-- 관리자페이지 드롭다운 사용을 위해 필요한 스크립트 -->
+<script type="text/javascript" src="/resources/include/common/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap CSS 및 JavaScript 포함 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
-        <meta name="shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>고객지원</title>
-        <link href="/resources/include/cs/css/csList.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="/resources/include/mainpage/css/header.css" />
-        <link rel="stylesheet" type="text/css" href="/resources/include/mainpage/css/footer.css" />
-        <script src="/resources/include/mainpage/js/header.js"></script>
+<!-- Popper.js 포함 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<title>faq</title>
         <script>
             $(function(){
                     
@@ -22,7 +22,7 @@
                      
                      $("#detailForm").attr({
                          "method" : "get", 
-                         "action" : "/faq/FAQDetail"
+                         "action" : "/manager/cs/managerFAQDetail"
                      });
                      $("#detailForm").submit();
                       
@@ -100,7 +100,7 @@
                     
                     $("#f_search").attr({
                         "method" : "get",
-                        "action" : "/faq/FAQList"
+                        "action" : "/manager/cs/managerFAQList"
                     });
                     $("#f_search").submit();
                     
@@ -115,56 +115,15 @@
                   
             });
           </script>
-          <style>
-			#keyword{
-				width:300px;
-			}
-			#search{
-				width:210px;
-            }
-            	
-            .form-row > div {
-            	display : inline-block;
-            }
-            #searchData{
-                margin-bottom: 5px;	
-            }
-            .pagination {
-				justify-content: center;
-				margin-top: 20px;
-			}
-			.pagination li {
-			    display: inline-block;
-			    margin-right: 5px;
-			}
-            
-        </style>
-    </head>
-    <body>
-    	<div>
-    		<%@ include file="/WEB-INF/views/main/header.jsp"%>
-			<!-- header.jsp 파일 포함 -->
-    	</div>
-  
-        <div class="d-flex" id="wrapper">
-            <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">고객지원</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/faq/FAQList">FAQ</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/notice/noticeList">공지사항</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/inquiry/inquiryList">문의사항</a>
 
-                </div>
-            </div>
-            <!-- Page content wrapper-->
-            <div id="page-content-wrapper">
-
-                <!-- Page content-->
-                <div class="container-fluid">
-                    <h1 class="mt-4">FAQ</h1>
-		<!-- 검색기능 -->
-		<div id ="faqSearch" class="text-right">
+</head>
+   <body>
+   <!-- 매니저 헤더 -->
+   <%@ include file="/WEB-INF/views/manager/managerHeader.jsp"%>
+   
+   
+   <!-- 여기서 작성하시면 됩니다. -->
+    <div id ="faqSearch" class="text-right">
 			<form id="f_search" name="f_search" class="form-inline">
 				<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}"/>
 				<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
@@ -185,16 +144,13 @@
 				    </div>
 				</div>
 			</form>
-		</div>		
-		<!-- 리스트 -->
-		
-				<!-- FAQ 목록 테이블 -->
+		</div>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th class="text-center col-md-1">글번호</th>
 					<th class="text-center col-md-6">제목</th>
-					<th data-value="b_date" class="text-center order col-md-1">작성일</th>
+					<th data-value="b_date" class="order col-md-1">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -202,17 +158,14 @@
 				<c:forEach items="${faqList}" var="faq">
 					<tr>
 						<td>${faq.faq_no}</td>
-						<td><a href="/faq/FAQDetail?faq_no=${faq.faq_no}">
+						<td><a href="/manager/cs/managerFAQDetail?faq_no=${faq.faq_no}">
 								${faq.faq_title} </a></td>
 						<td>${faq.faq_date}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
-		</table>
-
-		
-
-<!-- 페이징 -->
+		</table>		
+  		<!-- 페이징 -->
 		<div class="text-center">
 			<ul class="pagination">
 				<!--  이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인  -->
@@ -241,17 +194,16 @@
 		
 		
 		</div>
-
-		
-		<!-- 작성하기 -->
-		<!-- <a href="/faq/managerFAQWriteForm" class="btn btn-primary" style="margin-bottom: 15px">작성하기</a> -->
-                </div>
-            </div>
-        </div>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="/resources/include/cs/js/csList.js"></script>
-        <%@ include file="/WEB-INF/views/main/footer.jsp"%>
-    </body>
+	<!-- 작성하기 -->
+	<a href="/manager/cs/managerFAQWriteForm" class="btn btn-primary" style="margin-bottom: 15px">작성하기</a>
+   
+   
+   
+   	<!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="/resources/include/cs/js/csList.js"></script>
+   
+	</body>
+	
 </html>

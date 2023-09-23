@@ -26,7 +26,7 @@
 		select
 	  	  faq_no, faq_title, faq_question, faq_answer, to_char(faq_date,'YYYY-MM-DD') as faq_date
 		from(
-		    select /*+ INDEX_DESC(faq SYS_C008568) */
+		    select /*+ INDEX_DESC(faq SYS_C009679) */
 		            rownum as rnum, faq_no, faq_title, faq_question, faq_answer, faq_date
 	    from faq
 	    where ]]>
@@ -48,7 +48,7 @@
 		
 	</select>
 <!-- faq 등록 -->	
-	<insert id="adminFAQInsert" parameterType="FAQ">
+	<insert id="managerFAQInsert" parameterType="FAQ">
 		<selectKey keyProperty="faq_no" resultType="int" order="BEFORE">
 			select faq_no_seq.nextval from dual
 		</selectKey>
@@ -58,7 +58,7 @@
 		
 	</insert>
 <!-- faq 수정 -->
-	<update id="adminFAQUpdate" parameterType="FAQ">
+	<update id="managerFAQUpdate" parameterType="FAQ">
 		UPdate FAQ
 		SET faq_title = #{faq_title},
 			faq_question = #{faq_question},
@@ -67,7 +67,7 @@
 			WHERE faq_no = #{faq_no}
 	</update>
 <!-- faq 삭제 -->
-	<delete id="adminFAQDelete" parameterType="FAQ">
+	<delete id="managerFAQDelete" parameterType="FAQ">
 		DELETE FROM FAQ
    		WHERE faq_no = #{faq_no}
 	</delete>

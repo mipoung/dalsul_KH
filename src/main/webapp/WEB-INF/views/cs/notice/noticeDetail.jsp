@@ -15,15 +15,15 @@
         window.location.href = "/notice/noticeList";
     	}
         
-        function goToEditPage(noticeNo) {
-            window.location.href = "/notice/adminNoticeUpdateForm?notice_no=" + noticeNo;
-        }
+        /*function goToEditPage(noticeNo) {
+            window.location.href = "/notice/managerNoticeUpdateForm?notice_no=" + noticeNo;
+        }*/
         
-        function deleteNotice(noticeNo) {
+        /*function deleteNotice(noticeNo) {
             if (confirm("정말로 이 공지사항을 삭제하시겠습니까?")) {
-                window.location.href = "/notice/adminNoticeDelete?notice_no=" + noticeNo;
+                window.location.href = "/notice/managerNoticeDelete?notice_no=" + noticeNo;
             }
-        }
+        }*/
         </script>
         <style>
 
@@ -75,11 +75,11 @@
                     </table>
                     <!-- 뒤로 가기 버튼 -->
 			        <button onclick="goToNoticeList()" class="btn btn-primary" id="noticeBtn">FAQ 목록으로 이동</button>
-			        <!-- 수정하기 버튼 -->
+			       <%--  <!-- 수정하기 버튼 -->
 			        <button onclick="goToEditPage(${detail.notice_no})" class="btn btn-primary" id="noticeBtn">수정하기</button>
 			        <!-- 삭제하기 버튼 -->
 			        <button onclick="deleteNotice(${detail.notice_no})" class="btn btn-primary" id="noticeBtn">삭제하기</button>
-                    
+ --%>                    
             	</div>
         	</div>
         	        	

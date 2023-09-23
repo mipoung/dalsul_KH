@@ -8,16 +8,16 @@
     <title>FAQ 상세 정보</title>
     <script>
     	function goToFAQList() {
-        window.location.href = "/faq/FAQList";
+        window.location.href = "/manager/cs/managerFAQList";
     	}
         
         function goToEditPage(faqNo) {
-            window.location.href = "/faq/managerFAQUpdateForm?faq_no=" + faqNo;
+            window.location.href = "/manager/cs/managerFAQUpdateForm?faq_no=" + faqNo;
         }
         
         function deleteFAQ(faqNo) {
             if (confirm("정말로 이 FAQ를 삭제하시겠습니까?")) {
-                window.location.href = "/faq/managerFAQDelete?faq_no=" + faqNo;
+                window.location.href = "/manager/cs/managerFAQDelete?faq_no=" + faqNo;
             }
         }
     </script>
