@@ -23,10 +23,9 @@
 
 <!-- 장바구니 추가 -->
 <insert id="cartInsert" parameterType="cart">
-    INSERT INTO cart_list
-    VALUES (#{product_no}, #{product_price}, #{quantity})
-      ON DUPLICATE KEY UPDATE
-    quantity = quantity + #{quantity}
+    INSERT INTO CART_LIST VALUES(
+    	CART_LIST_SEQ.NEXTVAL, #{cart_id}, #{product_no}, #{product_name}, #{product_price}, #{quantity} 
+    )
 </insert>
 
 

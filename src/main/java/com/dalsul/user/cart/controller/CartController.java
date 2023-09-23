@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -81,10 +82,19 @@ public class CartController {
     
     
     //장바구니 추가
-    @GetMapping("/cartInsert")
-    public void cartInsert(CartVO cvo)throws Exception {
-    	cartService.cartInsert(cvo);
+    @PostMapping("/cartInsert")
+    @ResponseBody
+    public String cartInsert(@RequestBody CartVO cvo)throws Exception {
+    	String result = "FAIL";
+    	System.out.println("cvo값 : "+cvo.toString());
+   
+    	int insertCtn = cartService.cartInsert(cvo);
+    	
+    	if(insertCtn==1) {
+    		result = "SUCCESS";
+    	}
      
+    	return result;
     }
     
     

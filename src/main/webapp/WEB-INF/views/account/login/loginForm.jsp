@@ -32,6 +32,13 @@ body {
 .form-util div:last-child {
 	float : right ;
 }
+
+
+.row{
+	vertical-align: middle;
+	height: body;
+}
+
 </style>
 <script>
 	//쿠키 저장하기 
@@ -39,7 +46,7 @@ body {
 	function setCookie(cookieName, value, exdays) {
 		let exdate = new Date();
 		exdate.setDate(exdate.getDate() + exdays);
-		let cookieValue = btoa(escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toGMTString()));
+		let cookieValue = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toGMTString());
 		document.cookie = cookieName + "=" + cookieValue;
 	}
 	
@@ -61,13 +68,13 @@ body {
 			let end = cookieData.indexOf(';', start);
 			if (end == -1) // 쿠키 값의 마지막 위치 인덱스 번호 설정 
 				end = cookieData.length;
-			cookieValue = atob(cookieData.substring(start, end));
+			cookieValue = cookieData.substring(start, end);
 		}
 		return unescape(cookieValue);
 	}
 
 	$(function(){
-		
+		$(".row").css("margin-top",($("body").height()/4));
 		
 		// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
 	    let key = getCookie("dalsul");
@@ -121,40 +128,40 @@ body {
 	<%@ include file="/WEB-INF/views/main/header.jsp"%>
 		<div class="row">
 			<div class="input-form col-md-6 mx-auto certified_div">
-			<h2 class="mb-3">로그인</h2>
-			<form name="loginForm" id="loginForm">
-			<!-- 이메일 입력 -->
-			<div class="form-outline mb-4">
-				<input type="email" id="user_email" name="user_email" class="form-control" placeholder="이메일을 입력해 주세요" /> 
-			</div>
-
-			<!-- 비밀번호 입력 -->
-			<div class="form-outline mb-4">
-				<input type="password" id="user_password" name="user_password" class="form-control" placeholder="비밀번호를 입력해 주세요" />
-			</div>
-
-			<div class="form-outline mb-4">
-				<!-- Submit button -->
-				<button type="button" id="loginBtn" class="btn btn-primary btn-block">로그인</button>
-				<!-- Register buttons -->
-				<button type="button" id="registerBtn" class="btn btn-secondary btn-block">이메일 회원가입</button>
-			</div>
-			<!-- 2 column grid layout for inline styling -->
-			<div class="form-outline mb-4">
-					<!-- 이메일 기억하기 -->
-					<div class="form-util">
-						<div id="">
-							<input class="form-check-input" type="checkbox" id="check_email"/>
-							<label class="form-check-label" for="check_email"> 이메일 기억하기 </label>
-						</div>
-						<div>
-							<a href="/login/findAccount">아이디 / 비밀번호 찾기</a>
-						</div>
+				<h2 class="mb-3">어서오세요!</h2>
+				<form name="loginForm" id="loginForm">
+					<!-- 이메일 입력 -->
+					<div class="form-outline mb-3">
+						<input type="email" id="user_email" name="user_email" class="form-control" placeholder="이메일을 입력해 주세요" /> 
 					</div>
+		
+					<!-- 비밀번호 입력 -->
+					<div class="form-outline mb-3">
+						<input type="password" id="user_password" name="user_password" class="form-control" placeholder="비밀번호를 입력해 주세요" />
+					</div>
+		
+					<div class="form-outline mb-4">
+						<!-- Submit button -->
+						<button type="button" id="loginBtn" class="btn btn-primary btn-block">로그인</button>
+						<!-- Register buttons -->
+						<button type="button" id="registerBtn" class="btn btn-secondary btn-block">이메일 회원가입</button>
+					</div>
+					<!-- 2 column grid layout for inline styling -->
+					<div class="form-outline mb-4">
+							<!-- 이메일 기억하기 -->
+							<div class="form-util">
+								<div id="">
+									<input class="form-check-input" type="checkbox" id="check_email"/>
+									<label class="form-check-label" for="check_email"> 이메일 기억하기 </label>
+								</div>
+								<div>
+									<a href="/login/findAccount">아이디 / 비밀번호 찾기</a>
+								</div>
+							</div>
+					</div>
+				</form>
 			</div>
-		</form>
-		</div>
-		</div>
+			</div>
 		</div>
 </body>
 </html>

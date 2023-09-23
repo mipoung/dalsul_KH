@@ -7,6 +7,7 @@
 </head>
 <body>
 	<div class="container">
+	<%@ include file="/WEB-INF/views/main/header.jsp"%>
 		<div class="row">
 			<div class="input-form col-md-6 mx-auto certified_div">
 				<h2 class="mb-3">성인인증</h2>

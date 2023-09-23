@@ -6,9 +6,9 @@
 <script src="/resources/include/common/js/chkRegex.js"></script>
 </head>
 <body>
-	<h1>회원가입 화면</h1>
 	<%-- 이름 :  --%>
 	<div class="container">
+	<%@ include file="/WEB-INF/views/main/header.jsp"%>
 		<div class="row">
 			<div class="input-form col-md-6 mx-auto certified_div">
 				<h2 class="mb-3">회원가입</h2>
