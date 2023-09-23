@@ -87,7 +87,7 @@
 		updateTotalForAllItems();
 		
 		$("#payBtn").click(function() {
-			 window.location.href = "/cart/orderList";
+			 window.location.href = "/cart/cartListDetail";
 		});
 		
 		// 삭제 버튼을 클릭했을 때

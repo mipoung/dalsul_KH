@@ -15,4 +15,6 @@ public interface CartDAO {
 	public int cartMinus(CartVO cvo);
 	public List<CartVO> cartList(UserVO uvo);
 	public UserVO getUserInfo(UserVO uvo);
+	public List<CartVO> cartListDetail(CartVO cvo);
+	
 }

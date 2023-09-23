@@ -72,5 +72,14 @@ SELECT po.product_no, ol.order_use_coupon,ol.order_dlv_fee, ol.order_total_price
     WHERE ol.order_no = #{order_no}
     
 </select>
+
+
+<!-- 재고 수량 업데이트 -->
+<update id="updateQuantity" parameterType="com.dalsul.user.cart.vo.CartVO">
+    UPDATE cart
+    SET quantity = quantity - #{quantity}
+    WHERE cart_id = #{cart_id} AND product_no = #{product_no}
+</update>
+
 </mapper>
 

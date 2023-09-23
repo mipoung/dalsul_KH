@@ -100,7 +100,7 @@ $(function() {
     </div>
     <div class="text-center">
         <button class="btn btn-danger" id="refund" name="refund">환불/취소</button>
-
+		<p>다른 JSP 페이지에서 체크박스 값: <%= request.getAttribute("checkboxValue") %></p>
         <a href="/" class="btn btn-secondary">메인 페이지 돌아가기</a> 
     </div>
     

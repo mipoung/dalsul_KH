@@ -166,7 +166,7 @@ $(function(){
 	               //  grandTotalClone 값을 화면에 업데이트합니다.
 	                 var grandTotalElement = document.getElementById("grandTotal");
 	                 grandTotalElement.innerText = grandTotalClone.toLocaleString();
-					
+				<%--	
 				 // grandTotal 값을 계산한 후 5% 값을 계산합니다.
 		            var couponPercentage = 0.05; // 5%에 해당하는 비율
 	
@@ -178,8 +178,9 @@ $(function(){
 	
 		            // mileageMessage에 5% 적립금을 표시합니다.
 		            couponMessageElement.innerText = "결제 예정 적립금: " + couponAmount.toLocaleString() + "원";
-				}); //mileageSelect.addEventListener
-				$("#coupon").trigger("click");
+				 //mileageSelect.addEventListener --%>
+			});
+	            $("#coupon").trigger("click");
 
 	        var grandTotalElement = document.getElementById("grandTotal");
 	        var formatGrandTotal = grandTotal.toLocaleString();
@@ -297,8 +298,10 @@ $(function(){
 		 <input type="text"  id="phone" value="${userInfo.user_phone_num}"><br/>
 		 
 	 <div class="mb-3">
+	 <form action="process.jsp" method="post">
 		<label for="pickupCheckbox" class="form-check-label">픽업</label>
 		<input type="checkbox" class="form-check-input" id="pickupCheckbox" name="pickup" value="pickup">
+	</form>
 	</div>
 		  
 	<!-- <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소 입력">-->
@@ -340,34 +343,36 @@ $(function(){
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">상품</th>
+					<th scope="col">상품 번호</th>
+					<th scope="col">상품명</th>
 					<th scope="col">가격</th>
 					<th scope="col">수량</th>
 					<th scope="col">총합</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${cartList}" var="cartList">
-					<tr id="cartItem-${cartList.product_no}" class="cart-item">
-						<td class="product_no">${cartList.product_no}</td>
-						<td class="product_price-quantity"><span class="product_price">${cartList.product_price}</span>
-						<td class="quantity">${cartList.quantity}</td>
+				<c:forEach items="${cartListDetail}" var="cartListDetail">
+					<tr id="cartItem-${cartListDetail.product_no}" class="cart-item">
+						<td class="product_no">${cartListDetail.product_no}</td>
+						<td class="product_no">${cartListDetail.product_name}</td>
+						<td class="product_price-quantity"><span class="product_price">${cartListDetail.product_price}</span></td>
+						<td class="quantity">${cartListDetail.quantity}</td>
 						<td class="total"></td>
 					</tr>
 				</c:forEach>
 		
 		<tr id="dlv_fee">
-			<td colspan="3">배송비</td>
+			<td colspan="4">배송비</td>
 			<td colspan="1">3,000</td>	
 		</tr>
 		<tr id="coupon tr">
-			<td colspan="3">쿠폰 사용</td>
+			<td colspan="4">쿠폰 사용</td>
 			<td colspan="1" id="coupon_use"></td>
 		</tr>
 				
 		<tr id="totalRow">
-            <td colspan="2">총 합</td>
-            <td colspan="2" id="grandTotal"></td>
+            <td colspan="4">총 합</td>
+            <td colspan="1" id="grandTotal"></td>
         </tr>
 			</tbody>
 		</table>
@@ -375,18 +380,13 @@ $(function(){
    			<input type="hidden" name="order_total_price" value="" />
    			<input type="hidden" name="order_use_coupon" value="" />
    		</form>
-		<span id="couponMessage"></span>
+		<!-- <span id="couponMessage"></span> -->
 		
 		<div id="totalDiv">
 			<button id="payBtn">결제하기</button>
-		</div>
-		 <a href="/mypage/orderlistDetailView">상세내역 조회하기</a>
-         <a href="/">메인으로 돌아가기</a>
+		</div>`
+
 	</div>
 </div>
-
 </body>
-
-
-
 </html>

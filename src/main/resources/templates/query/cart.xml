@@ -10,11 +10,16 @@
 	JOIN product p ON cl.product_no = p.product_no
 	WHERE c.cart_id = #{user_no}
 </select>
-<!--  
-	SELECT quantity,product_no,product_price 
-	FROM cart JOIN cart_list
-	ON cart.cart_id = cart_list.cart_id
-	WHERE CART.CART_ID = #{user_no}-->
+
+<!-- 주문시 주문내역 리스트 보여주기 -->
+<select id="cartListDetail" parameterType="userVO" resultType="cart">
+	SELECT cl.quantity, cl.product_no, cl.product_price, p.product_name
+	FROM cart c
+	JOIN cart_list cl ON c.cart_id = cl.cart_id
+	JOIN product p ON cl.product_no = p.product_no
+	WHERE c.cart_id = #{user_no}
+</select>
+
 
 <!-- 장바구니 추가 -->
 <insert id="cartInsert" parameterType="cart">
@@ -55,5 +60,14 @@
 	from users
 	where user_no = #{user_no}
 </select>
+
+
+<!-- 재고 수량 업데이트 -->
+<update id="updateQuantity" parameterType="com.dalsul.user.cart.vo.CartVO">
+    UPDATE cart
+    SET quantity = quantity - #{quantity}
+    WHERE cart_id = #{cart_id} AND product_no = #{product_no}
+</update>
+
 
 </mapper>

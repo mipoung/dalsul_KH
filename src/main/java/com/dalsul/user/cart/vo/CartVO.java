@@ -10,4 +10,5 @@ public class CartVO {
 	private int quantity;
 	private int total;
 	private String product_name;
+	
 }
