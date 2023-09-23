@@ -153,7 +153,7 @@
                   "url" : "/cart/cartMinus",
                   "method" : "get",
                   "data" : {
-                     "product_name" : product_name
+                	  "product_no" : product_no
                   },
                   "dataType" : "text",
                   success : function(data) {
