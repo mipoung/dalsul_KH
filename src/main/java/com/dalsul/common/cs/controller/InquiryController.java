@@ -24,8 +24,10 @@ import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.PageDTO;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 
 @RequestMapping("/inquiry/*")
 public class InquiryController {
@@ -94,7 +96,7 @@ public class InquiryController {
 	@PostMapping(value = "/pwdConfirm", produces = "text/plain; charset=UTF-8")
 	public String pwdConfirm(InquiryVO ivo) {
 		String value = "";
-		
+		log.info(ivo.getInquiry_password());
 		int result = inquiryService.pwdConfirm(ivo);
 		if(result == 1) {
 			value = "success"; 
