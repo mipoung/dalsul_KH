@@ -13,4 +13,6 @@ public interface CartService {
 	public int cartMinus(CartVO cvo);
 	public List<CartVO> cartList(UserVO uvo);
 	public UserVO getUserInfo(UserVO uvo);
+	public List<CartVO> cartListDetail(UserVO uvo);
+	
 }

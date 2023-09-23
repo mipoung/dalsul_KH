@@ -42,10 +42,23 @@ $(function() {
 
 
 </script>
+<style>
+	td > img[src]{
+		width :100px;
+	}
+
+</style>
 
 
 <body>
     <h1>주문 상세 내역</h1>
+    <c:if test="${not empty msg}">
+	   <script type="text/javascript">
+	       alert('${msg}');
+	       
+	   </script>
+	</c:if>
+    
     <div class="border border-success p-2 mb-2 whole-table">
      <form id="refundForm" method="get" action="/mypage/refundDetailView">
     	<input type="hidden" id="order_detail_no" name="order_detail_no" />
@@ -54,7 +67,8 @@ $(function() {
             <thead>
                 <tr>
                     <th scope="col">주문 상세 번호</th>
-                    <th scope="col">상품 일련 번호</th>
+                    <th scope="col">상품 이름</th>
+                    <th scope="col">상품 이미지</th>
                     <th scope="col">주문 수량</th>
                     <th scope="col">쿠폰 사용 금액</th>
                     <th scope="col">배송비</th>
@@ -68,16 +82,17 @@ $(function() {
             <tbody>
                 <c:forEach items="${orderListDetail}" var="orderListDetail">
                      <tr>
-                        <td class="order_no">${orderListDetail.order_no}</td>
-                        <td>${orderListDetail.product_no}</td>
+                        <td class="order_no" data-order-no="${orderListDetail.order_no}">${orderListDetail.order_no}</td>
+                        <td data-product-no="${orderListDetail.product_no}" data-product-name="${orderListDetail.product_name}">${orderListDetail.product_name}</td>
+                       	<td><img data-src="/resources/images/mainpage/product/${orderListDetail.product_main_image}" src="/resources/images/mainpage/product/${orderListDetail.product_main_image}"></td>
                         <td>${orderListDetail.quantity}</td>
                         <td>${orderListDetail.order_use_coupon}</td>
                         <td>${orderListDetail.order_dlv_fee}</td>
                         <td>${orderListDetail.order_total_price}</td>
                         <td>${orderListDetail.order_delivery_info}</td>
                         <td>${orderListDetail.order_status}</td>
-                        <td>${orderListDetail.order_date}</td>
-                        <td><button class="btn btn-primary">리뷰</button></td> 
+                        <td data-order-date="${orderListDetail.order_date}">${orderListDetail.order_date}</td>
+                        <td><button class="btn btn-primary ReviewInsertFormBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">리뷰 작성</button></td> 
                     </tr>
                 </c:forEach>
             </tbody>
@@ -85,8 +100,24 @@ $(function() {
     </div>
     <div class="text-center">
         <button class="btn btn-danger" id="refund" name="refund">환불/취소</button>
-
+		<p>다른 JSP 페이지에서 체크박스 값: <%= request.getAttribute("checkboxValue") %></p>
         <a href="/" class="btn btn-secondary">메인 페이지 돌아가기</a> 
     </div>
-</body>
-</html>
+    
+    
+    
+    
+    
+    
+    
+	
+	
+    
+    
+   
+    
+    
+    
+    
+    
+<%@ include file="/WEB-INF/views/reviewBoard/reviewWrite.jsp"%>

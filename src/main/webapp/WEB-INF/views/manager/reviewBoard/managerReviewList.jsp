@@ -91,14 +91,14 @@
 			<thead>
 				<tr class=table-light>
 					<th scope="col" class="text-center miniSize">리뷰번호<br>(유저번호)</th>
-					<th scope="col" class="text-center">제품명<br>(제품번호)</th>
-					<th scope="col" class="text-center">주종<br>(용량)</th>
-					<th scope="col" class="text-center">가격</th>
-					<th scope="col" class="text-center bigSize">내용</th>
-					<th scope="col" class="text-center miniSize">별점</th>
-					<th scope="col" class="text-center miniSize">추천수</th>
-					<th scope="col" class="text-center miniSize">작성일</th>
-					<th scope="col" class="text-center miniSize">삭제</th>
+					<td scope="col" class="text-center">제품명<br>(제품번호)</td>
+					<td scope="col" class="text-center">주종<br>(용량)</td>
+					<td scope="col" class="text-center">가격</td>
+					<td scope="col" class="text-center bigSize">내용</td>
+					<td scope="col" class="text-center miniSize">별점</td>
+					<td scope="col" class="text-center miniSize">추천수</td>
+					<td scope="col" class="text-center miniSize">작성일</td>
+					<td scope="col" class="text-center miniSize">삭제</td>
 				</tr>
 			</thead>
 	

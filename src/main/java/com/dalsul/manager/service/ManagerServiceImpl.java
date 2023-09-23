@@ -40,11 +40,20 @@ public class ManagerServiceImpl implements ManagerService {
 		return result;
 	}
 
+	//관리자가 구매자 내역 조회
 	@Override
 	public List<PayVO> orderListViewM(PayVO pvo) {
 		List<PayVO> list;
 		list=managerDAO.orderListViewM(pvo);
 		return list;
 	}
+	
+	//관리자가 구매자 상태 값 변경
+	@Override
+    public int updateOrderStatus(List<PayVO> selectedOrders) {
+        int result = managerDAO.updateOrderStatus(selectedOrders);
+        return result;
+    }
+	
 
 }

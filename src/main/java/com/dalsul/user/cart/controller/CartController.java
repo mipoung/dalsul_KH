@@ -118,5 +118,23 @@ public class CartController {
         
         return "cart/orderList";
     }
+    
+    @GetMapping("/cartListDetail")
+    public String cartListDetail(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
+    	if(uvo==null) {
+    		return "login/userLoginView";
+    	}
+    	// System.out.println(uvo.toString());
+    	
+    	UserVO userInfo = cartService.getUserInfo(uvo);
+    	System.out.println(userInfo.toString());
+    	
+    	List<CartVO>cartListDetail = cartService.cartListDetail(uvo);
+    	model.addAttribute("cartListDetail", cartListDetail);
+    	model.addAttribute("userInfo", userInfo);
+        
+        return "cart/orderList";
+    }
+    
     }
 

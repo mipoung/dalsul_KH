@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.common.vo.CommonVO;
@@ -61,7 +62,7 @@ public class ReviewController {
 	public String detailReviewList(Model model, ProductVO pvo) {
 		
 			log.info("detailReviewList() 메서드 호출");
-			pvo.setProduct_no(1);
+			//pvo.setProduct_no(1);
 			//rvo.setPackage_product_no(1);
 			log.info("뷰에서 받아온 값: " + pvo.toString());
 			List<ReviewVO> reviewList = reviewService.detailReviewList(pvo);
@@ -183,17 +184,17 @@ public class ReviewController {
 	// 리뷰작성은 마이페이지에 주문내역에서만 가능
 	// 세션이 있고 주문내역이 있는 사람만 작성 가능
 	@PostMapping("myReviewInsert")
-	public String myReviewInsert(@SessionAttribute(name="userLogin", required = false) UserVO user, ReviewVO rvo, Model model) {
+	public String myReviewInsert(@SessionAttribute(name="userLogin", required = false) UserVO user, ReviewVO rvo, Model model, RedirectAttributes redirectAttributes) {
 		log.info("=== myReviewInsert() 호출 성공 ===");
 		int result = 0;
-		String url = "";
 		
-		// 회원이 아니면 로그인으로 보냄
+		
+		/* 회원이 아니면 로그인으로 보냄 */
 		if(user == null) {
 			model.addAttribute("msg", "회원이 아닙니다.");
-			url = "/common/error";
+			return "/account/login/loginForm";
 			
-		};
+		}; 
 		
 		// 작성한 유저 넘버 가져오기
 		rvo.setUser_no(user.getUser_no());
@@ -202,16 +203,24 @@ public class ReviewController {
 		log.info("user_no : "+rvo.getUser_no());
 		log.info("review_content : "+rvo.getReview_content());
 		log.info("review_rating :" + rvo.getReview_rating());
+		log.info("주문번호: " + rvo.getOrder_no());
 		log.info("===============================================");
+		
+		// 리다이렉트 위한 경로 변수
+		String detailPageNo = "?order_no="+rvo.getOrder_no();
 		
 		// 회원이면 입력작업 실시
 		result = reviewService.myReviewInsert(rvo);
 		
 		if(result == 1) {
 			log.info("작성성공");
-			return "/reviewBoard/test";
+			redirectAttributes.addFlashAttribute("msg", "리뷰 작성에 성공하였습니다.");
+			return "redirect:/mypage/orderListDetail"+detailPageNo;
+			
+			//http://localhost:8081/mypage/orderListDetail?order_no=1
 		} else {
-			return "/common/error";
+			model.addAttribute("msg", "리뷰 작성에 실패하였습니다.");
+			return "redirect:/mypage/orderListDetail"+detailPageNo;
 		}
 		
 		

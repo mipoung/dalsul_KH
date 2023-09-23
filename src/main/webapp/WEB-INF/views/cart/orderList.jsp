@@ -182,6 +182,35 @@ $(function() {
             // 총합을 천단위로 포맷팅하여 콤마(,)를 추가합니다.
             var formatTotal = total.toLocaleString();
 
+	
+	function requestPay() {
+		console.log("function 시작");
+	  IMP.init('imp57485457'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+	  IMP.request_pay({
+	   pg: "html5_inicis",
+	    pay_method: "card",
+	    merchant_uid : 'merchant_'+new Date().getTime(),
+	    name : '달술',
+	    amount : grandTotalClone,
+	    buyer_email : "${userInfo.user_email}",
+	    buyer_name : "${userInfo.user_name}",
+	    buyer_tel : "${userInfo.user_phone_num}",
+	    buyer_addr : buyerAddrValue,
+	    buyer_postcode : $("#postcode").val()
+	  }, function (rsp) { // callback
+	      if (rsp.success) {
+	    	      console.log("결제가 성공했습니다.");
+	    	      console.log(rsp); 
+	    	      // 결제 성공 후 주문 데이터 전송
+	    	     sendOrderData();
+	    	     //window.location.href = "/order/success";
+	    	    } else {
+	    	      var msg = '결제에 실패하였습니다.';
+                  msg += '에러내용 : ' + rsp.error_msg;
+	    	      console.log("결제가 취소되었습니다.");
+	      }
+	  })
+	};
             // .total 셀에 포맷팅된 총합을 출력합니다.
             cartItem.querySelector(".total").innerText = formatTotal;
 
@@ -201,6 +230,24 @@ $(function() {
 
             // 선택한 마일리지 값을 가져옵니다.
             var selectedCoupon = parseInt(couponSelect.value);
+	               //  grandTotalClone 값을 화면에 업데이트합니다.
+	                 var grandTotalElement = document.getElementById("grandTotal");
+	                 grandTotalElement.innerText = grandTotalClone.toLocaleString();
+				<%--	
+				 // grandTotal 값을 계산한 후 5% 값을 계산합니다.
+		            var couponPercentage = 0.05; // 5%에 해당하는 비율
+	
+		            // 5% 적립금을 계산합니다.
+		            var couponAmount = (grandTotalClone-3000) * couponPercentage;
+		         
+		            // mileageMessage 요소를 가져옵니다.
+		            var couponMessageElement = document.getElementById("couponMessage");
+	
+		            // mileageMessage에 5% 적립금을 표시합니다.
+		            couponMessageElement.innerText = "결제 예정 적립금: " + couponAmount.toLocaleString() + "원";
+				 //mileageSelect.addEventListener --%>
+			});
+	            $("#coupon").trigger("click");
 
             // 선택한 마일리지에 따라 grandTotal 값을 조정합니다.
             if (selectedCoupon === 0) {
@@ -265,8 +312,10 @@ $(function() {
 		 <input type="text"  id="phone" value="${userInfo.user_phone_num}"><br/>
 		 
 	 <div class="mb-3">
+	 <form action="process.jsp" method="post">
 		<label for="pickupCheckbox" class="form-check-label">픽업</label>
 		<input type="checkbox" class="form-check-input" id="pickupCheckbox" name="pickup" value="pickup">
+	</form>
 	</div>
 		  
 	<!-- <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소 입력">-->
@@ -299,34 +348,36 @@ $(function() {
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">상품</th>
+					<th scope="col">상품 번호</th>
+					<th scope="col">상품명</th>
 					<th scope="col">가격</th>
 					<th scope="col">수량</th>
 					<th scope="col">총합</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${cartList}" var="cartList">
-					<tr id="cartItem-${cartList.product_no}" class="cart-item">
-						<td class="product_no">${cartList.product_no}</td>
-						<td class="product_price-quantity"><span class="product_price">${cartList.product_price}</span>
-						<td class="quantity">${cartList.quantity}</td>
+				<c:forEach items="${cartListDetail}" var="cartListDetail">
+					<tr id="cartItem-${cartListDetail.product_no}" class="cart-item">
+						<td class="product_no">${cartListDetail.product_no}</td>
+						<td class="product_no">${cartListDetail.product_name}</td>
+						<td class="product_price-quantity"><span class="product_price">${cartListDetail.product_price}</span></td>
+						<td class="quantity">${cartListDetail.quantity}</td>
 						<td class="total"></td>
 					</tr>
 				</c:forEach>
 		
 		<tr id="dlv_fee">
-			<td colspan="3">배송비</td>
+			<td colspan="4">배송비</td>
 			<td colspan="1">3,000</td>	
 		</tr>
 		<tr id="coupon tr">
-			<td colspan="3">쿠폰 사용</td>
+			<td colspan="4">쿠폰 사용</td>
 			<td colspan="1" id="coupon_use"></td>
 		</tr>
 				
 		<tr id="totalRow">
-            <td colspan="2">총 합</td>
-            <td colspan="2" id="grandTotal"></td>
+            <td colspan="4">총 합</td>
+            <td colspan="1" id="grandTotal"></td>
         </tr>
 			</tbody>
 		</table>
@@ -334,17 +385,13 @@ $(function() {
    			<input type="hidden" name="order_total_price" value="" />
    			<input type="hidden" name="order_use_coupon" value="" />
    		</form>
-		<span id="couponMessage"></span>
+		<!-- <span id="couponMessage"></span> -->
 		
 		<div id="totalDiv">
 			<button id="payBtn">결제하기</button>
-		</div>
-		
+		</div>`
+
 	</div>
 </div>
-
 </body>
-
-
-
 </html>

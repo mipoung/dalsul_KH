@@ -17,5 +17,6 @@ public interface ManagerDAO {
 	public int dropUsers(List<Integer> user_no);
 	public int appointManager(List<Integer> user_no);
 	public List<PayVO> orderListViewM(PayVO pvo);
+	public int updateOrderStatus(List<PayVO> selectedOrders);
 	
 }
