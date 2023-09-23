@@ -86,7 +86,7 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 		result = "SUCCESS";
 	}
     System.out.println("cartDelete 성공");
-    
+    System.out.println("result : " + result);
 	return result;
 };
 
@@ -95,7 +95,6 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 	public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo,Model model) {
 	if(uvo==null) {
 		return "login/userLoginView";
-			
 	}
 	
 	List<PayVO> payList = paymentService.payList(uvo);

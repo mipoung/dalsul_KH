@@ -35,10 +35,16 @@ INSERT INTO order_list (order_no, user_no, order_use_coupon, order_dlv_fee, orde
 
 <!-- 결제목록 조회 -->
 <select id="payList" parameterType="pay" resultType="pay">
-SELECT po.product_no, ol.order_use_coupon,ol.order_dlv_fee, ol.order_total_price, ol.order_delivery_info, ol.order_date, po.quantity 
+SELECT po.product_no as product_no,
+	   ol.order_use_coupon as order_use_coupon,
+	   ol.order_dlv_fee as order_dlv_fee, 
+	   ol.order_total_price as order_total_price, 
+	   ol.order_delivery_info as order_delivery_info, 
+	   ol.order_date as order_date, 
+	   po.quantity as quantity 
     FROM order_list ol 
     INNER JOIN product_order po ON ol.order_no = po.order_no 
-    WHERE ol.user_no = #{user_no} 
+    WHERE ol.user_no = #{user_no}
     ORDER BY ol.order_date DESC 
     FETCH FIRST 1 ROWS ONLY
 </select>

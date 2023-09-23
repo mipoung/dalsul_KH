@@ -4,7 +4,7 @@
 
 <!-- 장바구니 조회 -->
 <select id="cartList" parameterType="userVO" resultType="cart">
-	SELECT cl.quantity, cl.product_no, cl.product_price, p.product_name
+	SELECT cl.quantity, cl.product_no, cl.product_name, cl.product_price, p.product_name
 	FROM cart c
 	JOIN cart_list cl ON c.cart_id = cl.cart_id
 	JOIN product p ON cl.product_no = p.product_no
