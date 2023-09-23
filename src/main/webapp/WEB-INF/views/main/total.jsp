@@ -327,8 +327,13 @@ a {
 		}	
 	});
 
+	if(location.search==""){
+		
+	}
+	
 	$(function() {
-
+		$("#select").val("${selectedValue}");
+		
 		// 클릭 이벤트 핸들러 함수
 		function handleCheckboxAndOptionTextClick(checkboxButton, optionText) {
 			// 이미지 요소 선택
@@ -367,42 +372,120 @@ a {
 			});
 		});
 		
-		// filtering
-		   $.ajax({
-               url: '/filtering',
-               type: 'get',
-               data: { keyword: searchKeyword },
-               dataType: "json",
-               success: function(data) {
-                   if (data !== undefined) {
-                       $('#searchResult').empty();
-                       $.each(data, function() {
-                       	 var productName = this.product_name.replace(new RegExp(searchKeyword.replace(/\s+/g, ''), 'gi'), function(matched) {
-								return '<span style="color: orange; font-weight: bold;">' + matched + '</span>';
-								}); 
-                          /* var productName = this.product_name;
-                           // 검색어를 공백으로 분리하여 개별 단어로 처리
-                           var searchWords = searchKeyword.split(/\s+/);
-                           for (var i = 0; i < searchWords.length; i++) {
-                               var searchWord = searchWords[i];
-                               // 각 검색어에 대해 하이라이트 처리
-                               productName = productName.replace(new RegExp(searchWord, 'gi'), function(matched) {
-                                   return '<span style="color: orange; font-weight: bold;">' + matched + '</span>';
-                               });
-                           }*/
-                           $('#searchResult').append('<li><a href="/detail?product_no=' + this.product_no + '">' + productName + '</a></li>');
-                       });
-                   } else {
-                       console.log('데이터가 정의되지 않았습니다.');
-                   }
-               },
-               error: function(err) {
-                   console.log(err);
-               }
-           });
-		
-		
+		$("#hidecheckboxin").click(function() {
+			window.location.replace("/total?selectedValue=" + $("#hidecheckboxin").val());
+		})
+		 $("#select").on("change", function() {
+			 window.location.replace("/total?selectedValue="+$("#select").val());
+		 });
+		 
+		// 클릭 이벤트를 처리하는 함수
+		function updateURL(type) {
+		  // 현재 URL을 가져옵니다.
+		  var currentURL = window.location.href;
+		  
+		  // URL에 이미 매개변수가 있는지 확인합니다.
+		  var queryString = window.location.search;
 
+		  // 이미 매개변수가 있는 경우
+		  if (queryString) {
+		    // 매개변수를 파싱합니다.
+		    var params = new URLSearchParams(queryString);
+
+		    // type 매개변수를 업데이트합니다.
+		    params.set('type', type);
+
+		    // URL을 업데이트합니다.
+		    var newURL = currentURL.replace(queryString, '?' + params.toString());
+
+		    // 새 URL로 이동합니다.
+		    window.location.replace = newURL;
+		  } else {
+		    // 매개변수가 없는 경우 새로운 매개변수를 추가합니다.
+		    var newURL = currentURL + '?type=' + type;
+
+		    // 새 URL로 이동합니다.
+		    window.location.replace = newURL;
+		  }
+		}
+
+		 
+		/* selecting */
+		/*
+		  $(document).ready(function () {
+		        // select 요소 변경 이벤트 감지
+		        $('#select').on('change', function () {
+		            var selectedValue = $(this).val();
+		            
+		            // 선택한 값을 Ajax 요청으로 서버에 보내기
+		            $.ajax({
+		                type: 'GET',
+		                url: '/selecting',
+		                data: { selectedValue: selectedValue },
+		                success: function (data) {
+		                   console.log("성공")
+		                },
+		                error: function (error) {
+		                    console.error('Ajax 요청 실패:', error);
+		                }
+		            });
+		        });
+		    }); */
+	
+		 /* // 클릭된 요소의 데이터 속성을 가져오기 */
+		 /*     var selectedValue = $(this).val();
+			console.log("씨발");
+		    // 가져온 ratingValue를 서버로 전송
+		    $.ajax({
+		        url: "/total", 
+		        method: "GET", // GET 요청
+		        data: { selectedValue: selectedValue }, // 요청 데이터 전송
+		        success: function(response) {
+		            // 서버 응답을 처리하는 코드
+		          //  console.log("새로운 쿼리 실행 및 응답 처리", response);
+		        	location.href="/total/"
+		        },
+		        error: function(error) {
+		            // 오류 처리 코드
+		            console.error("요청 중 오류 발생", error);
+		        }
+		    }); */
+				
+		/*
+		$("#select").on("change", function() {
+		    // 선택된 값을 가져오기
+		    var selectedValue = $(this).val();
+
+		    // 선택한 값에 따라 리다이렉션 처리
+		    if (selectedValue === "rating") {
+		        window.location.href = "/total?orderBy=rating";
+		    } else if (selectedValue === "star_count") {
+		        window.location.href = "/total?orderBy=star_count";
+		    } else if (selectedValue === "price_high") {
+		        window.location.href = "/total?orderBy=price_high";
+		    } else if (selectedValue === "price_low") {
+		        window.location.href = "/total?orderBy=price_low";
+		    } else {
+		    	window.location.href= "/total"; 
+		    }
+		    
+		    $.ajax({
+		        url: "/total", 
+		        method: "GET", // GET 요청
+		        data: { selectedValue: selectedValue }, // 요청 데이터 전송
+		        success: function(response) {
+		            // 서버 응답을 처리하는 코드
+		            console.log("새로운 쿼리 실행 및 응답 처리", response);		      
+		        },
+		        error: function(error) {
+		            // 오류 처리 코드
+		            console.error("요청 중 오류 발생", error);
+		        }
+		    });	    
+		});
+		*/
+
+		    
 	});
 </script>
 
@@ -416,7 +499,7 @@ a {
 					<div class="selectbarin">
 						<div class="selectbarwrapper">
 							<div class="filter-container">
-								<button class="filter1">
+								<button class="filter1" value="type">
 									<span>주종 </span><img
 										src="https://d38cxpfv0ljg7q.cloudfront.net/assets/arrow-down.png"
 										width="20px" class="img" alt="arrow-down">
@@ -426,56 +509,56 @@ a {
 										<div class="checkboxwrapper">
 											<div class="checkboxwrapper1">
 												<div class="checkboxwrapper2">
-													<button type="button" class="custom-checkbox">
+													<button type="button" class="custom-checkbox" value="takju"  onclick="updateURL('takju')">
 														<img src="/resources/images/mainpage/unchecked_square.png"
 															class="ucimg">
 													</button>
 												</div>
-												<button class="option-text">탁주</button>
+												<button class="option-text" value="takju"  onclick="updateURL('takju')">탁주</button>
 											</div>
 										</div>
 										<div class="checkboxwrapper">
 											<div class="checkboxwrapper1">
 												<div class="checkboxwrapper2">
-													<button type="button" class="custom-checkbox">
+													<button type="button" class="custom-checkbox" value="chungju">
 														<img src="/resources/images/mainpage/unchecked_square.png"
 															class="ucimg">
 													</button>
 												</div>
-												<button class="option-text">청주</button>
+												<button class="option-text" value="chungju">청주</button>
 											</div>
 										</div>
 										<div class="checkboxwrapper">
 											<div class="checkboxwrapper1">
 												<div class="checkboxwrapper2">
-													<button type="button" class="custom-checkbox">
+													<button type="button" class="custom-checkbox" value="wine">
 														<img src="/resources/images/mainpage/unchecked_square.png"
 															class="ucimg">
 													</button>
 												</div>
-												<button class="option-text">과실주</button>
+												<button class="option-text" value="wine">과실주</button>
 											</div>
 										</div>
 										<div class="checkboxwrapper">
 											<div class="checkboxwrapper1">
 												<div class="checkboxwrapper2">
-													<button type="button" class="custom-checkbox">
+													<button type="button" class="custom-checkbox" value="soju">
 														<img src="/resources/images/mainpage/unchecked_square.png"
 															class="ucimg">
 													</button>
 												</div>
-												<button class="option-text">증류주</button>
+												<button class="option-text" value="soju">증류주</button>
 											</div>
 										</div>
 										<div class="checkboxwrapper">
 											<div class="checkboxwrapper1">
 												<div class="checkboxwrapper2">
-													<button type="button" class="custom-checkbox">
+													<button type="button" class="custom-checkbox" value="other">
 														<img src="/resources/images/mainpage/unchecked_square.png"
 															class="ucimg">
 													</button>
 												</div>
-												<button class="option-text">기타주류</button>
+												<button class="option-text" value="other">기타주류</button>
 											</div>
 										</div>
 									</div>
@@ -699,11 +782,9 @@ a {
 				<div class="content">
 					<div class="selectbar2">
 						<select class="select" id="select" name="age">
-							<option value="recommend">추천순</option>
-							<option value="released_at">최신순</option>
+							<option value="">------</option>
 							<option value="rating">평점순</option>
 							<option value="star_count">리뷰 많은 순</option>
-							<option value="selling_count">판매순</option>
 							<option value="price_high">높은 가격순</option>
 							<option value="price_low">낮은 가격순</option>
 						</select>

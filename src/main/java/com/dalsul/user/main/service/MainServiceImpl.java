@@ -32,10 +32,36 @@ public class MainServiceImpl implements MainService {
 		return mainDao.getTotalPageProducts();
 	}
 	
+	
 	@Override
-	public List<ProductVO> getTotalResult(String product) {
-		return mainDao.getTotalResult(product);
+	public List<ProductVO> getProductsOrderByRating() {
+		return mainDao.getProductsOrderByRating();
 	}
+	
+	@Override
+	public List<ProductVO> getProductsOrderByReviewCount() {
+		return mainDao.getProductsOrderByReviewCount();
+	}
+	
+	@Override
+	public List<ProductVO> getProductsOrderByPriceHigh() {
+		return mainDao.getProductsOrderByPriceHigh();
+	}
+	
+	@Override
+	public List<ProductVO> getProductsOrderByPriceLow() {
+		return mainDao.getProductsOrderByPriceLow();
+	}
+	
+	/*@Override
+	public List<ProductVO> getTotalResult(String str) {
+		return mainDao.getTotalResult(str);
+	}
+	
+	@Override
+	public List<ProductVO> getSelectResult(String str) {
+		return mainDao.getSelectResult(str);
+	}*/
 	
 	@Override
 	public ProductVO getDetailPageProducts(ProductVO vo) {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -45,7 +46,7 @@ public class CartController {
      }
      
     //장바구니 페이지 조회
-    @GetMapping("cartList")
+    /*@GetMapping("cartList")
     public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
         // required = 세션값이 필수인지 물어보는 속성. 기본값 :true -> 세션이 없으면 error
     	// 로그인을 하지 않았을 경우
@@ -58,7 +59,24 @@ public class CartController {
     	model.addAttribute("cartList", cartList);
         
         return "cart/cart";
+    }*/
+    
+    @GetMapping("cartList")
+    public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
+    	
+    	// required = 세션값이 필수인지 물어보는 속성. 기본값 :true -> 세션이 없으면 error
+    	// 로그인을 하지 않았을 경우
+    	if(uvo==null) {
+    		return "login/userLoginView";
+    	}
+    	//System.out.println(uvo.toString());
+    	
+    	List<CartVO>cartList = cartService.cartList(uvo);
+    	model.addAttribute("cartList", cartList);
+        
+        return "cart/cart";
     }
+    
     
     
     //장바구니 추가

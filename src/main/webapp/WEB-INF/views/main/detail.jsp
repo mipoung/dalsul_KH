@@ -186,9 +186,9 @@ $(function() {
     // 장바구니 버튼 클릭 시 이벤트 핸들러
     $(".basket").click(function() {
         // 여기서 로그인 체크를 수행합니다.
-        var isLoggedIn = checkLogin(); // 로그인 상태 확인 함수 (서버와의 통신이 필요)
+        //var isLoggedIn = checkLogin(); // 로그인 상태 확인 함수 (서버와의 통신이 필요)
 
-        if (isLoggedIn) {
+        //if (isLoggedIn) {
             // 로그인 상태인 경우 제품 정보 가져오기
             var productName = $(".product-name").text();
             var quantity = parseInt($("#quantity").val());
@@ -203,24 +203,26 @@ $(function() {
 
             // POST 요청으로 데이터 서버에 전송
             $.ajax({
-                url: "/api/add-to-cart", // 서버 엔드포인트 URL
+                url: "/cart/cartList", // 서버 엔드포인트 URL
                 type: "POST",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(response) {
                     // 성공적으로 처리된 경우
-                    alert("장바구니에 추가되었습니다.");
+                    alert("장바구니에 추가하시겠습니까?");
+                    
+                    window.location.href = "/cart/cartList"; // 장바구니 페이지 URL로 이동
                 },
                 error: function(error) {
                     // 오류 발생 시
                     alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
                 }
             });
-        } else {
-            // 로그인 상태가 아닌 경우 로그인 페이지로 이동
-            alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-            window.location.href = "/login"; // 로그인 페이지 URL로 이동
-        }
+       // } else {
+        //    // 로그인 상태가 아닌 경우 로그인 페이지로 이동
+        //    alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+        //    window.location.href = "/login"; // 로그인 페이지 URL로 이동
+        //}
     });
 
     // 로그인 상태 확인 함수 (서버와의 통신 필요)
@@ -329,7 +331,7 @@ $(function() {
 							<span class="totalpricein"></span>
 						</div>
 						<div class="btn-wrpper">
-							<button class="basket"><a href="/cart/cartInsert">장바구니</a></button>
+							<button class="basket">장바구니</a></button>
 							<button class="purchase">구매하기</button>
 						</div>
 					</div>

@@ -75,7 +75,7 @@ public class MainController {
 	        return result;
 	    }
 	    
-	    /* 전체페이지로 이동 */
+	    /* 전체페이지로 이동 
 	    @GetMapping("/total")
 	    public String totalPage(Model model) {
 	    	
@@ -86,9 +86,74 @@ public class MainController {
 	    	
 	    	log.info("상품개수 : "+total.size());
 	    	return "main/total";
-	    }
+	    }*/
 	    
-	    /* 전체페이지 데이터 필터링 */
+	    @GetMapping("/total")
+	    public String totalPage(@RequestParam(value = "selectedValue", required = false) String selectedValue, Model model) {
+	        if (selectedValue != null && !selectedValue.isEmpty()) {
+	            // 사용자가 선택한 값(selectedValue)에 따라 서비스에서 필요한 쿼리를 실행
+	            List<ProductVO> total = null;
+	            
+	            if ("rating".equals(selectedValue)) {
+	                // "평점순" 옵션 선택 시 실행할 쿼리
+	                total = mainService.getProductsOrderByRating();
+	            } else if ("star_count".equals(selectedValue)) {
+	                // "리뷰 많은 순" 옵션 선택 시 실행할 쿼리
+	                total = mainService.getProductsOrderByReviewCount();
+	            } else if ("price_high".equals(selectedValue)) {
+	                // "높은 가격순" 옵션 선택 시 실행할 쿼리
+	                total = mainService.getProductsOrderByPriceHigh();
+	            } else if ("price_low".equals(selectedValue)) {
+	                // "낮은 가격순" 옵션 선택 시 실행할 쿼리
+	                total = mainService.getProductsOrderByPriceLow();
+	            }
+	            model.addAttribute("total", total);
+	            model.addAttribute("selectedValue",selectedValue);
+	            
+	            return "/main/total";
+	        } else {
+	            // 선택된 값이 없을 경우 기본 페이지 표시
+	            List<ProductVO> total = mainService.getTotalPageProducts();
+	            model.addAttribute("total", total);
+	            return "/main/total";
+	        }
+	    } 
+	    /*
+	    @GetMapping("/total")
+	    public String totalPage(@RequestParam(value = "selectedValue", required = false) String selectedValue, Model model) {
+	        if (selectedValue != null && !selectedValue.isEmpty()) {
+	            // 사용자가 선택한 값(selectedValue)에 따라 리다이렉션 처리
+	        	
+	            if ("rating".equals(selectedValue)) {
+	                // "평점순" 옵션 선택 시 평점순 페이지로 리다이렉션
+	            	
+	                return "redirect:/total?orderBy=rating";
+	            } else if ("star_count".equals(selectedValue)) {
+	                // "리뷰 많은 순" 옵션 선택 시 리뷰 많은 순 페이지로 리다이렉션
+	                return "redirect:/total?orderBy=star_count";
+	            } else if ("price_high".equals(selectedValue)) {
+	                // "높은 가격순" 옵션 선택 시 높은 가격순 페이지로 리다이렉션
+	                return "redirect:/total?orderBy=price_high";
+	            } else if ("price_low".equals(selectedValue)) {
+	                // "낮은 가격순" 옵션 선택 시 낮은 가격순 페이지로 리다이렉션
+	                return "redirect:/total?orderBy=price_low";
+	            } else {
+	                // 선택된 값이 없을 경우 기본 페이지 표시
+	                List<ProductVO> total = mainService.getTotalPageProducts();
+	                model.addAttribute("total", total);
+	                return "main/total";
+	            }
+	        } else {
+	            // 선택된 값이 없을 경우 기본 페이지 표시
+	            List<ProductVO> total = mainService.getTotalPageProducts();
+	            model.addAttribute("total", total);
+	            return "main/total";
+	        }
+	    } */
+
+	  
+	    
+	    /* 전체페이지 데이터 분류
 	    @GetMapping(value="/filtering", produces=MediaType.APPLICATION_JSON_VALUE) 
 	    @ResponseBody
 	    public List<ProductVO> filteringProduct(@RequestParam("product") String product) {
@@ -96,9 +161,20 @@ public class MainController {
 	    	
 	    	log.info("products" + products);
 	    	
-	    	return products;
+	    	return products;	    	
+	    } */
+	    
+	    /* 전체페이지 데이터 정렬 
+	    @GetMapping(value="/selecting", produces=MediaType.APPLICATION_JSON_VALUE)
+	    @ResponseBody
+	    public List<ProductVO> selectingProduct(@RequestParam("selectedValue") String selectedValue) {
+	    	List<ProductVO> select = mainService.getSelectResult(selectedValue);
+	    	    	
+	    	log.info("select" + select);
 	    	
-	    }
+	    	return select;
+	    	
+	    }*/
 	    
 	    
 	    /* 상세페이지로 이동 */

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 
 <script>
@@ -135,45 +135,45 @@
 					});
 		}); //end of plusBtn
 
-		//장바구니 수량 감소(-)
-		$(".minusBtn").click(
-				function() {
-					console.log("minusBtn");
-					const product_no = $(this).attr("data-product-id");
-					let product_quantity = parseInt(($(this).closest("tr")
-							.find(".quantity").text()).replace(/,/g, ''));
+      //장바구니 수량 감소(-)
+      $(".minusBtn").click(
+            function() {
+               console.log("minusBtn");
+               const product_no = $(this).attr("data-product-id");
+               let product_quantity = parseInt(($(this).closest("tr")
+                     .find(".quantity").text()).replace(/,/g, ''));
 
-					// 만약 수량이 1 이하이면 알림창 띄우기
-					if (product_quantity <= 1) {
-						alert("수량이 1개 이상이여야 합니다.");
-						return; // 함수 종료
-					}
+               // 만약 수량이 1 이하이면 알림창 띄우기
+               if (product_quantity <= 1) {
+                  alert("수량이 1개 이상이여야 합니다.");
+                  return; // 함수 종료
+               }
 
-					$.ajax({
-						"url" : "/cart/cartMinus",
-						"method" : "get",
-						"data" : {
-							"product_no" : product_no
-						},
-						"dataType" : "text",
-						success : function(data) {
-							if (data == 1) {
-								$("#cartItem-" + product_no + " > .quantity")
-										.text(product_quantity - 1);
-								updateTotal($("#cartItem-" + product_no)); // 총합 업데이트
-								updateTotalForAllItems();
-							} else {
-								alert("111시스템 오류입니다. 잠시 후 다시 시도해주세요.");
-							}
-						},
-						error : function() {
-							alert("시스템 오류입니다. 잠시 후 다시 시도해주세요.");
-						}
-					});
-		}); //end of minus click
-		
-	});
-	
+               $.ajax({
+                  "url" : "/cart/cartMinus",
+                  "method" : "get",
+                  "data" : {
+                     "product_no" : product_no
+                  },
+                  "dataType" : "text",
+                  success : function(data) {
+                     if (data == 1) {
+                        $("#cartItem-" + product_no + " > .quantity")
+                              .text(product_quantity - 1);
+                        updateTotal($("#cartItem-" + product_no)); // 총합 업데이트
+                        updateTotalForAllItems();
+                     } else {
+                        alert("111시스템 오류입니다. 잠시 후 다시 시도해주세요.");
+                     }
+                  },
+                  error : function() {
+                     alert("시스템 오류입니다. 잠시 후 다시 시도해주세요.");
+                  }
+               });
+      }); //end of minus click
+      
+   });
+   
 </script>
 </head>
 <body>
@@ -212,15 +212,15 @@
 		</table>
 	</div>
 
-	<form id="cartForm" class="cartForm">
-	<input type="hidden" name="orderData" id="orderData"/>
-		<div id="list">
-			<h1 id="totalSum"></h1>
-			<div id="btn">
-				<button type="button" id="payBtn">결제하기</button>
-			</div>
-		</div>
-	</form>
+   <form id="cartForm" class="cartForm">
+   <input type="hidden" name="orderData" id="orderData"/>
+      <div id="list">
+         <h1 id="totalSum"></h1>
+         <div id="btn">
+            <button type="button" id="payBtn">결제하기</button>
+         </div>
+      </div>
+   </form>
 
 </body>
 </html>
