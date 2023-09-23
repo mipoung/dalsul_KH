@@ -14,6 +14,11 @@
 			$("#search").val("<c:out value='${userVO.search}'/>");
 		}
 		
+		for(let i=0 ; i<10 ; i++){
+			let price = $(".product_price:eq("+i+")").text().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			$(".product_price:eq("+i+")").text(price);
+		}
+		
 		// 입력 양식 enter 제거
 		$("#keyword").bind("keydown", function(e){
 			if(e.keyCode == 13){
@@ -23,7 +28,7 @@
 		
 		// 검색 대상이 변경될 때마다 처리 이벤트
 		$("#search").change(function(){
-			if($("#search").val() == "all"){
+			if($("#search").val() == "all"){	
 				$("#keyword").val("전체 목록 조회");
 				$("#keyword").prop("readonly",true);
 			}else if($("#search").val() != "all"){
@@ -136,7 +141,7 @@
 			  }
 			})
 		});
-		
+
 	}); // end of page load function
 	
 	function ChkSelect(){
@@ -269,7 +274,7 @@
 									<td>${users.user_reg_date}</td>
 									<td>${users.user_status}</td>
 									<td>
-											<input type="checkbox" name="selectedItems" class="form-check-input" value="${users.user_no}"/>
+										<input type="checkbox" name="selectedItems" class="form-check-input" value="${users.user_no}"/>
 									</td>
 								</tr>
 							</c:forEach>
@@ -332,7 +337,7 @@
 		                </select>
 		            </div>
 		            <div class="col">
-		                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어" value="전체 목록 조회">
+		                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어" value="전체 목록 조회" readonly="true">
 		            </div>
 		            <div class="col-2">
 		                <button class="btn btn-dark" id="searchData" type="button">검색</button>

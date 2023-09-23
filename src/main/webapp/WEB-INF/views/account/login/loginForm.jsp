@@ -34,11 +34,56 @@ body {
 }
 </style>
 <script>
+	//쿠키 저장하기 
+	// setCookie => saveid함수에서 넘겨준 시간이 현재시간과 비교해서 쿠키를 생성하고 지워주는 역할
+	function setCookie(cookieName, value, exdays) {
+		let exdate = new Date();
+		exdate.setDate(exdate.getDate() + exdays);
+		let cookieValue = btoa(escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toGMTString()));
+		document.cookie = cookieName + "=" + cookieValue;
+	}
+	
+	// 쿠키 삭제
+	function deleteCookie(cookieName) {
+		let expireDate = new Date();
+		expireDate.setDate(expireDate.getDate() - 1);
+		document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+	}
+	 
+	// 쿠키 가져오기
+	function getCookie(cookieName) {
+		cookieName = cookieName + '=';
+		let cookieData = document.cookie;
+		let start = cookieData.indexOf(cookieName);
+		let cookieValue = '';
+		if (start != -1) { // 쿠키가 존재하면
+			start += cookieName.length;
+			let end = cookieData.indexOf(';', start);
+			if (end == -1) // 쿠키 값의 마지막 위치 인덱스 번호 설정 
+				end = cookieData.length;
+			cookieValue = atob(cookieData.substring(start, end));
+		}
+		return unescape(cookieValue);
+	}
+
 	$(function(){
+		
+		
+		// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+	    let key = getCookie("dalsul");
+	    $("#user_email").val(key); 
+	     
+	    // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+	    if($("#user_email").val() != ""){ 
+	        $("#check_email").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+	    }
+		
+		// 회원가입 버튼 클릭 시
 		$("#registerBtn").click(function(){
 			window.location = "/register/termsView";
 		});
 		
+		// 로그인 버튼 클릭 시
 		$("#loginBtn").click(function(){
 			$.ajax({
 				url : "/login/userLoginProcess",
@@ -46,6 +91,11 @@ body {
 				data : $("#loginForm").serialize(),
 				success : function(data){
 					if(data=="SUCCESS"){
+						if($("#check_email").is(":checked")){ // ID 저장하기 체크했을 때,
+				            setCookie("dalsul", $("#user_email").val(), 31); // 31일 동안 쿠키 보관
+				        } else { // ID 저장하기 체크 해제 시,
+				            deleteCookie("dalsul");
+				        }
 						location.href="/";
 					}else{
 						Swal.fire({
@@ -94,8 +144,8 @@ body {
 					<!-- 이메일 기억하기 -->
 					<div class="form-util">
 						<div id="">
-							<input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-							<label class="form-check-label" for="form2Example31"> 이메일 기억하기 </label>
+							<input class="form-check-input" type="checkbox" id="check_email"/>
+							<label class="form-check-label" for="check_email"> 이메일 기억하기 </label>
 						</div>
 						<div>
 							<a href="/login/findAccount">아이디 / 비밀번호 찾기</a>

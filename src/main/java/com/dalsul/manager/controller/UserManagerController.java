@@ -41,10 +41,9 @@ public class UserManagerController {
 		
 		// 전체 레코드 수 반환
 		int total = managerService.userListCnt(uvo);
-
+		System.out.println(total);
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(uvo, total));
-		// new PageDTO(CommonVO 또는 CommonVO 하위 클래스의 인스턴스 (BoardVO), 총 레코드 수)
 		
 		return "/manager/user/userManagement";
 	}

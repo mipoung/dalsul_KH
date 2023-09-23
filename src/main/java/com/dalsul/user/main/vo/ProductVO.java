@@ -1,9 +1,18 @@
 package com.dalsul.user.main.vo;
 
+import com.dalsul.common.login.vo.UserVO;
+import com.dalsul.common.vo.CommonVO;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-public class ProductVO {
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+public class ProductVO extends CommonVO {
 	private int product_no;				  // 제품번호 - 상세페이지로 이동
 	private String product_name;		  // 제품명 - 화면 표시, 제품 검색
 	private String product_type;		  // 주종	- 화면 표시, 제품 분류

@@ -24,11 +24,6 @@ public class CommonManagerController {
 	@Setter(onMethod_ = @Autowired)
 	private CommonManagerService managerService;
 	
-	
-	
-	
-	
-	
 	// 관리자페이지 메인으로 이동
 		@GetMapping("/manager/managerMain")
 		public String managerMain(@SessionAttribute(name="managerLogin", required = false) ManagerVO mvo,  Model model) {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalsul.manager.dao.ProductDAO">
+
+	<sql id="productSearch"> 
+		<if test="search == 'product_no'">
+			<![CDATA[ product_no LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'product_type'">
+			<![CDATA[ product_type LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'product_taste'">
+			<![CDATA[ product_taste LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'product_base'">
+			<![CDATA[ product_base LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'product_sale_status'">
+			<![CDATA[ product_sale_status LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+
+	<select id="getProductList" parameterType="product" resultType="product">
+		<![CDATA[
+		SELECT product_no, product_name, product_type, product_ml, product_alcohol, product_taste, product_base, product_price, product_stock, product_sale_status
+		FROM ( 
+        		SELECT rownum as rnum, product_no, product_name, product_type, product_ml, product_alcohol, product_taste, product_base, product_price, product_stock, product_sale_status 
+        		FROM PRODUCT
+        		WHERE ]]>
+					<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+						<include refid="productSearch"></include>
+					</trim>
+					<![CDATA[ rownum <= #{pageNum} * #{amount}
+				 ORDER BY PRODUCT_NO
+			 ) productList
+		WHERE rnum > (#{pageNum} - 1) * #{amount} ]]>
+	</select>
+
+	<select id="getProductListCnt" parameterType="product" resultType="int">
+		SELECT COUNT(*) 
+		FROM PRODUCT
+		<trim prefix=" where (" suffix=")">
+			<include refid="productSearch"></include>
+		</trim>
+	</select>
+
+	<insert id="productRegProcess" parameterType="product">
+		INSERT INTO PRODUCT VALUES(
+			#{product_no}||product_no_seq.nextval,
+			#{product_name},
+			#{product_type},
+			#{product_ml},
+			#{product_alcohol},
+			#{product_taste},
+			#{product_base},
+			#{product_price},
+			#{product_stock},
+			#{product_main_image},
+			#{product_explain_image},
+			SYSDATE,
+			#{product_sale_status},
+		)
+	</insert>
+
+	<update id="productUpdate" parameterType="product">
+		UPDATE PRODUCT
+		SET PRODUCT_PRICE = {product_price},
+			PRODUCT_STOCK = {product_stock},
+			PRODUCT_SALE_SATUS = {product_sale_status}
+		WHERE PRODUCT_NO = #{product_no}
+	</update>
+
+	<delete id="productDelete" parameterType="java.util.List">
+		DELETE FROM PRODUCT
+		WHERE PRODUCT_NO IN
+		<foreach collection="list" item="product_no" open="(" separator="," close=")">
+        	#{product_no}
+    	</foreach>
+	</delete>
+	
+	<select id="productUpdateList" parameterType="java.util.List" resultType="product">
+		SELECT product_no, product_name, product_type, product_ml, product_alcohol, product_taste, product_base, product_price, product_stock, product_sale_status
+		FROM product
+		WHERE product_no in
+		<foreach collection="list" item="product_no" open="(" separator="," close=")">
+        	#{product_no}
+    	</foreach>
+	</select>
+	
+</mapper>

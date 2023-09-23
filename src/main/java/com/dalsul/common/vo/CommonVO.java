@@ -1,17 +1,12 @@
 package com.dalsul.common.vo;
 
+import lombok.Data;
 //import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-//@Data
-@ToString
-@Setter
-@Getter
+@Data
 public class CommonVO {
-	private String search;
-	private String keyword;
+	private String search = "";
+	private String keyword = "";
 	
 	
 	// 페이징 처리를 위한 변수
@@ -31,8 +26,5 @@ public class CommonVO {
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
-
-
-	
 	
 }
