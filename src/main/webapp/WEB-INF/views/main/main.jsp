@@ -9,10 +9,12 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
+
 <title>메인페이지</title>
 
 <link rel="shortcut icon" href="/resources/images/icon.png" />
 <link rel="apple-touch-icon" href="/resources/images/icon.png" />
+
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/common/bootstrap/css/bootstrap.css" />
@@ -20,6 +22,7 @@
 	href="/resources/include/mainpage/css/slick.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/mainpage/css/slick-theme.css" />
+
 <style>
 
 /* 슬라이드 모음 */
