@@ -12,6 +12,72 @@ var grandTotalClone = 0;
 var buyerAddrValue = "";
 
 $(function() {
+	
+	function requestPay() {
+		console.log("function 시작");
+		// 사용자가 API를 통해 값을 조회했는지 검사
+        if (!chkData("#roadAddress", "주소를 먼저")) return;
+        else if (!chkData("#detailAddress", "상세주소를")) return;
+        else if (!chkData("#receiver", "받는사람(수취인)명을")) return;
+        else if (!chkData("#jibunAddress", "지번주소를 재검색 후")) return;
+        else if (!chkData("#name", "주소 별명을")) return;
+        else if (!chkData("#postcode", "우편번호를")) return;
+        // chkData = common.js에 정의된 입력값이 있는지 없는지 확인하는 메소드
+
+        // 사용자가 입력할 수 있는 input 태그의 입력값들 중 이상한 입력값을 막기 위해 사용
+        // chkInput = common.js에 정의된 한글, 영어, 번호, 쉼표, 띄어쓰기만 true를 반환하는 메소드
+        else if (!chkInput("#detailAddress", "한글, 영어, 번호, 쉼표, 띄어쓰기만 입력 가능합니다.")) return;
+        else if (!chkInput("#receiver", "한글, 영어, 번호, 쉼표, 띄어쓰기만 입력 가능합니다.")) return;
+        else if (!chkInput("#name", "한글, 영어, 번호, 쉼표, 띄어쓰기만 입력 가능합니다.")) return;
+
+        // 만약 값을 전달하기 전 값이 비었는지 최종적으로 확인
+        if (
+            $("#roadAddress").val() === "" ||
+            $("#detailAddress").val() === "" ||
+            $("#receiver").val() === "" ||
+            $("#jibunAddress").val() === "" ||
+            $("#detailAddress").val() === "" ||
+            $("#receiver").val() === ""
+        ) {
+            alert("오류입니다.");
+            // 값이 비었을 경우 return
+            return;
+        }
+		
+	  IMP.init('imp57485457'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+	  IMP.request_pay({
+	   pg: "html5_inicis",
+	    pay_method: "card",
+	    merchant_uid : 'merchant_'+new Date().getTime(),
+	    name : '달술',
+	    amount : grandTotalClone,
+	    buyer_email : "${userInfo.user_email}",
+	    buyer_name : "${userInfo.user_name}",
+	    buyer_tel : "${userInfo.user_phone_num}",
+	    buyer_addr : buyerAddrValue,
+	    buyer_postcode : $("#postcode").val()
+	  }, function (rsp) { // callback
+	      if (rsp.success) {
+	    	      console.log("결제가 성공했습니다.");
+	    	      console.log(rsp); 
+	    	      // 결제 성공 후 주문 데이터 전송
+	    	     sendOrderData();
+	    	     //window.location.href = "/order/success";
+	    	    } else {
+	    	      var msg = '결제에 실패하였습니다.';
+                  msg += '에러내용 : ' + rsp.error_msg;
+	    	      console.log("결제가 취소되었습니다.");
+	      }
+	  })
+	};
+	
+	
+	$(function(){
+        $("#payBtn").click(function(){
+        	requestPay();
+        })
+  });
+	
 	//클릭하여 기본배송지 리스트를 모달로 반환받을수 있는 기능 
         $("#leadBaseAddr").click(function() {
         	console.log(${userLogin.user_no})
@@ -35,13 +101,7 @@ $(function() {
              });
         });
    
-        $(function(){
-            $("#payBtn").click(function(){
-               requestPay();
-            })
-      });
-	
-	
+        
     // "주문하기" 버튼을 클릭할 때 함수 호출
     function sendOrderData() {
         console.log("sendOrderData 함수 실행");
@@ -102,67 +162,6 @@ $(function() {
     }
  
 
-    var IMP = window.IMP;
-    IMP.init("imp57485457");
-
-    function requestPay() {
-        console.log("requestPay 함수 시작");
-        
-        // 사용자가 API를 통해 값을 조회했는지 검사
-        if (!chkData("#roadAddress", "주소를 먼저")) return;
-        else if (!chkData("#detailAddress", "상세주소를")) return;
-        else if (!chkData("#receiver", "받는사람(수취인)명을")) return;
-        else if (!chkData("#jibunAddress", "지번주소를 재검색 후")) return;
-        else if (!chkData("#name", "주소 별명을")) return;
-        else if (!chkData("#postcode", "우편번호를")) return;
-        // chkData = common.js에 정의된 입력값이 있는지 없는지 확인하는 메소드
-
-        // 사용자가 입력할 수 있는 input 태그의 입력값들 중 이상한 입력값을 막기 위해 사용
-        // chkInput = common.js에 정의된 한글, 영어, 번호, 쉼표, 띄어쓰기만 true를 반환하는 메소드
-        else if (!chkInput("#detailAddress", "한글, 영어, 번호, 쉼표, 띄어쓰기만 입력 가능합니다.")) return;
-        else if (!chkInput("#receiver", "한글, 영어, 번호, 쉼표, 띄어쓰기만 입력 가능합니다.")) return;
-        else if (!chkInput("#name", "한글, 영어, 번호, 쉼표, 띄어쓰기만 입력 가능합니다.")) return;
-
-        // 만약 값을 전달하기 전 값이 비었는지 최종적으로 확인
-        if (
-            $("#roadAddress").val() === "" ||
-            $("#detailAddress").val() === "" ||
-            $("#receiver").val() === "" ||
-            $("#jibunAddress").val() === "" ||
-            $("#detailAddress").val() === "" ||
-            $("#receiver").val() === ""
-        ) {
-            alert("오류입니다.");
-            // 값이 비었을 경우 return
-            return;
-        }
-        
-        IMP.init('imp57485457'); // iamport 대신 자신의 "가맹점 식별코드"를 사용
-        IMP.request_pay({
-            pg: "kakaopay.TC0ONETIME",
-            pay_method: "card",
-            merchant_uid: 'merchant_' + new Date().getTime(),
-            name: '달술',
-            amount: grandTotalClone,
-            buyer_email: "${userInfo.user_email}",
-            buyer_name: "${userInfo.user_name}",
-            buyer_tel: "${userInfo.user_phone_num}",
-            buyer_addr: buyerAddrValue,
-            buyer_postcode: $("#postcode").val(),
-        }, function(rsp) { // callback
-            if (rsp.success) {
-                console.log("결제가 성공했습니다.");
-                console.log(rsp);
-                // 결제 성공 후 주문 데이터 전송
-                sendOrderData();
-                // window.location.href = "/order/success";
-            } else {
-                var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
-                console.log("결제가 취소되었습니다.");
-            }
-        });
-    }
 
     // 페이지 로드가 완료되면 실행되는 함수
     window.onload = function() {
@@ -182,6 +181,7 @@ $(function() {
             // 총합을 천단위로 포맷팅하여 콤마(,)를 추가합니다.
             var formatTotal = total.toLocaleString();
 
+	
             // .total 셀에 포맷팅된 총합을 출력합니다.
             cartItem.querySelector(".total").innerText = formatTotal;
 
@@ -204,21 +204,7 @@ $(function() {
 	               //  grandTotalClone 값을 화면에 업데이트합니다.
 	                 var grandTotalElement = document.getElementById("grandTotal");
 	                 grandTotalElement.innerText = grandTotalClone.toLocaleString();
-				<%--	
-				 // grandTotal 값을 계산한 후 5% 값을 계산합니다.
-		            var couponPercentage = 0.05; // 5%에 해당하는 비율
-	
-		            // 5% 적립금을 계산합니다.
-		            var couponAmount = (grandTotalClone-3000) * couponPercentage;
-		         
-		            // mileageMessage 요소를 가져옵니다.
-		            var couponMessageElement = document.getElementById("couponMessage");
-	
-		            // mileageMessage에 5% 적립금을 표시합니다.
-		            couponMessageElement.innerText = "결제 예정 적립금: " + couponAmount.toLocaleString() + "원";
-				 //mileageSelect.addEventListener --%>
-			});
-	            $("#coupon").trigger("click");
+			
 
             // 선택한 마일리지에 따라 grandTotal 값을 조정합니다.
             if (selectedCoupon === 0) {
@@ -269,6 +255,8 @@ $(function() {
             displayElement.innerText = "-" + selectedValue; // 선택한 값을 표시
         });
 
+
+    };
 
 });
 </script>
