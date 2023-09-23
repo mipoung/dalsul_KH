@@ -185,56 +185,40 @@ $(function() {
     
     // 장바구니 버튼 클릭 시 이벤트 핸들러
     $(".basket").click(function() {
-        // 여기서 로그인 체크를 수행합니다.
-        //var isLoggedIn = checkLogin(); // 로그인 상태 확인 함수 (서버와의 통신이 필요)
+        var data = {
+                "cart_id" : "${userLogin.user_no}",
+                "product_no" : "${detail.product_no}",
+                "product_name" : "${detail.product_name}",
+                "product_price" : "${detail.product_price}",
+                "quantity" : $("#quantity").val()
+        };
 
-        //if (isLoggedIn) {
-            // 로그인 상태인 경우 제품 정보 가져오기
-            var productName = $(".product-name").text();
-            var quantity = parseInt($("#quantity").val());
-            var totalAmount = parseInt($(".totalpricein").text());
-
-         // 데이터를 객체로 생성
-            var data = {
-                productName: productName,
-                quantity: quantity,
-                totalAmount: totalAmount
-            };
-
-            // POST 요청으로 데이터 서버에 전송
-            $.ajax({
-                url: "/cart/cartList", // 서버 엔드포인트 URL
-                type: "POST",
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                success: function(response) {
-                    // 성공적으로 처리된 경우
-                    alert("장바구니에 추가하시겠습니까?");
+         if("${userLogin.user_no}"==""){
+             location.replace("/login/userLoginView");
+         } else {
+            if(confirm("장바구니에 추가하시겠습니까?")){
+                $.ajax({
+                    url: "/cart/cartInsert",
+                    method: "post",
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    dataType : "text",
                     
-                    window.location.href = "/cart/cartList"; // 장바구니 페이지 URL로 이동
-                },
-                error: function(error) {
-                    // 오류 발생 시
-                    alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-                }
-            });
-       // } else {
-        //    // 로그인 상태가 아닌 경우 로그인 페이지로 이동
-        //    alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-        //    window.location.href = "/login"; // 로그인 페이지 URL로 이동
-        //}
-    });
+                    success: function(response) {
+                    	if (response == "SUCCESS")
+                        	alert("장바구니에 추가되었습니다.");
+                    	else {
+                    		alert("잠시후 다시 시도해주세요");
+                    	}
+                    },
+                    error: function(error) {
 
-    // 로그인 상태 확인 함수 (서버와의 통신 필요)
-    function checkLogin() {
-        // 여기에서 서버와의 통신을 통해 로그인 상태를 확인합니다.
-        // 예를 들어, 서버 API를 호출하여 로그인 상태를 확인할 수 있습니다.
-        // 실제로는 서버와의 통신 로직을 추가해야 합니다.
-        // 이 함수는 로그인 상태가 true 또는 false를 반환해야 합니다.
-        // 여기에서는 단순히 true를 반환하는 것으로 가정합니다.
-        return true;
-    }
-    
+                        alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                    }
+                });
+            }
+         }
+    });
 });
 </script>
 

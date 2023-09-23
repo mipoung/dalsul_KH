@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -20,7 +21,10 @@ import com.dalsul.user.cart.service.CartService;
 import com.dalsul.user.cart.vo.CartVO;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Controller
 @RequestMapping("/cart/*")
 public class CartController {
@@ -61,32 +65,46 @@ public class CartController {
         return "cart/cart";
     }
     
- 	 /* @PostMapping("cartList")
-    @GetMapping("cartList")
-    public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
+ 	
+    
+    
+    @PostMapping("/cartInsert")
+    @ResponseBody
+    public String cartInsert(@RequestBody CartVO cvo)throws Exception {
+        String result = "FAIL";
+        System.out.println("cvo값 : "+cvo.toString());
+
+        int insertCtn = cartService.cartInsert(cvo);
+
+        if(insertCtn==1) {
+            result = "SUCCESS";
+        }
+
+        return result;
+    }
+    
+    //장바구니 추가
+   /* @GetMapping("/cartInsert")
+    @ResponseBody
+    public void cartInsert(@RequestBody CartVO cvo)throws Exception {
     	
-    	// required = 세션값이 필수인지 물어보는 속성. 기본값 :true -> 세션이 없으면 error
-    	// 로그인을 하지 않았을 경우
-    	if(uvo==null) {
-    		return "login/userLoginView";
-    	}
-    	//System.out.println(uvo.toString());
+    	log.info(cvo.toString());
     	
-    	List<CartVO>cartList = cartService.cartList(uvo);
-    	model.addAttribute("cartList", cartList);
-        
-        return "cart/cart";
+    	cartService.cartInsert(cvo);
+    	
+    	
     }*/
     
     
     
-    //장바구니 추가
-    @GetMapping("/cartInsert")
-    public void cartInsert(CartVO cvo)throws Exception {
-    	cartService.cartInsert(cvo);
-     
-    }
-    
+    // 장바구니 추가 수정
+   /* @GetMapping("/cartInsert")
+    public String cartInsert(CartVO cvo) throws Exception {
+        cartService.cartInsert(cvo);
+
+        // 장바구니 추가 후에 cartList 페이지로 리다이렉트
+        return "redirect:/cartList";
+    } */
     
     //장바구니 개수 추가(+)
     @ResponseBody

@@ -16,6 +16,28 @@
 </style>	
 	
 <script src="/resources/include/mainpage/js/header.js"></script>
+
+<script>
+
+$(function() {
+
+	  var isUserLoggedIn = ${not empty userLogin.user_no};
+	    
+	// 링크를 클릭했을 때 처리
+	document.getElementById("imgtag").addEventListener("click", function(event) {
+    
+	event.preventDefault(); // 기본 동작을 중지 (링크 클릭 시 이동을 막음)
+
+    if (isUserLoggedIn) {
+        // 사용자가 로그인한 경우, 장바구니 페이지로 이동
+        window.location.href = "/cart/cartList";
+    } else {
+        	// 사용자가 로그인하지 않은 경우, 로그인 페이지로 이동
+        	window.location.href = "/login/userLoginView";
+    	}
+	});
+});
+</script>
 	
 <div id="main" class="fixed-top">
 		<ul class="nav fixied-top">
@@ -49,7 +71,7 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/faq/FAQList">고객센터</a></li>
 				</ul>
-				<a class="nav-link" href="cart/cartList"><img id="img2"
+				<a class="nav-link" href="/" id="imgtag"><img id="img2"
 					src="resources/images/mainpage/basketIcon.png"></a>
 			</nav>
 		</ul>
