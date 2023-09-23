@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="/resources/include/mainpage/css/header.css" />
+<link rel="stylesheet" type="text/css" href="/resources/include/mainpage/css/footer.css" />
+<script src="/resources/include/mainpage/js/header.js"></script>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <script type="text/javascript" src="/resources/include/addressAPI/addressAPIinsert.js"></script>
 <script type="text/javascript" src="/resources/include/addressAPI/addressAPIdelete.js"></script>
@@ -8,6 +11,7 @@
 <script>
 $(function(){
     $(".addrBtn").click(function(){
+    	
         /*기능에 필요한 매개변수를 자바 변수로 저장*/
     	const addr_no = $(this).parent().parent().attr("data-num");
         const user_no = ${userLogin.user_no}; 
@@ -30,6 +34,10 @@ $(function(){
 
 </head>
 <body>
+	<div style="margin-top: 65px">
+        <%@ include file="/WEB-INF/views/main/header.jsp"%>
+        <!-- header.jsp 파일 포함 -->
+    </div>
 	<div class="container">
 		<%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
 		<h4 class="text-center">내 배송지</h4>
@@ -62,8 +70,8 @@ $(function(){
 									<td class="text-center">${addr.addr_detail}</td>
 									<td class="text-center">${addr.addr_receiver}</td>
 									<td class="text-center">${addr.addr_post}</td>
-									<td class="text-center"><input type="button" name="updateAddrBtn" class="addrBtn" value="수정"></td>
-									<td class="text-center"><input type="button" name="deleteAddrBtn" class="addrBtn" value="삭제"></td>
+									<td class="text-center"><input type="button" name="updateAddrBtn"  value="수정" class="addrBtn" style="background-color: yellow;"></td>
+									<td class="text-center"><input type="button" name="deleteAddrBtn" value="삭제" class="addrBtn" style="background-color: red"></td>
 								</tr>
 							</c:forEach>
 						</c:when>
@@ -78,10 +86,12 @@ $(function(){
 		</div>
 		<%-- 리스트 종료 --%>
 		<%-- 수정버튼 클릭시 사용자에게 보여줄 api 입력폼 --%>
-		<div>
+		<div style="display: inline-block; margin-left:340px; " class="text-center" >
 			<%@ include file="/WEB-INF/views/addr/addressAPI.jsp" %>
 		</div>
-    	<input type="button" name="sendAddrBtn" id="sendAddrBtn" value="주소 추가하기"/><br/>  
+		<div style="text-align: right;"> 
+    		<input type="button" name="sendAddrBtn" id="sendAddrBtn" value="주소 추가하기" class="btn btn-success" /><br/>  
+		 </div>
     	<!--  <input type="button" name="updateAddrFormBtn" id="updateAddrFormBtn" value="기본배송 주소지 정보수정하러가기(대상 일련번호 입력)">-->
 		</div>
 </body>

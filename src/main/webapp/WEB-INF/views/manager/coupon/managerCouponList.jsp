@@ -55,6 +55,9 @@
                <button type="button" name="searchData" id="searchData" class="btn btn-success">검색</button>
             </div>
          </form>
+         <div>
+               <%@ include file="/WEB-INF/views/manager/coupon/managerCouponInsert.jsp"%>
+         </div>
 	</div>
 	
 	<%--리스트 시작 --%>
@@ -102,7 +105,7 @@
 			</table>
 		</div>
 	<%--리스트 종료 --%>
-	
+
 	<%-- ============ 페이징 출력 시작 ============ --%>
 		<div class="text-center">
 			<ul class="pagination">

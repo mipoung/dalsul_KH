@@ -12,7 +12,29 @@ var grandTotalClone = 0;
 var buyerAddrValue = "";
 
 $(function() {
-	
+	    $.ajax({
+	        url: "/mypage/leadBaseAddr",
+	        method: "get",
+	        data: { "user_no": "${userLogin.user_no}" }, 
+	        dataType: "json",
+	        success: function(response) {
+	        	
+	        	// response의 key값이 비어있다면 == 값을 전달받지 못했다면
+	        	if(!response.keys("addr_no").length){
+	        		$("#leadBaseAddr").css("visibility", "hidden");
+	        	} else {
+	        		//값을 제대로 전달받았다면
+	        	}
+	        	
+	        	if (response != null) {
+	                
+	          	} else {
+		          	// 버튼을 숨김
+	          		
+	            }
+	        }       
+	    });
+	                    
 	function requestPay() {
 		console.log("function 시작");
 		// 사용자가 API를 통해 값을 조회했는지 검사
