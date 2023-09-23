@@ -353,8 +353,8 @@ public class ReviewController {
 	
 	@ResponseBody
 	@GetMapping(value = "likePlus", produces = "text/plain; charset=UTF-8")
-	public String likePlus(@SessionAttribute(name="userLogin", required = false) UserVO user, @ModelAttribute ReviewVO rvo, Model model) {
-		log.info("likePlus 실행" + rvo.toString() + user.getUser_no());
+	public String likePlus(@ModelAttribute ReviewVO rvo, Model model) {
+		log.info("likePlus 실행");
 		
 		
 		//reviewService.reviewLikePlus(rvo, user); // 1 증가

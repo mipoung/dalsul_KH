@@ -51,7 +51,7 @@
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body">
-						        <h6 class="card-title">${bestReview.review_no} | ${bestReview.user_no} | ${bestReview.review_date} | ${bestReview.product_name} </h6>
+						        <h6 class="card-title">글번호: ${bestReview.review_no} | 유저: ${bestReview.user_no} | ${bestReview.review_date} | ${bestReview.product_name} </h6>
 						        <p class="card-text text-left" id="reviewContent" data-review-content="${bestReview.review_content}">${bestReview.review_content }</p>
 						        
 						      </div>
@@ -90,7 +90,7 @@
 				    <div class="col-md-8">
 				      <div class="card-body">
 				      	<span id="productNameSpan" data-product-name="${review.product_name}"></span>
-				        <h6 class="card-title" data-product-no="${review.product_no}">${review.review_no} | ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
+				        <h6 class="card-title" data-product-no="${review.product_no}">글번호 : ${review.review_no} | 유저 : ${review.user_no} | ${review.review_date} | ${review.product_name} </h6>
 				        <p class="card-text text-left" id="reviewContent" data-review-content="${review.review_content}">${review.review_content }</p>
 				        
 				      </div>

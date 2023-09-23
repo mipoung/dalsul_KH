@@ -6,6 +6,34 @@
 <script type="text/javascript" src="/resources/include/reviewBoard/js/managerReviewList.js"></script>
 <link rel="stylesheet" href="/resources/include/reviewBoard/css/managerReviewList.css"/>
 	
+<script>
+$(function(){
+	/*
+	$(function(){
+	    $(".testTd").click(function(){
+	        // 현재 클릭된 testTd의 부모 tr
+	        var $currentTr = $(this).closest('tr');
+	        
+	        // 이미 추가된 tr가 있는지 확인
+	        var $addedRow = $currentTr.next('.added-row');
+
+	        if ($addedRow.length) {
+	            // 추가된 tr가 있다면 삭제
+	            $addedRow.remove();
+	        } else {
+	            // 없다면 새로 추가
+	            var $newTr = $('<tr class="added-row"><td colspan="9" class="text-center">새로운 행 내용</td></tr>');
+	            $currentTr.after($newTr);
+	        }
+	    });
+	});
+
+*/
+	
+	
+});
+
+</script>
 	
 </head>
 <body>
@@ -110,7 +138,7 @@
 						<c:forEach var="review" items="${reviewList}" varStatus="status">
 							<tr class="text-center" data-review-no="${review.review_no}">
 								<td class=miniSize>${review.review_no}<br>(${review.user_no})</td>
-								<td class="miniSize">${review.product_name}<br>(${review.product_no})</td>
+								<td class="miniSize testTd">${review.product_name}<br>(${review.product_no})</td>
 								<td class=miniSize>${review.product_type}(${review.product_ml}ML)</td>
 								<td class=miniSize>${review.product_price}원</td>
 								<td class="text-left">${review.review_content}</td>
