@@ -212,6 +212,22 @@ public class MyPageController {
 		
 			return result;
 	}
+	
+	@ResponseBody
+	@GetMapping("/selectAddr")
+	public AddrVO selectAddr (AddrVO avo, Model model) {
+		log.info("selectAddr() 메소드 호출...");
+		log.info(avo.toString());
+		
+		AddrVO result = addrService.selectAddr(avo);
+		
+		System.out.println(result);
+		
+		if(result==null) {
+			return null; 
+		}
+			return result;
+	};
 
 	
 	/*내가 추가한 기본 배송지 정보 전체 조회하는 매핑*/

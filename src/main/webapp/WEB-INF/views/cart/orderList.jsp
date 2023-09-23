@@ -10,28 +10,63 @@
 var grandTotal = 0;
 var grandTotalClone = 0;
 var buyerAddrValue = "";
-
+let addressData ="";
 $(function() {
-		
+	
+	// 모달 열기 버튼에 대한 클릭 이벤트 핸들러
+	$('#leadUserAddrBtn').click(function() {
+	    // 모달을 보이게 하기
+	    $('#addrModal').modal('show');
+	    // 모달 열 때 서버에서 데이터를 동적으로 불러오는 함수를 호출
+	    loadDataIntoModal();
+	});
+	
+	function loadDataIntoModal() {
 	    $.ajax({
 	        url: "/mypage/leadBaseAddr",
 	        method: "get",
-	        data: { "user_no": "${userLogin.user_no}" }, 
+	        data: { "user_no": "${userLogin.user_no}" },
 	        dataType: "json",
-	        success: function(response) {
+	        success: function (response) {
 	            if (response.length > 0) {
+	                var $tbody = $("#modaltbody");
 	                for (let i = 0; i < response.length; i++) {
-	                    let addressData = response[i];  
-	                    console.log(addressData);
-	                    };
-	          	} else {
-	          		console.log("배송지가 없습니다.");
-	          	// 버튼을 숨김
-	          		$("#leadUserAddrBtn").css("visibility", "hidden");
+	                    var addressData = response[i];
+	                    var $tr = $("<tr>").append(
+	                        $("<td>").text(addressData.addr_name),
+	                        $("<td>").text(addressData.addr_road),
+	                        $("<td>").text(addressData.addr_receiver),
+	                        $("<td>").append($("<button>").text("선택")).click((function (address) {
+	                            return function () {
+	                                console.log("읽어온 주소:", address);
+
+	                                // 주소 정보를 입력 필드에 설정
+	                                $("#postcode").val(address.addr_post);
+	                                $("#jibunAddress").val(address.addr_jibun);
+	                                $("#roadAddress").val(address.addr_road);
+	                                $("#receiver").val(address.addr_receiver);
+	                                $("#name").val(address.addr_name);
+	                                $("#detailAddress").val(address.addr_detail);
+
+	                                // 주소 선택 모달 닫기
+	                                $("#addrModal").modal("hide");
+	                            };
+	                        })(addressData))
+	                    );
+	                    $tbody.append($tr);
+	                }
+	                $("#deliveryAddresses table tbody").empty().append($tbody);
+	            } else {
+	                alert("등록한 기본 배송지가 없습니다.");
+	                $("#leadUserAddrBtn").css("visibility", "hidden");
+                    $("#addrModal").modal("hide");
 	            }
-	        }       
+	        }
 	    });
-	                    
+	}
+
+	  
+	
 	function requestPay() {
 		console.log("function 시작");
 		// 사용자가 API를 통해 값을 조회했는지 검사
@@ -98,30 +133,7 @@ $(function() {
         })
   });
 	
-	
-
-	 // 모달안에 표시된 주소들중 하나를 선택하면 그값을 배치하는 함수
-	 function performAjaxRequest() {
-	     $.ajax({
-	         url: '/your-api-endpoint',
-	         method: 'GET',
-	         dataType: 'json',
-	         success: function(response) {
-	             // Handle the response here
-	             $('#modalContent').html(JSON.stringify(response));
-	         },
-	         error: function(error) {
-	             console.error(error);
-	         }
-	     });
-	 }
-
-	 // When the modal is shown, make the AJAX request
-	 $('#myModal').on('show.bs.modal', function() {
-	     performAjaxRequest();
-	 });
-	 
-	
+	  
         
     // "주문하기" 버튼을 클릭할 때 함수 호출
     function sendOrderData() {
@@ -301,37 +313,41 @@ $(function() {
 		  
 	<!-- <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소 입력">-->
 	 <label for="exampleFormControlInput1" class="form-label">주소</label>
-<form id="addrForm" name="addrForm">
+	<form id="addrForm" name="addrForm">
 	<%@ include file="/WEB-INF/views/addr/addressAPI.jsp" %>
    </form> 
+	<input type="button" value="기본배송지 불러오기" id="leadUserAddrBtn" class="btn btn-primary" data-toggle="modal" data-target="#addrModal">
 </div>
-		<input type="button" value="기본배송지 불러오기" id="leadUserAddrBtn" name="leadUserAddrBtn" onclick="performAjaxRequest()">
  
- <!-- 모달 -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- 모달 -->
+<div class="modal fade" id="addrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">배송지 목록</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
         	<div id="deliveryAddresses">
-       </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+       			<table  class="table table-striped">
+       				<thead>
+       					<tr>
+       						<th>배송지이름</th>
+       						<th>도로명주소</th>
+       						<th>수령인이름</th>
+       						<th>선택</th>
+       					</tr>
+       				</thead>
+       				<tbody id="modaltbody">
+       					<!-- 클릭을하면 모달창을 생성하고 그안에 관련 정보를 보여주는 곳 -->
+       				</tbody>
+       			</table>
+       		</div>
       </div>
     </div>
   </div>
 </div>
  
- <div class="address_sys_container" >		
- <!-- <input type="hidden" id="addrInfo" name="order_delevery_info" value=""/> -->
- 
-   </div><br/>	
+ 	<div class="address_sys_container" ></div>
 		<!-- 주소입력 컨테이터 종료 -->	
 		
 	<!-- 쿠폰 사용 -->

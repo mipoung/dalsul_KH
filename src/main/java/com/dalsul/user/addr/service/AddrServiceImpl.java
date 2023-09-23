@@ -73,11 +73,21 @@ public class AddrServiceImpl implements AddrService {
 	/*사용자 입력 레코드 개수 검증 함수 */
 	@Override
 	public String chkUserAddr(UserVO uvo) {
-		String chkUserAddr;
+		String result;
 		
-		chkUserAddr = addrApiDAO.chkUserAddr(uvo);
+		result = addrApiDAO.chkUserAddr(uvo);
 		
-		return chkUserAddr;
+		return result;
+	}
+	
+	/*사용자 선택 레코드 읽어오는함수*/
+	@Override
+	public AddrVO selectAddr(AddrVO avo) {
+		AddrVO result;
+		
+		result = addrApiDAO.selectAddr(avo);
+		
+		return result;
 	}
 	
 
