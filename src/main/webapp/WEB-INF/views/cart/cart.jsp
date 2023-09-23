@@ -139,7 +139,7 @@
       $(".minusBtn").click(
             function() {
                console.log("minusBtn");
-               const product_name = $(this).attr("data-product-id");
+               const product_no = $(this).attr("data-product-id");
                let product_quantity = parseInt(($(this).closest("tr")
                      .find(".quantity").text()).replace(/,/g, ''));
 
@@ -153,14 +153,14 @@
                   "url" : "/cart/cartMinus",
                   "method" : "get",
                   "data" : {
-                	  "product_no" : product_no
+                     "product_no" : product_no
                   },
                   "dataType" : "text",
                   success : function(data) {
                      if (data == 1) {
-                        $("#cartItem-" + product_name + " > .quantity")
+                        $("#cartItem-" + product_no + " > .quantity")
                               .text(product_quantity - 1);
-                        updateTotal($("#cartItem-" + product_name)); // 총합 업데이트
+                        updateTotal($("#cartItem-" + product_no)); // 총합 업데이트
                         updateTotalForAllItems();
                      } else {
                         alert("111시스템 오류입니다. 잠시 후 다시 시도해주세요.");
