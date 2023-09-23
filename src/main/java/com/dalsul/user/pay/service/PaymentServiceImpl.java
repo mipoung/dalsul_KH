@@ -62,7 +62,11 @@ public class PaymentServiceImpl implements PaymentService {
 		return orderListDetail;
 	}
 
-
+	@Override
+	public int updateQuantity(PayVO pvo) {
+		int result = payDao.updateQuantity(pvo);
+		return result;
+	}
 
 	}
 	

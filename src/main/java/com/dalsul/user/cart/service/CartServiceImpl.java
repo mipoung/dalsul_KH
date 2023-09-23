@@ -56,5 +56,14 @@ public class CartServiceImpl implements CartService{
 	}
 
 
+	@Override
+	public List<CartVO> cartListDetail(UserVO uvo) {
+		List<CartVO> list;
+		list=cartDao.cartList(uvo);
+		return list;
+	}
+
+
+
 
 }

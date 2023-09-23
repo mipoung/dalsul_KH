@@ -36,7 +36,6 @@
        	
        	.card-body {
        		min-height: 70%;
-       		min-height: 80%;
 
        	}
        	
@@ -84,7 +83,7 @@
 		}
 		
 		#myReviewSize {
-			width: 55%;
+			width: 60%;
 			margin : 0 auto;
 			
 		}
@@ -96,7 +95,17 @@
 		}
 		
 		
+		.card-title {
+			 border-bottom: 1.5px solid rgba(0, 0, 0, 0.175);
+		    text-align: center;
+		    padding-bottom: 3px;
+			
+		}
 		
+		#r_ListForm{
+			min-width: 500px;
+			
+		}
 		
 		/*
 		.card {

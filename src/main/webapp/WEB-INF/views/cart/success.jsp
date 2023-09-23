@@ -31,6 +31,8 @@
                 </c:forEach>
             </tbody>
         </table>
+        <a href="/mypage/orderlistDetailView">상세내역 조회하기</a>
+        <a href="/">메인으로 돌아가기</a>
     </div>
 </body>
 </html>
