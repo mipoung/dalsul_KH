@@ -12,103 +12,10 @@ var grandTotalClone = 0;
 var buyerAddrValue = "";
 
 $(function() {
-	//클릭하여 기본배송지 리스트를 모달로 반환받을수 있는 기능 
-        $("#leadBaseAddr").click(function() {
-        	console.log(${userLogin.user_no})
-        	 $.ajax({
-                 url: "/mypage/leadBaseAddr", // 컨트롤러
-                 method: "get",
-                 data: {"user_no" : "${userLogin.user_no}"},
-                 dataType: "text",
-                 success: function(response) {
-                     if (response !== null) {
-                         alert("조회성공하였습니다");
-                         console.log(response);
-                     } else {
-                         alert("시스템 오류, 잠시 후 다시 시도해 주세요.");
-                     }
-                 },
-                 error: function(error) {
-                     alert("로직오류, 관리자에게 문의하세요. 오류 확인");
-                     console.error(error); // 오류를 콘솔에 출력
-                 },
-             });
-        });
-   
-        $(function(){
-            $("#payBtn").click(function(){
-               requestPay();
-            })
-      });
-	
-	
-    // "주문하기" 버튼을 클릭할 때 함수 호출
-    function sendOrderData() {
-        console.log("sendOrderData 함수 실행");
-        const deleveryAddr =
-            $("#roadAddress").val() +
-            $("#jibunAddress").val() +
-            $("#detailAddress").val() +
-            $("#extraAddress").val() +
-            $("#postcode").val() +
-            "수령인 :" +
-            $("#receiver").val();
-
-        // deleveryAddr 값을 postcodeValue에 할당
-        var buyerAddrValue = deleveryAddr;
-
-        let productNumbers = $(".product_no")
-            .map(function() {
-                return $(this).text();
-            })
-            .get();
-
-        let productQuantity = $(".quantity")
-            .map(function() {
-                return parseInt($(this).text());
-            })
-            .get();
-
-        let orderData = {
-            order_delivery_info: deleveryAddr,
-            order_total_price: parseInt($("#grandTotal").text().replace(",", "")),
-            order_use_coupon: parseInt($("#coupon").val()),
-            product_no: productNumbers,
-            quantity: productQuantity,
-        };
-        console.log("성공?");
-        console.log("orderData:", orderData);
-
-        // AJAX를 사용하여 주문 정보와 결제 정보를 서버로 전송
-        $.ajax({
-            url: "/order/orderInsert", // 컨트롤러
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(orderData),
-            dataType: "text",
-            success: function(response) {
-                if (response === "SUCCESS") {
-                    alert("결제가 완료되었습니다");
-                    window.location.href = "/order/success";
-                } else {
-                    alert("시스템 오류, 잠시 후 다시 시도해 주세요.");
-                }
-            },
-            error: function(error) {
-                alert("실패 실패");
-                console.error(error); // 오류를 콘솔에 출력
-            },
-        });
-    }
- 
-
-    var IMP = window.IMP;
-    IMP.init("imp57485457");
-
-    function requestPay() {
-        console.log("requestPay 함수 시작");
-        
-        // 사용자가 API를 통해 값을 조회했는지 검사
+	//  결제하기 버튼을 누르면 호출되는 pg 사 함수 
+	function requestPay() {
+		console.log("function 시작");
+		// 사용자가 API를 통해 값을 조회했는지 검사
         if (!chkData("#roadAddress", "주소를 먼저")) return;
         else if (!chkData("#detailAddress", "상세주소를")) return;
         else if (!chkData("#receiver", "받는사람(수취인)명을")) return;
@@ -136,33 +43,129 @@ $(function() {
             // 값이 비었을 경우 return
             return;
         }
+	
+	  IMP.init('imp57485457'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+	  IMP.request_pay({
+	   pg: "html5_inicis",
+	    pay_method: "card",
+	    merchant_uid : 'merchant_'+new Date().getTime(),
+	    name : '달술',
+	    amount : grandTotalClone,
+	    buyer_email : "${userInfo.user_email}",
+	    buyer_name : "${userInfo.user_name}",
+	    buyer_tel : "${userInfo.user_phone_num}",
+	    buyer_addr : buyerAddrValue,
+	    buyer_postcode : $("#postcode").val()
+	  }, function (rsp) { // callback
+	      if (rsp.success) {
+	    	      console.log("결제가 성공했습니다.");
+	    	      console.log(rsp); 
+	    	      // 결제 성공 후 주문 데이터 전송
+	    	     sendOrderData();
+	    	     //window.location.href = "/order/success";
+	    	    } else {
+	    	      var msg = '결제에 실패하였습니다.';
+                  msg += '에러내용 : ' + rsp.error_msg;
+	    	      console.log("결제가 취소되었습니다.");
+	      }
+	  })
+	};
+	
+	//결제하기 버튼을 누를시 실행하는 함수 정의, 결제pg API 호출
+	$(function(){
+        $("#payBtn").click(function(){
+        	requestPay();
+        })
+  });
+	
+	//클릭하여 기본배송지 리스트를 모달로 반환받을수 있는 기능 
+        $("#leadBaseAddr").click(function() {
+        	console.log(${userLogin.user_no})
+        	 $.ajax({
+                 url: "/mypage/leadBaseAddr", // 컨트롤러
+                 method: "get",
+                 data: {"user_no" : "${userLogin.user_no}"},
+                 dataType: "text",
+                 success: function(response) {
+                     if (response !== null) {
+                         alert("조회성공하였습니다");
+                         console.log(response);
+                     } else {
+                         alert("시스템 오류, 잠시 후 다시 시도해 주세요.");
+                     }
+                 },
+                 error: function(error) {
+                     alert("로직오류, 관리자에게 문의하세요. 오류 확인");
+                     console.error(error); // 오류를 콘솔에 출력
+                 },
+             });
+        });
+   
         
-        IMP.init('imp57485457'); // iamport 대신 자신의 "가맹점 식별코드"를 사용
-        IMP.request_pay({
-            pg: "kakaopay.TC0ONETIME",
-            pay_method: "card",
-            merchant_uid: 'merchant_' + new Date().getTime(),
-            name: '달술',
-            amount: grandTotalClone,
-            buyer_email: "${userInfo.user_email}",
-            buyer_name: "${userInfo.user_name}",
-            buyer_tel: "${userInfo.user_phone_num}",
-            buyer_addr: buyerAddrValue,
-            buyer_postcode: $("#postcode").val(),
-        }, function(rsp) { // callback
-            if (rsp.success) {
-                console.log("결제가 성공했습니다.");
-                console.log(rsp);
-                // 결제 성공 후 주문 데이터 전송
-                sendOrderData();
-                // window.location.href = "/order/success";
-            } else {
-                var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
-                console.log("결제가 취소되었습니다.");
-            }
+    // "주문하기" 버튼을 클릭할 때 함수 호출
+    function sendOrderData() {
+        console.log("sendOrderData 함수 실행");
+        const deleveryAddr =
+            $("#roadAddress").val() +
+            $("#jibunAddress").val() +
+            $("#detailAddress").val() +
+            $("#extraAddress").val() +
+            $("#postcode").val() +
+            "수령인 :" +
+            $("#receiver").val();
+
+        // deleveryAddr 값을 postcodeValue에 할당
+        var buyerAddrValue = deleveryAddr;
+
+        let productNumbers = $(".product_no")
+            .map(function() {
+                return $(this).text();
+            })
+            .get();
+		
+        //화면단에 표시할 재품 수량
+        let productQuantity = $(".quantity")
+            .map(function() {
+                return parseInt($(this).text());
+            })
+            .get();
+	
+        //pg사 에 보낼값을 odrder 데이터에 정의 
+        let orderData = {
+            order_delivery_info: deleveryAddr,
+            order_total_price: parseInt($("#grandTotal").text().replace(",", "")),
+            order_use_coupon: parseInt($("#coupon").val()),
+            product_no: productNumbers,
+            quantity: productQuantity,
+        };
+        
+        //담은 오더데이터 값 콘솔에서 확인
+        console.log("성공?");
+        console.log("orderData:", orderData);
+
+        // AJAX를 사용하여 주문 정보와 결제 정보를 서버로 전송
+        $.ajax({
+            url: "/order/orderInsert", // 컨트롤러
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(orderData),
+            dataType: "text",
+            success: function(response) {
+                if (response === "SUCCESS") {
+                    alert("결제가 완료되었습니다");
+                    window.location.href = "/order/success";
+                } else {
+                    alert("시스템 오류, 잠시 후 다시 시도해 주세요.");
+                }
+            },
+            error: function(error) {
+                alert("실패 실패");
+                console.error(error); // 오류를 콘솔에 출력
+            },
         });
     }
+ 
+
 
     // 페이지 로드가 완료되면 실행되는 함수
     window.onload = function() {
@@ -182,6 +185,7 @@ $(function() {
             // 총합을 천단위로 포맷팅하여 콤마(,)를 추가합니다.
             var formatTotal = total.toLocaleString();
 
+	
             // .total 셀에 포맷팅된 총합을 출력합니다.
             cartItem.querySelector(".total").innerText = formatTotal;
 
@@ -204,21 +208,7 @@ $(function() {
 	               //  grandTotalClone 값을 화면에 업데이트합니다.
 	                 var grandTotalElement = document.getElementById("grandTotal");
 	                 grandTotalElement.innerText = grandTotalClone.toLocaleString();
-				<%--	
-				 // grandTotal 값을 계산한 후 5% 값을 계산합니다.
-		            var couponPercentage = 0.05; // 5%에 해당하는 비율
-	
-		            // 5% 적립금을 계산합니다.
-		            var couponAmount = (grandTotalClone-3000) * couponPercentage;
-		         
-		            // mileageMessage 요소를 가져옵니다.
-		            var couponMessageElement = document.getElementById("couponMessage");
-	
-		            // mileageMessage에 5% 적립금을 표시합니다.
-		            couponMessageElement.innerText = "결제 예정 적립금: " + couponAmount.toLocaleString() + "원";
-				 //mileageSelect.addEventListener --%>
-			});
-	            $("#coupon").trigger("click");
+			
 
             // 선택한 마일리지에 따라 grandTotal 값을 조정합니다.
             if (selectedCoupon === 0) {
@@ -269,6 +259,8 @@ $(function() {
             displayElement.innerText = "-" + selectedValue; // 선택한 값을 표시
         });
 
+
+    };
 
 });
 </script>
