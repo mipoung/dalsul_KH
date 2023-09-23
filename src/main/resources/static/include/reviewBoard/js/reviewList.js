@@ -1,4 +1,17 @@
 	$(function(){
+			$('.card.mb-3').each(function() {
+		        var review_no = $(this).data('review-no');
+		        var cookieName = 'review_' + review_no;
+		        
+		        // 해당 리뷰의 쿠키가 존재하는지 확인
+		        if($.cookie(cookieName)) {
+		            
+		            $(this).find(".reviewLikeBtn").attr('disabled', true);
+		            
+		        }
+		    });
+		
+		
       		
       		// 리뷰리스트에서 별점을 별로 치환하기
       		$(".reviewRating").each(function(){

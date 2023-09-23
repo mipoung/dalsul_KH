@@ -85,13 +85,14 @@
 		#myReviewSize {
 			width: 60%;
 			margin : 0 auto;
+			margin-bottom: 100px;
 			
 		}
 		
-		#detalReviewSize {
-			width: 90%;
+		#detailReviewSize {
+			width: 100%;
 			margin : 0 auto;
-			
+			margin-bottom: 100px;			
 		}
 		
 		
@@ -104,6 +105,11 @@
 		
 		#r_ListForm{
 			min-width: 500px;
+			
+		}
+		
+		.card {
+			margin : 0 auto;
 			
 		}
 		
