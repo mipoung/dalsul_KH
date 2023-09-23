@@ -12,7 +12,25 @@ var grandTotalClone = 0;
 var buyerAddrValue = "";
 
 $(function() {
-	
+		
+	    $.ajax({
+	        url: "/mypage/leadBaseAddr",
+	        method: "get",
+	        data: { "user_no": "${userLogin.user_no}" }, 
+	        dataType: "json",
+	        success: function(response) {
+	            if (response !== null) {
+	                for (let i = 0; i < response.length; i++) {
+	                    let addressData = response[i];  
+	                    };
+	          	} else {
+	          		console.log(1);
+	          	// 버튼을 숨김
+	          		$("button[name='leadUserAddrBtn']").css("visibility", "hidden");
+	            }
+	        }       
+	    });
+	                    
 	function requestPay() {
 		console.log("function 시작");
 		// 사용자가 API를 통해 값을 조회했는지 검사
@@ -79,29 +97,30 @@ $(function() {
         })
   });
 	
-	//클릭하여 기본배송지 리스트를 모달로 반환받을수 있는 기능 
-        $("#leadBaseAddr").click(function() {
-        	console.log(${userLogin.user_no})
-        	 $.ajax({
-                 url: "/mypage/leadBaseAddr", // 컨트롤러
-                 method: "get",
-                 data: {"user_no" : "${userLogin.user_no}"},
-                 dataType: "text",
-                 success: function(response) {
-                     if (response !== null) {
-                         alert("조회성공하였습니다");
-                         console.log(response);
-                     } else {
-                         alert("시스템 오류, 잠시 후 다시 시도해 주세요.");
-                     }
-                 },
-                 error: function(error) {
-                     alert("로직오류, 관리자에게 문의하세요. 오류 확인");
-                     console.error(error); // 오류를 콘솔에 출력
-                 },
-             });
-        });
-   
+	
+
+	 // 모달안에 표시된 주소들중 하나를 선택하면 그값을 배치하는 함수
+	 function performAjaxRequest() {
+	     $.ajax({
+	         url: '/your-api-endpoint',
+	         method: 'GET',
+	         dataType: 'json',
+	         success: function(response) {
+	             // Handle the response here
+	             $('#modalContent').html(JSON.stringify(response));
+	         },
+	         error: function(error) {
+	             console.error(error);
+	         }
+	     });
+	 }
+
+	 // When the modal is shown, make the AJAX request
+	 $('#myModal').on('show.bs.modal', function() {
+	     performAjaxRequest();
+	 });
+	 
+	
         
     // "주문하기" 버튼을 클릭할 때 함수 호출
     function sendOrderData() {
@@ -260,6 +279,7 @@ $(function() {
     };
 
 });
+
 </script>
 
 
@@ -284,7 +304,29 @@ $(function() {
 	<%@ include file="/WEB-INF/views/addr/addressAPI.jsp" %>
    </form> 
 </div>
-		<input type="button" value="기본배송지 불러오기" name="leadBaseAddr" id="leadBaseAddr">
+		<input type="button" value="기본배송지 불러오기" name="leadUserAddrBtn" onclick="performAjaxRequest()">
+ 
+ <!-- 모달 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">배송지 목록</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        	<div id="deliveryAddresses">
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
  <div class="address_sys_container" >		
  <!-- <input type="hidden" id="addrInfo" name="order_delevery_info" value=""/> -->
  
