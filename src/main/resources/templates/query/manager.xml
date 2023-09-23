@@ -68,7 +68,7 @@
 	 
 	</select>
 	
-	<select id="managerReviewStatistics">
+	<select id="managerReviewStatistics" resultType="managerCommon">
 		SELECT 
 			 (SELECT COUNT(review_no) FROM review) AS review_count,
 			 (SELECT ROUND(AVG(REVIEW_RATING),2) FROM REVIEW) AS AVG_REVIEW_RATING,
