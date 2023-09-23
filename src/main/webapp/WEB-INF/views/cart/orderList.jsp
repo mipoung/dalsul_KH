@@ -19,14 +19,15 @@ $(function() {
 	        data: { "user_no": "${userLogin.user_no}" }, 
 	        dataType: "json",
 	        success: function(response) {
-	            if (response !== null) {
+	            if (response.length > 0) {
 	                for (let i = 0; i < response.length; i++) {
 	                    let addressData = response[i];  
+	                    console.log(addressData);
 	                    };
 	          	} else {
-	          		console.log(1);
+	          		console.log("배송지가 없습니다.");
 	          	// 버튼을 숨김
-	          		$("button[name='leadUserAddrBtn']").css("visibility", "hidden");
+	          		$("#leadUserAddrBtn").css("visibility", "hidden");
 	            }
 	        }       
 	    });
@@ -304,7 +305,7 @@ $(function() {
 	<%@ include file="/WEB-INF/views/addr/addressAPI.jsp" %>
    </form> 
 </div>
-		<input type="button" value="기본배송지 불러오기" name="leadUserAddrBtn" onclick="performAjaxRequest()">
+		<input type="button" value="기본배송지 불러오기" id="leadUserAddrBtn" name="leadUserAddrBtn" onclick="performAjaxRequest()">
  
  <!-- 모달 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
