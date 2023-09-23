@@ -62,6 +62,7 @@ public class CartController {
     }
     
  	 /* @PostMapping("cartList")
+    @GetMapping("cartList")
     public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
     	
     	// required = 세션값이 필수인지 물어보는 속성. 기본값 :true -> 세션이 없으면 error

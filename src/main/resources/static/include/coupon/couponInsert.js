@@ -57,7 +57,7 @@
         // Ajax 요청을 통해 서버에 쿠폰 정보 전송
         $.ajax({
             // 요청할 URL 주소 (실제 서버 엔드포인트 URL로 변경해야 합니다.)
-            url: "/coupon/insertCoupon",
+            url: "/manager/coupon/insertCoupon",
             // 요청 방식
             type: "post",
             // 전송할 데이터
@@ -81,6 +81,8 @@
                     
                     // 라디오 버튼 체크 초기화
                     $("#coupon_status").prop("checked", true);
+                    
+                    location.reload();
                 } else {
                     alert("시스템 오류입니다. 다시 시도하시거나 관리자에게 문의하세요.");
               	  }//ajax 오류시 선언 종료
