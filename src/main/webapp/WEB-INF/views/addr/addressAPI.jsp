@@ -4,11 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 </head>
-<style>
-#ApiInputStyle {
-	width: 500px;
-}
-</style>
+
 <script type="text/javascript">
  $(function() {
 	
