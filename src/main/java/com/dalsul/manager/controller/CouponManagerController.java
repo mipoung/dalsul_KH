@@ -51,6 +51,7 @@ public class CouponManagerController {
 		return "/manager/coupon/managerCouponInsert"; 
 	}
 	
+	
 	//쿠폰 정보 추가하는 메소드
 	@ResponseBody
 	@PostMapping(value =  "/insertCoupon" , produces =  "text/plain; charset=UTF-8")
@@ -64,7 +65,7 @@ public class CouponManagerController {
 			return "쿠폰추가성공";
 		}else {
 			return "쿠폰추가실패";
-		}
+		}	
 		
 	}
 } 
