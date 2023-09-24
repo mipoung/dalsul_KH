@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/resources/include/account/register/css/phoneCertification.css"/>
 <script src="/resources/include/account/register/js/phoneCertification.js"></script>
 <script src="/resources/include/common/js/chkRegex.js"></script>
+<title>성인인증</title>
 </head>
 <body>
 	<div class="container">

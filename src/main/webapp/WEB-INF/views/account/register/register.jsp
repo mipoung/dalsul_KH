@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/resources/include/account/register/css/register.css"/>
 <script src="/resources/include/account/register/js/register.js"></script>
 <script src="/resources/include/common/js/chkRegex.js"></script>
+<title>회원가입</title>
 </head>
 <body>
 	<%-- 이름 :  --%>

@@ -99,6 +99,7 @@ $(function(){
 	margin : 20px 0px;
 }
 </style>
+<title>비밀번호 변경</title>
 </head>
 <body>
 	<div class="container">

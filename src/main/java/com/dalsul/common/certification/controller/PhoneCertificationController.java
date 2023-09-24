@@ -67,9 +67,8 @@ public class PhoneCertificationController {
         // 발급된 인증번호
         String certificationValue = numStrBuf.toString();
         log.info("인증 번호 : "+certificationValue);
-        
-        //실사용 및 테스트 시 주석 해제
-/*        Message message = new Message();
+/*        
+        Message message = new Message();
         // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
         message.setFrom("01023118052"); // 발신번호 고정
         message.setTo(phoneNumber); // 수신번호
@@ -77,7 +76,7 @@ public class PhoneCertificationController {
       
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
         log.info(response.toString());
-*/     
+*/   
         // 발급된 인증번호 값을 세션에 저장
         session.setAttribute("certificationValue", certificationValue);
         result = "success";
@@ -93,9 +92,6 @@ public class PhoneCertificationController {
 		
 		String certificationValue = (String)session.getAttribute("certificationValue");
 		String replaceNumber = requestNumber.replaceAll("\\s", "");
-		
-		log.info("발급한 휴대폰 인증번호 : "+certificationValue);
-		log.info("사용자가 입력한 인증번호 : "+replaceNumber);
 		
 		if(certificationValue != null && certificationValue.equals(replaceNumber)) {
 			session.removeAttribute("certificationValue"); // 세션에 저장된 certificationValue값 삭제

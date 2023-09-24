@@ -31,8 +31,6 @@ public class EmailCertificationController {
 	@ResponseBody
 	@PostMapping("/sendEmail")
 	public String sendEmail(@RequestParam("emailAddr") String emailAddr) throws Exception{
-		log.info("sendEmail() 메소드 실행...");
-		log.info("수신자 이메일 : "+emailAddr);
 		String result = "fail";
 		
 		// 이메일 정규식
@@ -46,8 +44,7 @@ public class EmailCertificationController {
             return result;
         }
 		
-		//String code = emailService.sendEmail(emailAddr);
-		String code = emailService.testsendEmail(emailAddr);
+		String code = emailService.sendEmail(emailAddr);
         log.info("인증번호 코드 : "+code);
         session.setAttribute("certificationCode", code);
         
