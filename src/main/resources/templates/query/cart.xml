@@ -69,5 +69,19 @@
     WHERE cart_id = #{cart_id} AND product_no = #{product_no}
 </update>
 
+<!--  
+<select id="cartListDetailByProductNumbers" parameterType="map" resultType="cart">
+    SELECT cl.quantity, cl.product_no, cl.product_price, p.product_name
+    FROM cart c
+    JOIN cart_list cl ON c.cart_id = cl.cart_id
+    JOIN product p ON cl.product_no = p.product_no
+    WHERE c.cart_id = #{user_no}
+    AND cl.product_no IN
+    <foreach collection="productNumbers" item="productNumber" open="(" separator="," close=")">
+        #{productNumber}
+    </foreach>
+</select>
+-->
+
 
 </mapper>

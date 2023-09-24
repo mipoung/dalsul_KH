@@ -54,6 +54,5 @@ public class ManagerServiceImpl implements ManagerService {
         int result = managerDAO.updateOrderStatus(selectedOrders);
         return result;
     }
-	
 
 }

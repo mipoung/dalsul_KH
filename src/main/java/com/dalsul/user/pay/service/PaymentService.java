@@ -15,5 +15,6 @@ public interface PaymentService {
 	public List<PayVO> payList(UserVO uvo);
 	public List<PayVO> orderList(UserVO uvo);
 	public List<PayVO> orderListDetail(PayVO pvo);
-	public int updateQuantity (PayVO cvo);
+	public int updateProductStock (PayVO pvo);
+	//public List<PayVO> getProductQuantity(PayVO pvo);
 }

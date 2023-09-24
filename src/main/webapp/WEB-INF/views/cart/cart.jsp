@@ -88,6 +88,25 @@
 		
 		$("#payBtn").click(function() {
 			 window.location.href = "/cart/cartListDetail";
+			// 선택된 체크박스의 정보를 가져오기
+			<%--
+		    const selectedItems = [];
+		    $(".product-checkbox:checked").each(function() {
+		        const product_no = $(this).data("product-id");
+		        selectedItems.push(product_no);
+		    });
+
+		    // 선택된 항목이 없을 경우 경고 메시지 표시
+		    if (selectedItems.length === 0) {
+		        alert("결제할 상품을 선택해주세요.");
+		        return;
+		    }
+			--%>
+		    // 선택된 상품 번호 목록을 결제 페이지로 전달
+		    const queryParams = selectedItems.join(",");
+		    window.location.href = "/cart/cartListDetail?selectedItems=" + queryParams;
+			
+			
 		});
 		
 		// 삭제 버튼을 클릭했을 때
@@ -193,7 +212,9 @@
 			<tbody>
 				<c:forEach items="${cartList}" var="cartList">
 					<tr id="cartItem-${cartList.product_no}" class="cart-item">
-						<td class="product_no" >${cartList.product_no}</td>
+						<!--  <td class="product_no" >${cartList.product_no}</td>-->
+						<td class="product_no">
+       				       <input type="checkbox" class="product-checkbox" data-product-id="${cartList.product_no}">
 						<td class="product_name" >${cartList.product_name}</td>
 						<td class="product_price-quantity">
 							<button type="button" class="btn btn-primary btn-sm minusBtn" data-product-id="${cartList.product_no}">-</button> 

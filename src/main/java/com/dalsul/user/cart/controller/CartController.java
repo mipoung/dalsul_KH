@@ -1,6 +1,7 @@
 package com.dalsul.user.cart.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -139,7 +140,9 @@ public class CartController {
     }
     
     @GetMapping("/cartListDetail")
-    public String cartListDetail(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
+    public String cartListDetail(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,
+    		@RequestParam(name = "selectedItems", required = false) String selectedItems, // 선택된 상품 번호
+    	    Model model) {
     	if(uvo==null) {
     		return "login/userLoginView";
     	}
@@ -153,7 +156,17 @@ public class CartController {
     	model.addAttribute("userInfo", userInfo);
         
         return "cart/orderList";
+    	
+//    	 if (selectedItems != null && !selectedItems.isEmpty()) {
+//    	        // 선택된 상품 번호를 쉼표로 분리하여 리스트로 변환
+//    	        List<String> selectedProductNos = Arrays.asList(selectedItems.split(","));
+//    	        
+//    	        // 선택된 상품 번호를 이용하여 필요한 처리를 수행
+//    	        // 예: 선택된 상품들을 결제 처리
+//    	        // cartService.processPayment(selectedProductNos);
+//    	    }
+//    	 return "cart/orderList";
     }
-    
+   
     }
 
