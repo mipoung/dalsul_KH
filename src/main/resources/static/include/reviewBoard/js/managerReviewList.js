@@ -82,7 +82,9 @@ $(function(){
 				if(!chkDataNum("#keyword", "검색어를")) return;
 			} else if ($("#search").val() == "user_no"){
 				if(!chkDataNum("#keyword", "검색어를")) return;
-			} 
+			} else if($("#search").val() == "review_rating"){
+				if(!chkDataNum("#keyword", "검색어를")) return;
+			}
 			
 			$("#pageNum").val(1);
 			
