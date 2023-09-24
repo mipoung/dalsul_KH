@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.cart.vo.CartVO;
+import com.dalsul.user.pay.dao.PayDAO;
 import com.dalsul.user.pay.service.PaymentService;
 import com.dalsul.user.pay.vo.PayDTO;
 import com.dalsul.user.pay.vo.PayVO;
@@ -41,6 +42,19 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 	
 	String result = "FAIL";
 	
+	// 체크박스가 선택되었는지 확인
+   // boolean isPickupSelected = PayDAO.isPickupSelected();
+
+//    // 주문 정보 객체 생성
+//    PayVO pvo = new PayVO();
+//    pvo.setOrder_delivery_info(payDTO.getOrder_delivery_info());
+//    pvo.setOrder_total_price(payDTO.getOrder_total_price());
+//    pvo.setOrder_use_coupon(payDTO.getOrder_use_coupon());
+//
+//    // 체크박스 선택 여부에 따라 배송비 설정
+//    pvo.setOrder_dlv_fee(isPickupSelected ? 0 : 3000);
+//    
+	////////////////////////////////
 	System.out.println(payDTO.toString());
 	
 	PayVO pvo = new PayVO();
@@ -87,6 +101,10 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 	}
     System.out.println("cartDelete 성공");
     System.out.println("result : " + result);
+	
+	pvo.getProduct_no();
+	paymentService.updateProductStock(pvo);
+	
 	return result;
 };
 
@@ -100,11 +118,9 @@ public String orderInsert(@RequestBody PayDTO payDTO, @SessionAttribute(name = "
 	List<PayVO> payList = paymentService.payList(uvo);
 	model.addAttribute("payList", payList);
 	
-    
 	
     return "cart/success";
 }
-
 
 
 

@@ -133,6 +133,7 @@
                     <label for="extraAddress">참고항목</label>
                     <input type="text" id="extraAddress" onclick="execDaumPostcode()" placeholder="참고항목" readonly="readonly" name="extraAddress" class="form-control">
                 </div>
+                <input type="hidden" id="pickUpInput" name="pickup" value="">
                 <div class="form-group">
                     <input type="button" onclick="execDaumPostcode()" value="주소찾기" class="btn btn-primary">
                 </div>

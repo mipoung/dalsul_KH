@@ -63,10 +63,17 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public int updateQuantity(PayVO pvo) {
-		int result = payDao.updateQuantity(pvo);
+	public int updateProductStock(PayVO pvo) {
+		int result = payDao.updateProductStock(pvo);
 		return result;
 	}
+
+//	@Override
+//	public List<PayVO> getProductQuantity(PayVO pvo) {
+//		List<PayVO> productQuantity = payDao.getProductQuantity(pvo);
+//		return productQuantity;
+//	}
+
 
 	}
 	
