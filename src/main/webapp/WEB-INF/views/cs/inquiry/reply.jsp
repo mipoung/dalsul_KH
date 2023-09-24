@@ -188,10 +188,11 @@
 		$element.attr("data-num", reply_no);
 		$element.addClass("reply");
 		$element.find('.panel-heading > .panel-title > .date').html(
-				" / " + reply_date);
-		$element.find('.panel-body').html(reply_answer);
+				" 작성일 : " + reply_date);
+		$element.find('.panel-body').html( " 관리자 :  " + reply_answer);
 		$div.append($element);
 	}
+
 
 	/** 수정 폼 화면 구현 함수 */
 	/*function updateForm(reply_no, panel) {

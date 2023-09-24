@@ -52,16 +52,7 @@ public class MainServiceImpl implements MainService {
 	public List<ProductVO> getProductsOrderByPriceLow() {
 		return mainDao.getProductsOrderByPriceLow();
 	}
-	
-	/*@Override
-	public List<ProductVO> getTotalResult(String str) {
-		return mainDao.getTotalResult(str);
-	}
-	
-	@Override
-	public List<ProductVO> getSelectResult(String str) {
-		return mainDao.getSelectResult(str);
-	}*/
+		
 	
 	@Override
 	public ProductVO getDetailPageProducts(ProductVO vo) {

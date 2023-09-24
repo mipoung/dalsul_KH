@@ -24,11 +24,7 @@ public interface MainDAO {
     public List<ProductVO> getProductsOrderByPriceHigh();
     
     public List<ProductVO> getProductsOrderByPriceLow();
-    
-    //public List<ProductVO> getTotalResult(String str);
-    
-    //public List<ProductVO> getSelectResult(String str);
-    
+        
     public ProductVO getDetailPageProducts(ProductVO vo);
     
     
