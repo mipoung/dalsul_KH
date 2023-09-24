@@ -67,22 +67,28 @@
 	}
 	
 	.sector-first {
-    	margin-top: -50px; /* margin-top을 0으로 설정하여 취소합니다. */
+    	margin-top: -20px; /* margin-top을 0으로 설정하여 취소합니다. */
     	margin-left: -30px; /* margin-left를 0으로 설정하여 취소합니다. */
 	}
 	
+	.product-name {
+		font-size: 30px;
+	}
+	
 	.sector-second {
-		margin-top: 35px;		
+		margin-top: 5px;		
 		margin-left: -25px;
 	}
 	
 	.sector-third {
-		margin-top: 45px;
+		margin-top: 55px;
     	margin-left: -25px;
+    
+    	color: rgb(112, 112, 112);
 	}
 	
 	.sector-forth {
-		margin-top: 135px;
+		margin-top: 90px;
     	margin-left: -25px;
     	font-size: 35px;
 	}
@@ -113,16 +119,110 @@
 		position: sticky;
     	top: 150px;   
     	
-    	border: 1px solid #ccc; /* 테두리 색깔 및 두께 설정 */
+    	border: 2px solid #ccc; /* 테두리 색깔 및 두께 설정 */
     	border-radius: 10px; /* 테두리 둥글게 설정 */
-    	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 설정 */
+    	/*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);*/ /* 그림자 설정 */
     	padding: 10px; /* 내용과 테두리 사이 여백 설정 */
+    	
+    	height: 15%;
 	}
 	
 	input[type="number"]::-webkit-outer-spin-button,
 	input[type="number"]::-webkit-inner-spin-button {
     	-webkit-appearance: none;
    	 margin: 0;
+	}
+	
+	.label {
+		margin: 20px 0px;
+	}
+	
+	select {
+    word-wrap: normal;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}	
+	
+	.countselect {
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+	
+	#decrementQuantity, #incrementQuantity  {
+		width: 50px;
+		height: 50px;
+		
+		font-size: 16px;
+		background-color: white;
+		border: none;
+	
+
+	}
+	
+	#decrementQuantity {
+		margin-right: -4px;
+		border-right: 2px solid #ccc;
+	
+	}
+	
+	#incrementQuantity {
+		margin-left: -4px;
+		border-left: 2px solid #ccc;
+	}
+	#quantity {
+		width: 64%;
+		text-align: center;
+		height: 50px;
+		
+		border: none;
+	}
+	
+	.totalprice {
+    display: flex; /* Flexbox 사용 */
+    flex-direction: column; /* 수직 방향으로 아이템 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    border: 2px solid #ccc; /* 테두리 설정 */
+    border-radius: 5px;
+    
+    height: 50px;
+    
+    margin-bottom: 10%;
+	}
+	
+	.btn-wrpper {
+    	width: 100%;
+    	display: flex;
+    	justify-content: space-between;
+    	gap: 5px;
+	}
+
+	.basket {
+		width: 50%;
+		height: 50px;
+   	 	background-color: white;
+   	 	
+   	 	border: 2px solid #ccc;
+   	 	border-radius: 5px;
+	}
+
+	.purchase {
+	
+		width: 50%;
+		height: 50px;
+		
+		border: none;
+		border-radius: 5px;
+   		background-color: rgb(0, 150, 243);
+    	color: white;
+}
+
+	#bottom {
+		margin-bottom: 5%
 	}
 	
 </style>
@@ -219,10 +319,46 @@ $(function() {
             }
          }
     });
+    
+    // "결제하기" 버튼 클릭 시 이벤트 핸들러
+    $(".purchase").click(function() {
+    	
+    	var data = {
+                "cart_id" : "${userLogin.user_no}",
+                "product_no" : "${detail.product_no}",
+                "product_name" : "${detail.product_name}",
+                "product_price" : "${detail.product_price}",
+                "quantity" : $("#quantity").val()
+        };
+        
+        if ("${userLogin.user_no}" == "") {
+            location.replace("/login/userLoginView");
+        } else {
+                if(confirm("구매하시겠습니까?")){
+                    $.ajax({
+                        url: "/cart/cartInsert",
+                        method: "post",
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        dataType : "text",
+                        
+                        success: function(response) {
+                        	if (response == "SUCCESS")
+                        		location.replace("/cart/cartList");
+                        	else {
+                        		alert("잠시후 다시 시도해주세요");
+                        	}
+                        },
+                        error: function(error) {
+                            alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                        }
+                    });
+               }
+        }
+    });
+        
 });
 </script>
-
-
 
 
 </head>
@@ -321,6 +457,7 @@ $(function() {
 					</div>
 				</div>
 			</div>	
+			<div id="bottom"></div>
 		</div>
 		<%@ include file="footer.jsp"%>
 	</div>

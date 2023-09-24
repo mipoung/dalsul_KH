@@ -264,6 +264,10 @@ a {
 	font-size: 12px;
 	color: rgb(128, 128, 128);
 }
+
+#bottom {
+	margin-bottom: 10%
+}
 </style>
 
 <script src="/resources/include/common/js/jquery-3.7.0.min.js"></script>
@@ -827,6 +831,7 @@ a {
 			</div>
 
 		</div>
+		<div id="bottom"></div>
 		<%@ include file="footer.jsp"%>
 	</div>
 </body>

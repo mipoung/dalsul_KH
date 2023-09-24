@@ -66,8 +66,7 @@ public class CartController {
     }
     
  	
-    
-    
+    // 장바구니 추가  
     @PostMapping("/cartInsert")
     @ResponseBody
     public String cartInsert(@RequestBody CartVO cvo)throws Exception {
@@ -94,18 +93,7 @@ public class CartController {
     	
     	
     }*/
-    
-    
-    
-    // 장바구니 추가 수정
-   /* @GetMapping("/cartInsert")
-    public String cartInsert(CartVO cvo) throws Exception {
-        cartService.cartInsert(cvo);
-
-        // 장바구니 추가 후에 cartList 페이지로 리다이렉트
-        return "redirect:/cartList";
-    } */
-    
+       
     //장바구니 개수 추가(+)
     @ResponseBody
     @GetMapping("/cartPlus")
@@ -171,7 +159,7 @@ public class CartController {
     	model.addAttribute("userInfo", userInfo);
         
         return "cart/orderList";
-    }
+    } 
     
     }
 

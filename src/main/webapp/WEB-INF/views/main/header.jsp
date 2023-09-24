@@ -21,7 +21,7 @@
 
 $(function() {
 
-	  var isUserLoggedIn = ${not empty userLogin.user_no};
+	 var isUserLoggedIn = ${not empty userLogin.user_no};
 	    
 	// 링크를 클릭했을 때 처리
 	document.getElementById("imgtag").addEventListener("click", function(event) {
@@ -44,9 +44,7 @@ $(function() {
 			<nav id="navbar-example1" class="navbar bg-white px-3 mb-3" style="background-color:white">
 				<a class="navbar-brand" href="/"><img id="logo"
 					src="/resources/images/dalsul_logo.png"></a>
-				<ul class="nav nav-pills">
-					<li class="nav-item" id="subscribe"><a class="nav-link"
-						href="/">구독</a></li>
+				<ul class="nav nav-pills">				
 					<li class="nav-item" id="store"><a class="nav-link"
 						href="/total">스토어</a></li>
 					<form class="d-flex" role="search">
@@ -72,7 +70,7 @@ $(function() {
 						href="/faq/FAQList">고객센터</a></li>
 				</ul>
 				<a class="nav-link" href="/" id="imgtag"><img id="img2"
-					src="resources/images/mainpage/basketIcon.png"></a>
+					src="/resources/images/mainpage/basketIcon.png"></a>
 			</nav>
 		</ul>
 	</div>
