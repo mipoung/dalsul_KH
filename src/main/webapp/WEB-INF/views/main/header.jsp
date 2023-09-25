@@ -16,15 +16,35 @@
 </style>	
 	
 <script src="/resources/include/mainpage/js/header.js"></script>
+
+<script>
+
+$(function() {
+
+	 var isUserLoggedIn = ${not empty userLogin.user_no};
+	    
+	// 링크를 클릭했을 때 처리
+	document.getElementById("imgtag").addEventListener("click", function(event) {
+    
+	event.preventDefault(); // 기본 동작을 중지 (링크 클릭 시 이동을 막음)
+
+    if (isUserLoggedIn) {
+        // 사용자가 로그인한 경우, 장바구니 페이지로 이동
+        window.location.href = "/cart/cartList";
+    } else {
+        	// 사용자가 로그인하지 않은 경우, 로그인 페이지로 이동
+        	window.location.href = "/login/userLoginView";
+    	}
+	});
+});
+</script>
 	
 <div id="main" class="fixed-top">
 		<ul class="nav fixied-top">
 			<nav id="navbar-example1" class="navbar bg-white px-3 mb-3" style="background-color:white">
 				<a class="navbar-brand" href="/"><img id="logo"
 					src="/resources/images/dalsul_logo.png"></a>
-				<ul class="nav nav-pills">
-					<li class="nav-item" id="subscribe"><a class="nav-link"
-						href="/">구독</a></li>
+				<ul class="nav nav-pills">				
 					<li class="nav-item" id="store"><a class="nav-link"
 						href="/total">스토어</a></li>
 					<form class="d-flex" role="search">
@@ -58,8 +78,8 @@
 				</c:when>
 				<c:otherwise>
 					<!-- 사용자가 로그인된 경우 -->
-					<a class="nav-link" href="cart/cartList"><img id="img2"
-						src="resources/images/mainpage/basketIcon.png"></a>
+					<a class="nav-link" href="/cart/cartList"><img id="img2"
+						src="/resources/images/mainpage/basketIcon.png"></a>
 				</c:otherwise>
 			</c:choose>
 			</nav>

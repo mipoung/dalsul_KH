@@ -123,6 +123,9 @@ a:link {
 	font-weight: bold;
 }
 
+#bottom {
+		margin-bottom: 10%
+	}
 
 
 </style>
@@ -330,8 +333,7 @@ a:link {
 					</div>					
 			</c:forEach>
 	</div>
-	<br />
-	<br />
+	<div id="bottom"></div>
 	<%@ include file="footer.jsp"%>
 </body>
 </html>

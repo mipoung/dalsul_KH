@@ -190,17 +190,7 @@ body {
 		                        $.each(data, function() {
 		                        	 var productName = this.product_name.replace(new RegExp(searchKeyword.replace(/\s+/g, ''), 'gi'), function(matched) {
     									return '<span style="color: orange; font-weight: bold;">' + matched + '</span>';
-										}); 
-		                           /* var productName = this.product_name;
-		                            // 검색어를 공백으로 분리하여 개별 단어로 처리
-		                            var searchWords = searchKeyword.split(/\s+/);
-		                            for (var i = 0; i < searchWords.length; i++) {
-		                                var searchWord = searchWords[i];
-		                                // 각 검색어에 대해 하이라이트 처리
-		                                productName = productName.replace(new RegExp(searchWord, 'gi'), function(matched) {
-		                                    return '<span style="color: orange; font-weight: bold;">' + matched + '</span>';
-		                                });
-		                            }*/
+										});
 		                            $('#searchResult').append('<li><a href="/detail?product_no=' + this.product_no + '">' + productName + '</a></li>');
 		                        });
 		                    } else {

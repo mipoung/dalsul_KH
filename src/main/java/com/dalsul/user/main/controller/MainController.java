@@ -51,8 +51,9 @@ public class MainController {
 	  		List<ProductVO> products = mainService.getMainPageProducts();
 	    	model.addAttribute("products", products);
 	    	model.addAttribute("userLogin", uvo);
-	    	log.info("메인페이지로 이동");
-	    	log.info("상품개수 : "+products.size());
+	    	
+	    	//log.info("메인페이지로 이동");
+	    	//log.info("상품개수 : "+products.size());
 	        
 	    	return "main/main"; 
 	    }

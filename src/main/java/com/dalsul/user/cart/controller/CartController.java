@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +23,10 @@ import com.dalsul.user.cart.service.CartService;
 import com.dalsul.user.cart.vo.CartVO;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Controller
 @RequestMapping("/cart/*")
 public class CartController {
@@ -62,33 +67,35 @@ public class CartController {
         return "cart/cart";
     }
     
- 	 /* @PostMapping("cartList")
-    @GetMapping("cartList")
-    public String cartPage(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,Model model) {
-    	
-    	// required = 세션값이 필수인지 물어보는 속성. 기본값 :true -> 세션이 없으면 error
-    	// 로그인을 하지 않았을 경우
-    	if(uvo==null) {
-    		return "login/userLoginView";
-    	}
-    	//System.out.println(uvo.toString());
-    	
-    	List<CartVO>cartList = cartService.cartList(uvo);
-    	model.addAttribute("cartList", cartList);
-        
-        return "cart/cart";
-    }*/
-    
-    
-    
-    //장바구니 추가
-    @GetMapping("/cartInsert")
-    public void cartInsert(CartVO cvo)throws Exception {
-    	cartService.cartInsert(cvo);
-     
+ 	
+    // 장바구니 추가  
+    @PostMapping("/cartInsert")
+    @ResponseBody
+    public String cartInsert(@RequestBody CartVO cvo)throws Exception {
+        String result = "FAIL";
+        System.out.println("cvo값 : "+cvo.toString());
+
+        int insertCtn = cartService.cartInsert(cvo);
+
+        if(insertCtn==1) {
+            result = "SUCCESS";
+        }
+
+        return result;
     }
     
-    
+    //장바구니 추가
+   /* @GetMapping("/cartInsert")
+    @ResponseBody
+    public void cartInsert(@RequestBody CartVO cvo)throws Exception {
+    	
+    	log.info(cvo.toString());
+    	
+    	cartService.cartInsert(cvo);
+    	
+    	
+    }*/
+       
     //장바구니 개수 추가(+)
     @ResponseBody
     @GetMapping("/cartPlus")
@@ -156,17 +163,7 @@ public class CartController {
     	model.addAttribute("userInfo", userInfo);
         
         return "cart/orderList";
-    	
-//    	 if (selectedItems != null && !selectedItems.isEmpty()) {
-//    	        // 선택된 상품 번호를 쉼표로 분리하여 리스트로 변환
-//    	        List<String> selectedProductNos = Arrays.asList(selectedItems.split(","));
-//    	        
-//    	        // 선택된 상품 번호를 이용하여 필요한 처리를 수행
-//    	        // 예: 선택된 상품들을 결제 처리
-//    	        // cartService.processPayment(selectedProductNos);
-//    	    }
-//    	 return "cart/orderList";
-    }
-   
+    } 
+    
     }
 
