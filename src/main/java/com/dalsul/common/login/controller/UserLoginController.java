@@ -1,8 +1,11 @@
 package com.dalsul.common.login.controller;
 
+import java.security.SecureRandom;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,9 @@ public class UserLoginController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private UserLoginService loginService;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 	
 	// 로그인 페이지 이동 요청이 들어오면 현재 페이지의 정보를 저장하여 로그인 view로 이동한다.
 	// 로그인 페이지에서 로그인에 성공하면 저장한 페이지 정보로 이동한다
@@ -93,5 +99,4 @@ public class UserLoginController {
 		
 		return returnURL;
 	}
-	
 }

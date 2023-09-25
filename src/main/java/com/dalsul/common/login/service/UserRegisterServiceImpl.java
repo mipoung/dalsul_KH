@@ -39,8 +39,6 @@ public class UserRegisterServiceImpl implements UserRegisterService{
 				)
 		);
 		
-		System.out.println("INSERT가 준비된 uvo의 값 : "+uvo.toString());
-		
 		int result = userRegisterDAO.userRegistring(uvo);
 		
 		// 계정이 성공적으로 생성되었다면 장바구니 생성

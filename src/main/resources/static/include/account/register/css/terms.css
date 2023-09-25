@@ -3,3 +3,31 @@
 textarea {
 	resize: none;
 }
+
+#user_info_div{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    --swiper-theme-color: #007aff;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum";
+    font-variant: tabular-nums;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 13px;
+    font-family: Spoqa Han Sans Neo,"sans-serif";
+    color: inherit;
+    box-sizing: border-box;
+    width: 1144px;
+    margin: 0px auto;
+    border-radius: 20px;
+    border: 1px solid rgb(224, 224, 224);
+}
+
+#user_info_div > div {
+	margin : 0 auto;
+}
+
+.certified_div{
+	padding: 30px 0px;
+	
+}

@@ -66,8 +66,7 @@ $(function() {
                 </c:otherwise>
             	</c:choose>
 				<ul class="nav nav-pills">
-					<li class="nav-item"><a class="nav-link"
-						href="/faq/FAQList">고객센터</a></li>
+					<li class="nav-item"><a class="nav-link" href="/faq/FAQList">고객센터</a></li>
 				</ul>
 
 			<c:choose>

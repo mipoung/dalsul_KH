@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
+<title>마이페이지 - 회원정보</title>
 <style>
 #user_info_div{
     -webkit-text-size-adjust: 100%;

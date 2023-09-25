@@ -35,7 +35,7 @@ public class EmailCertificationServiceImpl implements EmailCertificationService{
 	@Override
 	public MimeMessage createEmailForm(String email) throws MessagingException, UnsupportedEncodingException {
         this.code = createCertificationCode();
-        String setFrom = "yonghun0404@gmail.com";// 발신인(달술admin)
+        String setFrom = "Dalsul";// 발신인(달술admin)
         String toEmail = email;					 // 수신자
         String title = "[달술] 본인확인 이메일 인증번호"; // 메일 제목
 
@@ -47,17 +47,13 @@ public class EmailCertificationServiceImpl implements EmailCertificationService{
         // 메일 내용 설정
         String msgOfEmail="";
         msgOfEmail += "<div style='margin:20px;'>";
-        msgOfEmail += "<h1> 안녕하세요 test 입니다. </h1>";
+        msgOfEmail += "<h1> 달술 본인인증 </h1>";
         msgOfEmail += "<br>";
         msgOfEmail += "<p>아래 코드를 입력해주세요<p>";
         msgOfEmail += "<br>";
-        msgOfEmail += "<p>감사합니다.<p>";
-        msgOfEmail += "<br>";
         msgOfEmail += "<div align='center' style='border:1px solid black; font-family:verdana';>";
-        msgOfEmail += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
-        msgOfEmail += "<div style='font-size:130%'>";
-        msgOfEmail += "CODE : <strong>";
-        msgOfEmail +=  code + "</strong><div><br/> ";
+        msgOfEmail += "<h3'>인증코드 : "+code+"</h3>";
+        msgOfEmail += "</div>";
         msgOfEmail += "</div>";
 
         message.setFrom(setFrom);		// 보내는 사람 설정
@@ -77,14 +73,11 @@ public class EmailCertificationServiceImpl implements EmailCertificationService{
 	
 	@Override
 	public String sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
-		/*
+
 		//메일전송에 필요한 정보 설정
         MimeMessage emailForm = createEmailForm(email);
         //실제 메일 전송
         mailSender.send(emailForm);
-		*/
-		
-		
 		
         return code; //인증 코드 반환
 	}

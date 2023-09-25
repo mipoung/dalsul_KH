@@ -2,6 +2,7 @@ const passwordChkRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%()*+,-./:;=?@[\]^_~|{
 let emailStatus = false;
 
 $(function() {
+	$(".row").css("margin-top",($("body").height()/4));
 	// 공백 체크
 	$("input").on("keyup blur", function() {
 		if ($(this).val().replace(/\s/g, "") == "") {
@@ -126,13 +127,17 @@ $(function() {
 			});
 			return;
 		}
-
-		$("#registerForm").attr({
-			"method": "post",
-			"action": "/register/registeringProcess"
+		Swal.fire({
+			icon: 'success',
+			title: '회원가입 완료!'
+		}).then( ()=> {
+			$("#registerForm").attr({
+				"method": "post",
+				"action": "/register/registeringProcess"
+			});
+	
+			$("#registerForm").submit();
 		});
-
-		$("#registerForm").submit();
 
 	});
 });

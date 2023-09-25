@@ -31,8 +31,6 @@ public class EmailCertificationController {
 	@ResponseBody
 	@PostMapping("/sendEmail")
 	public String sendEmail(@RequestParam("emailAddr") String emailAddr) throws Exception{
-		log.info("sendEmail() 메소드 실행...");
-		log.info("수신자 이메일 : "+emailAddr);
 		String result = "fail";
 		
 		// 이메일 정규식
@@ -46,8 +44,7 @@ public class EmailCertificationController {
             return result;
         }
 		
-		//String code = emailService.sendEmail(emailAddr);
-		String code = emailService.testsendEmail(emailAddr);
+		String code = emailService.sendEmail(emailAddr);
         log.info("인증번호 코드 : "+code);
         session.setAttribute("certificationCode", code);
         
@@ -60,13 +57,12 @@ public class EmailCertificationController {
     @ResponseBody
 	@PostMapping("/checkCode")
 	public CommonValidationResult checkCode(@RequestParam("requestCode") String requestCode) {		
-		log.info("checkCode() 메소드 실행...");
 		
+    	// 발급된 인증번호
 		String certificationCode = (String)session.getAttribute("certificationCode");
-		String replaceCode = requestCode.replaceAll("\\s", "");
 		
-		log.info("발급한 이메일 인증번호 : "+certificationCode);
-		log.info("사용자가 입력한 인증번호 : "+replaceCode);
+		// 사용자 입력번호
+		String replaceCode = requestCode.replaceAll("\\s", "");
 		
 		if(certificationCode != null && certificationCode.equals(replaceCode)) {
 			session.removeAttribute("certificationCode"); // 세션에 저장된 certificationValue값 삭제

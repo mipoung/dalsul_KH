@@ -53,30 +53,31 @@ body {
 		});
 	});
 </script>
+<title>로그인</title>
 </head>
 <body>
 	<div class="container">
 		<div class="row">
 			<div class="input-form col-md-6 mx-auto certified_div">
-			<h2 class="mb-3">로그인</h2>
-			<form name="loginForm" id="loginForm">
-			<!-- 이메일 입력 -->
-			<div class="form-outline mb-4">
-				<input type="email" id="manager_email" name="manager_email" class="form-control" placeholder="이메일을 입력해 주세요" /> 
+				<h2 class="mb-3">로그인</h2>
+				<form name="loginForm" id="loginForm">
+					<!-- 이메일 입력 -->
+					<div class="form-outline mb-4">
+						<input type="email" id="manager_email" name="manager_email" class="form-control" placeholder="이메일을 입력해 주세요" /> 
+					</div>
+		
+					<!-- 비밀번호 입력 -->
+					<div class="form-outline mb-4">
+						<input type="password" id="manager_password" name="manager_password" class="form-control" placeholder="비밀번호를 입력해 주세요" />
+					</div>
+		
+					<div class="form-outline mb-4">
+						<!-- Submit button -->
+						<button type="button" id="loginBtn" class="btn btn-primary btn-block">로그인</button>
+						<!-- Register buttons -->
+					</div>
+				</form>
 			</div>
-
-			<!-- 비밀번호 입력 -->
-			<div class="form-outline mb-4">
-				<input type="password" id="manager_password" name="manager_password" class="form-control" placeholder="비밀번호를 입력해 주세요" />
-			</div>
-
-			<div class="form-outline mb-4">
-				<!-- Submit button -->
-				<button type="button" id="loginBtn" class="btn btn-primary btn-block">로그인</button>
-				<!-- Register buttons -->
-			</div>
-		</form>
-		</div>
 		</div>
 		</div>
 </body>

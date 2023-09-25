@@ -1,4 +1,5 @@
 $(function() {
+	$(".row").css("margin-top",($("body").height()/4));
 	// 공백 체크
 	$("input[type='text']").on("keyup blur", function() {
 		if ($(this).val().replace(/\s/g, "") == "") {
@@ -80,14 +81,15 @@ $(function() {
 			data: { "requestNumber": $("#certification_num").val() },
 			success: function(data) {
 				if (data.success) {
-					Swal.fire("인증완료", data.message, "success");
+					Swal.fire("인증완료", data.message, "success").then(() => {
 
-					$("#certificationForm").attr({
+						$("#certificationForm").attr({
 						"method": "post",
 						"action": "/register/userRegisterView"
-					});
+						});
 
-					$("#certificationForm").submit();
+						$("#certificationForm").submit();						
+					});
 				} else {
 					Swal.fire("인증실패", data.message, "error");
 					$("#certification_num").val("");
