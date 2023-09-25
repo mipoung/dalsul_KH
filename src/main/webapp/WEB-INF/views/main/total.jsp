@@ -376,15 +376,14 @@ a {
 			});
 		});
 		
-		$("#hidecheckboxin").click(function() {
-			window.location.replace("/total?selectedValue=" + $("#hidecheckboxin").val());
-		})
 		 $("#select").on("change", function() {
 			 window.location.replace("/total?selectedValue="+$("#select").val());
 		 });
 		 
+		
+		
 		// 클릭 이벤트를 처리하는 함수
-		function updateURL(type) {
+		/*function updateURL(type) {
 		  // 현재 URL을 가져옵니다.
 		  var currentURL = window.location.href;
 		  
@@ -411,7 +410,7 @@ a {
 		    // 새 URL로 이동합니다.
 		    window.location.replace = newURL;
 		  }
-		}
+		}*/
 
 		 
 		/* selecting */
