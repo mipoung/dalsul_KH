@@ -48,7 +48,7 @@
 
                 <!-- Page content-->
                 <div class="container mt-4">
-                    <h1>문의사항 수정 폼</h1>
+                    <h1>문의사항 수정</h1>
                     <form action="/inquiry/inquiryUpdate" method="post" name="updateForm" id="updateForm" class="container">
                         <!-- 입력 폼 -->
                         <input type="hidden" name="inquiry_no" value="${updateData.inquiry_no}">
