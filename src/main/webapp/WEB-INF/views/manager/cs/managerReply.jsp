@@ -207,9 +207,7 @@
 		
 		
 		
-		//let resetButton = $("<button type='button' class='btn btn-success resetBtn'>");
-		//resetButton.html("취소");
-		//$("#replyForm .sendBtn").after(resetButton);
+
 	}
 
 </script>
@@ -223,17 +221,12 @@
 			<div>
 				<table class="table">
 					<tbody>
-						<!-- <tr>
-							<td >
-								<button type="button" id="replyInsertBtn" class="btn btn-primary">댓글 저장</button>
-								<input type="button" value="뒤로가기" onclick="history.back()" class="btn btn-primary">	
-							</td>
-						</tr> -->
+						
 						<tr>
 							<td colspan="4">
 								<textarea rows="2" cols="40" name="reply_answer" id="reply_answer"></textarea>
-								<button type="button" id="replyInsertBtn">댓글 저장</button>
-								<input type="button" value="뒤로가기" onclick="history.back()">	
+								<button type="button" id="replyInsertBtn" class="btn btn-primary">댓글 저장</button>
+								<input type="button" value="뒤로가기" class="btn btn-primary" onclick="history.back()">	
 							</td>
 						</tr>
 					</tbody>
@@ -254,8 +247,8 @@
 				</div>
 				
 				<div class="panel-body" style="margin-left : 11px"></div>
-				<button type="button" data-btn="upBtn">수정하기</button>
-				<button type="button" data-btn="delBtn">삭제하기</button>
+				<button type="button" data-btn="upBtn" class="btn btn-primary">수정하기</button>
+				<button type="button" data-btn="delBtn" class="btn btn-primary">삭제하기</button>
 				
 			</div>	
 		</div>
