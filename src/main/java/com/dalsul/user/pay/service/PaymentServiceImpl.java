@@ -68,6 +68,12 @@ public class PaymentServiceImpl implements PaymentService {
 		return result;
 	}
 
+	@Override
+	public List<PayVO> refundDetailList(UserVO uvo) {
+		List<PayVO> refundDetailList=payDao.refundDetailList(uvo);
+		return refundDetailList;
+	}
+
 //	@Override
 //	public List<PayVO> getProductQuantity(PayVO pvo) {
 //		List<PayVO> productQuantity = payDao.getProductQuantity(pvo);

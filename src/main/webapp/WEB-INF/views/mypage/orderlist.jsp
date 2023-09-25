@@ -21,9 +21,8 @@ $(function(){
         console.log($('#no').val());
 		$("#orderForm").submit();
     });
+
 })
-
-
 </script>
 
 <body>
@@ -43,25 +42,29 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${orderList}" var="orderList">
-                     <tr>
-                        <td class="order-detail-link"  data-order-no="${orderList.order_no}">
-                           <a href="javascript:void(0)"> ${orderList.order_no}</a>
-                        </td>
-                        <td>${orderList.order_total_price}</td>
-                        <td>${orderList.order_date}</td>
-                        <td>${orderList.order_status}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
+				<c:forEach items="${orderList}" var="orderList">
+					<tr>
+						<td class="order-detail-link"data-order-no="${orderList.order_no}">
+							<a href="javascript:void(0)"> ${orderList.order_no}</a></td>
+						<!--  <td>${orderList.order_total_price}</td> -->
+						<td><script>
+							// order_total_price 값을 가져와 쉼표로 포맷팅하여 출력
+							var orderTotalPrice = ${orderList.order_total_price};
+							var formattedPrice = orderTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+							document.write(formattedPrice);
+						</script></td>
+						<td>${orderList.order_date}</td>
+						<td>${orderList.order_status}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
         </table>
-        <p class="d-inline-flex gap-1">
-  <a href="/mypage/orderlistDetailView" class="btn active" role="button" data-bs-toggle="button" aria-pressed="true" id="detaliReview">상세내역 조회하기</a>
+    <!--    <p class="d-inline-flex gap-1">
   <a href="/" class="btn active" role="button" data-bs-toggle="button" aria-pressed="true">메인으로 돌아가기</a>
-		</p>
-		<!-- 
-        	<a href="/mypage/orderlistDetailView">상세내역 조회하기</a>
-      	    <a href="/">메인으로 돌아가기</a> -->
+		</p>    	<a href="/mypage/orderlistDetailView">상세내역 조회하기</a>-->
+		 
+    
+      	    <a href="/" class="btn active" role="button">메인으로 돌아가기</a> 
     </div>
 </body>
 </html>

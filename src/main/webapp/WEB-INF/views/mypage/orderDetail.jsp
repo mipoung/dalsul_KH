@@ -1,21 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
+<%@ include file="/WEB-INF/views/main/header.jsp"%>
+<%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
 <script type="text/javascript">
 $(function() {
-    // refund 버튼 클릭 이벤트 핸들러 등록
-    /* $("#refund").on("click", function() {
-        var confirmResult = confirm("환불하시겠습니까?");
-        if (confirmResult) {
-            var detailNo = $(this).closest('tr').find('td:first-child').text();
-            console.log(detailNo);
-            $("#order_detail_no").val(detailNo);
-            $("#refundForm").submit();
-            
-        } else {
-            // 사용자가 취소(No)를 누른 경우 아무 동작 없음 (현재 페이지 유지)
-        }
-    }); */
+
     
     $("#refund").click(function(){
     	var confirmResult = confirm("환불하시겠습니까?");
@@ -40,13 +30,102 @@ $(function() {
     });
 });
 
-
-</script>
-<style>
-	td > img[src]{
-		width :100px;
+	//숫자를 쉼표로 포맷팅하는 함수
+	function formatNumberWithCommas(number) {
+		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 
+	$(document).ready(function() {
+		// 페이지가 로드될 때 실행되는 함수
+		// 모든 주문 상세 금액 요소에 대해 포맷팅을 적용
+		$(".formatted-price").each(function() {
+			var price = $(this).data("price");
+			var formattedPrice = formatNumberWithCommas(price);
+			$(this).text(formattedPrice);
+		});
+	});
+</script>
+
+<style>
+    /* 페이지 전체 스타일 */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        margin-top: 70px;
+        padding: 0;
+    }
+
+    /* 페이지 제목 스타일 */
+    h1 {
+        color: #333;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    /* 테이블 스타일 */
+    table.table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table.table th,
+    table.table td {
+        padding: 8px;
+        text-align: center;
+    }
+
+    table.table th {
+        background-color: #f2f2f2;
+    }
+
+    /* 이미지 스타일 */
+    td > img[src] {
+        width: 100px;
+    }
+
+    /* 환불 버튼 스타일 */
+    #refund {
+        background-color: #d9534f;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    /* 메인 페이지 돌아가기 버튼 스타일 */
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    /* 전체 테이블 스타일 */
+    .whole-table {
+        border: 1px solid #5bc0de;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* 주문 상세 번호 스타일 */
+    .order_no {
+        font-weight: bold;
+    }
+
+    /* 리뷰 작성 버튼 스타일 */
+    .btn-primary.ReviewInsertFormBtn {
+        background-color: #5bc0de;
+    }
+    
+    	td > img[src]{
+		width :100px;
+	}
+	
 </style>
 
 
@@ -80,19 +159,20 @@ $(function() {
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${orderListDetail}" var="orderListDetail">
-                     <tr>
-                        <td class="order_no" data-order-no="${orderListDetail.order_no}">${orderListDetail.order_no}</td>
-                        <td data-product-no="${orderListDetail.product_no}" data-product-name="${orderListDetail.product_name}">${orderListDetail.product_name}</td>
-                       	<td><img data-src="/resources/images/mainpage/product/${orderListDetail.product_main_image}" src="/resources/images/mainpage/product/${orderListDetail.product_main_image}"></td>
-                        <td>${orderListDetail.quantity}</td>
-                        <td>${orderListDetail.order_use_coupon}</td>
-                        <td>${orderListDetail.order_dlv_fee}</td>
-                        <td>${orderListDetail.order_total_price}</td>
-                        <td>${orderListDetail.order_delivery_info}</td>
-                        <td>${orderListDetail.order_status}</td>
-                        <td data-order-date="${orderListDetail.order_date}">${orderListDetail.order_date}</td>
-                        <td>
+             <c:forEach items="${orderListDetail}" var="orderListDetail">
+                <tr>
+                    <td class="order_no" data-order-no="${orderListDetail.order_no}">${orderListDetail.order_no}</td>
+                    <td data-product-no="${orderListDetail.product_no}" data-product-name="${orderListDetail.product_name}">${orderListDetail.product_name}</td>
+                    <td><img data-src="/resources/images/mainpage/product/${orderListDetail.product_main_image}" src="/resources/images/mainpage/product/${orderListDetail.product_main_image}"></td>
+                    <td>${orderListDetail.quantity}</td>
+                    <td>${orderListDetail.order_use_coupon}</td>
+            <!--    <td>${orderListDetail.order_dlv_fee}</td> --> 
+                    <td><span class="formatted-price" data-price="${orderListDetail.order_dlv_fee}"></span></td>
+                    <td><span class="formatted-price" data-price="${orderListDetail.order_total_price}"></span></td>
+                    <td>${orderListDetail.order_delivery_info}</td>
+                    <td>${orderListDetail.order_status}</td>
+                    <td data-order-date="${orderListDetail.order_date}">${orderListDetail.order_date}</td>
+                    <td>
 	                        <!-- 리뷰 작성 여부에 따라 버튼 상태 변경 -->
 	                         <c:choose>
 				                <c:when test="${productReviewMap[orderListDetail.product_no] == 0}">

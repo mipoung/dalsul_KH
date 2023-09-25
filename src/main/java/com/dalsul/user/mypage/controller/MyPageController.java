@@ -82,6 +82,23 @@ public class MyPageController {
 		return "/mypage/orderlist";
 	}
 	
+	//마이페이지-취소/환불내역 조회
+	@GetMapping("/refundDetailList")
+	public String refundDetailList(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,PayVO pvo,Model model) {
+		log.info("refundDetailList() 메소드 실행");
+		log.info("주문번호 : " + pvo.getOrder_no());
+		if(uvo==null) {
+    		return "login/userLoginView";
+    	}
+		List<PayVO> refundDetailList = paymentService.refundDetailList(uvo);
+		log.info("가져온 값 : "+refundDetailList);
+		
+		model.addAttribute("refundDetailList", refundDetailList);
+		return "/mypage/refund";
+	}
+		
+		
+	
 	//주문번호로 주문 상세 조회
 	@GetMapping("/orderListDetail")
 	public String orderlistDetailList(PayVO pvo,Model model) {
@@ -94,6 +111,8 @@ public class MyPageController {
 		log.info("훌루루루룰" + orderListDetail.toString());
 		
 		
+		
+	
 		
 		
 		

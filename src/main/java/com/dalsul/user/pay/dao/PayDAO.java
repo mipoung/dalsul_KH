@@ -19,6 +19,7 @@ public interface PayDAO {
 	public List<PayVO> orderList(UserVO uvo);
 	public List<PayVO> orderListDetail(PayVO pvo);
 	public int updateProductStock (PayVO pvo);
+	public List<PayVO> refundDetailList(UserVO uvo);
 	//public List<PayVO> getProductQuantity(PayVO pvo);
 //	public static boolean isPickupSelected() {
 //		// TODO Auto-generated method stub
