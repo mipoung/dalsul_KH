@@ -33,4 +33,16 @@
     ORDER BY order_date DESC
 </select>
 
+
+
+<!-- 관리자가 상태값 바꿨을 시 -->	
+<update id="updateOrderStatus" parameterType="map">
+    <foreach collection="list" item="item" separator=";">
+        UPDATE order_list
+        SET order_status = #{item.order_status}
+        WHERE order_no = #{item.order_no}
+    </foreach>
+</update>
+
+
 </mapper>
