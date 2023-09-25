@@ -124,7 +124,7 @@
     	/*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);*/ /* 그림자 설정 */
     	padding: 10px; /* 내용과 테두리 사이 여백 설정 */
     	
-    	height: 15%;
+    	height: 480px;
 	}
 	
 	input[type="number"]::-webkit-outer-spin-button,

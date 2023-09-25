@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <%@ include file="/WEB-INF/views/main/header.jsp"%>
-<%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
+ㄴ
 
 <script type="text/javascript">
 //숫자를 쉼표로 포맷팅하는 함수
