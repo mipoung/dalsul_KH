@@ -377,7 +377,7 @@ a {
 		});
 		
 		 $("#select").on("change", function() {
-			 window.location.replace("/total?selectedValue="+$("#select").val());
+			 window.location.replace("/total?selectedValue=" + $("#select").val());
 		 });
 		 
 		

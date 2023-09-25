@@ -27,7 +27,7 @@
 	<div class="container mt-4">
     	<h1>공지사항 작성</h1>
     <!-- FAQ 작성 폼 내용 입력 폼과 버튼 등을 구현합니다. -->
-    	<form action="/manager/cs/notice/managerNoticeInsert" method="post" class="container">
+    	<form action="/manager/cs/managerNoticeInsert" method="post" class="container">
         	<!-- 입력 폼 -->
         	<div class="form-group">
         		<label for="notice_title">제목:</label>
