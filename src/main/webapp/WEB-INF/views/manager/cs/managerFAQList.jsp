@@ -115,6 +115,16 @@
                   
             });
           </script>
+          <style>
+          	.pagination {
+				justify-content: center;
+				margin-top: 20px;
+			}
+			.pagination li {
+			    display: inline-block;
+			    margin-right: 5px;
+			}
+          </style>
 
 </head>
    <body>
