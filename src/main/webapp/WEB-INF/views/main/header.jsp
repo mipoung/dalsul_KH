@@ -49,8 +49,19 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/faq/FAQList">고객센터</a></li>
 				</ul>
-				<a class="nav-link" href="cart/cartList"><img id="img2"
-					src="resources/images/mainpage/basketIcon.png"></a>
+
+			<c:choose>
+				<c:when test="${empty sessionScope.userLogin}">
+					<!-- 사용자가 로그인되어 있지 않은 경우 -->
+					<a class="nav-link" href="/login/userLoginView"><img id="img2"
+						src="resources/images/mainpage/basketIcon.png"></a>
+				</c:when>
+				<c:otherwise>
+					<!-- 사용자가 로그인된 경우 -->
+					<a class="nav-link" href="cart/cartList"><img id="img2"
+						src="resources/images/mainpage/basketIcon.png"></a>
+				</c:otherwise>
+			</c:choose>
 			</nav>
 		</ul>
 	</div>

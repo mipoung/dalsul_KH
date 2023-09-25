@@ -1,6 +1,8 @@
 package com.dalsul.user.mypage.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -80,6 +82,23 @@ public class MyPageController {
 		return "/mypage/orderlist";
 	}
 	
+	//마이페이지-취소/환불내역 조회
+	@GetMapping("/refundDetailList")
+	public String refundDetailList(@SessionAttribute(value = "userLogin", required = false) UserVO uvo ,PayVO pvo,Model model) {
+		log.info("refundDetailList() 메소드 실행");
+		log.info("주문번호 : " + pvo.getOrder_no());
+		if(uvo==null) {
+    		return "login/userLoginView";
+    	}
+		List<PayVO> refundDetailList = paymentService.refundDetailList(uvo);
+		log.info("가져온 값 : "+refundDetailList);
+		
+		model.addAttribute("refundDetailList", refundDetailList);
+		return "/mypage/refund";
+	}
+		
+		
+	
 	//주문번호로 주문 상세 조회
 	@GetMapping("/orderListDetail")
 	public String orderlistDetailList(PayVO pvo,Model model) {
@@ -90,6 +109,29 @@ public class MyPageController {
 		
 		model.addAttribute("orderListDetail", orderListDetail);
 		log.info("훌루루루룰" + orderListDetail.toString());
+		
+		
+		
+	
+		
+		
+		
+		
+		/*********** 주문상세페이지 리뷰작성 여부 확인을 위한 코드 ************/
+		// 제품 넘버가 있어야 아래 코드 실행 가능.
+		List<PayVO> isReviewResults = reviewService.isReviewResults(pvo);
+		
+
+		// 제품 번호를 기반으로 리뷰 작성 여부를 Map에 저장
+	    Map<Integer, Integer> productReviewMap = new HashMap<>();
+	    for (PayVO result : isReviewResults) {
+	        productReviewMap.put(result.getProduct_no(), result.getIsReviewed());
+	    }
+	    model.addAttribute("productReviewMap", productReviewMap);
+	    /*********** 주문상세페이지 리뷰작성 여부 확인을 위한 코드 끝 ************/
+		
+		
+		
 		return "/mypage/orderDetail";
 	}
 	

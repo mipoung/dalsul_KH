@@ -3,6 +3,7 @@ package com.dalsul.user.cart.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.dalsul.common.login.vo.UserVO;
 import com.dalsul.user.cart.vo.CartVO;
@@ -16,5 +17,5 @@ public interface CartDAO {
 	public List<CartVO> cartList(UserVO uvo);
 	public UserVO getUserInfo(UserVO uvo);
 	public List<CartVO> cartListDetail(CartVO cvo);
-	
-}
+	//List<CartVO> cartListDetailByProductNumbers(@Param("user_no") int user_no, @Param("productNumbers") List<Integer> productNumbers);
+	}

@@ -1,6 +1,8 @@
 package com.dalsul.user.cart.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +65,14 @@ public class CartServiceImpl implements CartService{
 		return list;
 	}
 
-
+//	@Override
+//	public List<CartVO> cartListDetailByProductNumbers(UserVO uvo, List<Integer> productNumbers) {
+//	    Map<String, Object> parameter = new HashMap<>();
+//	    parameter.put("user_no", uvo.getUser_no());
+//	    parameter.put("productNumbers", productNumbers);
+//	    List<CartVO> list = cartDao.cartListDetailByProductNumbers(uvo.getUser_no(), productNumbers); // 오류 해결을 위해 수정
+//	    return list;
+//	}
 
 
 }

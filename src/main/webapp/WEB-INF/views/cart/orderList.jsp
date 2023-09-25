@@ -3,12 +3,14 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script> 
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
+<%@ include file="/WEB-INF/views/main/header.jsp"%>
+<%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/include/common/js/chkRegex.js"></script>
 <script type="text/javascript">
 
 var grandTotal = 0;
-var grandTotalClone = 0;
+var grandTotalClone = grandTotal;
 var buyerAddrValue = "";
 
 $(function() {
@@ -73,6 +75,13 @@ $(function() {
 	
 	function requestPay() {
 		console.log("function 시작");
+		
+		// 체크박스 상태 확인
+        var isPickupSelected = $("#pickupCheckbox").is(":checked");
+		
+        
+
+        if (!isPickupSelected) {
 		// 사용자가 API를 통해 값을 조회했는지 검사
         if (!chkData("#roadAddress", "주소를 먼저")) return;
         else if (!chkData("#detailAddress", "상세주소를")) return;
@@ -101,11 +110,11 @@ $(function() {
             // 값이 비었을 경우 return
             return;
         }
-		
+        }
 	  IMP.init('imp57485457'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
 	  IMP.request_pay({
-	   pg: "html5_inicis",
-	    pay_method: "card",
+		pg:"html5_inicis",
+		pay_method:"card",
 	    merchant_uid : 'merchant_'+new Date().getTime(),
 	    name : '달술',
 	    amount : grandTotalClone,
@@ -132,8 +141,10 @@ $(function() {
 	
 	$(function(){
         $("#payBtn").click(function(){
-        	//sendOrderData(); // 테스트(결제 생략)
-        	requestPay();
+        	
+        	//const isPickupSelected = $("#pickupCheckbox").is(":checked");
+			sendOrderData(); // 테스트(결제 생략)
+        	//requestPay();
         })
   });
 	
@@ -148,8 +159,10 @@ $(function() {
             $("#detailAddress").val() +
             $("#extraAddress").val() +
             $("#postcode").val() +
-            "수령인 :" +
-            $("#receiver").val();
+            "수령인 : " +
+            $("#receiver").val()+
+            $("#pickUpInput").val();
+            
 
         // deleveryAddr 값을 postcodeValue에 할당
         var buyerAddrValue = deleveryAddr;
@@ -171,7 +184,7 @@ $(function() {
             order_total_price: parseInt($("#grandTotal").text().replace(",", "")),
             order_use_coupon: parseInt($("#coupon").val()),
             product_no: productNumbers,
-            quantity: productQuantity,
+            quantity: productQuantity
         };
         console.log("성공?");
         console.log("orderData:", orderData);
@@ -227,8 +240,63 @@ $(function() {
         });
         grandTotal = grandTotal + 3000; // 배송비 3천원 추가
 
-        ///////////////////////////////
-
+        // 배송비를 나타내는 엘리먼트
+        var dlvFeeElement = $("#dlv_fee");
+        // "픽업 할인"을 나타내는 엘리먼트
+        var pickUpElement = $("#pick_up");
+        // 주소지 별명 입력 필드
+        var addressNameElement = $("#name");
+        
+        dlvFeeElement.text("3,000"); // 배송비 설정
+        
+       //픽업 버튼 누르면 배송정보 입력 비활성화
+        $("#pickupCheckbox").change(function() {
+    if ($(this).is(":checked")) {
+        // 체크박스가 선택되면 주소 입력 필드 비활성화
+        $("#roadAddress").prop("disabled", true);
+        $("#detailAddress").prop("disabled", true);
+        $("#pickUpInput").prop("disabled", true);
+        $("#jibunAddress").prop("disabled", true);
+        $("#name").prop("disabled", true);
+        $("#postcode").prop("disabled", true);
+        $("#pickUpInput").val("/픽업");
+        $("#extraAddress").prop("disabled", true);
+    } else {
+        // 체크박스가 선택 해제되면 주소 입력 필드 활성화
+        $("#roadAddress").prop("disabled", false);
+        $("#detailAddress").prop("disabled", false);
+        $("#receiver").prop("disabled", false);
+        $("#jibunAddress").prop("disabled", false);
+        $("#name").prop("disabled", false);
+        $("#postcode").prop("disabled", false);
+    }
+    
+  
+    
+     var isPickedUp = $(this).is(":checked");
+    
+    
+    if (isPickedUp) {
+        // "픽업" 체크박스가 선택된 경우
+        grandTotalClone -= 3000; // grandTotalClone에서 3000을 차감
+        // "픽업 할인" 값을 업데이트하여 음수로 표시
+        pickUpElement.text("-3,000");
+    } else {
+        // "픽업" 체크박스가 선택 해제된 경우
+        grandTotalClone += 3000; // grandTotalClone에 3000을 추가
+        // "픽업 할인" 값을 업데이트하여 비우거나 0으로 표시
+        pickUpElement.text("");
+        
+     // 주소지 별명 필드를 비웁니다.
+        addressNameElement.val("");
+    }
+	grandTotal=grandTotalClone;
+    // grandTotalClone 값을 화면에 업데이트합니다.
+    $("#grandTotal").text(grandTotalClone.toLocaleString());
+});
+        
+        /////////////////////////////////////////////
+        
         // 마일리지 콤보박스 엘리먼트와 grandTotal 엘리먼트를 가져옵니다.
         var couponSelect = document.getElementById("coupon");
 
@@ -236,7 +304,7 @@ $(function() {
         $("#coupon").on("click change", function() {
             grandTotalClone = grandTotal; // 총 값 복제
 
-            // 선택한 마일리지 값을 가져옵니다.
+            // 선택한 쿠폰 값을 가져옵니다.
             var selectedCoupon = parseInt(couponSelect.value);
 	               //  grandTotalClone 값을 화면에 업데이트합니다.
 	                 var grandTotalElement = document.getElementById("grandTotal");
@@ -255,19 +323,9 @@ $(function() {
             // grandTotalClone 값을 화면에 업데이트합니다.
             var grandTotalElement = document.getElementById("grandTotal");
             grandTotalElement.innerText = grandTotalClone.toLocaleString();
+        }); 
 
-            // grandTotal 값을 계산한 후 5% 값을 계산합니다.
-            var couponPercentage = 0.05; // 5%에 해당하는 비율
-
-            // 5% 적립금을 계산합니다.
-            var couponAmount = (grandTotalClone - 3000) * couponPercentage;
-
-            // mileageMessage 요소를 가져옵니다.
-            var couponMessageElement = document.getElementById("couponMessage");
-
-            // mileageMessage에 5% 적립금을 표시합니다.
-            //couponMessageElement.innerText = "결제 예정 적립금: " + couponAmount.toLocaleString() + "원";
-        }); // mileageSelect.addEventListener
+        
         $("#coupon").trigger("click");
 
         var grandTotalElement = document.getElementById("grandTotal");
@@ -292,7 +350,7 @@ $(function() {
             displayElement.innerText = "-" + selectedValue; // 선택한 값을 표시
         });
 
-
+        
     };
     
 
@@ -302,25 +360,169 @@ $(function() {
 
 </script>
 
+<style>
+/* input 요소 폭 설정 */
+ .order_input {
+    max-width: 200px; /* 최대 폭 설정 */
+    width: auto; /* 필요한 만큼의 너비 사용 */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* 페이지 전체 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    margin-top: 70px;
+    padding: 0;
+}
+
+/* 페이지 제목 스타일 */
+h1 {
+    color: #333;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#thead_table { width:80%;  text-align:center; margin: 0 auto;}
+#detaliReview {margin-right: 40px;}
+
+/* 주문자 정보 스타일 */
+.mb-3 {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+label.form-label {
+    font-weight: bold;
+}
+
+.order_input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* 체크박스 스타일 */
+.form-check-label {
+    font-weight: bold;
+}
+
+/* 주소 입력 스타일 */
+.address_sys_container {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 쿠폰 선택 스타일 */
+.couponLabel {
+    font-weight: bold;
+}
+
+select.form-select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* 결제 예정 상품 목록 스타일 */
+#orderTableDiv {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+table.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.table th, table.table td {
+    
+    padding: 8px;
+}
+
+table.table th {
+    background-color: #f2f2f2;
+}s
+/* 추가된 스타일 */
+table.table thead, table.table tfoot {
+    text-align: center; /* 헤더와 푸터 가운데 정렬 */
+}
+
+/* td_title 스타일 (왼쪽 정렬) */
+td.td_title {
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+
+/* 결제 버튼 스타일 */
+#payBtn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+		/* div 간격 조절 */
+#input_name_box,
+#input_phone_box,
+#pick_up_box {
+    margin-bottom: 20px; /* 간격 조절 */
+}
+
+/* pick_up_box의 테두리 제거 */
+#pick_up_box {
+    border: none;
+}
+
+#leadBaseAddr {
+	margin-left: 25px;
+    margin-bottom: 20px;
+}
+td.td_title {
+    text-align: left;
+}
+
+</style>
 
 <h1>주문 내역</h1>
 
+    
 <div class="mb-3">
+	<div id="input_name_box">
 	<label for="exampleFormControlInput1" class="form-label">주문회원 이름</label>
-	 <input type="text" id="name" value="${userInfo.user_name}"/>
+	 <input type="text" id="order_name" class="order_input" value="${userInfo.user_name}"/><br/>
+	 </div>
+	 
+	 <div id="input_phone_box">
 		 <label for="exampleFormControlInput1" class="form-label">핸드폰 번호</label>
-		 <input type="text"  id="phone" value="${userInfo.user_phone_num}"><br/>
-		 
-	 <div class="mb-3">
+		 <input type="text" id="phone" class="order_input" value="${userInfo.user_phone_num}">
+	</div>	 
+	 <div class="mb-3" id="pick_up_box">
 	 <form action="process.jsp" method="post">
 		<label for="pickupCheckbox" class="form-check-label">픽업</label>
-		<input type="checkbox" class="form-check-input" id="pickupCheckbox" name="pickup" value="pickup">
+		<input type="checkbox" class="form-check-input" id="pickupCheckbox" name="pickupCheckbox" value="1">
 	</form>
 	</div>
 		  
 	<!-- <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="주소 입력">-->
+	
+	<div id="addrForm">
+	
 	 <label for="exampleFormControlInput1" class="form-label">주소</label>
-<form id="addrForm" name="addrForm">
+		<form id="addrForm" name="addrForm">
 	<%@ include file="/WEB-INF/views/addr/addressAPI.jsp" %>
  </form> 
 	</div>
@@ -329,10 +531,11 @@ $(function() {
 	</div>
  	
 	<!-- 쿠폰 사용 -->
+	
 <div class="mb-3">
     <label for="coupon" class="couponLabel">쿠폰</label>
-    <select id="coupon" class="coupon">
-        <option value="0"></option>
+    <select id="coupon" class="form-select order_input" aria-label="Default select example">
+        <option value="0">쿠폰 선택</option>
         <option value="1000">1,000원</option>
         <option value="2000">2,000원</option>
     </select>
@@ -363,17 +566,21 @@ $(function() {
 					</tr>
 				</c:forEach>
 		
-		<tr id="dlv_fee">
-			<td colspan="4">배송비</td>
-			<td colspan="1">3,000</td>	
+		<tr id="dlv_fee_tr">
+			<td colspan="4" class="td_title">배송비</td>
+			<td colspan="1" id="dlv_fee"></td>	
 		</tr>
 		<tr id="coupon tr">
-			<td colspan="4">쿠폰 사용</td>
+			<td colspan="4" class="td_title">쿠폰 사용</td>
 			<td colspan="1" id="coupon_use"></td>
+		</tr>
+		<tr id="dlv_free">
+			<td colspan="4" class="td_title">픽업 할인</td>
+			<td colspan="1" id="pick_up"></td>
 		</tr>
 				
 		<tr id="totalRow">
-            <td colspan="4">총 합</td>
+            <td colspan="4" class="td_title">총 합</td>
             <td colspan="1" id="grandTotal"></td>
         </tr>
 			</tbody>
@@ -385,7 +592,7 @@ $(function() {
 		<!-- <span id="couponMessage"></span> -->
 		
 		<div id="totalDiv">
-			<button id="payBtn">결제하기</button>
+			<button id="payBtn" class="btn btn-primary">결제하기</button>
 		</div>
 	
 	<!-- 배송주소지 정보를 읽어온 모달 div -->

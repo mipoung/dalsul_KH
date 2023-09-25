@@ -3,7 +3,9 @@
 <mapper namespace="com.dalsul.manager.dao.ManagerDAO">
 
 <!-- 관리자 페이지에서 주문 내역 조회 -->
-<select id="orderListViewM" resultType="map">
+
+
+ <select id="orderListViewM" resultType="map">
     SELECT DISTINCT
         ol.order_no AS order_no,
         ol.user_no AS user_no,
@@ -16,7 +18,8 @@
         ol.order_update_date AS order_update_date,
         po.product_no AS product_no,
         po.quantity AS quantity,
-        p.product_name AS product_name
+        p.product_name AS product_name,
+        p.product_stock AS product_stock  <!-- 추가: product_stock 열을 SELECT에 추가 -->
     FROM
         order_list ol
     JOIN
@@ -29,7 +32,8 @@
         po.product_no = p.product_no
     ORDER BY order_date DESC
 </select>
-	
+
+
 <!-- 관리자가 상태값 바꿨을 시 -->	
 <update id="updateOrderStatus" parameterType="map">
     <foreach collection="list" item="item" separator=";">
@@ -38,5 +42,4 @@
         WHERE order_no = #{item.order_no}
     </foreach>
 </update>
-	
 </mapper>

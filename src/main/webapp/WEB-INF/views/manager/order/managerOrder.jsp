@@ -60,6 +60,7 @@ $(function(){
                     <th scope="col">총 주문 금액</th>
 					<th scope="col">상품 일련 번호</th>
                     <th scope="col">상품명</th>
+                    <th scope="col">상품 재고</th>
                     <th scope="col">주문 개수</th>
                     <th scope="col">배송  정보</th>
                     <th scope="col">주문 상태</th>
@@ -78,6 +79,7 @@ $(function(){
                         <td>${buyer.ORDER_TOTAL_PRICE}</td>
                         <td>${buyer.PRODUCT_NO}</td>
                         <td>${buyer.PRODUCT_NAME}</td>
+                        <td>${buyer.PRODUCT_STOCK}</td>
                         <td>${buyer.QUANTITY}</td>
                         <td>${buyer.ORDER_DELIVERY_INFO}</td>
                         <td>${buyer.ORDER_STATUS}</td>

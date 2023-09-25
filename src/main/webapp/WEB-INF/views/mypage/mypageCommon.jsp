@@ -130,7 +130,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="go_detail">
-			<div class="refundDetailView">
+			<div class="refundDetailList">
 				<div>취소 / 환불 내역</div>
 				<img src="/resources/images/mypage/mypageHeader/refund.png" alt="csOrders_list">
 			</div>

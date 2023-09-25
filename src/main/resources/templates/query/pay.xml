@@ -10,6 +10,8 @@ INSERT INTO order_list (order_no, user_no, order_use_coupon, order_dlv_fee, orde
             #{order_delivery_info},  '결제 완료', SYSDATE, SYSDATE)
 </insert>
 
+
+ 
 <select id="getOrderNo" parameterType="pay" resultType="int">
 	select max(order_no)
 	from order_list
@@ -70,7 +72,7 @@ SELECT po.product_no as product_no,
 -->
 
 <select id="orderListDetail" parameterType="pay" resultType="pay">
-       SELECT po.order_detail_no, po.product_no, po.quantity, ol.order_no,
+    SELECT po.order_detail_no, po.product_no, po.quantity, ol.order_no,
            ol.order_use_coupon, ol.order_dlv_fee, ol.order_total_price,
            ol.order_delivery_info, ol.order_status, ol.order_date, p.product_name, p.product_main_image
     FROM order_list ol 
@@ -79,13 +81,35 @@ SELECT po.product_no as product_no,
     
 </select>
 
+<!-- 마이페이지에서 취소/환불 내역 조회 -->
+<select id="refundDetailList" parameterType="pay" resultType="pay">
+SELECT po.order_detail_no, po.product_no, po.quantity, ol.order_no,
+       ol.order_use_coupon, ol.order_dlv_fee, ol.order_total_price,
+       ol.order_delivery_info, ol.order_status, ol.order_date, p.product_name, p.product_main_image
+FROM order_list ol 
+INNER JOIN product_order po ON ol.order_no = po.order_no 
+INNER JOIN product p ON p.product_no = po.product_no
+WHERE ol.user_no = #{user_no}
+AND ol.order_status = '취소완료'
 
-<!-- 재고 수량 업데이트 -->
-<update id="updateQuantity" parameterType="com.dalsul.user.cart.vo.CartVO">
-    UPDATE cart
-    SET quantity = quantity - #{quantity}
-    WHERE cart_id = #{cart_id} AND product_no = #{product_no}
+
+</select>
+
+
+<!-- 주문 상세 테이블에서 제품 번호와 수량을 가져옴 
+<select id="getProductQuantity" parameterType="map" resultType="map">
+  SELECT product_no, quantity
+  FROM product_order
+  WHERE order_no = #{order_no}
+</select>-->
+
+<!-- 제품 테이블의 재고 업데이트 -->
+<update id="updateProductStock" parameterType="map">
+  UPDATE product
+  SET product_stock = product_stock - #{quantity}
+  WHERE product_no = #{product_no}
 </update>
+
 
 </mapper>
 
