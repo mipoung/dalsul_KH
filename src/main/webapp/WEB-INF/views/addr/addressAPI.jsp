@@ -32,7 +32,6 @@
 	
  });
 	</script>
-<body style="margin: 0px auto;">
     <div class="address_sys_container">
     <!-- 주소지 입력 API -->
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -103,35 +102,32 @@
         <!-- 배송지정보를 입력받을,입력하는데 필요한 input태그 --> 
         <div class="container">
    <div class="row" style="display: inline-block;">
-        <div class="col-md-6">
             <div class="address_sys_container">
                 <!-- 주소 입력 필드 -->
                 <div class="form-group">
-                    <label for="postcode">우편번호</label>
                     <input type="text" id="postcode" onclick="execDaumPostcode()" placeholder="우편번호" readonly="readonly" name="postcode" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="roadAddress">도로명주소</label>
                     <input type="text" id="roadAddress" placeholder="도로명주소" onclick="execDaumPostcode()" readonly="readonly" name="roadAddress" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="jibunAddress">지번주소</label>
+                   
                     <input type="text" id="jibunAddress" placeholder="지번주소" onclick="execDaumPostcode()" readonly="readonly" name="jibunAddress" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="detailAddress">상세주소</label>
+                   
                     <input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="receiver">받는사람(수취인) 이름</label>
+                  
                     <input type="text" id="receiver" placeholder="받는사람(수취인) 이름" name="receiver" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="name">주소지 별명</label>
+                   
                     <input type="text" id="name" name="name" placeholder="주소지 별명" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="extraAddress">참고항목</label>
+                   
                     <input type="text" id="extraAddress" onclick="execDaumPostcode()" placeholder="참고항목" readonly="readonly" name="extraAddress" class="form-control">
                 </div>
                 <input type="hidden" id="pickUpInput" name="pickup" value="">
@@ -139,9 +135,9 @@
                     <input type="button" onclick="execDaumPostcode()" value="주소찾기" class="btn btn-primary">
                 </div>
                 <span id="guide" style="color:#999;display:none"></span>
-            	</div>
     		</div>
 		</div>
+	</div>
 </div><!-- 주소입력 컨테이터 종료 -->
 </body>
 </html>
