@@ -62,7 +62,6 @@
          </div>
 	</div>
 -->
-               <%@ include file="/WEB-INF/views/manager/coupon/managerCouponInsert.jsp"%>
 	
 	<%--리스트 시작 --%>
 		<div id="boardList" class="table-height">
@@ -108,6 +107,7 @@
 				</tbody>
 			</table>
 		</div>
+               <%@ include file="/WEB-INF/views/manager/coupon/managerCouponInsert.jsp"%>
 	<%--리스트 종료 --%>
 
 	<%-- ============ 페이징 출력 시작 ============ --%>
