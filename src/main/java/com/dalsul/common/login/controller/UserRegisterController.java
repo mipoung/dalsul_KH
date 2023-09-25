@@ -93,9 +93,9 @@ public class UserRegisterController {
 		if(phoneChk && emailChk) {
 			int result = userRegisterService.userRegistring(rvo);
 			if(result==1) {
-				url = "/account/register/regComplate";
+				url = "redirect:/";
 			}else {
-				url = "/account/register/terms";
+				url = "redirect:/";
 			}
 		}
 		

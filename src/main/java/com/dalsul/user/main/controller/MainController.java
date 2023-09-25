@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -46,6 +47,7 @@ public class MainController {
 	    
 		/* 시작화면 호출 */
 	  	@GetMapping("/")
+	  	@PostMapping("/")
 	    public String main(@SessionAttribute(name="userLogin", required = false) UserVO uvo, Model model) {
 	    	
 	  		List<ProductVO> products = mainService.getMainPageProducts();

@@ -1,4 +1,7 @@
 $(function() {
+	
+	$(".container").css("margin-top",window.innerHeight/5);
+	
 	$("#agreeAll").change(function() {
 		if ($("#agreeAll").is(":checked")) {
 			$("#useTerms, #personalInfoTerms").prop("checked", true);
