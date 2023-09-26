@@ -51,7 +51,7 @@
 
                 <!-- Page content-->
                 <div class="container mt-4">
-                    <h1>문의사항 작성 폼</h1>
+                    <h1>문의사항 작성</h1>
                     <form action="/inquiry/inquiryInsert" method="post" name="insertForm" id="insertForm" class="container">
                         <!-- 입력 폼 -->
                         <c:if test="${userLogin==null}">

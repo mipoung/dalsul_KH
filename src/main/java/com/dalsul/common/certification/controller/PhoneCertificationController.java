@@ -65,6 +65,7 @@ public class PhoneCertificationController {
         String certificationValue = numStrBuf.toString();
         System.out.println(certificationValue);
     
+/*     
         Message message = new Message();
         message.setFrom("01023118052"); // 발신번호 고정
         message.setTo(phoneNumber); // 수신번호
@@ -72,6 +73,8 @@ public class PhoneCertificationController {
       
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
 
+        log.info(response.toString());
+*/
         // 발급된 인증번호 값을 세션에 저장
         session.setAttribute("certificationValue", certificationValue);
         result = "success";

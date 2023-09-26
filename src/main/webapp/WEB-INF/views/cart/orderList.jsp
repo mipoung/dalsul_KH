@@ -4,7 +4,10 @@
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script> 
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <%@ include file="/WEB-INF/views/main/header.jsp"%>
-<%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
+<%-- 
+ <%@ include file="/WEB-INF/views/mypage/mypageCommon.jsp"%>
+--%> 
+ 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/include/common/js/chkRegex.js"></script>
 <script type="text/javascript">

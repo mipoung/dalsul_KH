@@ -73,7 +73,7 @@ $(function() {
 				<c:when test="${empty sessionScope.userLogin}">
 					<!-- 사용자가 로그인되어 있지 않은 경우 -->
 					<a class="nav-link" href="/login/userLoginView"><img id="img2"
-						src="resources/images/mainpage/basketIcon.png"></a>
+						src="/resources/images/mainpage/basketIcon.png"></a>
 				</c:when>
 				<c:otherwise>
 					<!-- 사용자가 로그인된 경우 -->

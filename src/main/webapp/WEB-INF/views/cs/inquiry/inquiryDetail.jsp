@@ -146,7 +146,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                
                     <!-- 뒤로 가기 버튼 -->
 			        <button id="goToListBtn" class="btn btn-primary" style="margin-left: 11px;">문의사항 목록으로 이동</button>
 			        <!-- 수정하기 버튼 -->
@@ -177,7 +177,7 @@
         	</div>
          	
 		</div>
-	     
+	  </div>
 	                <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

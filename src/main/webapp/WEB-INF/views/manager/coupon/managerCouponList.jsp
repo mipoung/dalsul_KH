@@ -23,11 +23,13 @@
 		<input type="hidden" id="coupon_no" name="coupon_no" />
 	</form>
    	<!-- 검색기능 -->
+         	<!-- 
 	<div id="couponSearch" class="text-right">
          <form id="f_search" name="f_search" class="form-inline" style="display:inline-block;">
          	<!-- 페이징 처리를 위한 파라미터 -->
+<!-- 
+ 
          	<input type="hidden" name="pageNum" id="pageNum"/>
-         	
             <div class="form-group">
                <label>검색조건</label>
                <select id="search" name="search" class="form-control">
@@ -35,6 +37,7 @@
                   
                   <option value="coupon_name">쿠폰이름 </option>
                </select>
+         	 -->
                <!--  
                <label>정렬조건</label>
                <select id="order" name="order" class="form-control">
@@ -50,15 +53,15 @@
                   <option value="coupon_statusDESC">쿠폰사용 불가능 우선</option>
                </select>
                 -->
-        
+ <!-- 
                <input type="text" name="keyword" id="keyword" placeholder="쿠폰 검색" class="form-control"/>
                <button type="button" name="searchData" id="searchData" class="btn btn-success">검색</button>
             </div>
          </form>
          <div>
-               <%@ include file="/WEB-INF/views/manager/coupon/managerCouponInsert.jsp"%>
          </div>
 	</div>
+-->
 	
 	<%--리스트 시작 --%>
 		<div id="boardList" class="table-height">
@@ -104,10 +107,12 @@
 				</tbody>
 			</table>
 		</div>
+               <%@ include file="/WEB-INF/views/manager/coupon/managerCouponInsert.jsp"%>
 	<%--리스트 종료 --%>
 
 	<%-- ============ 페이징 출력 시작 ============ --%>
-		<div class="text-center">
+		<%--
+		 <div class="text-center">
 			<ul class="pagination">
 			<!-- 이전 바로가기10개 존재 여부를 prev 필드의 값으로 확인 -->
 			<c:if test="${pageMaker.prev}">
@@ -130,6 +135,7 @@
 				</c:if>
 			</ul>
 		</div>
+		 --%>
 		
 		<%-- 쿠폰 추가하기 페이지 이동 버튼 --%>
 	<%-- 

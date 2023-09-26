@@ -115,6 +115,16 @@
                   
             });
           </script>
+          <style>
+          	.pagination {
+				justify-content: center;
+				margin-top: 20px;
+			}
+			.pagination li {
+			    display: inline-block;
+			    margin-right: 5px;
+			}
+          </style>
 
 </head>
    <body>
@@ -130,14 +140,14 @@
 				
 				<div class="form-row align-items-center">
 				    <div class="col-auto">
-				        <label class="sr-only" for="search">검색조건</label>
-				        <select class="form-select" id="search" name="search" aria-label="Default select example">
+				        <label class="sr-only" for="search" >검색조건</label>
+				        <select class="form-select" id="search" name="search" aria-label="Default select example" style="width:250px">
 				            <option value="faq_title">제목</option>
 				            <option value="faq_answer">답변</option>
 				        </select>
 				    </div>
 				    <div class="col-auto">
-				        <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를 입력하세요" />
+				        <input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를 입력하세요" style="width:250px"/>
 				    </div>
 				    <div class="col-auto">
 				        <button type="button" id="searchData" class="btn btn-primary">검색</button>

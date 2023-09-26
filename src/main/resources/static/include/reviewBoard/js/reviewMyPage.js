@@ -209,10 +209,12 @@
       		
       		
       		
-      		
-      		
       		// 모달창에서 수정버튼 클릭
       		$(".r_UpdateBtn").click(function(){
+				  
+				if(!chkData("#message-text", "내용을")) return;
+   				else if(!chkData("#review_rating", "별점을")) return;  
+   				
       			if(confirm("수정 하시겠습니까?")){
       			
 	      			$("#r_UpdateForm").attr({
