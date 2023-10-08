@@ -2,7 +2,9 @@
 
 ## 팀 프로젝트 - 달술
 <p>집에서 편안하게 전국팔도의 전통주를 즐겨보세요!</p>
-![image](https://github.com/mipoung/dalsul_KH/assets/95519464/c4949f5b-b7d2-4885-bf69-7573c9a5c9fb)
+<img width="1922" alt="스크린샷 2023-10-08 오후 4 16 31" src="https://github.com/mipoung/dalsul_KH/assets/95519464/d6d88d88-64cc-4735-9657-c64cc5ff32e7">
+
+
 
 
 
@@ -68,7 +70,8 @@ WAS : apache tomcat9 <br>
 <br>
 
 **자세한 기능 설명은 PDF 파일을 참조해 주시기 바랍니다.**
-[달술PPT.pdf](https://github.com/mipoung/KH_dalsul/files/12839666/PPT.pdf)
+[달술PPT.pdf](https://github.com/mipoung/dalsul_KH/files/12840748/PPT.pdf)
+
 
 **시연 영상**
 <https://youtu.be/pNiXqiAV2UU>
