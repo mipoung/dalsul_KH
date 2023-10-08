@@ -67,3 +67,6 @@ WAS : apache tomcat9 <br>
 자세한 기능 설명은 PDF 파일을 참조해 주시기 바랍니다.
 [달술PPT.pdf](https://github.com/mipoung/KH_dalsul/files/12839666/PPT.pdf)
 
+시연 영상
+<https://youtu.be/pNiXqiAV2UU>
+
