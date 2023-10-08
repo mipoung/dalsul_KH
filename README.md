@@ -19,7 +19,7 @@
 3. 팀 프로젝트를 통해 팀원간 원할한 의사소통 능력을 기르고 협업을 위한 git 사용법 습득
 
 <h3>개발 환경</h3>
-개발OS : Window 10 <br>
+개발OS : Window 10 (저는 MacOS에서 진행 했습니다) <br> 
 DB 서버 : Oracle 18c <br>
 JDK 버전 : JDK-17 <br>
 WAS : apache tomcat9 <br>
