@@ -2,6 +2,7 @@
 
 ## 팀 프로젝트 - 달술
 <p>집에서 편안하게 전국팔도의 전통주를 즐겨보세요!</p>
+<img width="1696" alt="image" src="https://github.com/mipoung/KH_dalsul/assets/95519464/767ad51f-3d38-4c06-87b4-a4e6ef464894">
 
 
 
