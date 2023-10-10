@@ -35,7 +35,7 @@ WAS : apache tomcat9 <br>
 빌드 관리 : Maven <br>
 개발 언어 : Java, HTML5, CSS3 <br>
 사용 라이브러리 및 기술 : JQuery, JSP, XML, MyBatis, SpringBoot <br>
-형상관리 : GitHub + Folk <br>
+형상관리 : Git <br>
 개발 Tool : STS4, SQL Developer, VS Code <br>
 
 
