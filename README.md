@@ -69,8 +69,9 @@ WAS : apache tomcat9 <br>
 
 <br>
 
-**자세한 기능 설명은 PDF 파일을 참조해 주시기 바랍니다. (제가 담당한 기능은 54페이지 부터 입니다)**
-[달술PPT.pdf](https://github.com/mipoung/dalsul_KH/files/12840748/PPT.pdf)
+**자세한 기능 설명은 PDF 파일을 참조해 주시기 바랍니다. ** <br>
+[달술(이영훈기능).pdf](https://github.com/mipoung/dalsul_KH/files/13488303/default.pdf)
+
 
 
 **시연 영상**
